@@ -2,9 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import styled from 'styled-components';
+import WebFont from 'webfontloader';
 
 
+WebFont.load({
+  google: {
+    families: ['Montserrat', 'sans-serif']
+  }
+});
 
 const Index = () => {
   return ( 
