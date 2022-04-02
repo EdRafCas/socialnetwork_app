@@ -62,33 +62,41 @@ const PortraitContainer =styled.div`
 `
 const UserNameContainer =styled.div`
   width:100%;
-  padding-left:1rem;
-  padding-top:5px;
-  padding-bottom:5px;
+  padding:0rem;
+  
   border:solid ${theme.BorderColor} 1px;
   display:flex;
   flex-direction:row;
-  gap:1rem;
+  gap:5px;
+  
 `
 
 const NameContainer =styled.h1`
   border:solid ${theme.BorderColor} 1px;
+  font-size:1.1rem;
+  font-weight:1000;
+  color:white;
 
 `
 
 const AliasContainer = styled.p`
   border:solid ${theme.BorderColor} 1px;
+  
 
 `
 
 const MessageContent = styled.div`
-  padding:1rem;
+  padding:0rem;
   height:200px;
   border:solid ${theme.BorderColor} 1px;
+  text-align:justify;
+  white-space:normal;
+  overflow:hidden;
+  
 `
 
 const AccountManagement = styled.div`
-  height:300px;
+  height:500px;
   padding:1rem;
   display:flex;
   flex-direction:column;
@@ -129,6 +137,9 @@ const Button =styled.button`
 
 `
 const CreateMessageForm =styled.form`
+display:flex;
+flex-direction:column;
+gap:1rem;
 
 `
 
@@ -143,12 +154,13 @@ const MessageUser =styled.textarea`
   text-align:justify;
   white-space:normal;
   overflow:scroll;
+  width:100%;
 `
 const UserNames =styled.div`
   display:flex;
   flex-direction:row;
   align-items:center;
-  gap:1rem;
+  gap:5px;
 `
 
 
@@ -156,7 +168,7 @@ const App = () => {
   const [username, usernameChange] = useState('');
   const [password, passwordChange] = useState('');
   const [message, messageChange] = useState('');
-  const [autorizacion, changeAutorizacion] =useState("false")
+  const [autorizacion, changeAutorizacion] =useState(false)
 
   const handleChange = (e) =>{
     if(e.target.name ==="username"){
@@ -180,7 +192,11 @@ const App = () => {
       changeAutorizacion(!autorizacion);
       console.log(autorizacion)
     }
-  }
+    if (e.target.name === "sendMesssage"){
+      changeAutorizacion(false)
+      console.log(autorizacion)
+    }
+  } 
 
 
   return ( 
@@ -208,6 +224,7 @@ const App = () => {
       </Timeline>
       
       <AccountManagement>
+
       {autorizacion === false ?
         <LoginForm onSubmit={handleSubmit}>
           <InputContainer>
@@ -232,29 +249,25 @@ const App = () => {
          <Button type="submit" >Login</Button>
         </LoginForm>
       :
-      <CreateMessageForm>
-
-      </CreateMessageForm>}
+      <CreateMessageForm onSubmit={handleSubmit}>
       <HeaderUser>
         <PortraitContainer>
-        <img alt="userportrait" src={ProfileImage}/>
+          <img alt="userportrait" src={ProfileImage}/>
         </PortraitContainer>
-        <UserNames><h1>Hi</h1><h1>Hi</h1></UserNames>
+        <UserNames><NameContainer>hi</NameContainer><AliasContainer>hello</AliasContainer></UserNames>
       </HeaderUser>
       <MessageUser 
         name="message"
         id="message"
-        cols="25"
+        cols="50"
         rows="10"
         type="text"
         placeholder="Leave us your message here"
         value={message}
-        onChange={handleChange}
-      >
+        onChange={handleChange}/>
+      <Button type="submit" name="sendMesssage">Submit</Button>
+      </CreateMessageForm>}
 
-      </MessageUser>
-      <Button type="submit" sendMesssage>Enviar</Button>
-        
       </AccountManagement>
       
       
