@@ -3,6 +3,24 @@ import styled from 'styled-components';
 import theme from './Theme.js'
 import ProfileImage from './img/profile_img.png'
 
+const MessagesTimeline =[
+  {
+    id:1,
+    profilePicture:ProfileImage,
+    username:"Eduardo",
+    alias:"Ed",
+    message:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing"
+  },
+  {
+    id:2,
+    profilePicture:ProfileImage,
+    username:"Anne",
+    alias:"Marie",
+    message:"Lorem Ipsum is simply dummy text "
+  }
+  
+]
+
 const Container = styled.div`
   height: 100vh;
   border:solid black 15px;
@@ -19,29 +37,35 @@ const Timeline = styled.div`
   height:100%;
   display:flex;
   flex-direction:column;
-  padding:1rem;
+  padding:0rem;
   border:solid ${theme.BorderColor} 1px;
-  gap:1rem;
+  gap:0rem;
+  overflow:scroll;
+  overflow-x:hidden;
 `
 const Card =styled.div`
-  padding:1rem;
+  
+  
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
-  border:solid red 1px;
-  border-radius:15px;
+  border-bottom:solid ${theme.BorderColor} 1px;
+  /* border-radius:15px; */
   gap:0rem;
   background:black;
 
 `
 const CardColumns = styled.div`
-  padding:0.5rem;
+  padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
+  padding-top: ${(props) => props.rightColumn && "0.5rem"};
+  padding-right: ${(props) => props.rightColumn && "0.5rem"};
+  padding-bottom: ${(props) => props.rightColumn && "0.5rem"};
   margin:0;
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
   align-items:center;
-  border:solid ${theme.BorderColor} 1px;
-  gap:1rem;
+  /* border:solid ${theme.BorderColor} 1px; */
+  gap:0.5rem;
 `
 const PortraitContainer =styled.div`
   border: solid red 1px;
@@ -63,38 +87,47 @@ const PortraitContainer =styled.div`
 const UserNameContainer =styled.div`
   width:100%;
   padding:0rem;
-  
-  border:solid ${theme.BorderColor} 1px;
+  border-bottom:solid ${theme.BorderColor} 1px;
+ /*  border:solid ${theme.BorderColor} 1px; */
   display:flex;
   flex-direction:row;
   gap:5px;
   
 `
-
 const NameContainer =styled.h1`
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   font-size:1.1rem;
   font-weight:1000;
   color:white;
 
 `
-
 const AliasContainer = styled.p`
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   
 
 `
-
 const MessageContent = styled.div`
+  width:100%;
   padding:0rem;
-  height:200px;
-  border:solid ${theme.BorderColor} 1px;
+  max-height:200px;
+  min-height:50px;
+  font-size:1rem;
+  font-weight:400;
+  color:white;
+  /* border:solid ${theme.BorderColor} 1px; */
   text-align:justify;
   white-space:normal;
   overflow:hidden;
-  
 `
+const InteractionBar=styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  border:solid ${theme.BorderColor} 1px;
+  width:100%;
+  
 
+`
 const AccountManagement = styled.div`
   height:500px;
   padding:1rem;
@@ -103,7 +136,6 @@ const AccountManagement = styled.div`
   align-content:center;
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
-
 `
 const InputContainer =styled.div`
   display:flex;
@@ -137,12 +169,10 @@ const Button =styled.button`
 
 `
 const CreateMessageForm =styled.form`
-display:flex;
-flex-direction:column;
-gap:1rem;
-
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
 `
-
 const HeaderUser =styled.div`
   display:flex;
   flex-direction:row;
@@ -168,7 +198,8 @@ const App = () => {
   const [username, usernameChange] = useState('');
   const [password, passwordChange] = useState('');
   const [message, messageChange] = useState('');
-  const [autorizacion, changeAutorizacion] =useState(false)
+  const [autorizacion, changeAutorizacion] =useState(true);
+  const [timeline, changeTimeline] = useState(MessagesTimeline)
 
   const handleChange = (e) =>{
     if(e.target.name ==="username"){
@@ -198,28 +229,61 @@ const App = () => {
     }
   } 
 
+  const addToTimeline = (e) =>{
+    e.preventDefault();
+    if(timeline.length>0){
+      const newTimeline = [...timeline];
+      newTimeline.unshift(
+        {
+          id:3,
+          profilePicture:ProfileImage,
+          username:"username",
+          alias:"alias",
+          message:message
+        }
+      );
+      changeTimeline(newTimeline);
+      console.log(timeline)
+    }
+   
+    
+    
+  }
+
 
   return ( 
     <Container>
       <Timeline>
-        <Card>
-          <CardColumns>
-            <PortraitContainer>
-              <img alt="userportrait" src={ProfileImage}/>
-            </PortraitContainer>
-            
-          </CardColumns>
-          <CardColumns>
-            <UserNameContainer>
-              <NameContainer>hi</NameContainer><AliasContainer>hello</AliasContainer>
-            </UserNameContainer>
-            <MessageContent>
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        {timeline.map((Messages, index)=>{
+          return(
+            <Card key={index}>
+            <CardColumns>
+              <PortraitContainer>
+                <img alt="userportrait" src={Messages.profilePicture}/>
+              </PortraitContainer>
               
-            </MessageContent>
-          </CardColumns>
+            </CardColumns>
+            <CardColumns rightColumn>
+              <UserNameContainer>
+                <NameContainer>{Messages.username}</NameContainer><AliasContainer>@{Messages.alias}</AliasContainer>
+              </UserNameContainer>
+              <MessageContent>
+                {Messages.message}
+                
+              </MessageContent>
+              <InteractionBar>
+              <div>A</div>
+              <div>B</div>
+              <div>C</div>
+              <div>D</div>
+              </InteractionBar>
+            </CardColumns>
+
           
-        </Card>      
+        </Card>  
+          )
+        })}
+              
         
       </Timeline>
       
@@ -249,7 +313,7 @@ const App = () => {
          <Button type="submit" >Login</Button>
         </LoginForm>
       :
-      <CreateMessageForm onSubmit={handleSubmit}>
+      <CreateMessageForm onSubmit={addToTimeline}>
       <HeaderUser>
         <PortraitContainer>
           <img alt="userportrait" src={ProfileImage}/>
