@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from './Theme.js'
 import ProfileImage from './img/profile_img.png'
 
+
 const MessagesTimeline =[
   {
     id:1,
@@ -14,8 +15,8 @@ const MessagesTimeline =[
   {
     id:2,
     profilePicture:ProfileImage,
-    username:"Anne",
-    alias:"Marie",
+    username:"Sara",
+    alias:"Mer",
     message:"Lorem Ipsum is simply dummy text "
   }
   
@@ -150,24 +151,40 @@ const LoginForm =styled.form`
   flex-direction:column;
   align-items:center;
   gap:1rem;
+  border:solid ${theme.BorderColor} 1px;
+  padding:1rem;
 
 `
 const UsernameInput =styled.input`
   padding-left:5px;
   border-radius:5px;
   width:15rem;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 const PasswordInput =styled.input`
   padding-left:5px;
   border-radius:5px;
   width:15rem;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 
+
+const ButtonContainer=styled.div`
+  display:flex;
+  flex-direction:row;
+  
+  justify-content:space-evenly;
+  width:15rem;
+  gap:1rem;
+  border:solid ${theme.BorderColor} 1px;
+
+`
 const Button =styled.button`
   height:2.5rem;
   width:5rem;;
 
 `
+
 const CreateMessageForm =styled.form`
   display:flex;
   flex-direction:column;
@@ -198,7 +215,7 @@ const App = () => {
   const [username, usernameChange] = useState('');
   const [password, passwordChange] = useState('');
   const [message, messageChange] = useState('');
-  const [autorizacion, changeAutorizacion] =useState(true);
+  const [autorizacion, changeAutorizacion] =useState(false);
   const [timeline, changeTimeline] = useState(MessagesTimeline)
 
   const handleChange = (e) =>{
@@ -289,48 +306,52 @@ const App = () => {
       
       <AccountManagement>
 
-      {autorizacion === false ?
-        <LoginForm onSubmit={handleSubmit}>
-          <InputContainer>
-            <UsernameInput
-              type="text"
-              name="username"
-              id="username"
-              placeholder="username"
-              value={username}
-              onChange={handleChange}
-            />
-          </InputContainer>
-          <InputContainer>
-            <PasswordInput
-              type="password"
-              name="password"
-              id="password"
-              placeholder="password"
-              value={password}
-              onChange={handleChange}/>
-          </InputContainer>
-         <Button type="submit" >Login</Button>
-        </LoginForm>
-      :
-      <CreateMessageForm onSubmit={addToTimeline}>
-      <HeaderUser>
-        <PortraitContainer>
-          <img alt="userportrait" src={ProfileImage}/>
-        </PortraitContainer>
-        <UserNames><NameContainer>hi</NameContainer><AliasContainer>hello</AliasContainer></UserNames>
-      </HeaderUser>
-      <MessageUser 
-        name="message"
-        id="message"
-        cols="50"
-        rows="10"
-        type="text"
-        placeholder="Leave us your message here"
-        value={message}
-        onChange={handleChange}/>
-      <Button type="submit" name="sendMesssage">Submit</Button>
-      </CreateMessageForm>}
+        {autorizacion === false ?
+          <LoginForm onSubmit={handleSubmit}>
+            <InputContainer>
+              <UsernameInput
+                type="text"
+                name="username"
+                id="username"
+                placeholder="username"
+                value={username}
+                onChange={handleChange}
+              />
+            </InputContainer>
+            <InputContainer>
+              <PasswordInput
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
+                value={password}
+                onChange={handleChange}/>
+            </InputContainer>
+            <ButtonContainer>
+              <Button type="submit" >Login</Button>
+              <Button type="submit" >Login</Button>
+            </ButtonContainer>
+          
+          </LoginForm>
+        :
+        <CreateMessageForm onSubmit={addToTimeline}>
+          <HeaderUser>
+            <PortraitContainer>
+              <img alt="userportrait" src={ProfileImage}/>
+            </PortraitContainer>
+            <UserNames><NameContainer>hi</NameContainer><AliasContainer>hello</AliasContainer></UserNames>
+          </HeaderUser>
+          <MessageUser 
+            name="message"
+            id="message"
+            cols="50"
+            rows="10"
+            type="text"
+            placeholder="Leave us your message here"
+            value={message}
+            onChange={handleChange}/>
+        <Button type="submit" name="sendMesssage">Submit</Button>
+        </CreateMessageForm>}
 
       </AccountManagement>
       
