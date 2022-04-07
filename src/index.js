@@ -57,8 +57,6 @@ const Timeline = styled.div`
   overflow-x:hidden;
 `
 const Card =styled.div`
-  
-  
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
   border-bottom:solid ${theme.BorderColor} 1px;
@@ -151,16 +149,33 @@ const AccountManagement = styled.div`
   border:solid ${theme.BorderColor} 1px;
 `
 
+const RegistrationContainer =styled.div`
+  position:fixed;
+  top:50%;
+  left:50%;
+  width:400px;
+  height:100px;
+  margin-top:-50px;
+  margin-left:-200px;
+  border: solid white 1px;
+
+`
+
 
 const Index = () => {
   
   const [timeline, changeTimeline] = useState(MessagesTimeline)
+  const [registration, changeRegistration] = useState(true)
 
 
 
 
   return ( 
     <Container>
+      {registration === true?
+      <RegistrationContainer/>
+      :""}
+      
       <Timeline>
         {timeline.map((Messages, index)=>{
           return(

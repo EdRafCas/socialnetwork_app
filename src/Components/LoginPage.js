@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
+import {Link}from 'react-router-dom'
 
 import ProfileImage from '../img/profile_img.png'
 
@@ -48,6 +49,17 @@ const ButtonContainer=styled.div`
 const Button =styled.button`
   height:2.5rem;
   width:5rem;;
+
+`
+const SignUpContainer=styled.div`
+  display:flex;
+  flex-direction:row;
+  gap:3px;
+`
+
+const SignUp =styled(Link)`
+color:white;
+
 
 `
 
@@ -101,7 +113,6 @@ const NameContainer =styled.h1`
 `
 const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
-  
 
 `
 
@@ -186,8 +197,8 @@ const LoginPage = ({timeline, changeTimeline}) => {
             </InputContainer>
             <ButtonContainer>
               <Button type="submit" >Login</Button>
-              <Button type="submit" >Login</Button>
             </ButtonContainer>
+            <SignUpContainer><p>You don't own an account?</p><SignUp to={"/Registration"}>Sign up now!</SignUp></SignUpContainer>
           
           </LoginForm>
         :
