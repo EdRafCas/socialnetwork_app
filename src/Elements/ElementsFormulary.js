@@ -3,13 +3,14 @@ import theme from '../Theme'
 
 const InputContainer =styled.div`
   display:flex;
-  height:3rem;
+  height:auto;
   justify-content:center;
   flex-direction:row;
   gap:1rem;
+  
 
 `
-const LoginForm =styled.form`
+const Formulary =styled.form`
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -18,11 +19,12 @@ const LoginForm =styled.form`
   padding:1rem;
 
 `
-const UsernameInput =styled.input`
+const FormularyInput =styled.input`
   padding-left:5px;
   border-radius:5px;
   width:15rem;
   /* border:solid ${theme.BorderColor} 1px; */
+  height:3rem;
 `
 const PasswordInput =styled.input`
   padding-left:5px;
@@ -30,5 +32,11 @@ const PasswordInput =styled.input`
   width:15rem;
   /* border:solid ${theme.BorderColor} 1px; */
 `
+const EmailInput =styled.input`
+  padding-left:5px;
+  border-radius:5px;
+  width:15rem;
+  /* border:solid ${theme.BorderColor} 1px; */
+`
  
-export {InputContainer, LoginForm, UsernameInput, PasswordInput} ;
+export {InputContainer, Formulary, FormularyInput, PasswordInput} ;

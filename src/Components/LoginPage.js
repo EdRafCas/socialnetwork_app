@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {Link}from 'react-router-dom'
-import {InputContainer, LoginForm, UsernameInput, PasswordInput} from '../Elements/ElementsFormulary'
+import {InputContainer, Formulary, FormularyInput, PasswordInput} from '../Elements/ElementsFormulary'
 
 import ProfileImage from '../img/profile_img.png'
 
@@ -107,7 +107,6 @@ const AccountManagement = styled.div`
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
 `
-
 const ButtonContainer=styled.div`
   display:flex;
   flex-direction:row;
@@ -250,9 +249,9 @@ const LoginPage = ({timeline, changeTimeline, changeRegistration}) => {
       </Timeline>
       <AccountManagement>
         {autorizacion === false ?
-          <LoginForm onSubmit={handleSubmit}>
+          <Formulary onSubmit={handleSubmit}>
             <InputContainer>
-              <UsernameInput
+              <FormularyInput
                 type="text"
                 name="username"
                 id="username"
@@ -262,7 +261,7 @@ const LoginPage = ({timeline, changeTimeline, changeRegistration}) => {
               />
             </InputContainer>
             <InputContainer>
-              <PasswordInput
+              <FormularyInput
                 type="password"
                 name="password"
                 id="password"
@@ -275,7 +274,7 @@ const LoginPage = ({timeline, changeTimeline, changeRegistration}) => {
             </ButtonContainer>
             <SignUpContainer><p>You don't own an account?</p><SignUp to="/Registration">Sign up now!</SignUp>
             </SignUpContainer> 
-          </LoginForm>
+          </Formulary>
         :
         <CreateMessageForm onSubmit={addToTimeline}>
           <HeaderUser>
