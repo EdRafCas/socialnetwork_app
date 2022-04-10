@@ -8,23 +8,42 @@ const InputContainer =styled.div`
   flex-direction:row;
   gap:1rem;
   
+  
 
 `
 const Formulary =styled.form`
   display:flex;
   flex-direction:column;
   align-items:center;
+  height:auto;
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
   padding:1rem;
+
 
 `
 const FormularyInput =styled.input`
   padding-left:5px;
   border-radius:5px;
   width:15rem;
+  text-align:left;
   /* border:solid ${theme.BorderColor} 1px; */
-  height:3rem;
+  height:${(props)=> props.Registration ? "3rem" : "3rem"};
+  background:${(props)=> props.Registration && "none"};
+  color:${(props)=> props.Registration && `${theme.Text}`};
+  transition:0.4s all ease;
+  z-index:100;
+
+ 
+  p{
+    text-align
+  }
+ 
+  :focus{
+    padding-top:1rem
+    font-size:14px;
+    
+  }
 `
 const PasswordInput =styled.input`
   padding-left:5px;

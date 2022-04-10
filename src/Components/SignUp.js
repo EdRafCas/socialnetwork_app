@@ -30,7 +30,7 @@ const RegistrationInputContainer=styled.div`
       grid-template-columns: repeat(1, 1fr 1fr);
       justify-content: center;
       align-items:center;
-      height:3rem;
+      
       gap:1rem;
 `
 const RedirectContainer=styled.div`
@@ -65,9 +65,18 @@ const ReturnToLogin=styled(Link)`
       :hover{
             background:rgba(91, 112, 131, 0.8);
       }
-
-
 `
+
+const Divtest=styled.div`
+      position:absolute;
+      border: solid white 1px;
+      height:5rem;
+      width:15rem;
+      :focus{
+            text-align:right;
+      }
+`
+
 const RegistrationPage = () => {
       return ( 
             <RegistrationContainer>
@@ -78,20 +87,21 @@ const RegistrationPage = () => {
                         </ButtonContainer>
                         <Formulary>
                               <RegistrationInputContainer>
-                                    <p>Name</p>
-                                    <FormularyInput>
+                                    <p>name</p>
+                                    <FormularyInput Registration
+                                    placeholder="name">
                                           
                                     </FormularyInput>
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
                                     <p>Email</p>
-                                    <FormularyInput>
+                                    <FormularyInput Registration>
                                           
                                     </FormularyInput>
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
                                     <p>Confirm Email</p>
-                                    <FormularyInput>
+                                    <FormularyInput Registration>
                                           
                                     </FormularyInput>
                               </RegistrationInputContainer>
