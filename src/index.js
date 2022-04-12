@@ -39,6 +39,7 @@ const Container = styled.div`
   border:solid black 15px;
   z-index: 100;
   min-height:750px;
+  min-width:375px;
   color: ${theme.Text};
 `
 const Index = () => {

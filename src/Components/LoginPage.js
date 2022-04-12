@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {Link}from 'react-router-dom'
-import {InputContainer, Formulary, FormularyInput, PasswordInput} from '../Elements/ElementsFormulary'
+import {InputContainer, Formulary, FormularyInput} from '../Elements/ElementsFormulary'
 
 import ProfileImage from '../img/profile_img.png'
 
@@ -12,6 +12,13 @@ const ContainerLogin=styled.div`
   display:grid;
   grid-template-columns: repeat(1, 3fr 2fr);
   justify-content: flex-start;
+  background:${theme.GradientBackround};
+
+@media(max-width: 760px){ 
+  display:flex;
+  flex-direction:column-reverse;
+  
+}
 `
 const Timeline = styled.div`
   height:100%;
@@ -99,8 +106,9 @@ const InteractionBar=styled.div`
   width:100%;
 `
 const AccountManagement = styled.div`
+  width:100%;
   height:500px;
-  padding:1rem;
+  padding:1rem 1rem;
   display:flex;
   flex-direction:column;
   align-content:center;
@@ -123,7 +131,7 @@ const Button =styled.button`
 const SignUpContainer=styled.div`
   display:flex;
   flex-direction:row;
-  gap:3px;
+  gap:1px;
 `
 const SignUp =styled(Link)`
   background:none;
@@ -272,7 +280,7 @@ const LoginPage = ({timeline, changeTimeline, changeRegistration}) => {
             <ButtonContainer>
               <Button type="submit" >Login</Button>
             </ButtonContainer>
-            <SignUpContainer><p>You don't own an account?</p><SignUp to="/Registration">Sign up now!</SignUp>
+            <SignUpContainer><span>Don't own an account?</span><span><SignUp to="/Registration">Sign up</SignUp></span>
             </SignUpContainer> 
           </Formulary>
         :

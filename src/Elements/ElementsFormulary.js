@@ -12,13 +12,14 @@ const InputContainer =styled.div`
 
 `
 const Formulary =styled.form`
+  width:100%;
   display:flex;
   flex-direction:column;
   align-items:center;
   height:auto;
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
-  padding:1rem;
+  padding:1rem 0rem;
 
 
 `
@@ -34,28 +35,14 @@ const FormularyInput =styled.input`
   transition:0.4s all ease;
   z-index:100;
 
- 
-  p{
-    text-align
-  }
- 
-  :focus{
-    padding-top:1rem
-    font-size:14px;
+  :focus ~ span{
     
+    top:1px;
+    left:1px;
+    font-size:11px;
   }
 `
-const PasswordInput =styled.input`
-  padding-left:5px;
-  border-radius:5px;
-  width:15rem;
-  /* border:solid ${theme.BorderColor} 1px; */
-`
-const EmailInput =styled.input`
-  padding-left:5px;
-  border-radius:5px;
-  width:15rem;
-  /* border:solid ${theme.BorderColor} 1px; */
-`
+
+
  
-export {InputContainer, Formulary, FormularyInput, PasswordInput} ;
+export {InputContainer, Formulary, FormularyInput} ;
