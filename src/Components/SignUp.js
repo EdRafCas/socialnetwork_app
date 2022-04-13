@@ -1,7 +1,9 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import {Link}from 'react-router-dom';
-import {Formulary, FormularyInput}  from '../Elements/ElementsFormulary'
+import {Formulary, FormularyInput}  from '../Elements/ElementsFormulary';
+import theme from '../Theme.js';
+import DatePicker from './DatePicker';
 
 
 const RegistrationContainer =styled.div`
@@ -14,7 +16,7 @@ const RegistrationContainer =styled.div`
       padding:1rem;
       /* margin-top:-50px;
       margin-left:-200px; */
-      border: solid white 1px;
+      border: solid ${theme.BorderColor} 1px;
       /* background:rgba(91, 112, 131, 0.8); */
       background:Black;
       opacity:0.9;
@@ -22,14 +24,16 @@ const RegistrationContainer =styled.div`
 const RegistrationBox=styled.div`
       display:flex;
       flex-direction:column;
-      border: solid white 1px;
+      border: solid ${theme.BorderColor} 1px;
       width:100%;
       max-height:80%;
-      max-width:30rem;
+      max-width:40rem;
       max-height:40rem;
       
 `
 const RegistrationInputContainer=styled.div`
+      width:100%;
+      /* border: solid ${theme.BorderColor} 1px; */
       position:relative;
       display:flex;
       flex-direction:column;
@@ -52,7 +56,7 @@ const ButtonContainer=styled.div`
       display:flex;
       flex-direction:row;
       justify-content:flex-start;
-      border: solid white 1px;
+      border: solid ${theme.BorderColor} 1px;
       padding: 0.5rem 0.5rem;
 
 `
@@ -63,7 +67,7 @@ const ReturnToLogin=styled(Link)`
       width:2rem;
       font-size:1rem;
       color:white;
-      border: solid white 1px;
+      border: solid ${theme.BorderColor} 1px;
       padding:5px;
       text-decoration:none;
       border-radius:50%;
@@ -76,8 +80,11 @@ const SpanInputInitial =styled.span`
       position:absolute;
       font-size:1rem;
       pointer-events:none;
-      transition: 0.2s ease all;
-      left:1px;
+      transition: none;
+      color:transparent;
+      left:3px;
+      top:1px;
+      
      
 `
 const SpanInputFinal =styled.span`
@@ -85,12 +92,24 @@ const SpanInputFinal =styled.span`
       font-size:11px;
       pointer-events:none;
       transition: 0.2s ease all;
-      left:1px;
+      left:3px;
       top:1px;
+      color:${theme.Text};
      
 `
 
+const DateContainer =styled.div`
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      border: solid ${theme.BorderColor} 1px;
 
+      
+`
+const Text =styled.p`
+      border: solid ${theme.BorderColor} 1px;
+      padding:0.5rem 0rem;
+`
 
 const RegistrationPage = () => {
 
@@ -116,9 +135,7 @@ const RegistrationPage = () => {
             if(e.target.name==="password"){
                   changePasswordHolder(e.target.value)
             }
-
       }
-
 
       return ( 
             <RegistrationContainer>
@@ -126,82 +143,80 @@ const RegistrationPage = () => {
                         <ButtonContainer>
                            <ReturnToLogin to="/">X</ReturnToLogin>   
                         </ButtonContainer>
-                        <Formulary>
+                        <Formulary SignUpFormulary>
+                              <>
                               <RegistrationInputContainer>
-
                                     <FormularyInput Registration
                                           type="text"
                                           name="name"
                                           value={nameHolder}
-                                          placeholder=""
+                                          placeholder="Name"
+                                          onFocus="this.placeholder=''"
                                           onChange={handleChange}
                                     />
-                                    
                                     {nameHolder ==="" ?
-                                          <SpanInputInitial> Name</SpanInputInitial> :
+                                          <SpanInputInitial>Name</SpanInputInitial> :
                                           <SpanInputFinal>Name</SpanInputFinal>
-                                    }
-                                       
+                                    }  
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
-
                                     <FormularyInput Registration
                                           type="text"
                                           name="lastname"
                                           value={lastnameHolder}
-                                          placeholder=""
+                                          placeholder="Lastname"
                                           onChange={handleChange}
                                     />
-                                    
                                     {lastnameHolder ==="" ?
                                           <SpanInputInitial> Lastname</SpanInputInitial> :
                                           <SpanInputFinal>Lastname</SpanInputFinal>
                                     }
-                                       
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
-
                                     <FormularyInput Registration
                                           type="text"
                                           name="alias"
                                           value={aliasHolder}
-                                          placeholder=""
+                                          placeholder="Alias"
                                           onChange={handleChange}
                                     />
-                                    
                                     {aliasHolder ==="" ?
                                           <SpanInputInitial> Alias</SpanInputInitial> :
                                           <SpanInputFinal>Alias</SpanInputFinal>
-                                    }
-                                       
+                                    }   
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
                                     <FormularyInput Registration
-                                    type="email"
-                                    name="email"
-                                    value={emailHolder}
-                                    placeholder=""
-                                    onChange={handleChange}
+                                          type="email"
+                                          name="email"
+                                          value={emailHolder}
+                                          placeholder="Email"
+                                          onChange={handleChange}
                                     />
                                     {emailHolder ==="" ?
                                           <SpanInputInitial>Email</SpanInputInitial> :
                                           <SpanInputFinal>Email</SpanInputFinal>
                                     }
                               </RegistrationInputContainer>
-                              <RegistrationInputContainer>
+                              <RegistrationInputContainer >
                                     <FormularyInput Registration
-                                    type="password"
-                                    name="password"
-                                    value={passwordHolder}
-                                    placeholder=""
-                                    onChange={handleChange}
+                                          type="password"
+                                          name="password"
+                                          value={passwordHolder}
+                                          placeholder="Password"
+                                          onChange={handleChange}
                                     />
                                     {passwordHolder ==="" ?
                                           <SpanInputInitial>Password</SpanInputInitial> :
                                           <SpanInputFinal>Password</SpanInputFinal>
                                     }  
-                                    
                               </RegistrationInputContainer>
+                              </>
+                              <DateContainer >
+                                    <Text>Date of birth</Text>
+                                    <Text>This will not be shown publicly. Confirm your own age, even if this account is for a business, memes, or something else.</Text>
+                                    <DatePicker/>
+                              </DateContainer>
                         </Formulary>
                   </RegistrationBox>
                   <RedirectContainer><p>Alreay have an account?</p><LogInNow to={"/"}>Log in now!</LogInNow></RedirectContainer>

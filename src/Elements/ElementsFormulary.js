@@ -12,10 +12,11 @@ const InputContainer =styled.div`
 
 `
 const Formulary =styled.form`
-  width:100%;
+  width:${(props)=> props.SignUpFormulary ? "80%" : "100%"};
   display:flex;
   flex-direction:column;
   align-items:center;
+  align-self:center;
   height:auto;
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
@@ -26,20 +27,27 @@ const Formulary =styled.form`
 const FormularyInput =styled.input`
   padding-left:5px;
   border-radius:5px;
-  width:15rem;
+  width:100%;
   text-align:left;
   /* border:solid ${theme.BorderColor} 1px; */
   height:${(props)=> props.Registration ? "3rem" : "3rem"};
   background:${(props)=> props.Registration && "none"};
   color:${(props)=> props.Registration && `${theme.Text}`};
-  transition:0.4s all ease;
+  transition:none;
   z-index:100;
 
   :focus ~ span{
     
     top:1px;
-    left:1px;
+    left:3px;
     font-size:11px;
+    color:${theme.Text};
+    
+  }
+
+  :focus::placeholder{
+    transition:none;
+    color:transparent;
   }
 `
 

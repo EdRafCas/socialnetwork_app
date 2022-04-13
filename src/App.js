@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import theme from './Theme.js'
 import ProfileImage from './img/profile_img.png'
+import theme from './Theme.js';
 
 
 const MessagesTimeline =[
