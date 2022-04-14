@@ -19,7 +19,7 @@ const RegistrationContainer =styled.div`
       border: solid ${theme.BorderColor} 1px;
       /* background:rgba(91, 112, 131, 0.8); */
       background:Black;
-      opacity:0.9;
+      opacity:1;
 `
 const RegistrationBox=styled.div`
       display:flex;
@@ -49,7 +49,7 @@ const RedirectContainer=styled.div`
 
 
 const LogInNow =styled(Link)`
-      color:white;
+      color:${theme.Text};
 
 `
 const ButtonContainer=styled.div`
@@ -94,22 +94,10 @@ const SpanInputFinal =styled.span`
       transition: 0.2s ease all;
       left:3px;
       top:1px;
-      color:${theme.Text};
-     
+      color:${theme.Text};  
 `
 
-const DateContainer =styled.div`
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      border: solid ${theme.BorderColor} 1px;
 
-      
-`
-const Text =styled.p`
-      border: solid ${theme.BorderColor} 1px;
-      padding:0.5rem 0rem;
-`
 
 const RegistrationPage = () => {
 
@@ -212,11 +200,7 @@ const RegistrationPage = () => {
                                     }  
                               </RegistrationInputContainer>
                               </>
-                              <DateContainer >
-                                    <Text>Date of birth</Text>
-                                    <Text>This will not be shown publicly. Confirm your own age, even if this account is for a business, memes, or something else.</Text>
-                                    <DatePicker/>
-                              </DateContainer>
+                              <DatePicker/>
                         </Formulary>
                   </RegistrationBox>
                   <RedirectContainer><p>Alreay have an account?</p><LogInNow to={"/"}>Log in now!</LogInNow></RedirectContainer>
