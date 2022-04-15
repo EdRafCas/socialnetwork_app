@@ -17,7 +17,6 @@ const months =[
       {id:12, value:"December", days:31},
 ]
 
-const years = ["1992","1993","1994"]
 
 const DatePickerContainer =styled.div`
       display:flex;
@@ -54,21 +53,41 @@ const Pickers = styled.div`
       flex-direction:row;
 
 `
+const TextLabel=styled.p`
+      font-size:11px;
+`
 const MonthPicker =styled.div`
       border: solid ${theme.BorderColor} 1px;
+      padding:0.2rem 0rem 0.2rem 0.3rem;
       display: flex;
       flex-direction:column;
       position:relative;
       transition: .5s ease all;
       width:40%;
 `
-const TextLabel=styled.p`
-      font-size:11px;
-`
+
 const SelectedMonth =styled.div`
       width:100%;
       height:2rem;
-      padding:0.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      &:hover {
+        background: #2C272E};
+`
+
+const DayPicker=styled.div`
+      border: solid ${theme.BorderColor} 1px;
+      padding:0.2rem 0rem 0.2rem 0.3rem;
+      display: flex;
+      flex-direction:column;
+      position:relative;
+      transition: .5s ease all;
+      width:30%;
+`
+const SelectedDay = styled.div`
+      width:100%;
+      height:2rem;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -78,16 +97,16 @@ const SelectedMonth =styled.div`
 
 const YearPicker=styled.div`
       border: solid ${theme.BorderColor} 1px;
+      padding:0.2rem 0rem 0.2rem 0.3rem;
       display: flex;
       flex-direction:column;
       position:relative;
       transition: .5s ease all;
-      width:40%;
+      width:30%;
 `
 const SelectedYear = styled.div`
       width:100%;
       height:2rem;
-      padding:0.5rem;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -118,11 +137,34 @@ const Option = styled.div`
 
 const DatePicker = () => {
       const [currentMonth, changeCurrentMonth] =useState(false);
+      const [showMonth, changeShowMonth] =useState(false);
+      const [currentDay, changeCurrentDay] =useState(false);
+      const [showDay, changeShowDay] =useState(false);
       const [currentYear, changeCurrentYear] =useState(false);
+      const [showYear, changeShowYear] =useState(false);
 
       const handleClick =(e)=>{
-            changeCurrentMonth(e.currentTarget.dataset.value)
+            if(e.currentTarget.dataset.type ==="month"){
+                  changeShowMonth(false)
+                  changeCurrentMonth(e.currentTarget.dataset.value)
+            }
+            if(e.currentTarget.dataset.type ==="day"){
+                  changeShowDay(false)
+                  changeCurrentDay(e.currentTarget.dataset.value)
+            }
+            if(e.currentTarget.dataset.type ==="year"){
+                  changeShowYear(false)
+                  changeCurrentYear(e.currentTarget.dataset.value)
+            }
+            
       }
+
+      const year = (new Date().getFullYear())-100;
+      const years = Array.from(new Array(100), (v, idx) => year + idx);
+
+      
+      const daysArray = Array.from(new Array(31), (v, idx) => 1 +idx)
+
 
       return ( 
             <DatePickerContainer>
@@ -133,35 +175,56 @@ const DatePicker = () => {
                   <Pickers>
                         <MonthPicker>
                               <TextLabel>Month</TextLabel>
-                              <SelectedMonth onClick={()=>{changeCurrentMonth(!currentMonth)}}>{currentMonth}</SelectedMonth>
-                                    {currentMonth &&
+                              <SelectedMonth SelectorMonth onClick={()=>{changeShowMonth(!showMonth);changeShowDay(false);changeShowYear(false)}}>{currentMonth}</SelectedMonth>
+                                    {showMonth &&
                                           <Options>
                                                 {months.map((month)=>{
-                                                      return <Option
+                                                      return <Option 
+                                                                  data-type={"month"}
                                                                   key={month.id}
                                                                   data-value={month.value}
-                                                                  onClick={handleClick}
-                                                                  >
+                                                                  onClick={handleClick}>
                                                             {month.value}       
                                                             </Option>
                                                 })}
                                           </Options>
                                     }
                         </MonthPicker>
-                        <YearPicker>
-                              <TextLabel>Month</TextLabel>
-                              <SelectedYear onClick={()=>{changeCurrentYear(!currentYear)}}>{currentYear}</SelectedYear>
-                                    {currentYear &&
+                        <DayPicker>
+                              <TextLabel>Day</TextLabel>
+                              <SelectedDay onClick={()=>{changeShowMonth(false);changeShowDay(!showDay);changeShowYear(false)}}>{currentDay}</SelectedDay>
+                                    {showDay &&
                                           <Options>
-                                                {months.map((years)=>{
-                                                      return <Option
-                                                                  key={years.id}
-                                                                  data-value={years.value}
-                                                                  onClick={handleClick}
-                                                                  >
-                                                            {years.value}       
+                                                {daysArray.map((day)=>{
+                                                      return <Option 
+                                                                  key={day}
+                                                                  data-type={"day"}
+                                                                  data-value={day}
+                                                                  onClick={handleClick}>
+                                                            {day}       
                                                             </Option>
                                                 })}
+                                          </Options>
+                                    }
+                        </DayPicker>
+                        <YearPicker>
+                              <TextLabel>Year</TextLabel>
+                              <SelectedYear onClick={()=>{changeShowMonth(false);
+                                                            changeShowDay(false);
+                                                            changeShowYear(!showYear)}}>
+                                    {currentYear}
+                              </SelectedYear>
+                                    {showYear &&
+                                          <Options>
+                                                {years.map((year)=>{
+                                                      return <Option
+                                                                  key={year}
+                                                                  data-type={"year"}
+                                                                  data-value={year}
+                                                                  onClick={handleClick}>
+                                                                  {year}       
+                                                            </Option>
+                                                })};
                                           </Options>
                                     }
                         </YearPicker>

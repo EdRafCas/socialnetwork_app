@@ -20,6 +20,7 @@ const RegistrationContainer =styled.div`
       /* background:rgba(91, 112, 131, 0.8); */
       background:Black;
       opacity:1;
+      
 `
 const RegistrationBox=styled.div`
       display:flex;
