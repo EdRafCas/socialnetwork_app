@@ -148,6 +148,11 @@ const DatePicker = () => {
                   changeShowMonth(false)
                   changeCurrentMonth(e.currentTarget.dataset.value)
             }
+            if(e.currentTarget.dataset.value==="February" && currentDay >29){
+                  changeShowMonth(false)
+                  changeCurrentDay(false)
+                  changeCurrentMonth(e.currentTarget.dataset.value)
+            }
             if(e.currentTarget.dataset.type ==="day"){
                   changeShowDay(false)
                   changeCurrentDay(e.currentTarget.dataset.value)
@@ -164,6 +169,7 @@ const DatePicker = () => {
 
       
       const daysArray = Array.from(new Array(31), (v, idx) => 1 +idx)
+      const daysArrayLapse = Array.from(new Array(29), (v, idx) => 1 +idx)
 
 
       return ( 
@@ -175,7 +181,11 @@ const DatePicker = () => {
                   <Pickers>
                         <MonthPicker>
                               <TextLabel>Month</TextLabel>
-                              <SelectedMonth SelectorMonth onClick={()=>{changeShowMonth(!showMonth);changeShowDay(false);changeShowYear(false)}}>{currentMonth}</SelectedMonth>
+                              <SelectedMonth onClick={()=>{changeShowMonth(!showMonth);
+                                                            changeShowDay(false);
+                                                            changeShowYear(false)}}>
+                              {currentMonth}
+                              </SelectedMonth>
                                     {showMonth &&
                                           <Options>
                                                 {months.map((month)=>{
@@ -192,8 +202,12 @@ const DatePicker = () => {
                         </MonthPicker>
                         <DayPicker>
                               <TextLabel>Day</TextLabel>
-                              <SelectedDay onClick={()=>{changeShowMonth(false);changeShowDay(!showDay);changeShowYear(false)}}>{currentDay}</SelectedDay>
-                                    {showDay &&
+                              <SelectedDay onClick={()=>{changeShowMonth(false);
+                                                      changeShowDay(!showDay);
+                                                      changeShowYear(false)}}>
+                              {currentDay}
+                              </SelectedDay>
+                                    {showDay && currentMonth!=="February" ?
                                           <Options>
                                                 {daysArray.map((day)=>{
                                                       return <Option 
@@ -205,6 +219,19 @@ const DatePicker = () => {
                                                             </Option>
                                                 })}
                                           </Options>
+                                    :showDay && currentMonth==="February" ?
+                                          <Options>
+                                                {daysArrayLapse.map((day)=>{
+                                                      return <Option 
+                                                                  key={day}
+                                                                  data-type={"day"}
+                                                                  data-value={day}
+                                                                  onClick={handleClick}>
+                                                            {day}       
+                                                            </Option>
+                                                })}
+                                          </Options>
+                                    :""
                                     }
                         </DayPicker>
                         <YearPicker>
@@ -212,7 +239,7 @@ const DatePicker = () => {
                               <SelectedYear onClick={()=>{changeShowMonth(false);
                                                             changeShowDay(false);
                                                             changeShowYear(!showYear)}}>
-                                    {currentYear}
+                              {currentYear}
                               </SelectedYear>
                                     {showYear &&
                                           <Options>
