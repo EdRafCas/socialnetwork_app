@@ -28,7 +28,7 @@ const DatePickerContainer =styled.div`
       padding:0rem;
       /* margin-top:-50px;
       margin-left:-200px; */
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
       /* background:rgba(91, 112, 131, 0.8); */
       opacity:1;
 `
@@ -36,54 +36,76 @@ const TextContainer =styled.div`
       width:100%;
       display:flex;
       flex-direction:column;
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
 `
 
 const Text =styled.p`
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
       color: ${theme.Text};
       padding:0.5rem 0rem;
 `
 
 const Pickers = styled.div`
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
       height:3rem;
       width:100%;
       display:flex;
       flex-direction:row;
+      justify-content:space-between;
 
 `
 const TextLabel=styled.p`
       font-size:11px;
 `
 const MonthPicker =styled.div`
-      border: solid ${theme.BorderColor} 1px;
-      padding:0.2rem 0rem 0.2rem 0.3rem;
       display: flex;
       flex-direction:column;
+      padding:0.2rem 0rem 0.2rem 0.3rem;
       position:relative;
-      transition: .5s ease all;
-      width:40%;
+      transition: 0;
+      width:55%;
+      border-width: 2px;
+      border-radius:5px;
+      border-style: inset;
+      border-color: rgb(118, 118, 118) rgb(133, 133, 133);
+      :focus-within{
+            border-color:white;
+      }
+
+      
 `
 
-const SelectedMonth =styled.div`
+const SelectedMonth =styled.input`
       width:100%;
       height:2rem;
       display:flex;
+      border:none;
       justify-content:space-between;
       align-items:center;
+      background:none;
+      color:${theme.Text};
+      :focus{
+            outline:none;
+      }
       &:hover {
         background: #2C272E};
 `
 
 const DayPicker=styled.div`
-      border: solid ${theme.BorderColor} 1px;
-      padding:0.2rem 0rem 0.2rem 0.3rem;
       display: flex;
       flex-direction:column;
       position:relative;
+      padding:0.2rem 0rem 0.2rem 0.3rem;
       transition: .5s ease all;
-      width:30%;
+      width:15%;
+      border-width: 2px;
+      border-radius:5px;
+      border-style: inset;
+      border-color: rgb(118, 118, 118) rgb(133, 133, 133);
+      &:focus{
+            border-color: white;
+     
+     }
 `
 const SelectedDay = styled.div`
       width:100%;
@@ -96,13 +118,16 @@ const SelectedDay = styled.div`
 `
 
 const YearPicker=styled.div`
-      border: solid ${theme.BorderColor} 1px;
-      padding:0.2rem 0rem 0.2rem 0.3rem;
       display: flex;
       flex-direction:column;
       position:relative;
+      padding:0.2rem 0rem 0.2rem 0.3rem;
       transition: .5s ease all;
-      width:30%;
+      width:20%;
+      border-width: 2px;
+      border-radius:5px;
+      border-style: inset;
+      border-color: rgb(118, 118, 118) rgb(133, 133, 133);
 `
 const SelectedYear = styled.div`
       width:100%;
@@ -136,7 +161,7 @@ const Option = styled.div`
 `
 
 const DatePicker = () => {
-      const [currentMonth, changeCurrentMonth] =useState(false);
+      const [currentMonth, changeCurrentMonth] =useState("");
       const [showMonth, changeShowMonth] =useState(false);
       const [currentDay, changeCurrentDay] =useState(false);
       const [showDay, changeShowDay] =useState(false);
@@ -181,11 +206,12 @@ const DatePicker = () => {
                   <Pickers>
                         <MonthPicker>
                               <TextLabel>Month</TextLabel>
-                              <SelectedMonth onClick={()=>{changeShowMonth(!showMonth);
-                                                            changeShowDay(false);
-                                                            changeShowYear(false)}}>
-                              {currentMonth}
-                              </SelectedMonth>
+                              <SelectedMonth
+                                    onClick={()=>{changeShowMonth(!showMonth)
+                                          changeShowDay(false);
+                                          changeShowYear(false)}}
+                                    value={currentMonth}
+                              />
                                     {showMonth &&
                                           <Options>
                                                 {months.map((month)=>{
@@ -202,9 +228,10 @@ const DatePicker = () => {
                         </MonthPicker>
                         <DayPicker>
                               <TextLabel>Day</TextLabel>
-                              <SelectedDay onClick={()=>{changeShowMonth(false);
-                                                      changeShowDay(!showDay);
-                                                      changeShowYear(false)}}>
+                              <SelectedDay 
+                                    onClick={()=>{changeShowMonth(false);
+                                                changeShowDay(!showDay);
+                                                changeShowYear(false)}}>
                               {currentDay}
                               </SelectedDay>
                                     {showDay && currentMonth!=="February" ?
@@ -255,10 +282,7 @@ const DatePicker = () => {
                                           </Options>
                                     }
                         </YearPicker>
-                              
-                        
                   </Pickers>
-
             </DatePickerContainer>
        );
 }

@@ -19,10 +19,8 @@ const Formulary =styled.form`
   align-self:center;
   height:auto;
   gap:1rem;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   padding:1rem 0rem;
-
-
 `
 const FormularyInput =styled.input`
   padding-left:5px;
@@ -50,7 +48,20 @@ const FormularyInput =styled.input`
     color:transparent;
   }
 `
+const ButtonContainer=styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-evenly;
+  width:15rem;
+  gap:1rem;
+  /* border:solid ${theme.BorderColor} 1px; */
+
+`
+const Button =styled.button`
+  height:2.5rem;
+  width:5rem;;
+`
 
 
  
-export {InputContainer, Formulary, FormularyInput} ;
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button} ;

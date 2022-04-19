@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {Link}from 'react-router-dom'
-import {InputContainer, Formulary, FormularyInput} from '../Elements/ElementsFormulary'
+import {InputContainer, Formulary, FormularyInput, ButtonContainer, Button} from '../Elements/ElementsFormulary'
 
 import ProfileImage from '../img/profile_img.png'
 
@@ -114,19 +114,6 @@ const AccountManagement = styled.div`
   align-content:center;
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
-`
-const ButtonContainer=styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content:space-evenly;
-  width:15rem;
-  gap:1rem;
-  border:solid ${theme.BorderColor} 1px;
-
-`
-const Button =styled.button`
-  height:2.5rem;
-  width:5rem;;
 `
 const SignUpContainer=styled.div`
   display:flex;

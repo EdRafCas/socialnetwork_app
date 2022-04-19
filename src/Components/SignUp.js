@@ -4,6 +4,7 @@ import {Link}from 'react-router-dom';
 import {Formulary, FormularyInput}  from '../Elements/ElementsFormulary';
 import theme from '../Theme.js';
 import DatePicker from './DatePicker';
+import {ButtonContainer} from '../Elements/ElementsFormulary';
 
 
 const RegistrationContainer =styled.div`
@@ -29,8 +30,6 @@ const RegistrationBox=styled.div`
       width:100%;
       max-height:80%;
       max-width:40rem;
-      max-height:40rem;
-      
 `
 const RegistrationInputContainer=styled.div`
       width:100%;
@@ -47,19 +46,15 @@ const RedirectContainer=styled.div`
       flex-direction:row;
       gap:3px;
 `
-
-
 const LogInNow =styled(Link)`
       color:${theme.Text};
-
 `
-const ButtonContainer=styled.div`
+const LinkContainer=styled.div`
       display:flex;
       flex-direction:row;
       justify-content:flex-start;
       border: solid ${theme.BorderColor} 1px;
       padding: 0.5rem 0.5rem;
-
 `
 const ReturnToLogin=styled(Link)`
       display:flex;
@@ -76,7 +71,6 @@ const ReturnToLogin=styled(Link)`
             background:rgba(91, 112, 131, 0.8);
       }
 `
-
 const SpanInputInitial =styled.span`
       position:absolute;
       font-size:1rem;
@@ -84,9 +78,7 @@ const SpanInputInitial =styled.span`
       transition: none;
       color:transparent;
       left:3px;
-      top:1px;
-      
-     
+      top:1px;       
 `
 const SpanInputFinal =styled.span`
       position:absolute;
@@ -97,7 +89,21 @@ const SpanInputFinal =styled.span`
       top:1px;
       color:${theme.Text};  
 `
+const ButtonSignUp =styled.button`
+      height:3rem;
+      width:100%;
+      border-radius:20px;
+      font-weight:800;
+      font-size:1rem;
+      :hover{
+            opacity:0.8;
+      }
+      :active{
+            opacity:0.6;
+      }
+      
 
+`
 
 
 const RegistrationPage = () => {
@@ -107,31 +113,39 @@ const RegistrationPage = () => {
       const [aliasHolder, changeAliasHolder] =useState("")
       const [emailHolder, changeEmailHolder] =useState("")
       const [passwordHolder, changePasswordHolder] =useState("")
+      const [password2Holder, changePassword2Holder] =useState("")
 
       const handleChange =(e)=>{
-            if(e.target.name==="name"){
-                  changeNameHolder(e.target.value)
-            }
-            if(e.target.name==="lastname"){
-                  changeLastnameHolder(e.target.value)
-            }
-            if(e.target.name==="alias"){
-                  changeAliasHolder(e.target.value)
-            }
-            if(e.target.name==="email"){
-                  changeEmailHolder(e.target.value)
-            }
-            if(e.target.name==="password"){
-                  changePasswordHolder(e.target.value)
+            switch(e.target.name){
+                  case 'name':
+                        changeNameHolder(e.target.value);
+                        break;
+                  case 'lastname':
+                        changeLastnameHolder(e.target.value);
+                        break;
+                  case 'alias':
+                        changeAliasHolder(e.target.value);
+                        break;
+                  case 'email':
+                        changeEmailHolder(e.target.value);
+                        break;
+                  case 'password':
+                        changePasswordHolder(e.target.value);
+                        break;
+                  case 'password2':
+                        changePassword2Holder(e.target.value);
+                        break;
+                  default:
+                        break;
             }
       }
 
       return ( 
             <RegistrationContainer>
                   <RegistrationBox>
-                        <ButtonContainer>
+                        <LinkContainer>
                            <ReturnToLogin to="/">X</ReturnToLogin>   
-                        </ButtonContainer>
+                        </LinkContainer>
                         <Formulary SignUpFormulary>
                               <>
                               <RegistrationInputContainer>
@@ -200,8 +214,24 @@ const RegistrationPage = () => {
                                           <SpanInputFinal>Password</SpanInputFinal>
                                     }  
                               </RegistrationInputContainer>
+                              <RegistrationInputContainer >
+                                    <FormularyInput Registration
+                                          type="password2"
+                                          name="password2"
+                                          value={password2Holder}
+                                          placeholder="Password"
+                                          onChange={handleChange}
+                                    />
+                                    {passwordHolder ==="" ?
+                                          <SpanInputInitial>Confirm password</SpanInputInitial> :
+                                          <SpanInputFinal>Confirm password</SpanInputFinal>
+                                    }  
+                              </RegistrationInputContainer>
                               </>
                               <DatePicker/>
+                              <ButtonContainer>
+                                    <ButtonSignUp type="submit" name="sendMesssage">Continue</ButtonSignUp>
+                              </ButtonContainer>
                         </Formulary>
                   </RegistrationBox>
                   <RedirectContainer><p>Alreay have an account?</p><LogInNow to={"/"}>Log in now!</LogInNow></RedirectContainer>
