@@ -7,9 +7,6 @@ const InputContainer =styled.div`
   justify-content:center;
   flex-direction:row;
   gap:1rem;
-  
-  
-
 `
 const Formulary =styled.form`
   width:${(props)=> props.SignUpFormulary ? "80%" : "100%"};
@@ -19,6 +16,7 @@ const Formulary =styled.form`
   align-self:center;
   height:auto;
   gap:1rem;
+  border:${(props)=> props.LoginUpFormulary ? `solid ${theme.BorderColor} 1px` : "none"};
   /* border:solid ${theme.BorderColor} 1px; */
   padding:1rem 0rem;
 `
@@ -33,16 +31,13 @@ const FormularyInput =styled.input`
   color:${(props)=> props.Registration && `${theme.Text}`};
   transition:none;
   z-index:100;
-
   :focus ~ span{
     
     top:1px;
     left:3px;
     font-size:11px;
     color:${theme.Text};
-    
   }
-
   :focus::placeholder{
     transition:none;
     color:transparent;

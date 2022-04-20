@@ -244,7 +244,7 @@ const LoginPage = ({timeline, changeTimeline, changeRegistration}) => {
       </Timeline>
       <AccountManagement>
         {autorizacion === false ?
-          <Formulary onSubmit={handleSubmit}>
+          <Formulary LoginUpFormulary onSubmit={handleSubmit}>
             <InputContainer>
               <FormularyInput
                 type="text"

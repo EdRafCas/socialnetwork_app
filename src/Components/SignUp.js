@@ -17,19 +17,21 @@ const RegistrationContainer =styled.div`
       padding:1rem;
       /* margin-top:-50px;
       margin-left:-200px; */
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
       /* background:rgba(91, 112, 131, 0.8); */
-      background:Black;
-      opacity:1;
+      background:${theme.LightGrey};
       
 `
 const RegistrationBox=styled.div`
       display:flex;
       flex-direction:column;
-      border: solid ${theme.BorderColor} 1px;
+      border-radius:30px;
+      padding:1rem;
+      /* border: solid ${theme.BorderColor} 1px; */
       width:100%;
       max-height:80%;
       max-width:40rem;
+      background:black;
 `
 const RegistrationInputContainer=styled.div`
       width:100%;
@@ -53,7 +55,7 @@ const LinkContainer=styled.div`
       display:flex;
       flex-direction:row;
       justify-content:flex-start;
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
       padding: 0.5rem 0.5rem;
 `
 const ReturnToLogin=styled(Link)`
@@ -63,7 +65,7 @@ const ReturnToLogin=styled(Link)`
       width:2rem;
       font-size:1rem;
       color:white;
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
       padding:5px;
       text-decoration:none;
       border-radius:50%;
@@ -114,6 +116,9 @@ const RegistrationPage = () => {
       const [emailHolder, changeEmailHolder] =useState("")
       const [passwordHolder, changePasswordHolder] =useState("")
       const [password2Holder, changePassword2Holder] =useState("")
+      const [currentMonth, changeCurrentMonth] =useState("");
+      const [currentDay, changeCurrentDay] =useState("");
+      const [currentYear, changeCurrentYear] =useState("");
 
       const handleChange =(e)=>{
             switch(e.target.name){
@@ -140,13 +145,24 @@ const RegistrationPage = () => {
             }
       }
 
+      const handleSubmit = (e) => {
+            e.preventDefault();
+            console.log(nameHolder,lastnameHolder,aliasHolder,emailHolder,passwordHolder, password2Holder,currentMonth,currentDay, currentYear)
+
+            const regularExpression=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
+            if (!regularExpression.test(emailHolder)){
+                  console.log("no es un correo")
+            }
+
+      }
+      
       return ( 
             <RegistrationContainer>
                   <RegistrationBox>
                         <LinkContainer>
                            <ReturnToLogin to="/">X</ReturnToLogin>   
                         </LinkContainer>
-                        <Formulary SignUpFormulary>
+                        <Formulary SignUpFormulary onSubmit={handleSubmit}>
                               <>
                               <RegistrationInputContainer>
                                     <FormularyInput Registration
@@ -154,7 +170,6 @@ const RegistrationPage = () => {
                                           name="name"
                                           value={nameHolder}
                                           placeholder="Name"
-                                          onFocus="this.placeholder=''"
                                           onChange={handleChange}
                                     />
                                     {nameHolder ==="" ?
@@ -219,7 +234,7 @@ const RegistrationPage = () => {
                                           type="password2"
                                           name="password2"
                                           value={password2Holder}
-                                          placeholder="Password"
+                                          placeholder=" Confirm Password"
                                           onChange={handleChange}
                                     />
                                     {passwordHolder ==="" ?
@@ -228,7 +243,15 @@ const RegistrationPage = () => {
                                     }  
                               </RegistrationInputContainer>
                               </>
-                              <DatePicker/>
+                              <DatePicker
+                                    currentMonth={currentMonth}
+                                    changeCurrentMonth={changeCurrentMonth}
+                                    currentDay={currentDay}
+                                    changeCurrentDay={changeCurrentDay}
+                                    currentYear={currentYear}
+                                    changeCurrentYear={changeCurrentYear}
+
+                              />
                               <ButtonContainer>
                                     <ButtonSignUp type="submit" name="sendMesssage">Continue</ButtonSignUp>
                               </ButtonContainer>

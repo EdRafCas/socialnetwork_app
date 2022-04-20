@@ -75,7 +75,7 @@ const MonthPicker =styled.div`
       
 `
 
-const SelectedMonth =styled.input`
+const Selected =styled.input`
       width:100%;
       height:2rem;
       display:flex;
@@ -107,16 +107,6 @@ const DayPicker=styled.div`
      
      }
 `
-const SelectedDay = styled.div`
-      width:100%;
-      height:2rem;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      &:hover {
-        background: #2C272E};
-`
-
 const YearPicker=styled.div`
       display: flex;
       flex-direction:column;
@@ -129,16 +119,6 @@ const YearPicker=styled.div`
       border-style: inset;
       border-color: rgb(118, 118, 118) rgb(133, 133, 133);
 `
-const SelectedYear = styled.div`
-      width:100%;
-      height:2rem;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      &:hover {
-        background: #2C272E};
-`
-
 const Options=styled.div`
       background:#000;
       border: solid ${theme.BorderColor} 1px;
@@ -148,8 +128,6 @@ const Options=styled.div`
       border-radius:10px;
       max-height:150px;
       overflow-y:auto;
-      
-
 `
 const Option = styled.div`
       color:${theme.Text};
@@ -157,15 +135,12 @@ const Option = styled.div`
       padding:0.5rem;
       &:hover {
             background: #2C272E};
-
 `
 
-const DatePicker = () => {
-      const [currentMonth, changeCurrentMonth] =useState("");
+const DatePicker = ({currentMonth, changeCurrentMonth, currentDay, changeCurrentDay, currentYear, changeCurrentYear}) => {
+      
       const [showMonth, changeShowMonth] =useState(false);
-      const [currentDay, changeCurrentDay] =useState(false);
       const [showDay, changeShowDay] =useState(false);
-      const [currentYear, changeCurrentYear] =useState(false);
       const [showYear, changeShowYear] =useState(false);
 
       const handleClick =(e)=>{
@@ -206,81 +181,85 @@ const DatePicker = () => {
                   <Pickers>
                         <MonthPicker>
                               <TextLabel>Month</TextLabel>
-                              <SelectedMonth
+                              <Selected
                                     onClick={()=>{changeShowMonth(!showMonth)
-                                          changeShowDay(false);
-                                          changeShowYear(false)}}
+                                                changeShowDay(false);
+                                                changeShowYear(false)}}
                                     value={currentMonth}
+                                    readOnly
                               />
-                                    {showMonth &&
-                                          <Options>
-                                                {months.map((month)=>{
-                                                      return <Option 
-                                                                  data-type={"month"}
-                                                                  key={month.id}
-                                                                  data-value={month.value}
-                                                                  onClick={handleClick}>
-                                                            {month.value}       
-                                                            </Option>
-                                                })}
-                                          </Options>
-                                    }
+                              {showMonth &&
+                                    <Options>
+                                          {months.map((month)=>{
+                                                return <Option 
+                                                            data-type={"month"}
+                                                            key={month.id}
+                                                            data-value={month.value}
+                                                            onClick={handleClick}>
+                                                      {month.value}       
+                                                      </Option>
+                                          })}
+                                    </Options>
+                              }
                         </MonthPicker>
                         <DayPicker>
                               <TextLabel>Day</TextLabel>
-                              <SelectedDay 
+                              <Selected 
                                     onClick={()=>{changeShowMonth(false);
                                                 changeShowDay(!showDay);
-                                                changeShowYear(false)}}>
-                              {currentDay}
-                              </SelectedDay>
-                                    {showDay && currentMonth!=="February" ?
-                                          <Options>
-                                                {daysArray.map((day)=>{
-                                                      return <Option 
-                                                                  key={day}
-                                                                  data-type={"day"}
-                                                                  data-value={day}
-                                                                  onClick={handleClick}>
-                                                            {day}       
-                                                            </Option>
-                                                })}
-                                          </Options>
-                                    :showDay && currentMonth==="February" ?
-                                          <Options>
-                                                {daysArrayLapse.map((day)=>{
-                                                      return <Option 
-                                                                  key={day}
-                                                                  data-type={"day"}
-                                                                  data-value={day}
-                                                                  onClick={handleClick}>
-                                                            {day}       
-                                                            </Option>
-                                                })}
-                                          </Options>
-                                    :""
-                                    }
+                                                changeShowYear(false)}}
+                                    value={currentDay}
+                                    readOnly
+                              />
+                              {showDay && currentMonth!=="February" ?
+                                    <Options>
+                                          {daysArray.map((day)=>{
+                                                return <Option 
+                                                            key={day}
+                                                            data-type={"day"}
+                                                            data-value={day}
+                                                            onClick={handleClick}>
+                                                      {day}       
+                                                      </Option>
+                                          })}
+                                    </Options>
+                              :showDay && currentMonth==="February" ?
+                                    <Options>
+                                          {daysArrayLapse.map((day)=>{
+                                                return <Option 
+                                                            key={day}
+                                                            data-type={"day"}
+                                                            data-value={day}
+                                                            onClick={handleClick}>
+                                                      {day}       
+                                                      </Option>
+                                          })}
+                                    </Options>
+                              :""
+                              }
                         </DayPicker>
                         <YearPicker>
                               <TextLabel>Year</TextLabel>
-                              <SelectedYear onClick={()=>{changeShowMonth(false);
-                                                            changeShowDay(false);
-                                                            changeShowYear(!showYear)}}>
-                              {currentYear}
-                              </SelectedYear>
-                                    {showYear &&
-                                          <Options>
-                                                {years.map((year)=>{
-                                                      return <Option
-                                                                  key={year}
-                                                                  data-type={"year"}
-                                                                  data-value={year}
-                                                                  onClick={handleClick}>
-                                                                  {year}       
-                                                            </Option>
-                                                })};
-                                          </Options>
-                                    }
+                              <Selected 
+                                    onClick={()=>{changeShowMonth(false);
+                                                changeShowDay(false);
+                                                changeShowYear(!showYear)}}
+                                    value={currentYear}
+                                    readOnly
+                              />
+                              {showYear &&
+                                    <Options>
+                                          {years.map((year)=>{
+                                                return <Option
+                                                            key={year}
+                                                            data-type={"year"}
+                                                            data-value={year}
+                                                            onClick={handleClick}>
+                                                            {year}       
+                                                      </Option>
+                                          })};
+                                    </Options>
+                              }
                         </YearPicker>
                   </Pickers>
             </DatePickerContainer>

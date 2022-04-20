@@ -3,6 +3,7 @@ const theme={
       PickerBackground:"#E8EFF1",
       BorderColor:'white',
       Text:"#B2B1B9",
+      LightGrey:"#423F3E"
 }
 
 export default theme;
