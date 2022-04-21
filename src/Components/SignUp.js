@@ -5,6 +5,9 @@ import {Formulary, FormularyInput}  from '../Elements/ElementsFormulary';
 import theme from '../Theme.js';
 import DatePicker from './DatePicker';
 import {ButtonContainer} from '../Elements/ElementsFormulary';
+import {auth} from './../firebase/FirebaseConfig';
+import {createUserWithEmailAndPassword } from "firebase/auth"
+import {useNavigate} from 'react-router-dom'
 
 
 const RegistrationContainer =styled.div`
@@ -109,18 +112,19 @@ const ButtonSignUp =styled.button`
 
 
 const RegistrationPage = () => {
-
+      const navigate = useNavigate();
+      
       const [nameHolder, changeNameHolder] =useState("")
       const [lastnameHolder, changeLastnameHolder] =useState("")
       const [aliasHolder, changeAliasHolder] =useState("")
       const [emailHolder, changeEmailHolder] =useState("")
       const [passwordHolder, changePasswordHolder] =useState("")
       const [password2Holder, changePassword2Holder] =useState("")
-      const [currentMonth, changeCurrentMonth] =useState("");
-      const [currentDay, changeCurrentDay] =useState("");
-      const [currentYear, changeCurrentYear] =useState("");
+      const [birthMonth, changeBirthMonth] =useState("");
+      const [birthDay, changeBirthDay] =useState("");
+      const [birthYear, changeBirthYear] =useState("");
 
-      const handleChange =(e)=>{
+      const handleChange = (e) =>{
             switch(e.target.name){
                   case 'name':
                         changeNameHolder(e.target.value);
@@ -145,16 +149,44 @@ const RegistrationPage = () => {
             }
       }
 
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
             e.preventDefault();
-            console.log(nameHolder,lastnameHolder,aliasHolder,emailHolder,passwordHolder, password2Holder,currentMonth,currentDay, currentYear)
+            /* console.log(nameHolder,lastnameHolder,aliasHolder,emailHolder,passwordHolder, password2Holder,birthMonth,birthDay,birthYear) */
 
-            const regularExpression=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
-            if (!regularExpression.test(emailHolder)){
-                  console.log("no es un correo")
+            const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
+            const regularExpressionNames=/^\w+\s?\w+?$/;
+            if (!regularExpressionEmail.test(emailHolder)){
+                  console.log("Please provide a valid email address");
+                  return;
+            }
+            if (!regularExpressionNames.test(nameHolder)){
+                  console.log("Please provide a valid Name");
+                  return;
+            }
+            if (!regularExpressionNames.test(lastnameHolder)){
+                  console.log("Please provide a valid Lastname");
+                  return;
+            }
+            
+
+            if(emailHolder === "" || passwordHolder === "" || password2Holder === "" || nameHolder === "" || lastnameHolder === "" || aliasHolder === "" || birthDay === "" || birthMonth=== "" || birthYear === ""){
+                  console.log("Please fill all the fields");
+                  return;
+            }
+            if(passwordHolder !== password2Holder){
+                  console.log('Both passwords must be the same')
+                  return;
             }
 
-      }
+            try {
+                  await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder);
+                  console.log("user created")
+                  navigate("/");
+            } catch(error){
+                  console.log(error)
+            }
+
+      };
       
       return ( 
             <RegistrationContainer>
@@ -231,7 +263,7 @@ const RegistrationPage = () => {
                               </RegistrationInputContainer>
                               <RegistrationInputContainer >
                                     <FormularyInput Registration
-                                          type="password2"
+                                          type="password"
                                           name="password2"
                                           value={password2Holder}
                                           placeholder=" Confirm Password"
@@ -244,12 +276,12 @@ const RegistrationPage = () => {
                               </RegistrationInputContainer>
                               </>
                               <DatePicker
-                                    currentMonth={currentMonth}
-                                    changeCurrentMonth={changeCurrentMonth}
-                                    currentDay={currentDay}
-                                    changeCurrentDay={changeCurrentDay}
-                                    currentYear={currentYear}
-                                    changeCurrentYear={changeCurrentYear}
+                                    birthMonth={birthMonth}
+                                    changeBirthMonth={changeBirthMonth}
+                                    birthDay={birthDay}
+                                    changeBirthDay={changeBirthDay}
+                                    birthYear={birthYear}
+                                    changeBirthYear={changeBirthYear}
 
                               />
                               <ButtonContainer>

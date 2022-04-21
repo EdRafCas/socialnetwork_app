@@ -137,7 +137,7 @@ const Option = styled.div`
             background: #2C272E};
 `
 
-const DatePicker = ({currentMonth, changeCurrentMonth, currentDay, changeCurrentDay, currentYear, changeCurrentYear}) => {
+const DatePicker = ({birthMonth, changeBirthMonth, birthDay, changeBirthDay, birthYear, changeBirthYear}) => {
       
       const [showMonth, changeShowMonth] =useState(false);
       const [showDay, changeShowDay] =useState(false);
@@ -146,20 +146,20 @@ const DatePicker = ({currentMonth, changeCurrentMonth, currentDay, changeCurrent
       const handleClick =(e)=>{
             if(e.currentTarget.dataset.type ==="month"){
                   changeShowMonth(false)
-                  changeCurrentMonth(e.currentTarget.dataset.value)
+                  changeBirthMonth(e.currentTarget.dataset.value)
             }
-            if(e.currentTarget.dataset.value==="February" && currentDay >29){
+            if(e.currentTarget.dataset.value==="February" && birthDay >29){
                   changeShowMonth(false)
-                  changeCurrentDay(false)
-                  changeCurrentMonth(e.currentTarget.dataset.value)
+                  changeBirthDay(false)
+                  changeBirthMonth(e.currentTarget.dataset.value)
             }
             if(e.currentTarget.dataset.type ==="day"){
                   changeShowDay(false)
-                  changeCurrentDay(e.currentTarget.dataset.value)
+                  changeBirthDay(e.currentTarget.dataset.value)
             }
             if(e.currentTarget.dataset.type ==="year"){
                   changeShowYear(false)
-                  changeCurrentYear(e.currentTarget.dataset.value)
+                  changeBirthYear(e.currentTarget.dataset.value)
             }
             
       }
@@ -185,7 +185,7 @@ const DatePicker = ({currentMonth, changeCurrentMonth, currentDay, changeCurrent
                                     onClick={()=>{changeShowMonth(!showMonth)
                                                 changeShowDay(false);
                                                 changeShowYear(false)}}
-                                    value={currentMonth}
+                                    value={birthMonth}
                                     readOnly
                               />
                               {showMonth &&
@@ -208,10 +208,10 @@ const DatePicker = ({currentMonth, changeCurrentMonth, currentDay, changeCurrent
                                     onClick={()=>{changeShowMonth(false);
                                                 changeShowDay(!showDay);
                                                 changeShowYear(false)}}
-                                    value={currentDay}
+                                    value={birthDay}
                                     readOnly
                               />
-                              {showDay && currentMonth!=="February" ?
+                              {showDay && birthMonth!=="February" ?
                                     <Options>
                                           {daysArray.map((day)=>{
                                                 return <Option 
@@ -223,7 +223,7 @@ const DatePicker = ({currentMonth, changeCurrentMonth, currentDay, changeCurrent
                                                       </Option>
                                           })}
                                     </Options>
-                              :showDay && currentMonth==="February" ?
+                              :showDay && birthMonth==="February" ?
                                     <Options>
                                           {daysArrayLapse.map((day)=>{
                                                 return <Option 
@@ -244,7 +244,7 @@ const DatePicker = ({currentMonth, changeCurrentMonth, currentDay, changeCurrent
                                     onClick={()=>{changeShowMonth(false);
                                                 changeShowDay(false);
                                                 changeShowYear(!showYear)}}
-                                    value={currentYear}
+                                    value={birthYear}
                                     readOnly
                               />
                               {showYear &&
