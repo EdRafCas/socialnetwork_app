@@ -8,6 +8,7 @@ import {ButtonContainer} from '../Elements/ElementsFormulary';
 import {auth} from './../firebase/FirebaseConfig';
 import {createUserWithEmailAndPassword } from "firebase/auth"
 import {useNavigate} from 'react-router-dom'
+import Alert from './../Elements/Alert'
 
 
 const RegistrationContainer =styled.div`
@@ -123,6 +124,8 @@ const RegistrationPage = () => {
       const [birthMonth, changeBirthMonth] =useState("");
       const [birthDay, changeBirthDay] =useState("");
       const [birthYear, changeBirthYear] =useState("");
+      const [stateAlert, changeStateAlert] =useState(false);
+      const [alert, changeAlert] = useState ({})
 
       const handleChange = (e) =>{
             switch(e.target.name){
@@ -151,39 +154,85 @@ const RegistrationPage = () => {
 
       const handleSubmit = async (e) => {
             e.preventDefault();
-            /* console.log(nameHolder,lastnameHolder,aliasHolder,emailHolder,passwordHolder, password2Holder,birthMonth,birthDay,birthYear) */
+            changeStateAlert(false);
+            changeAlert({});
 
+            
             const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
             const regularExpressionNames=/^\w+\s?\w+?$/;
             if (!regularExpressionEmail.test(emailHolder)){
-                  console.log("Please provide a valid email address");
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: 'Please provide a valid email'
+                  })
                   return;
             }
             if (!regularExpressionNames.test(nameHolder)){
-                  console.log("Please provide a valid Name");
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: 'Please provide a valide name'
+                  })
                   return;
             }
             if (!regularExpressionNames.test(lastnameHolder)){
-                  console.log("Please provide a valid Lastname");
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: 'Please provide a valide lastname'
+                  })
                   return;
             }
-            
-
-            if(emailHolder === "" || passwordHolder === "" || password2Holder === "" || nameHolder === "" || lastnameHolder === "" || aliasHolder === "" || birthDay === "" || birthMonth=== "" || birthYear === ""){
-                  console.log("Please fill all the fields");
+            if(emailHolder === "" || passwordHolder === "" || password2Holder === "" || nameHolder === "" || lastnameHolder === "" || aliasHolder === ""){
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: 'Please fill all fields'
+                  })
+                  return;
+            }
+            if(birthDay === "" || birthMonth=== "" || birthYear === ""){
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: 'Please provide a valid birthday date'
+                  })
                   return;
             }
             if(passwordHolder !== password2Holder){
-                  console.log('Both passwords must be the same')
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: 'Both passwords must be the same'
+                  })
                   return;
             }
 
             try {
                   await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder);
-                  console.log("user created")
                   navigate("/");
             } catch(error){
-                  console.log(error)
+                  changeStateAlert(true)
+                  let message;
+                  switch(error.code){
+                        case 'auth/invalid-password':
+                              message = 'Password must be at least 6 characters'
+                              break;
+                        case 'auth/email-already-in-use':
+                              message = 'The email is already registered'
+                              break;
+                        case 'auth/invalid-email':
+                              message = 'The provided email is not valid'
+                              break;
+                        default:
+                              message = 'An error ocurred creating the account'
+                              break;
+                  }
+                 changeAlert({
+                       type:'error',
+                       message:message
+                 });
             }
 
       };
@@ -290,7 +339,13 @@ const RegistrationPage = () => {
                         </Formulary>
                   </RegistrationBox>
                   <RedirectContainer><p>Alreay have an account?</p><LogInNow to={"/"}>Log in now!</LogInNow></RedirectContainer>
+                  <Alert type={alert.type}
+                        message={alert.message}
+                        stateAlert={stateAlert}
+                        changeStateAlert={changeStateAlert}
+                  />
             </RegistrationContainer> 
+           
       );
 }
  

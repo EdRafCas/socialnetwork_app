@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import theme from './Theme.js'
 import ProfileImage from './img/profile_img.png'
 import RegistrationPage from './Components/SignUp.js';
-import LoginPage from './Components/LoginPage.js';
+import MainPage from './Components/MainPage.js';
 import './index.css';
 
 import WebFont from 'webfontloader';
@@ -54,13 +54,13 @@ const Index = () => {
     <Container>
       <BrowserRouter>
         <Routes>
-            <Route path="/" exact={true} element={<LoginPage 
-                                                    MessagesTimeline={MessagesTimeline}
-                                                    changeTimeline={changeTimeline}
-                                                    timeline={timeline}
-                                                    changeRegistration={changeRegistration}
-                                                    registration={registration}
-            />}/>
+            <Route path="/" exact={true} 
+                            element={<MainPage MessagesTimeline={MessagesTimeline}
+                                                changeTimeline={changeTimeline}
+                                                timeline={timeline}
+                                                changeRegistration={changeRegistration}
+                                                registration={registration}/>}
+                            />
             <Route path="/Registration" exact ={true} element={<RegistrationPage/>}/>
         </Routes>
       </BrowserRouter>

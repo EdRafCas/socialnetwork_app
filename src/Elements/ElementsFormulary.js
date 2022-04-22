@@ -57,6 +57,32 @@ const Button =styled.button`
   width:5rem;;
 `
 
+//ELEMENTS FROM CARDS
+const PortraitContainer =styled.div`
+  border: solid red 1px;
+  padding:0;
+  width:100%;
+  border-radius:50%;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  width:3rem;
+  flex-direction:column;
+  overflow:hidden;
+  img{
+    width:100%;
+  }
+`
+const NameContainer =styled.h1`
+  /* border:solid ${theme.BorderColor} 1px; */
+  font-size:1.1rem;
+  font-weight:1000;
+  color:white;
+`
+const AliasContainer = styled.p`
+  /* border:solid ${theme.BorderColor} 1px; */
+`
 
  
-export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button} ;
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, PortraitContainer, NameContainer, AliasContainer} ;
