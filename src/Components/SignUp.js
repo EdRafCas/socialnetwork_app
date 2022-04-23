@@ -112,7 +112,7 @@ const ButtonSignUp =styled.button`
 `
 
 
-const RegistrationPage = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
+const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       const navigate = useNavigate();
       
       const [nameHolder, changeNameHolder] =useState("")
@@ -347,4 +347,4 @@ const RegistrationPage = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       );
 }
  
-export default RegistrationPage;
+export default SignUp;

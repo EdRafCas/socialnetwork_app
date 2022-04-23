@@ -4,7 +4,7 @@ import theme from '../Theme';
 import {Link}from 'react-router-dom';
 import {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_img.png'
-import {createUserWithEmailAndPassword } from "firebase/auth"
+import {signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigate} from 'react-router-dom'
 import {auth} from './../firebase/FirebaseConfig';
 
@@ -80,7 +80,6 @@ const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, 
     changeAlert({});
 
     const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
-    const regularExpressionNames=/^\w+\s?\w+?$/;
     if (!regularExpressionEmail.test(email)){
           changeStateAlert(true);
           changeAlert({
@@ -99,24 +98,21 @@ const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, 
           return;
     }
     try {
-          await createUserWithEmailAndPassword(auth, email, password);
+          await signInWithEmailAndPassword(auth, email, password);
           navigate("/");
     } catch(error){
           changeStateAlert(true)
           let message;
           switch(error.code){
-                case 'auth/invalid-password':
-                      message = 'Password must be at least 6 characters'
-                      break;
-                case 'auth/email-already-in-use':
-                      message = 'The email is already registered'
-                      break;
-                case 'auth/invalid-email':
-                      message = 'The provided email is not valid'
-                      break;
-                default:
-                      message = 'An error ocurred creating the account'
-                      break;
+            case 'auth/wrong-password':
+                  message = "La contraseña no es correcta"
+                  break;
+            case 'auth/user-not-found':
+                  message = "No se encontró cuenta con ese correo"
+                  break;
+            default:
+                  message = 'Hubo un error al intentar crear la cuenta.'
+                  break;
           }
          changeAlert({
                type:'error',
@@ -169,7 +165,7 @@ const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, 
             <ButtonContainer>
               <Button type="submit" >Login</Button>
             </ButtonContainer>
-            <SignUpContainer><span>Don't own an account?</span><span><SignUp to="/Registration">Sign up</SignUp></span>
+            <SignUpContainer><span>Don't own an account?</span><span><SignUp to="/SignUp">Sign up</SignUp></span>
             </SignUpContainer> 
           </Formulary>
         :

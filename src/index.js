@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import theme from './Theme.js'
 import ProfileImage from './img/profile_img.png'
-import RegistrationPage from './Components/SignUp.js';
+import SignUp from './Components/SignUp.js';
 import MainPage from './Components/MainPage.js';
 import './index.css';
 
@@ -46,6 +46,8 @@ const Index = () => {
   
   const [timeline, changeTimeline] = useState(MessagesTimeline)
   const [registration, changeRegistration] = useState(false)
+  const [stateAlert, changeStateAlert] =useState(false);
+  const [alert, changeAlert] = useState ({})
 
 
 
@@ -56,12 +58,18 @@ const Index = () => {
         <Routes>
             <Route path="/" exact={true} 
                             element={<MainPage MessagesTimeline={MessagesTimeline}
-                                                changeTimeline={changeTimeline}
-                                                timeline={timeline}
-                                                changeRegistration={changeRegistration}
-                                                registration={registration}/>}
-                            />
-            <Route path="/Registration" exact ={true} element={<RegistrationPage/>}/>
+                                              changeTimeline={changeTimeline}
+                                              timeline={timeline}
+                                              changeRegistration={changeRegistration}
+                                              registration={registration}
+                                              alert={alert}
+                                              changeAlert={changeAlert}
+                                              stateAlert={stateAlert}
+                                              changeStateAlert={changeStateAlert}/>}/>
+            <Route path="/SignUp" exact ={true} element={<SignUp alert={alert}
+                                                                changeAlert={changeAlert}
+                                                                stateAlert={stateAlert}
+                                                                changeStateAlert={changeStateAlert}/>}/>
         </Routes>
       </BrowserRouter>
     </Container>

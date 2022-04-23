@@ -79,13 +79,12 @@ const InteractionBar=styled.div`
   width:100%;
 `
 
-const MainPage = ({timeline, changeTimeline, changeRegistration}) => {
+const MainPage = ({timeline, changeTimeline, changeRegistration, alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [email, emailChange] = useState('');
   const [password, passwordChange] = useState('');
   const [message, messageChange] = useState('');
   const [autorization, changeAutorization] =useState(false);
-  const [stateAlert, changeStateAlert] =useState(false);
-  const [alert, changeAlert] = useState ({})
+  
       
       return ( 
       <ContainerLogin>
@@ -121,7 +120,7 @@ const MainPage = ({timeline, changeTimeline, changeRegistration}) => {
             })}
                       
       </Timeline>
-     <LoginPage timeline={timeline} 
+      <LoginPage timeline={timeline} 
                 changeTimeline={changeTimeline}
                 autorization={autorization}
                 changeAutorization={changeAutorization}
@@ -135,8 +134,8 @@ const MainPage = ({timeline, changeTimeline, changeRegistration}) => {
                 changeAlert={changeAlert}
                 stateAlert={stateAlert}
                 changeStateAlert={changeStateAlert}
-                
-     />
+                  
+      />
         
       </ContainerLogin>
        );
