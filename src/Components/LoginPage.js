@@ -4,6 +4,9 @@ import theme from '../Theme';
 import {Link}from 'react-router-dom';
 import {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_img.png'
+import {createUserWithEmailAndPassword } from "firebase/auth"
+import {useNavigate} from 'react-router-dom'
+import {auth} from './../firebase/FirebaseConfig';
 
 
 const AccountManagement = styled.div`
@@ -51,64 +54,106 @@ const UserNames =styled.div`
   gap:5px;
 `
 
-const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, username, usernameChange, password, passwordChange, message, messageChange}) => {
+const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, email, emailChange, password, passwordChange, message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
 
-      const handleChange = (e) =>{
-            if(e.target.name ==="username"){
-              usernameChange(e.target.value)
-              console.log(username)
-            }
-            if(e.target.name==="password"){
-              passwordChange(e.target.value)
-              console.log(password)
-            }
-            if(e.target.name==="message"){
-              messageChange(e.target.value)
-              
-            }
-        
-          };
-        
-      const handleSubmit = (e) =>{
-        e.preventDefault();
-        if (password ==="123456"){
-          changeAutorization(!autorization);
-          console.log(autorization)
+  const navigate = useNavigate();
+
+  const handleChange = (e) =>{
+        if(e.target.name ==="email"){
+          emailChange(e.target.value)
+          console.log(email)
         }
-        if (e.target.name === "sendMesssage"){
-          changeAutorization(false)
-          console.log(autorization)
+        if(e.target.name==="password"){
+          passwordChange(e.target.value)
+          console.log(password)
         }
-      } 
+        if(e.target.name==="message"){
+          messageChange(e.target.value)
+          
+        }
     
-      const addToTimeline = (e) =>{
-        e.preventDefault();
-        if(timeline.length>0){
-          const newTimeline = [...timeline];
-          newTimeline.unshift(
-            {
-              id:3,
-              profilePicture:ProfileImage,
-              username:"username",
-              alias:"alias",
-              message:message
-            }
-          );
-          changeTimeline(newTimeline);
-          console.log(timeline)
-        } 
-      }
+  };
+    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    changeStateAlert(false);
+    changeAlert({});
+
+    const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
+    const regularExpressionNames=/^\w+\s?\w+?$/;
+    if (!regularExpressionEmail.test(email)){
+          changeStateAlert(true);
+          changeAlert({
+                type:'error',
+                message: 'Please provide a valid email'
+          })
+          return;
+    }
+
+    if(email === "" || password === ""){
+          changeStateAlert(true);
+          changeAlert({
+                type:'error',
+                message: 'Please fill all fields'
+          })
+          return;
+    }
+    try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          navigate("/");
+    } catch(error){
+          changeStateAlert(true)
+          let message;
+          switch(error.code){
+                case 'auth/invalid-password':
+                      message = 'Password must be at least 6 characters'
+                      break;
+                case 'auth/email-already-in-use':
+                      message = 'The email is already registered'
+                      break;
+                case 'auth/invalid-email':
+                      message = 'The provided email is not valid'
+                      break;
+                default:
+                      message = 'An error ocurred creating the account'
+                      break;
+          }
+         changeAlert({
+               type:'error',
+               message:message
+         });
+    }
+
+};
+
+  const addToTimeline = (e) =>{
+    e.preventDefault();
+    if(timeline.length>0){
+      const newTimeline = [...timeline];
+      newTimeline.unshift(
+        { 
+          id:3,
+          profilePicture:ProfileImage,
+          username:"username",
+          alias:"alias",
+          message:message
+        });
+      changeTimeline(newTimeline);
+      console.log(timeline)
+    } 
+  };
+
       return ( 
       <AccountManagement>
         {autorization === false ?
           <Formulary LoginUpFormulary onSubmit={handleSubmit}>
             <InputContainer>
               <FormularyInput
-                type="text"
-                name="username"
-                id="username"
-                placeholder="username"
-                value={username}
+                type="email"
+                name="email"
+                id="email"
+                placeholder="email"
+                value={email}
                 onChange={handleChange}
               />
             </InputContainer>

@@ -112,7 +112,7 @@ const ButtonSignUp =styled.button`
 `
 
 
-const RegistrationPage = () => {
+const RegistrationPage = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       const navigate = useNavigate();
       
       const [nameHolder, changeNameHolder] =useState("")
@@ -124,8 +124,6 @@ const RegistrationPage = () => {
       const [birthMonth, changeBirthMonth] =useState("");
       const [birthDay, changeBirthDay] =useState("");
       const [birthYear, changeBirthYear] =useState("");
-      const [stateAlert, changeStateAlert] =useState(false);
-      const [alert, changeAlert] = useState ({})
 
       const handleChange = (e) =>{
             switch(e.target.name){

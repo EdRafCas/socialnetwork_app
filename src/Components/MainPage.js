@@ -58,8 +58,6 @@ const UserNameContainer =styled.div`
   flex-direction:row;
   gap:5px;
 `
-
-
 const MessageContent = styled.div`
   width:100%;
   padding:0rem;
@@ -82,10 +80,12 @@ const InteractionBar=styled.div`
 `
 
 const MainPage = ({timeline, changeTimeline, changeRegistration}) => {
-  const [username, usernameChange] = useState('');
+  const [email, emailChange] = useState('');
   const [password, passwordChange] = useState('');
   const [message, messageChange] = useState('');
   const [autorization, changeAutorization] =useState(false);
+  const [stateAlert, changeStateAlert] =useState(false);
+  const [alert, changeAlert] = useState ({})
       
       return ( 
       <ContainerLogin>
@@ -125,12 +125,16 @@ const MainPage = ({timeline, changeTimeline, changeRegistration}) => {
                 changeTimeline={changeTimeline}
                 autorization={autorization}
                 changeAutorization={changeAutorization}
-                username={username}
-                usernameChange={usernameChange}
+                email={email}
+                emailChange={emailChange}
                 password={password}
                 passwordChange={passwordChange}
                 message={message}
                 messageChange={messageChange}
+                alert={alert}
+                changeAlert={changeAlert}
+                stateAlert={stateAlert}
+                changeStateAlert={changeStateAlert}
                 
      />
         
