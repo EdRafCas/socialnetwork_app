@@ -7,7 +7,7 @@ import ProfileImage from '../img/profile_img.png'
 import {signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigate} from 'react-router-dom'
 import {auth} from './../firebase/FirebaseConfig';
-
+import Alert from '../Elements/Alert';
 
 const AccountManagement = styled.div`
   width:100%;
@@ -84,7 +84,7 @@ const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, 
           changeStateAlert(true);
           changeAlert({
                 type:'error',
-                message: 'Please provide a valid email'
+                message: 'Please enter a valid email'
           })
           return;
     }
@@ -100,18 +100,19 @@ const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, 
     try {
           await signInWithEmailAndPassword(auth, email, password);
           navigate("/");
+          console.log("Logged in")
     } catch(error){
           changeStateAlert(true)
           let message;
           switch(error.code){
             case 'auth/wrong-password':
-                  message = "La contraseña no es correcta"
+                  message = "The password provided is incorrect"
                   break;
             case 'auth/user-not-found':
-                  message = "No se encontró cuenta con ese correo"
+                  message = "The email was not found"
                   break;
             default:
-                  message = 'Hubo un error al intentar crear la cuenta.'
+                  message = 'An error ocurred while trying to log in'
                   break;
           }
          changeAlert({
@@ -187,6 +188,11 @@ const LoginPage = ({timeline, changeTimeline, autorization, changeAutorization, 
             onChange={handleChange}/>
         <Button type="submit" name="sendMesssage">Submit</Button>
         </CreateMessageForm>}
+        <Alert type={alert.type}
+                        message={alert.message}
+                        stateAlert={stateAlert}
+                        changeStateAlert={changeStateAlert}
+        />
       </AccountManagement>
       );
 }
