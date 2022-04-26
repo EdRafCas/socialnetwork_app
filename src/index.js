@@ -6,6 +6,7 @@ import theme from './Theme.js'
 import ProfileImage from './img/profile_img.png'
 import SignUp from './Components/SignUp.js';
 import MainPage from './Components/MainPage.js';
+import LoginPage from './Components/LoginPage.js';
 import './index.css';
 
 import WebFont from 'webfontloader';
@@ -58,6 +59,16 @@ const Index = () => {
         <Routes>
             <Route path="/" exact={true} 
                             element={<MainPage MessagesTimeline={MessagesTimeline}
+                                              changeTimeline={changeTimeline}
+                                              timeline={timeline}
+                                              changeRegistration={changeRegistration}
+                                              registration={registration}
+                                              alert={alert}
+                                              changeAlert={changeAlert}
+                                              stateAlert={stateAlert}
+                                              changeStateAlert={changeStateAlert}/>}/>
+            <Route path="/LoginPage" exact={true} 
+                            element={<LoginPage MessagesTimeline={MessagesTimeline}
                                               changeTimeline={changeTimeline}
                                               timeline={timeline}
                                               changeRegistration={changeRegistration}
