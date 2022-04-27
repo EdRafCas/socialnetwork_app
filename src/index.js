@@ -7,8 +7,9 @@ import ProfileImage from './img/profile_img.png'
 import SignUp from './Components/SignUp.js';
 import MainPage from './Components/MainPage.js';
 import LoginPage from './Components/LoginPage.js';
+import { AuthProvider } from './Context/AuthContext.js';
+import PrivateRoute from './Components/PrivateRoute.js';
 import './index.css';
-
 import WebFont from 'webfontloader';
 
 WebFont.load({
@@ -55,10 +56,13 @@ const Index = () => {
 
   return ( 
     <Container>
-      <BrowserRouter>
-        <Routes>
-            <Route path="/" exact={true} 
-                            element={<MainPage MessagesTimeline={MessagesTimeline}
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+              <Route path="/" exact={true} 
+                              element={
+                              <PrivateRoute>
+                                    <MainPage MessagesTimeline={MessagesTimeline}
                                               changeTimeline={changeTimeline}
                                               timeline={timeline}
                                               changeRegistration={changeRegistration}
@@ -66,23 +70,27 @@ const Index = () => {
                                               alert={alert}
                                               changeAlert={changeAlert}
                                               stateAlert={stateAlert}
-                                              changeStateAlert={changeStateAlert}/>}/>
+                                              changeStateAlert={changeStateAlert}/>
+                              </PrivateRoute>}/>
             <Route path="/LoginPage" exact={true} 
-                            element={<LoginPage MessagesTimeline={MessagesTimeline}
-                                              changeTimeline={changeTimeline}
-                                              timeline={timeline}
-                                              changeRegistration={changeRegistration}
-                                              registration={registration}
-                                              alert={alert}
-                                              changeAlert={changeAlert}
-                                              stateAlert={stateAlert}
-                                              changeStateAlert={changeStateAlert}/>}/>
-            <Route path="/SignUp" exact ={true} element={<SignUp alert={alert}
-                                                                changeAlert={changeAlert}
-                                                                stateAlert={stateAlert}
-                                                                changeStateAlert={changeStateAlert}/>}/>
-        </Routes>
-      </BrowserRouter>
+                                    element={<LoginPage MessagesTimeline={MessagesTimeline}
+                                                        changeTimeline={changeTimeline}
+                                                        timeline={timeline}
+                                                        changeRegistration={changeRegistration}
+                                                        registration={registration}
+                                                        alert={alert}
+                                                        changeAlert={changeAlert}
+                                                        stateAlert={stateAlert}
+                                                        changeStateAlert={changeStateAlert}/>}/>
+            <Route path="/SignUp" exact ={true} 
+                                  element={<SignUp alert={alert}
+                                                  changeAlert={changeAlert}
+                                                  stateAlert={stateAlert}
+                                                  changeStateAlert={changeStateAlert}/>}/>
+          </Routes>
+        </BrowserRouter> 
+      </AuthProvider>
+      
     </Container>
    );
 }

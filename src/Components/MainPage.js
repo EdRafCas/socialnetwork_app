@@ -2,7 +2,9 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import Timeline from './Timeline';
-import Account from './Account'
+import Account from './Account';
+import { useAuth } from '../Context/AuthContext';
+
 
 const ContainerLogin=styled.div`
   width:100%;
@@ -20,6 +22,8 @@ const ContainerLogin=styled.div`
 
 
 const MainPage = ({timeline, changeTimeline, changeRegistration, alert, changeAlert, stateAlert, changeStateAlert}) => {
+  const {user} =useAuth();
+  console.log(user);
 
   const [message, messageChange] = useState('');
   

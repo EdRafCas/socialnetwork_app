@@ -7,6 +7,7 @@ import {signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigate} from 'react-router-dom'
 import {auth} from '../firebase/FirebaseConfig';
 import Alert from '../Elements/Alert';
+import LogoutButton from './LogoutButton';
 
 const AccountManagement = styled.div`
   width:100%;
@@ -121,6 +122,7 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
             <ButtonContainer>
               <Button type="submit" >Login</Button>
             </ButtonContainer>
+            <LogoutButton/>
             <SignUpContainer><span>Don't own an account?</span><span><SignUp to="/SignUp">Sign up</SignUp></span>
             </SignUpContainer> 
           </Formulary>
