@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import Timeline from './Timeline';
 import Account from './Account';
-import { useAuth } from '../Context/AuthContext';
+
 
 
 const ContainerLogin=styled.div`
@@ -21,20 +21,16 @@ const ContainerLogin=styled.div`
 `
 
 
-const MainPage = ({timeline, changeTimeline, changeRegistration, alert, changeAlert, stateAlert, changeStateAlert}) => {
-  const {user} =useAuth();
-  console.log(user);
+const MainPage = ({changeRegistration, alert, changeAlert, stateAlert, changeStateAlert}) => {
+
 
   const [message, messageChange] = useState('');
   
       
       return ( 
       <ContainerLogin>
-      <Timeline timeline={timeline}
-                changeTimeline={changeTimeline}/>
-      <Account timeline={timeline} 
-                changeTimeline={changeTimeline}
-                message={message}
+      <Timeline />
+      <Account  message={message}
                 messageChange={messageChange}
                 alert={alert}
                 changeAlert={changeAlert}

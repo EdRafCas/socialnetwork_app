@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
+import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
+import useObtainMessages from '../Hooks/useObtainMessages';
+import ProfileImage from './../img/profile_img.png'
+
 
 const TimelineContainer = styled.div`
   height:100%;
@@ -34,7 +37,6 @@ const CardColumns = styled.div`
   /* border:solid ${theme.BorderColor} 1px; */
   gap:0.5rem;
 `
-
 const UserNameContainer =styled.div`
   width:100%;
   padding:0rem;
@@ -65,21 +67,24 @@ const InteractionBar=styled.div`
   width:100%;
 `
 
-const Timeline = ({timeline}) => {
+const Timeline = () => {
+    const [messagesSent] = useObtainMessages();
+    /* console.log(MessagesSent); */
+
       return ( 
             <TimelineContainer>
-            {timeline.map((Messages, index)=>{
+            {messagesSent.map((Messages, index)=>{
               return(
                 <Card key={index}>
                 <CardColumns>
                   <PortraitContainer>
-                    <img alt="userportrait" src={Messages.profilePicture}/>
+                    <img alt="userportrait" src={ProfileImage}/>
                   </PortraitContainer>
                   
                 </CardColumns>
                 <CardColumns rightColumn>
                   <UserNameContainer>
-                    <NameContainer>{Messages.username}</NameContainer><AliasContainer>@{Messages.alias}</AliasContainer>
+                    <NameContainer>{Messages.uidUser}</NameContainer><AliasContainer>@{Messages.uidUser}</AliasContainer>
                   </UserNameContainer>
                   <MessageContent>
                     {Messages.message}

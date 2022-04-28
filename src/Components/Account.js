@@ -4,6 +4,8 @@ import theme from '../Theme';
 import {Button, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_img.png'
 import Alert from '../Elements/Alert';
+import AddMessage from '../firebase/AddMessage';
+import { useAuth } from '../Context/AuthContext';
 
 const AccountManagement = styled.div`
   width:100%;
@@ -41,8 +43,8 @@ const UserNames =styled.div`
   gap:5px;
 `
 
-const Account = ({timeline, changeTimeline, message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
-
+const Account = ({message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
+  const {user} =useAuth();
 
   const handleChange = (e) =>{
         if(e.target.name==="message"){
@@ -53,19 +55,27 @@ const Account = ({timeline, changeTimeline, message, messageChange, alert, chang
 
   const addToTimeline = (e) =>{
     e.preventDefault();
-    if(timeline.length>0){
-      const newTimeline = [...timeline];
-      newTimeline.unshift(
-        { 
-          id:3,
-          profilePicture:ProfileImage,
-          username:"username",
-          alias:"alias",
-          message:message
-        });
-      changeTimeline(newTimeline);
-      console.log(timeline)
-    } 
+    console.log(user.uid);
+    AddMessage({
+      message:message,
+      uidUser: user.uid
+    })
+    .then(()=>{
+      messageChange("");
+
+      changeStateAlert(true);
+      changeAlert({
+            type:'success',
+            message: 'Your message was sent successfully'
+      })
+    .catch ((error)=>{
+      changeStateAlert(true);
+      changeAlert({
+            type:'error',
+            message: 'An error ocurred while sending your message'
+      })
+    })
+    })
   };
 
       return ( 
