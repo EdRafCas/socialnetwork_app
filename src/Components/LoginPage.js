@@ -27,8 +27,7 @@ const LoginPage = ({timeline, changeTimeline, changeRegistration, alert, changeA
       
       return ( 
       <ContainerLogin>
-      <Timeline timeline={timeline}
-                changeTimeline={changeTimeline}/>
+      <Timeline />
       <Login  
                 email={email}
                 emailChange={emailChange}
