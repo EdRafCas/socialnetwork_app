@@ -6,14 +6,10 @@ import theme from '../Theme.js';
 import DatePicker from './DatePicker';
 import {ButtonContainer} from '../Elements/ElementsFormulary';
 import {auth} from './../firebase/FirebaseConfig';
-import {createUserWithEmailAndPassword } from "firebase/auth";
-import {signInWithEmailAndPassword } from "firebase/auth";
-import { signOut } from 'firebase/auth';
+import {createUserWithEmailAndPassword } from "firebase/auth"
 import {useNavigate} from 'react-router-dom';
 import Alert from './../Elements/Alert';
 import AddUser from '.././firebase/AddUser';
-import { useAuth } from '../Context/AuthContext';
-
 
 
 const RegistrationContainer =styled.div`
@@ -118,7 +114,6 @@ const ButtonSignUp =styled.button`
 
 
 const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
-      const {user} =useAuth();
       const navigate = useNavigate();
       
       const [nameHolder, changeNameHolder] =useState("")
@@ -156,21 +151,12 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             }
       }
 
-      const logOut = async() =>{
-            try{
-                  await signOut(auth);
-                  navigate("/LoginPage")
-            } catch(error){
-                  console.log(error);
-            }
-            
-      }
-
       const handleSubmit = async (e) => {
             e.preventDefault();
             changeStateAlert(false);
             changeAlert({});
 
+            
             const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
             const regularExpressionNames=/^\w+\s?\w+?$/;
             if (!regularExpressionEmail.test(emailHolder)){
@@ -223,22 +209,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             }
 
             try {
-                  await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder)
-                  .then(()=>{
-                        signInWithEmailAndPassword(auth, emailHolder, passwordHolder)
-                        .then(()=>{
-                              AddUser({nameHolder, lastnameHolder, aliasHolder, emailHolder, birthMonth, birthDay, birthYear, uidUser: user.uid});
-                              console.log(user.uid);
-                              console.log("usercreated")
-                              logOut();
-                        })
-                        .catch((error)=>{
-                              changeStateAlert(true);
-                              changeAlert({
-                                    type:'error',
-                                    message: 'An error ocurred while creating user'});
-                        });
-                  });
+                  await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder);
                   navigate("/");
             } catch(error){
                   changeStateAlert(true)

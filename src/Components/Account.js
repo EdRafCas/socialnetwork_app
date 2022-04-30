@@ -43,8 +43,9 @@ const UserNames =styled.div`
   gap:5px;
 `
 
-const Account = ({message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
+const Account = ({ message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
   const {user} =useAuth();
+  console.log(user.uid);
 
   const handleChange = (e) =>{
         if(e.target.name==="message"){

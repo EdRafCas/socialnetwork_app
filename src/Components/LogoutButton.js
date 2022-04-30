@@ -22,6 +22,6 @@ const LogoutButton = () => {
                   <Button as="button" onClick={logOut}>Logout</Button>
             </ButtonContainer>
        );
-}
+};
  
 export default LogoutButton;
