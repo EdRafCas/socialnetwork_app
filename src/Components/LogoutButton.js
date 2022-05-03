@@ -10,6 +10,7 @@ const LogoutButton = () => {
       const logOut = async() =>{
             try{
                   await signOut(auth);
+                  console.log("Logged out")
                   navigate("/LoginPage")
             } catch(error){
                   console.log(error);
@@ -19,7 +20,7 @@ const LogoutButton = () => {
 
       return (
             <ButtonContainer>
-                  <Button as="button" onClick={logOut}>Logout</Button>
+                  <Button type="button" onClick={logOut}>Logout</Button>
             </ButtonContainer>
        );
 };

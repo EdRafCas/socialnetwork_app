@@ -16,7 +16,7 @@ const useObtainMessages = () => {
             );
             const unsuscribe = onSnapshot(consult, (snapshot)=>{
                   changeMessagesSent(snapshot.docs.map((message)=>{
-                        console.log(message.data())
+                        /* console.log(message.data()) */
                         return{...message.data(), id:message.id}
                   }))
             })

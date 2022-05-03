@@ -224,31 +224,31 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
 
             try {
                   await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder)
-                  console.log("user created");
-                  try{
-                        await signInWithEmailAndPassword(auth, emailHolder, passwordHolder)
-                        console.log("logged in");
-                              try{
-                                    await AddUser({nameHolder:nameHolder,
-                                          lastnameHolder:lastnameHolder,
-                                          aliasHolder:aliasHolder,
-                                          emailHolder:emailHolder,
-                                          birthMonth:birthMonth,
-                                          birthDay:birthDay,
-                                          birthYear:birthYear,
-                                          uidUser:user.uid})
-                              }catch(error){
-                                    console.log(error)
-                              }
-                              logOut();
-                              console.log("user logged out")
-                  } catch(error){
-                        console.log(error);
-                        changeStateAlert(true);
-                        changeAlert({
-                              type:'error',
-                              message: 'An error ocurred while creating user'});
-                  }           
+                  .then(()=>{
+                        console.log("user logged in");
+                        signInWithEmailAndPassword(auth, emailHolder, passwordHolder)
+                        .then(()=>{
+                              var userid=user.uid;
+                              console.log("usercreated")
+                              AddUser({nameHolder:nameHolder,
+                                     lastnameHolder:lastnameHolder,
+                                     aliasHolder:aliasHolder,
+                                     emailHolder:emailHolder,
+                                     birthMonth:birthMonth,
+                                     birthDay:birthDay,
+                                     birthYear:birthYear,
+                                     uidUser:userid})
+                                     logOut();
+                                     console.log("user logged out")
+                        })
+                        .catch((error)=>{
+                              console.log(error);
+                              changeStateAlert(true);
+                              changeAlert({
+                                    type:'error',
+                                    message: 'An error ocurred while creating user'});
+                        });
+                  });
                   navigate("/");
             } catch(error){
                   changeStateAlert(true)

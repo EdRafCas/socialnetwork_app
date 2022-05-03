@@ -45,7 +45,7 @@ const UserNames =styled.div`
 
 const Account = ({ message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
   const {user} =useAuth();
-  console.log(user.uid);
+  /* console.log(user.uid); */
 
   const handleChange = (e) =>{
         if(e.target.name==="message"){

@@ -56,6 +56,10 @@ const Button =styled.button`
   height:2.5rem;
   width:5rem;;
 `
+const Button2 =styled.div`
+  height:2.5rem;
+  width:5rem;;
+`
 
 //ELEMENTS FROM CARDS
 const PortraitContainer =styled.div`
@@ -85,4 +89,4 @@ const AliasContainer = styled.p`
 `
 
  
-export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, PortraitContainer, NameContainer, AliasContainer} ;
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, PortraitContainer, NameContainer, AliasContainer} ;
