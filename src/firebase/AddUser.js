@@ -5,9 +5,9 @@ import { collection, addDoc } from "firebase/firestore";
 const AddUser = ({nameHolder, lastnameHolder, aliasHolder, emailHolder, birthMonth, birthDay, birthYear, uidUser}) => {
       return addDoc(collection(db, "userInfo"), {
             name:nameHolder,
-            lastnameHolder:lastnameHolder,
-            aliasHolder:aliasHolder,
-            emailHolder:emailHolder,
+            lastname:lastnameHolder,
+            alias:aliasHolder,
+            email:emailHolder,
             birthMonth: birthMonth,
             birthDay:birthDay,
             birthYear:birthYear,

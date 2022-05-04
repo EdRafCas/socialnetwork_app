@@ -6,13 +6,12 @@ import theme from '../Theme.js';
 import DatePicker from './DatePicker';
 import {ButtonContainer} from '../Elements/ElementsFormulary';
 import {auth} from './../firebase/FirebaseConfig';
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {signInWithEmailAndPassword } from "firebase/auth";
 import { signOut } from 'firebase/auth';
 import {useNavigate} from 'react-router-dom';
 import Alert from './../Elements/Alert';
 import AddUser from '.././firebase/AddUser';
-import { useAuth } from '../Context/AuthContext';
 
 
 
@@ -118,7 +117,6 @@ const ButtonSignUp =styled.button`
 
 
 const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
-      const {user} =useAuth();
       const navigate = useNavigate();
       
       const [nameHolder, changeNameHolder] =useState("")
@@ -227,21 +225,35 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   console.log("user created");
                   try{
                         await signInWithEmailAndPassword(auth, emailHolder, passwordHolder)
-                        console.log("logged in");
-                              try{
-                                    await AddUser({nameHolder:nameHolder,
+                        console.log("logged in")
+                        onAuthStateChanged(auth, (user)=>{
+                              if (user){
+                                    const uid = user.uid;
+                                    console.log(uid);
+                                    AddUser({nameHolder:nameHolder,
                                           lastnameHolder:lastnameHolder,
                                           aliasHolder:aliasHolder,
                                           emailHolder:emailHolder,
                                           birthMonth:birthMonth,
                                           birthDay:birthDay,
                                           birthYear:birthYear,
-                                          uidUser:user.uid})
-                              }catch(error){
-                                    console.log(error)
-                              }
-                              logOut();
-                              console.log("user logged out")
+                                          uidUser:uid})
+                                    .then(()=>{
+                                          changeStateAlert(true);
+                                          changeAlert({
+                                                type:'success',
+                                                message: 'Account Was created successfully'
+                                          });
+                                          /* logOut();
+                                          console.log("user logged out") */
+                                    })
+                                    .catch((error)=>{
+                                          console.log(error);
+                                    }) 
+                              } else {
+                                    console.log("not logged yet")
+                              };
+                        });
                   } catch(error){
                         console.log(error);
                         changeStateAlert(true);

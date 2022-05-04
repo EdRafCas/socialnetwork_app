@@ -6,6 +6,7 @@ import ProfileImage from '../img/profile_img.png'
 import Alert from '../Elements/Alert';
 import AddMessage from '../firebase/AddMessage';
 import { useAuth } from '../Context/AuthContext';
+import useObtainUserInfo from '../Hooks/useObtainUserInfo';
 
 const AccountManagement = styled.div`
   width:100%;
@@ -44,6 +45,7 @@ const UserNames =styled.div`
 `
 
 const Account = ({ message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
+  const [currentUserInfo] = useObtainUserInfo();
   const {user} =useAuth();
   /* console.log(user.uid); */
 
@@ -69,7 +71,7 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
             type:'success',
             message: 'Your message was sent successfully'
       })
-    .catch ((error)=>{
+    .catch((error)=>{
       changeStateAlert(true);
       changeAlert({
             type:'error',
@@ -86,7 +88,10 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
             <PortraitContainer>
               <img alt="userportrait" src={ProfileImage}/>
             </PortraitContainer>
-            <UserNames><NameContainer>hi</NameContainer><AliasContainer>hello</AliasContainer></UserNames>
+            <UserNames>
+              <NameContainer>{currentUserInfo.name+""+currentUserInfo.lastname}</NameContainer>
+              <AliasContainer>{currentUserInfo.alias}</AliasContainer>
+            </UserNames>
           </HeaderUser>
           <MessageUser 
             name="message"
