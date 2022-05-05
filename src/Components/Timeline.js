@@ -84,7 +84,7 @@ const Timeline = () => {
                 </CardColumns>
                 <CardColumns rightColumn>
                   <UserNameContainer>
-                    <NameContainer>{Messages.uidUser}</NameContainer><AliasContainer>@{Messages.uidUser}</AliasContainer>
+                    <NameContainer>{Messages.name+" "+Messages.lastname}</NameContainer><AliasContainer>@{Messages.alias}</AliasContainer>
                   </UserNameContainer>
                   <MessageContent>
                     {Messages.message}

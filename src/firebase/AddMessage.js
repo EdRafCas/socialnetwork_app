@@ -2,10 +2,13 @@ import { db } from "./FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
 
-const AddMessage = ({message, uidUser}) => {
+const AddMessage = ({message, uidUser, name, lastname, alias}) => {
       return addDoc(collection(db, "userTimeline"), {
             message:message,
-            uidUser:uidUser
+            uidUser:uidUser,
+            name: name,
+            lastname: lastname,
+            alias: alias
       })
 }
  

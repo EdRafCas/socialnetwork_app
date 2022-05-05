@@ -6,10 +6,13 @@ import theme from '../Theme.js';
 import DatePicker from './DatePicker';
 import {ButtonContainer} from '../Elements/ElementsFormulary';
 import {auth} from './../firebase/FirebaseConfig';
-import {createUserWithEmailAndPassword } from "firebase/auth"
+import {createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {signInWithEmailAndPassword } from "firebase/auth";
+import { signOut } from 'firebase/auth';
 import {useNavigate} from 'react-router-dom';
 import Alert from './../Elements/Alert';
 import AddUser from '.././firebase/AddUser';
+
 
 
 const RegistrationContainer =styled.div`
@@ -151,12 +154,21 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             }
       }
 
+      const logOut = async() =>{
+            try{
+                  await signOut(auth);
+                  navigate("/LoginPage")
+            } catch(error){
+                  console.log(error);
+            }
+            
+      }
+
       const handleSubmit = async (e) => {
             e.preventDefault();
             changeStateAlert(false);
             changeAlert({});
 
-            
             const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
             const regularExpressionNames=/^\w+\s?\w+?$/;
             if (!regularExpressionEmail.test(emailHolder)){
@@ -209,7 +221,46 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             }
 
             try {
-                  await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder);
+                  await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder)
+                  console.log("user created");
+                  try{
+                        await signInWithEmailAndPassword(auth, emailHolder, passwordHolder)
+                        console.log("logged in")
+                        onAuthStateChanged(auth, (user)=>{
+                              if (user){
+                                    const uid = user.uid;
+                                    console.log(uid);
+                                    AddUser({nameHolder:nameHolder,
+                                          lastnameHolder:lastnameHolder,
+                                          aliasHolder:aliasHolder,
+                                          emailHolder:emailHolder,
+                                          birthMonth:birthMonth,
+                                          birthDay:birthDay,
+                                          birthYear:birthYear,
+                                          uidUser:uid})
+                                    .then(()=>{
+                                          changeStateAlert(true);
+                                          changeAlert({
+                                                type:'success',
+                                                message: 'Account Was created successfully'
+                                          });
+                                          /* logOut();
+                                          console.log("user logged out") */
+                                    })
+                                    .catch((error)=>{
+                                          console.log(error);
+                                    }) 
+                              } else {
+                                    console.log("not logged yet")
+                              };
+                        });
+                  } catch(error){
+                        console.log(error);
+                        changeStateAlert(true);
+                        changeAlert({
+                              type:'error',
+                              message: 'An error ocurred while creating user'});
+                  }           
                   navigate("/");
             } catch(error){
                   changeStateAlert(true)

@@ -47,21 +47,28 @@ const UserNames =styled.div`
 const Account = ({ message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [currentUserInfo] = useObtainUserInfo();
   const {user} =useAuth();
-  /* console.log(user.uid); */
+  console.log(currentUserInfo)
 
+  /* console.log(currentUserInfo[0].name);
+  console.log(currentUserInfo[0].lastname);
+  console.log(currentUserInfo[0].alias); */
+  
   const handleChange = (e) =>{
         if(e.target.name==="message"){
           messageChange(e.target.value)
         }
-    
   };
 
   const addToTimeline = (e) =>{
     e.preventDefault();
+    
     console.log(user.uid);
     AddMessage({
       message:message,
-      uidUser: user.uid
+      uidUser: user.uid,
+      /* name:currentUserInfo[0].name,
+      lastname: currentUserInfo[0].lastname,
+      alias:currentUserInfo[0].alias */
     })
     .then(()=>{
       messageChange("");
@@ -83,31 +90,35 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
 
       return ( 
       <AccountManagement>
-        <CreateMessageForm onSubmit={addToTimeline}>
-          <HeaderUser>
-            <PortraitContainer>
-              <img alt="userportrait" src={ProfileImage}/>
-            </PortraitContainer>
-            <UserNames>
-              <NameContainer>{currentUserInfo.name+""+currentUserInfo.lastname}</NameContainer>
-              <AliasContainer>{currentUserInfo.alias}</AliasContainer>
-            </UserNames>
-          </HeaderUser>
-          <MessageUser 
-            name="message"
-            id="message"
-            cols="50"
-            rows="10"
-            type="text"
-            placeholder="Leave us your message here"
-            value={message}
-            onChange={handleChange}/>
-        <Button type="submit" name="sendMesssage">Submit</Button>
-        </CreateMessageForm>
+        {currentUserInfo != undefined ?
+          <CreateMessageForm onSubmit={addToTimeline}>
+            <HeaderUser>
+              <PortraitContainer>
+                <img alt="userportrait" src={ProfileImage}/>
+              </PortraitContainer>
+              <UserNames>
+                <NameContainer>{/* {currentUserInfo[0].name} */}</NameContainer>
+                <AliasContainer>@{/* {currentUserInfo[0].alias} */}</AliasContainer>
+              </UserNames>
+            </HeaderUser>
+            <MessageUser 
+              name="message"
+              id="message"
+              cols="50"
+              rows="10"
+              type="text"
+              placeholder="Leave us your message here"
+              value={message}
+              onChange={handleChange}/>
+            <Button type="submit" name="sendMesssage">Submit</Button>
+          </CreateMessageForm>
+        :
+        ""
+        }
         <Alert type={alert.type}
-                        message={alert.message}
-                        stateAlert={stateAlert}
-                        changeStateAlert={changeStateAlert}
+                      message={alert.message}
+                      stateAlert={stateAlert}
+                      changeStateAlert={changeStateAlert}
         />
       </AccountManagement>
       );

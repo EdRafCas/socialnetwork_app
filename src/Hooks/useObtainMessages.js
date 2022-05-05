@@ -12,7 +12,7 @@ const useObtainMessages = () => {
             const consult = query(
                   collection(db, 'userTimeline'),
                   /* where('uidUser', "==", user.uid), */
-                  limit(10)
+                  limit(20)
             );
             const unsuscribe = onSnapshot(consult, (snapshot)=>{
                   changeMessagesSent(snapshot.docs.map((message)=>{
