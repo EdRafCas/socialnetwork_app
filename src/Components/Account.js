@@ -50,6 +50,9 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
   const [currentUserInfo, changeCurrentUserInfo] =useState([])
   const [loadingUserData, changeLoadingUserData] =useState(true);
 
+  var currentDate = new Date();
+  console.log(currentDate)
+  console.log()
   useEffect(()=>{
         const consult = query(
               collection(db, 'userInfo'),
@@ -67,11 +70,7 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
         return unsuscribe;
   }, [user])
 
-  /* console.log(currentUserInfo) */
 
-  /* console.log(currentUserInfo[0].name);
-  console.log(currentUserInfo[0].lastname);
-  console.log(currentUserInfo[0].alias); */
   
   const handleChange = (e) =>{
         if(e.target.name==="message"){
