@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {Button, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
@@ -6,7 +6,8 @@ import ProfileImage from '../img/profile_img.png'
 import Alert from '../Elements/Alert';
 import AddMessage from '../firebase/AddMessage';
 import { useAuth } from '../Context/AuthContext';
-import useObtainUserInfo from '../Hooks/useObtainUserInfo';
+import { db } from '../firebase/FirebaseConfig';
+import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 
 const AccountManagement = styled.div`
   width:100%;
@@ -45,9 +46,28 @@ const UserNames =styled.div`
 `
 
 const Account = ({ message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
-  const [currentUserInfo] = useObtainUserInfo();
   const {user} =useAuth();
-  console.log(currentUserInfo)
+  const [currentUserInfo, changeCurrentUserInfo] =useState([])
+  const [loadingUserData, changeLoadingUserData] =useState(true);
+
+  useEffect(()=>{
+        const consult = query(
+              collection(db, 'userInfo'),
+              where('uidUser', "==", user.uid),
+              limit(10)
+        );
+        const unsuscribe = onSnapshot(consult, (snapshot)=>{
+              changeCurrentUserInfo(snapshot.docs.map((userData)=>{
+                    /* console.log(userData.data()) */
+                    return{...userData.data(), id:userData.id}
+              }))
+              changeLoadingUserData(false);
+        })
+        console.log(currentUserInfo)
+        return unsuscribe;
+  }, [user])
+
+  /* console.log(currentUserInfo) */
 
   /* console.log(currentUserInfo[0].name);
   console.log(currentUserInfo[0].lastname);
@@ -66,9 +86,9 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
     AddMessage({
       message:message,
       uidUser: user.uid,
-      /* name:currentUserInfo[0].name,
+      name:currentUserInfo[0].name,
       lastname: currentUserInfo[0].lastname,
-      alias:currentUserInfo[0].alias */
+      alias:currentUserInfo[0].alias
     })
     .then(()=>{
       messageChange("");
@@ -89,38 +109,42 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
   };
 
       return ( 
-      <AccountManagement>
-        {currentUserInfo != undefined ?
-          <CreateMessageForm onSubmit={addToTimeline}>
-            <HeaderUser>
-              <PortraitContainer>
-                <img alt="userportrait" src={ProfileImage}/>
-              </PortraitContainer>
-              <UserNames>
-                <NameContainer>{/* {currentUserInfo[0].name} */}</NameContainer>
-                <AliasContainer>@{/* {currentUserInfo[0].alias} */}</AliasContainer>
-              </UserNames>
-            </HeaderUser>
-            <MessageUser 
-              name="message"
-              id="message"
-              cols="50"
-              rows="10"
-              type="text"
-              placeholder="Leave us your message here"
-              value={message}
-              onChange={handleChange}/>
-            <Button type="submit" name="sendMesssage">Submit</Button>
-          </CreateMessageForm>
-        :
-        ""
+        <>
+        {!loadingUserData &&
+        <AccountManagement>
+          
+                
+            <CreateMessageForm onSubmit={addToTimeline}>
+              <HeaderUser>
+                <PortraitContainer>
+                  <img alt="userportrait" src={ProfileImage}/>
+                </PortraitContainer>
+                <UserNames>
+                  <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                  <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                </UserNames>
+              </HeaderUser>
+              <MessageUser 
+                name="message"
+                id="message"
+                cols="50"
+                rows="10"
+                type="text"
+                placeholder="Leave us your message here"
+                value={message}
+                onChange={handleChange}/>
+              <Button type="submit" name="sendMesssage">Submit</Button>
+            </CreateMessageForm>
+          
+          <Alert type={alert.type}
+                        message={alert.message}
+                        stateAlert={stateAlert}
+                        changeStateAlert={changeStateAlert}
+          />
+
+        </AccountManagement>
         }
-        <Alert type={alert.type}
-                      message={alert.message}
-                      stateAlert={stateAlert}
-                      changeStateAlert={changeStateAlert}
-        />
-      </AccountManagement>
+        </>
       );
 }
  

@@ -1,6 +1,7 @@
 import React,{useContext, useState, useEffect} from 'react';
-import { auth } from '../firebase/FirebaseConfig';
+import {auth } from '../firebase/FirebaseConfig';
 import {onAuthStateChanged } from "firebase/auth";
+
 
 const AuthContext = React.createContext();
 
@@ -10,21 +11,23 @@ const useAuth = () =>{
 }
 
 const AuthProvider = ({children}) => {
+
       const [user, changeUser] =useState();
       const [loading, changeLoading] =useState(true);
+
 
       //onetime check
       useEffect(()=>{
             const cancelSuscription = onAuthStateChanged(auth, (user) =>{
                   changeUser(user);
-                  changeLoading(false)
-            });
-
+                  changeLoading(false);
+            })
             return cancelSuscription;
       }, []);
+      
 
       return ( 
-            <AuthContext.Provider value={{user:user}}>
+            <AuthContext.Provider value={{user:user }}>
                   {!loading && children}
             </AuthContext.Provider>
        );
