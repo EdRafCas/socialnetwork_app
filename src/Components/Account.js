@@ -8,6 +8,7 @@ import AddMessage from '../firebase/AddMessage';
 import { useAuth } from '../Context/AuthContext';
 import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
+import getUnixTime from 'date-fns/getUnixTime';
 
 const AccountManagement = styled.div`
   width:100%;
@@ -50,9 +51,6 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
   const [currentUserInfo, changeCurrentUserInfo] =useState([])
   const [loadingUserData, changeLoadingUserData] =useState(true);
 
-  var currentDate = new Date();
-  console.log(currentDate)
-  console.log()
   useEffect(()=>{
         const consult = query(
               collection(db, 'userInfo'),
@@ -68,7 +66,7 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
         })
         console.log(currentUserInfo)
         return unsuscribe;
-  }, [user])
+  }, [])
 
 
   
@@ -80,14 +78,13 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
 
   const addToTimeline = (e) =>{
     e.preventDefault();
-    
-    console.log(user.uid);
     AddMessage({
       message:message,
       uidUser: user.uid,
       name:currentUserInfo[0].name,
       lastname: currentUserInfo[0].lastname,
-      alias:currentUserInfo[0].alias
+      alias:currentUserInfo[0].alias,
+      date: getUnixTime(new Date())
     })
     .then(()=>{
       messageChange("");

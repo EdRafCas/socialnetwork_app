@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessages from '../Hooks/useObtainMessages';
-import ProfileImage from './../img/profile_img.png'
-
+import ProfileImage from './../img/profile_img.png';
+import {format, fromUnixTime} from 'date-fns';
 
 const TimelineContainer = styled.div`
   height:100%;
@@ -66,14 +66,29 @@ const InteractionBar=styled.div`
   border:solid ${theme.BorderColor} 1px;
   width:100%;
 `
+const TimeBar =styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  border:solid ${theme.BorderColor} 1px;
+  width:100%;
+`
+
 
 const Timeline = () => {
     const [messagesSent] = useObtainMessages();
+
+    const formatDate = (date) => {
+      return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
+ };
+    
+
     /* console.log(MessagesSent); */
 
       return ( 
             <TimelineContainer>
             {messagesSent.map((Messages, index)=>{
+             
               return(
                 <Card key={index}>
                 <CardColumns>
@@ -90,6 +105,9 @@ const Timeline = () => {
                     {Messages.message}
                     
                   </MessageContent>
+                  <TimeBar>
+                    {formatDate(Messages.date)}
+                  </TimeBar>
                   <InteractionBar>
                   <div>A</div>
                   <div>B</div>

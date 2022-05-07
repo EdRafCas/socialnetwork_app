@@ -119,12 +119,12 @@ const ButtonSignUp =styled.button`
 const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       const navigate = useNavigate();
       
-      const [nameHolder, changeNameHolder] =useState("")
-      const [lastnameHolder, changeLastnameHolder] =useState("")
-      const [aliasHolder, changeAliasHolder] =useState("")
-      const [emailHolder, changeEmailHolder] =useState("")
-      const [passwordHolder, changePasswordHolder] =useState("")
-      const [password2Holder, changePassword2Holder] =useState("")
+      const [name, changeName] =useState("")
+      const [lastname, changeLastname] =useState("")
+      const [alias, changeAlias] =useState("")
+      const [email, changeEmail] =useState("")
+      const [password, changePassword] =useState("")
+      const [password2, changePassword2] =useState("")
       const [birthMonth, changeBirthMonth] =useState("");
       const [birthDay, changeBirthDay] =useState("");
       const [birthYear, changeBirthYear] =useState("");
@@ -132,22 +132,22 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       const handleChange = (e) =>{
             switch(e.target.name){
                   case 'name':
-                        changeNameHolder(e.target.value);
+                        changeName(e.target.value);
                         break;
                   case 'lastname':
-                        changeLastnameHolder(e.target.value);
+                        changeLastname(e.target.value);
                         break;
                   case 'alias':
-                        changeAliasHolder(e.target.value);
+                        changeAlias(e.target.value);
                         break;
                   case 'email':
-                        changeEmailHolder(e.target.value);
+                        changeEmail(e.target.value);
                         break;
                   case 'password':
-                        changePasswordHolder(e.target.value);
+                        changePassword(e.target.value);
                         break;
                   case 'password2':
-                        changePassword2Holder(e.target.value);
+                        changePassword2(e.target.value);
                         break;
                   default:
                         break;
@@ -171,7 +171,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
 
             const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
             const regularExpressionNames=/^\w+\s?\w+?$/;
-            if (!regularExpressionEmail.test(emailHolder)){
+            if (!regularExpressionEmail.test(email)){
                   changeStateAlert(true);
                   changeAlert({
                         type:'error',
@@ -179,7 +179,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   })
                   return;
             }
-            if (!regularExpressionNames.test(nameHolder)){
+            if (!regularExpressionNames.test(name)){
                   changeStateAlert(true);
                   changeAlert({
                         type:'error',
@@ -187,7 +187,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   })
                   return;
             }
-            if (!regularExpressionNames.test(lastnameHolder)){
+            if (!regularExpressionNames.test(lastname)){
                   changeStateAlert(true);
                   changeAlert({
                         type:'error',
@@ -195,7 +195,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   })
                   return;
             }
-            if(emailHolder === "" || passwordHolder === "" || password2Holder === "" || nameHolder === "" || lastnameHolder === "" || aliasHolder === ""){
+            if(email === "" || password === "" || password2 === "" || name === "" || lastname === "" || alias === ""){
                   changeStateAlert(true);
                   changeAlert({
                         type:'error',
@@ -211,7 +211,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   })
                   return;
             }
-            if(passwordHolder !== password2Holder){
+            if(password !== password2){
                   changeStateAlert(true);
                   changeAlert({
                         type:'error',
@@ -221,19 +221,19 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             }
 
             try {
-                  await createUserWithEmailAndPassword(auth, emailHolder, passwordHolder)
+                  await createUserWithEmailAndPassword(auth, email, password)
                   console.log("user created");
                   try{
-                        await signInWithEmailAndPassword(auth, emailHolder, passwordHolder)
+                        await signInWithEmailAndPassword(auth, email, password)
                         console.log("logged in")
                         onAuthStateChanged(auth, (user)=>{
                               if (user){
                                     const uid = user.uid;
-                                    console.log(uid);
-                                    AddUser({nameHolder:nameHolder,
-                                          lastnameHolder:lastnameHolder,
-                                          aliasHolder:aliasHolder,
-                                          emailHolder:emailHolder,
+                                    /* console.log(uid); */
+                                    AddUser({name:name,
+                                          lastname:lastname,
+                                          alias:alias,
+                                          email:email,
                                           birthMonth:birthMonth,
                                           birthDay:birthDay,
                                           birthYear:birthYear,
@@ -299,11 +299,11 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     <FormularyInput Registration
                                           type="text"
                                           name="name"
-                                          value={nameHolder}
+                                          value={name}
                                           placeholder="Name"
                                           onChange={handleChange}
                                     />
-                                    {nameHolder ==="" ?
+                                    {name ==="" ?
                                           <SpanInputInitial>Name</SpanInputInitial> :
                                           <SpanInputFinal>Name</SpanInputFinal>
                                     }  
@@ -312,11 +312,11 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     <FormularyInput Registration
                                           type="text"
                                           name="lastname"
-                                          value={lastnameHolder}
+                                          value={lastname}
                                           placeholder="Lastname"
                                           onChange={handleChange}
                                     />
-                                    {lastnameHolder ==="" ?
+                                    {lastname ==="" ?
                                           <SpanInputInitial> Lastname</SpanInputInitial> :
                                           <SpanInputFinal>Lastname</SpanInputFinal>
                                     }
@@ -325,11 +325,11 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     <FormularyInput Registration
                                           type="text"
                                           name="alias"
-                                          value={aliasHolder}
-                                          placeholder="Alias"
+                                          value={alias}
+                                          place="Alias"
                                           onChange={handleChange}
                                     />
-                                    {aliasHolder ==="" ?
+                                    {alias ==="" ?
                                           <SpanInputInitial> Alias</SpanInputInitial> :
                                           <SpanInputFinal>Alias</SpanInputFinal>
                                     }   
@@ -338,11 +338,11 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     <FormularyInput Registration
                                           type="email"
                                           name="email"
-                                          value={emailHolder}
+                                          value={email}
                                           placeholder="Email"
                                           onChange={handleChange}
                                     />
-                                    {emailHolder ==="" ?
+                                    {email ==="" ?
                                           <SpanInputInitial>Email</SpanInputInitial> :
                                           <SpanInputFinal>Email</SpanInputFinal>
                                     }
@@ -351,11 +351,11 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     <FormularyInput Registration
                                           type="password"
                                           name="password"
-                                          value={passwordHolder}
+                                          value={password}
                                           placeholder="Password"
                                           onChange={handleChange}
                                     />
-                                    {passwordHolder ==="" ?
+                                    {password ==="" ?
                                           <SpanInputInitial>Password</SpanInputInitial> :
                                           <SpanInputFinal>Password</SpanInputFinal>
                                     }  
@@ -364,11 +364,11 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     <FormularyInput Registration
                                           type="password"
                                           name="password2"
-                                          value={password2Holder}
+                                          value={password2}
                                           placeholder=" Confirm Password"
                                           onChange={handleChange}
                                     />
-                                    {passwordHolder ==="" ?
+                                    {password ==="" ?
                                           <SpanInputInitial>Confirm password</SpanInputInitial> :
                                           <SpanInputFinal>Confirm password</SpanInputFinal>
                                     }  

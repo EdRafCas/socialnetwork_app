@@ -38,11 +38,11 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
   const handleChange = (e) =>{
         if(e.target.name ==="email"){
           emailChange(e.target.value)
-          console.log(email)
+          /* console.log(email) */
         }
         if(e.target.name==="password"){
           passwordChange(e.target.value)
-          console.log(password)
+          /* console.log(password) */
         }
   };
     
