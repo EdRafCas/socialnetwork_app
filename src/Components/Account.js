@@ -50,7 +50,7 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
   const {user} =useAuth();
   const [currentUserInfo, changeCurrentUserInfo] =useState([])
   const [loadingUserData, changeLoadingUserData] =useState(true);
-
+  
   useEffect(()=>{
         const consult = query(
               collection(db, 'userInfo'),
@@ -64,7 +64,8 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
               }))
               changeLoadingUserData(false);
         })
-        console.log(currentUserInfo)
+        console.log(user)
+
         return unsuscribe;
   }, [])
 
@@ -88,19 +89,18 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
     })
     .then(()=>{
       messageChange("");
-
       changeStateAlert(true);
       changeAlert({
             type:'success',
             message: 'Your message was sent successfully'
       })
+    })
     .catch((error)=>{
       changeStateAlert(true);
       changeAlert({
             type:'error',
             message: 'An error ocurred while sending your message'
       })
-    })
     })
   };
 

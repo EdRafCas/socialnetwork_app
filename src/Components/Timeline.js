@@ -5,6 +5,8 @@ import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/Elem
 import useObtainMessages from '../Hooks/useObtainMessages';
 import ProfileImage from './../img/profile_img.png';
 import {format, fromUnixTime} from 'date-fns';
+import HeartFunction from '../Elements/ButtonsAnimations';
+
 
 const TimelineContainer = styled.div`
   height:100%;
@@ -65,6 +67,15 @@ const InteractionBar=styled.div`
   justify-content:space-around;
   border:solid ${theme.BorderColor} 1px;
   width:100%;
+  max-height:6rem;
+`
+const IconContainer=styled.div`
+  display:flex
+  width:3rem;
+  height:4rem;
+  /* div{
+    height:100%;
+  } */
 `
 const TimeBar =styled.div`
   display:flex;
@@ -73,6 +84,7 @@ const TimeBar =styled.div`
   border:solid ${theme.BorderColor} 1px;
   width:100%;
 `
+
 
 
 const Timeline = () => {
@@ -109,10 +121,10 @@ const Timeline = () => {
                     {formatDate(Messages.date)}
                   </TimeBar>
                   <InteractionBar>
-                  <div>A</div>
-                  <div>B</div>
-                  <div>C</div>
-                  <div>D</div>
+                  <IconContainer>A</IconContainer>
+                  <IconContainer>B</IconContainer>
+                  <IconContainer>C</IconContainer>
+                  <HeartFunction/>
                   </InteractionBar>
                 </CardColumns>
 

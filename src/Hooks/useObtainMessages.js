@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { db } from '../firebase/FirebaseConfig';
-import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, limit, query } from 'firebase/firestore';
 import { useAuth } from '../Context/AuthContext';
 
 
@@ -12,7 +12,8 @@ const useObtainMessages = () => {
             const consult = query(
                   collection(db, 'userTimeline'),
                   /* where('uidUser', "==", user.uid), */
-                  limit(20)
+                  orderBy('date', 'desc'),
+                  limit(30)
             );
             const unsuscribe = onSnapshot(consult, (snapshot)=>{
                   changeMessagesSent(snapshot.docs.map((message)=>{
