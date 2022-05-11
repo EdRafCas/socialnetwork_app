@@ -6,7 +6,9 @@ import useObtainMessages from '../Hooks/useObtainMessages';
 import ProfileImage from './../img/profile_img.png';
 import {format, fromUnixTime} from 'date-fns';
 import HeartFunction from '../Elements/ButtonsAnimations';
-
+import {ReactComponent as IconComment} from '../img/comment_icon.svg';
+import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
+import {ReactComponent as IconLike} from '../img/like_icon.svg';
 
 const TimelineContainer = styled.div`
   height:100%;
@@ -70,12 +72,30 @@ const InteractionBar=styled.div`
   max-height:6rem;
 `
 const IconContainer=styled.div`
-  display:flex
-  width:3rem;
-  height:4rem;
-  /* div{
-    height:100%;
-  } */
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  height:1.8rem;
+  /* border:1px solid white; */
+  fill:currentcolor;
+  :hover{
+    background:${theme.GradientBackround};
+  }
+    svg{
+      max-height:1.2rem;
+      fill:white;
+    }
+  :active{
+    background:white;;
+    fill:black;
+  }
+`
+const IconContainerCont=styled.div`
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  height:1.8rem;
+  gap:5px;
 `
 const TimeBar =styled.div`
   display:flex;
@@ -121,10 +141,20 @@ const Timeline = () => {
                     {formatDate(Messages.date)}
                   </TimeBar>
                   <InteractionBar>
-                  <IconContainer>A</IconContainer>
-                  <IconContainer>B</IconContainer>
-                  <IconContainer>C</IconContainer>
-                  <HeartFunction/>
+                  <IconContainer><IconComment/></IconContainer>
+                  <IconContainer><IconRetweet/></IconContainer>
+                  <IconContainerCont>
+                    <IconContainer><IconRetweet/></IconContainer>
+                    <IconContainer><IconLike/></IconContainer>
+                  </IconContainerCont>
+                  <IconContainerCont>
+                    <IconContainer><IconLike/></IconContainer>
+                    <IconContainer><IconRetweet/></IconContainer>
+                  </IconContainerCont>
+                  
+                  
+                  
+                  
                   </InteractionBar>
                 </CardColumns>
 

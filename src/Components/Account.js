@@ -9,10 +9,11 @@ import { useAuth } from '../Context/AuthContext';
 import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 import getUnixTime from 'date-fns/getUnixTime';
+import Timeline from './Timeline';
 
 const AccountManagement = styled.div`
   width:100%;
-  height:500px;
+  /* height:500px; */
   padding:1rem 1rem;
   display:flex;
   flex-direction:column;
@@ -44,6 +45,12 @@ const UserNames =styled.div`
   flex-direction:row;
   align-items:center;
   gap:5px;
+`
+const ColumnContainer=styled.div`
+  max-width:40%;
+  display:flex;
+  flex-direction:column;
+
 `
 
 const Account = ({ message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
@@ -105,42 +112,40 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
   };
 
       return ( 
-        <>
-        {!loadingUserData &&
-        <AccountManagement>
-          
-                
-            <CreateMessageForm onSubmit={addToTimeline}>
-              <HeaderUser>
-                <PortraitContainer>
-                  <img alt="userportrait" src={ProfileImage}/>
-                </PortraitContainer>
-                <UserNames>
-                  <NameContainer>{currentUserInfo[0].name}</NameContainer>
-                  <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                </UserNames>
-              </HeaderUser>
-              <MessageUser 
-                name="message"
-                id="message"
-                cols="50"
-                rows="10"
-                type="text"
-                placeholder="Leave us your message here"
-                value={message}
-                onChange={handleChange}/>
-              <Button type="submit" name="sendMesssage">Submit</Button>
-            </CreateMessageForm>
-          
-          <Alert type={alert.type}
-                        message={alert.message}
-                        stateAlert={stateAlert}
-                        changeStateAlert={changeStateAlert}
-          />
-
-        </AccountManagement>
-        }
-        </>
+        <ColumnContainer>
+          {!loadingUserData &&
+          <AccountManagement>
+              <CreateMessageForm onSubmit={addToTimeline}>
+                <HeaderUser>
+                  <PortraitContainer>
+                    <img alt="userportrait" src={ProfileImage}/>
+                  </PortraitContainer>
+                  <UserNames>
+                    <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                    <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                  </UserNames>
+                </HeaderUser>
+                <MessageUser 
+                  name="message"
+                  id="message"
+                  cols="50"
+                  rows="3"
+                  maxlength="5"
+                  type="text"
+                  placeholder="Leave us your message here"
+                  value={message}
+                  onChange={handleChange}/>
+                <Button type="submit" name="sendMesssage">Submit</Button>
+              </CreateMessageForm>
+              <Alert type={alert.type}
+                            message={alert.message}
+                            stateAlert={stateAlert}
+                            changeStateAlert={changeStateAlert}
+              />
+          </AccountManagement>
+          }
+          <Timeline/>
+        </ColumnContainer>
       );
 }
  

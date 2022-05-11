@@ -6,7 +6,7 @@ const Icon=styled.div`
 display:flex;
 height:10rem;
 div{
-     
+      
 }
 
 `

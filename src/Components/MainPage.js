@@ -9,10 +9,11 @@ import Account from './Account';
 const ContainerLogin=styled.div`
   width:100%;
   height:100%;
-  display:grid;
-  grid-template-columns: repeat(1, 3fr 2fr);
-  justify-content: flex-start;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
   background:${theme.GradientBackround};
+  border:solid red 1px;
 
 @media(max-width: 760px){ 
   display:flex;
@@ -29,14 +30,12 @@ const MainPage = ({changeRegistration, alert, changeAlert, stateAlert, changeSta
       
       return ( 
       <ContainerLogin>
-      <Timeline />
-      <Account  message={message}
-                messageChange={messageChange}
-                alert={alert}
-                changeAlert={changeAlert}
-                stateAlert={stateAlert}
-                changeStateAlert={changeStateAlert}/>
-        
+        <Account  message={message}
+                  messageChange={messageChange}
+                  alert={alert}
+                  changeAlert={changeAlert}
+                  stateAlert={stateAlert}
+                  changeStateAlert={changeStateAlert}/>
       </ContainerLogin>
        );
 }
