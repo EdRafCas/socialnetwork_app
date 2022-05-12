@@ -92,7 +92,10 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
       name:currentUserInfo[0].name,
       lastname: currentUserInfo[0].lastname,
       alias:currentUserInfo[0].alias,
-      date: getUnixTime(new Date())
+      date: getUnixTime(new Date()),
+      likes: [],
+      retweets: []
+      
     })
     .then(()=>{
       messageChange("");

@@ -90,6 +90,25 @@ const IconContainer=styled.div`
     fill:black;
   }
 `
+const CounterContainer=styled.div`
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  height:1.8rem;
+  /* border:1px solid white; */
+  fill:currentcolor;
+  :hover{
+    background:${theme.GradientBackround};
+  }
+    svg{
+      max-height:1.2rem;
+      fill:white;
+    }
+  :active{
+    background:white;;
+    fill:black;
+  }
+`
 const IconContainerCont=styled.div`
   border-radius:50%;
   display:flex;
@@ -122,7 +141,8 @@ const Timeline = () => {
             {messagesSent.map((Messages, index)=>{
              
               return(
-                <Card key={index}>
+              
+                <Card key={Messages.id}>
                 <CardColumns>
                   <PortraitContainer>
                     <img alt="userportrait" src={ProfileImage}/>
@@ -140,16 +160,20 @@ const Timeline = () => {
                   <TimeBar>
                     {formatDate(Messages.date)}
                   </TimeBar>
+                  <TimeBar>
+                    {Messages.id}
+                  </TimeBar>
+                  
                   <InteractionBar>
                   <IconContainer><IconComment/></IconContainer>
                   <IconContainer><IconRetweet/></IconContainer>
                   <IconContainerCont>
                     <IconContainer><IconRetweet/></IconContainer>
-                    <IconContainer><IconLike/></IconContainer>
+                    <CounterContainer>{Messages.retweets > 0 ?  Messages.retweets.length : "" }</CounterContainer>
                   </IconContainerCont>
                   <IconContainerCont>
                     <IconContainer><IconLike/></IconContainer>
-                    <IconContainer><IconRetweet/></IconContainer>
+                    <CounterContainer>{Messages.likes.length}</CounterContainer>
                   </IconContainerCont>
                   
                   

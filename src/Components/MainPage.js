@@ -12,7 +12,7 @@ const ContainerLogin=styled.div`
   display:flex;
   flex-direction:row;
   justify-content: center;
-  background:${theme.GradientBackround};
+  background:#000;
   border:solid red 1px;
 
 @media(max-width: 760px){ 
