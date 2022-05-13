@@ -1,18 +1,12 @@
 import { db } from "./FirebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 
-const AddLike = ({message, uidUser, name, lastname, alias, date, likes, retweets}) => {
-      return addDoc(collection(db, "userTimeline"), {
-            message:message,
-            uidUser:uidUser,
-            name: name,
-            lastname: lastname,
-            alias: alias,
-            date: date,
-            likes: likes,
-            retweets: retweets
-      })
+const addLike = async({id,uidUser,likes}) => {
+      console.log(id,uidUser,likes)
+      const document = doc(db, "userTimeline" , id); 
+      return await updateDoc(document, {
+            likes: [...likes, uidUser] 
+      }); 
 }
- 
-export default AddLike;
+export default addLike;

@@ -9,6 +9,7 @@ import HeartFunction from '../Elements/ButtonsAnimations';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
+import addLike from '../firebase/addLike';
 
 const TimelineContainer = styled.div`
   height:100%;
@@ -124,10 +125,25 @@ const TimeBar =styled.div`
   width:100%;
 `
 
+const LikeButton=styled.button`
+  background:black;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  height:1.8rem;
+  gap:5px;
+`
+
 
 
 const Timeline = () => {
     const [messagesSent] = useObtainMessages();
+
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+      addLike(
+      )
+    }
 
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -163,6 +179,12 @@ const Timeline = () => {
                   <TimeBar>
                     {Messages.id}
                   </TimeBar>
+                  <TimeBar>
+                    {Messages.uidUser}
+                  </TimeBar>
+                  <TimeBar>
+                    {Messages.likes}
+                  </TimeBar>
                   
                   <InteractionBar>
                   <IconContainer><IconComment/></IconContainer>
@@ -172,7 +194,7 @@ const Timeline = () => {
                     <CounterContainer>{Messages.retweets > 0 ?  Messages.retweets.length : "" }</CounterContainer>
                   </IconContainerCont>
                   <IconContainerCont>
-                    <IconContainer><IconLike/></IconContainer>
+                    <LikeButton onClick={()=>addLike({id:Messages.id,uidUser:Messages.uidUser,likes:Messages.likes})}> <IconLike/></LikeButton>
                     <CounterContainer>{Messages.likes.length}</CounterContainer>
                   </IconContainerCont>
                   
