@@ -1,8 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
-import theme from '../Theme';
-import Timeline from './Timeline';
 import Account from './Account';
+import LogoutButton from './LogoutButton';
 
 
 
@@ -30,12 +29,14 @@ const MainPage = ({changeRegistration, alert, changeAlert, stateAlert, changeSta
       
       return ( 
       <ContainerLogin>
+        <div><LogoutButton/></div>
         <Account  message={message}
                   messageChange={messageChange}
                   alert={alert}
                   changeAlert={changeAlert}
                   stateAlert={stateAlert}
                   changeStateAlert={changeStateAlert}/>
+        <div></div>
       </ContainerLogin>
        );
 }

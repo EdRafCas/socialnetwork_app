@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import Timeline from './Timeline';
+import TimelineDisplay from './TimelineDisplay';
 import Login from './Login';
 
 
@@ -27,7 +27,7 @@ const LoginPage = ({timeline, changeTimeline, changeRegistration, alert, changeA
       
       return ( 
       <ContainerLogin>
-      <Timeline />
+      <TimelineDisplay />
       <Login  
                 email={email}
                 emailChange={emailChange}

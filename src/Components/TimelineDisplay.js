@@ -5,13 +5,10 @@ import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/Elem
 import useObtainMessages from '../Hooks/useObtainMessages';
 import ProfileImage from './../img/profile_img.png';
 import {format, fromUnixTime} from 'date-fns';
-
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
-import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
-import addLike from '../firebase/AddLike';
-import RemoveLike from '../firebase/RemoveLike';
+
 
 const TimelineContainer = styled.div`
   height:100%;
@@ -138,7 +135,7 @@ const LikeButton=styled.button`
 
 
 
-const Timeline = ({currentUserInfo}) => {
+const TimelineDisplay = ({currentUserInfo}) => {
     const [messagesSent] = useObtainMessages();
 
     const formatDate = (date) => {
@@ -190,14 +187,9 @@ const Timeline = ({currentUserInfo}) => {
                     <CounterContainer>{Message.retweets > 0 ?  Message.retweets.length : "" }</CounterContainer>
                   </IconContainerCont>
                   <IconContainerCont>
-                    {!Message.likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                    <LikeButton > 
                       <IconLike />                               
                     </LikeButton>
-                    :
-                    <LikeButton onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
-                      <IconLikeColor />                               
-                    </LikeButton>}
                     <CounterContainer>{Message.likes.length}</CounterContainer>
                   </IconContainerCont>
                   
@@ -216,4 +208,4 @@ const Timeline = ({currentUserInfo}) => {
        );
 }
  
-export default Timeline;
+export default TimelineDisplay;

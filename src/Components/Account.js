@@ -88,7 +88,7 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
     e.preventDefault();
     AddMessage({
       message:message,
-      uidUser: user.uid,
+      uidUser: currentUserInfo[0].uidUser,
       name:currentUserInfo[0].name,
       lastname: currentUserInfo[0].lastname,
       alias:currentUserInfo[0].alias,
@@ -117,6 +117,7 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
       return ( 
         <ColumnContainer>
           {!loadingUserData &&
+          <>
           <AccountManagement>
               <CreateMessageForm onSubmit={addToTimeline}>
                 <HeaderUser>
@@ -146,8 +147,9 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
                             changeStateAlert={changeStateAlert}
               />
           </AccountManagement>
+          <Timeline currentUserInfo={currentUserInfo}/>
+          </>
           }
-          <Timeline/>
         </ColumnContainer>
       );
 }
