@@ -4,15 +4,15 @@ import { collection, onSnapshot, orderBy, limit, query } from 'firebase/firestor
 import { useAuth } from '../Context/AuthContext';
 
 
-const useObtainMessages = () => {
+const useObtainLikesInTweet = ({}) => {
       const {user} =useAuth();
-      const [messagesSent, changeMessagesSent] =useState([])
+      const [likesInTweet, changeLikesInTweet] =useState([])
 
       useEffect(()=>{
             const consult = query(
                   collection(db, 'userTimeline'),
-                  /* where('uidUser', "==", user.uid), */
-                  orderBy('date', 'desc'),
+                  where('uidUser', "==", user.uid),
+                  /* orderBy('date', 'desc'), */
                   limit(30)
             );
             const unsuscribe = onSnapshot(consult, (snapshot)=>{
@@ -25,7 +25,7 @@ const useObtainMessages = () => {
             return unsuscribe;
       }, [user])
 
-      return [messagesSent];
+      return [likesInTweet];
 }
  
-export default useObtainMessages;
+export default useObtainLikesInTweet;

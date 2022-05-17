@@ -10,8 +10,66 @@ import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 import getUnixTime from 'date-fns/getUnixTime';
 import Timeline from './Timeline';
+import LogoutButton from './LogoutButton';
+import {ReactComponent as IconHome} from '../img/home_icon.svg';
+
+const AccountContainer = styled.div`
+  width:100%;
+  padding:1rem 1rem;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-content:center;
+`
 
 const AccountManagement = styled.div`
+  width:100%;
+  /* height:500px; */
+  padding:1rem 1rem;
+  display:flex;
+  flex-direction:column;
+  align-content:center;
+  gap:1rem;
+  border:solid ${theme.BorderColor} 1px;
+`
+const IconContainerCont=styled.div`
+  width:15rem;
+  padding:0.5rem;
+  border:1px solid white;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  height:3.5rem;
+  gap:1rem;
+  p{
+    font-size:1.5rem;
+    font-weight:800;
+  }
+`
+
+const IconContainer=styled.div`
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  height:2.5rem;
+  /* border:1px solid white; */
+  fill:currentcolor;
+  :hover{
+    background:${theme.GradientBackround};
+  }
+    svg{
+      max-height:2rem;
+      fill:white;
+    }
+  :active{
+    background:white;;
+    fill:black;
+  }
+`
+
+
+
+const MessageBox = styled.div`
   width:100%;
   /* height:500px; */
   padding:1rem 1rem;
@@ -115,10 +173,23 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
   };
 
       return ( 
-        <ColumnContainer>
+       <AccountContainer>
+          <ColumnContainer>
           {!loadingUserData &&
-          <>
-          <AccountManagement>
+            <AccountManagement>
+              <IconContainerCont>
+                <IconContainer><IconHome/></IconContainer>
+                <p>HOME</p>
+              </IconContainerCont>
+                
+                <LogoutButton/>
+            </AccountManagement>
+          }
+          </ColumnContainer>
+          <ColumnContainer>
+          {!loadingUserData &&
+            <>
+            <MessageBox>
               <CreateMessageForm onSubmit={addToTimeline}>
                 <HeaderUser>
                   <PortraitContainer>
@@ -141,16 +212,16 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
                   onChange={handleChange}/>
                 <Button type="submit" name="sendMesssage">Submit</Button>
               </CreateMessageForm>
-              <Alert type={alert.type}
-                            message={alert.message}
-                            stateAlert={stateAlert}
-                            changeStateAlert={changeStateAlert}
-              />
-          </AccountManagement>
-          <Timeline currentUserInfo={currentUserInfo}/>
-          </>
+            </MessageBox>
+            <Timeline currentUserInfo={currentUserInfo}/>
+            </>
           }
-        </ColumnContainer>
+          </ColumnContainer>
+          <Alert type={alert.type}
+                  message={alert.message}
+                  stateAlert={stateAlert}
+                  changeStateAlert={changeStateAlert}/>
+        </AccountContainer> 
       );
 }
  

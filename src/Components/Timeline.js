@@ -151,15 +151,12 @@ const Timeline = ({currentUserInfo}) => {
       return ( 
             <TimelineContainer>
             {messagesSent.map((Message, index)=>{
-             
               return(
-              
-                <Card key={Message.id}>
+              <Card key={Message.id}>
                 <CardColumns>
                   <PortraitContainer>
                     <img alt="userportrait" src={ProfileImage}/>
                   </PortraitContainer>
-                  
                 </CardColumns>
                 <CardColumns rightColumn>
                   <UserNameContainer>
@@ -206,13 +203,10 @@ const Timeline = ({currentUserInfo}) => {
                   
                   </InteractionBar>
                 </CardColumns>
-
-              
-            </Card>  
+              </Card>  
               )
-            })}
-                      
-      </TimelineContainer>
+            })}          
+            </TimelineContainer>
        );
 }
  
