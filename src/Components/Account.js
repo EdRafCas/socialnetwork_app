@@ -12,6 +12,8 @@ import getUnixTime from 'date-fns/getUnixTime';
 import Timeline from './Timeline';
 import LogoutButton from './LogoutButton';
 import {ReactComponent as IconHome} from '../img/home_icon.svg';
+import {ReactComponent as IconProfile} from '../img/profile_icon.svg';
+import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
 
 const AccountContainer = styled.div`
   width:100%;
@@ -21,8 +23,21 @@ const AccountContainer = styled.div`
   justify-content:center;
   align-content:center;
 `
+const ColumnContainer=styled.div`
+  max-width:40%;
+  display:flex;
+  flex-direction:column;
+`
+const AccountManagement=styled.div`
+  display:flex;
+  height:100%;
+  width:100%;
+  flex-direction:column;
+  justify-content:space-between;
+  border:solid ${theme.BorderColor} 1px;
+`
 
-const AccountManagement = styled.div`
+const GeneralMenu = styled.div`
   width:100%;
   /* height:500px; */
   padding:1rem 1rem;
@@ -32,6 +47,17 @@ const AccountManagement = styled.div`
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
 `
+const MiniProfile=styled.div`
+  display:flex;
+  height:5rem;
+  width:100%;
+  padding:1rem;
+  flex-direction:row;
+  justify-content:center;
+  align-content:center;
+  border:solid ${theme.BorderColor} 1px;
+`
+
 const IconContainerCont=styled.div`
   width:15rem;
   padding:0.5rem;
@@ -104,12 +130,7 @@ const UserNames =styled.div`
   align-items:center;
   gap:5px;
 `
-const ColumnContainer=styled.div`
-  max-width:40%;
-  display:flex;
-  flex-direction:column;
 
-`
 
 const Account = ({ message, messageChange, alert, changeAlert, stateAlert, changeStateAlert}) => {
   const {user} =useAuth();
@@ -176,14 +197,25 @@ const Account = ({ message, messageChange, alert, changeAlert, stateAlert, chang
        <AccountContainer>
           <ColumnContainer>
           {!loadingUserData &&
-            <AccountManagement>
+          <AccountManagement>
+            <GeneralMenu>
               <IconContainerCont>
-                <IconContainer><IconHome/></IconContainer>
-                <p>HOME</p>
+                <IconContainer><IconHome/></IconContainer><p>HOME</p>
               </IconContainerCont>
-                
-                <LogoutButton/>
-            </AccountManagement>
+              <IconContainerCont>
+                <IconContainer><IconProfile/></IconContainer><p>PROFILE</p>
+              </IconContainerCont>
+              <IconContainerCont>
+                <IconContainer><IconBookmark/></IconContainer><p>Bookmark</p>
+              </IconContainerCont>
+
+            </GeneralMenu>
+            <MiniProfile>
+              <LogoutButton/>
+            </MiniProfile>
+            
+          </AccountManagement>
+            
           }
           </ColumnContainer>
           <ColumnContainer>
