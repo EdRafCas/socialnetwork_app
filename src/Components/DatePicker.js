@@ -38,13 +38,11 @@ const TextContainer =styled.div`
       flex-direction:column;
       /* border: solid ${theme.BorderColor} 1px; */
 `
-
 const Text =styled.p`
       /* border: solid ${theme.BorderColor} 1px; */
       color: ${theme.Text};
       padding:0.5rem 0rem;
 `
-
 const Pickers = styled.div`
       /* border: solid ${theme.BorderColor} 1px; */
       height:3rem;
@@ -74,7 +72,6 @@ const MonthPicker =styled.div`
 
       
 `
-
 const Selected =styled.input`
       width:100%;
       height:2rem;
@@ -90,7 +87,6 @@ const Selected =styled.input`
       &:hover {
         background: #2C272E};
 `
-
 const DayPicker=styled.div`
       display: flex;
       flex-direction:column;
@@ -104,7 +100,6 @@ const DayPicker=styled.div`
       border-color: rgb(118, 118, 118) rgb(133, 133, 133);
       &:focus{
             border-color: white;
-     
      }
 `
 const YearPicker=styled.div`

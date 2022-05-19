@@ -47,7 +47,7 @@ const ButtonContainer=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:space-evenly;
-  width:15rem;
+  width:5rem;
   gap:1rem;
   /* border:solid ${theme.BorderColor} 1px; */
 
