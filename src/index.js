@@ -10,6 +10,7 @@ import PrivateRoute from './Components/PrivateRoute.js';
 import './index.css';
 import WebFont from 'webfontloader';
 import MainPage from './Components/MainPage'
+import UserProfile from './Components/UserProfile.js';
 
 WebFont.load({
   google: {
@@ -49,6 +50,16 @@ const Index = () => {
                                               changeAlert={changeAlert}
                                               stateAlert={stateAlert}
                                               changeStateAlert={changeStateAlert}/>
+                              </PrivateRoute>}/>
+              <Route path="/user/:route" exact={true} 
+                              element={
+                              <PrivateRoute>
+                                    <UserProfile changeRegistration={changeRegistration}
+                                                  registration={registration}
+                                                  alert={alert}
+                                                  changeAlert={changeAlert}
+                                                  stateAlert={stateAlert}
+                                                  changeStateAlert={changeStateAlert}/>
                               </PrivateRoute>}/>
             <Route path="/LoginPage" exact={true} 
                                     element={<LoginPage 

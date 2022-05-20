@@ -180,8 +180,8 @@ const TimelineDisplay = ({currentUserInfo}) => {
                   </TimeBar>
                   
                   <InteractionBar>
-                  <IconContainer><IconComment/></IconContainer>
-                  <IconContainer><IconRetweet/></IconContainer>
+                    <IconContainer><IconComment/></IconContainer>
+                    <IconContainer><IconRetweet/></IconContainer>
                   <IconContainerCont>
                     <IconContainer><IconRetweet/></IconContainer>
                     <CounterContainer>{Message.retweets > 0 ?  Message.retweets.length : "" }</CounterContainer>

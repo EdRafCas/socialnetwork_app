@@ -5,7 +5,6 @@ import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/Elem
 import useObtainMessages from '../Hooks/useObtainMessages';
 import ProfileImage from './../img/profile_img.png';
 import {format, fromUnixTime} from 'date-fns';
-
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
