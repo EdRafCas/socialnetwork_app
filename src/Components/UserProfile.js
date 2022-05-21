@@ -10,7 +10,7 @@ import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 import getUnixTime from 'date-fns/getUnixTime';
-import Timeline from './Timeline';
+import TimelineUser from './TimelineUser';
 import Account from './Account';
 
 
@@ -163,7 +163,7 @@ const UserProfile = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   <Button type="submit" name="sendMesssage">Submit</Button>
                 </CreateMessageForm>
               </MessageBox>
-              <Timeline currentUserInfo={currentUserInfo}/>
+              <TimelineUser currentUserInfo={currentUserInfo}/>
             </>
             }
           </ColumnContainer>
