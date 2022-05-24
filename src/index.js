@@ -51,7 +51,7 @@ const Index = () => {
                                               stateAlert={stateAlert}
                                               changeStateAlert={changeStateAlert}/>
                               </PrivateRoute>}/>
-              <Route path="/user/:route" exact={true} 
+              <Route path="/user/:username/*" exact={true} 
                               element={
                               <PrivateRoute>
                                     <UserProfile changeRegistration={changeRegistration}

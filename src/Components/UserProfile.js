@@ -1,17 +1,14 @@
 import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
-import theme from '../Theme';
-import {Button, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
-import ProfileImage from '../img/profile_img.png'
 import Alert from '../Elements/Alert';
-import AddMessage from '../firebase/AddMessage';
+import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import { useAuth } from '../Context/AuthContext';
 import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
-import getUnixTime from 'date-fns/getUnixTime';
-import TimelineUser from './TimelineUser';
+import {Link } from 'react-router-dom';
+import UserProfileRoutes from './UserProfileRoutes';
 import Account from './Account';
+import Starboy from '../img/starboy.png'
 
 
 const MainPageContainer = styled.div`
@@ -28,47 +25,118 @@ const ColumnContainer=styled.div`
   display:flex;
   flex-direction:column;
 `
-const MessageBox = styled.div`
-  width:100%;
-  /* height:500px; */
-  padding:1rem 1rem;
-  display:flex;
-  flex-direction:column;
-  align-content:center;
-  gap:1rem;
-  border:solid ${theme.BorderColor} 1px;
-`
-
-const CreateMessageForm =styled.form`
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
-`
 const HeaderUser =styled.div`
   display:flex;
-  flex-direction:row;
-  gap:1rem;
-`
-const MessageUser =styled.textarea`
+  flex-direction:column;
+  justify-content:center;
   padding:1rem;
-  font-size:1rem;
-  text-align:justify;
-  white-space:normal;
-  overflow:scroll;
   width:100%;
-`
-const UserNames =styled.div`
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:5px;
+  height:30rem;
+  border:solid red 1px;
 `
 
+const BackgroundImage =styled.div`
+  border:solid red 1px;
+  overflow:hidden;
+  img{
+    max-width:50rem;
+    width:100%;
+    overflow:hidden;
+  }
+`
+const UserCard =styled.div`
+  padding:1rem;
+  height:10rem;
+  display:flex;
+  flex-direction:column;
+  border:solid red 1px;
+
+`
+const NamesContainer=styled.div`
+display:flex;
+flex-direction:column;
+
+gap:5px;
+
+`
+const Bio=styled.div`
+  display:flex;
+  width:100%;
+  height:4rem;
+  font-size:1rem;
+  font-weight:800;
+  color:white;
+`
+
+
+const LinksContainer = styled.div`
+      width:100%;
+      
+      background:black;
+      margin:auto;
+      display:flex;
+      flex-direction:row;
+      justify-content:center;
+      margin:0;
+      a{    
+            text-decoration:none;
+      }
+      @media(max-width: 720px){ /* 950px */
+        width: 100%;
+        min-width:600px;
+    }
+      @media(max-width: 400px){ 
+            width: 100%;
+            min-width:400px;
+            
+      }
+      
+`
+const RedirectLink =styled(Link)`
+      /* border-bottom: 1px solid #FFFFFF; */
+      
+      box-sizing: content-box;
+      font-size:14px;
+      display:inline-block;
+      color:white;
+      width:auto;
+      padding:15px 5px;
+      margin: 0.25rem 0.5rem;
+      letter-spacing:1px;
+      white-space: nowrap;
+      border: 3px solid #000000;
+      
+      
+      :hover{
+            color:#000000;
+            background:#fff;
+            
+            :active{
+                  border: 3px double #000;
+                  font-size: 14px;
+                  font-weight: 800;
+            }   
+      }
+      @media(max-width: 400px){ 
+            font-size:12px;
+            padding:10px 2px;
+           
+            :hover{
+            color:#000000;
+            background:#fff;
+            
+                  :active{
+                        border: 3px double #000;
+                        font-size: 12px;
+                        font-weight: 800;
+                  }   
+      }
+    }
+`
 
 const UserProfile = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
-  const {route} =useParams();
+
   const {user} =useAuth();
-  const [message, messageChange] = useState('');
   const [currentUserInfo, changeCurrentUserInfo] =useState([])
   const [loadingUserData, changeLoadingUserData] =useState(true);
   
@@ -92,42 +160,7 @@ const UserProfile = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
 
 
   
-  const handleChange = (e) =>{
-        if(e.target.name==="message"){
-          messageChange(e.target.value)
-        }
-  };
-
-  const addToTimeline = (e) =>{
-    e.preventDefault();
-    AddMessage({
-      message:message,
-      uidUser: currentUserInfo[0].uidUser,
-      name:currentUserInfo[0].name,
-      lastname: currentUserInfo[0].lastname,
-      alias:currentUserInfo[0].alias,
-      date: getUnixTime(new Date()),
-      likes: [],
-      retweets: []
-      
-    })
-    .then(()=>{
-      messageChange("");
-      changeStateAlert(true);
-      changeAlert({
-            type:'success',
-            message: 'Your message was sent successfully'
-      })
-    })
-    .catch((error)=>{
-      changeStateAlert(true);
-      changeAlert({
-            type:'error',
-            message: 'An error ocurred while sending your message'
-      })
-    })
-  };
-
+  
       return ( 
        <MainPageContainer>
           <ColumnContainer>
@@ -139,31 +172,24 @@ const UserProfile = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           <ColumnContainer>
             {!loadingUserData &&
             <>
-              <MessageBox>
-                <CreateMessageForm onSubmit={addToTimeline}>
-                  <HeaderUser>
-                    <PortraitContainer>
-                      <img alt="userportrait" src={ProfileImage}/>
-                    </PortraitContainer>
-                    <UserNames>
-                      <NameContainer>{currentUserInfo[0].name}</NameContainer>
-                      <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                    </UserNames>
-                  </HeaderUser>
-                  <MessageUser 
-                    name="message"
-                    id="message"
-                    cols="50"
-                    rows="3"
-                    maxlength="5"
-                    type="text"
-                    placeholder="Leave us your message here"
-                    value={message}
-                    onChange={handleChange}/>
-                  <Button type="submit" name="sendMesssage">Submit</Button>
-                </CreateMessageForm>
-              </MessageBox>
-              <TimelineUser currentUserInfo={currentUserInfo}/>
+              <HeaderUser>
+                <BackgroundImage>
+                  <img alt="userbackground" src={Starboy}/>
+                </BackgroundImage>
+                <UserCard>
+                  <NamesContainer>
+                    <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                    <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                    <Bio>This is a placeholder</Bio>
+                  </NamesContainer>
+                </UserCard>
+                
+              </HeaderUser>
+              <LinksContainer>
+                <RedirectLink to =""> Tweets</RedirectLink>
+                <RedirectLink to ={`/user/${currentUserInfo[0].alias}/likes`}> Likes</RedirectLink>
+              </LinksContainer>
+              <UserProfileRoutes currentUserInfo={currentUserInfo}/>
             </>
             }
           </ColumnContainer>
