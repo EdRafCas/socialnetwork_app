@@ -6,9 +6,8 @@ import { useAuth } from '../Context/AuthContext';
 import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 import getUnixTime from 'date-fns/getUnixTime';
-import Timeline from './Timeline';
 import Account from './Account';
-import MessageBox from './MessageBox';
+import MainPageRoutes from './MainPageRoutes';
 
 
 const MainPageContainer = styled.div`
@@ -22,6 +21,11 @@ const MainPageContainer = styled.div`
 `
 const ColumnContainer=styled.div`
   max-width:40%;
+  display:flex;
+  flex-direction:column;
+`
+const ColumnContainer2=styled.div`
+  width:820px;
   display:flex;
   flex-direction:column;
 `
@@ -98,17 +102,14 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
             }
           </ColumnContainer>
 
-          <ColumnContainer>
+          <ColumnContainer2>
             {!loadingUserData &&
-            <>
-              <MessageBox currentUserInfo={currentUserInfo}
-                          addToTimeline={addToTimeline}
-                          message={message}
-                          handleChange={handleChange} />
-              <Timeline currentUserInfo={currentUserInfo}/>
-            </>
+              <MainPageRoutes currentUserInfo={currentUserInfo}
+                              addToTimeline={addToTimeline}
+                              message={message}
+                              handleChange={handleChange}/>
             }
-          </ColumnContainer>
+          </ColumnContainer2>
           <Alert type={alert.type}
                   message={alert.message}
                   stateAlert={stateAlert}

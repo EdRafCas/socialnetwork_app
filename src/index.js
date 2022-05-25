@@ -10,7 +10,6 @@ import PrivateRoute from './Components/PrivateRoute.js';
 import './index.css';
 import WebFont from 'webfontloader';
 import MainPage from './Components/MainPage'
-import UserProfile from './Components/UserProfile.js';
 
 WebFont.load({
   google: {
@@ -29,7 +28,7 @@ const Container = styled.div`
 const Index = () => {
   
   
-  const [registration, changeRegistration] = useState(false)
+
   const [stateAlert, changeStateAlert] =useState(false);
   const [alert, changeAlert] = useState ({})
 
@@ -41,39 +40,28 @@ const Index = () => {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-              <Route path="/" exact={true} 
+              <Route path="*" exact={true} 
                               element={
                               <PrivateRoute>
-                                    <MainPage changeRegistration={changeRegistration}
-                                              registration={registration}
-                                              alert={alert}
-                                              changeAlert={changeAlert}
-                                              stateAlert={stateAlert}
-                                              changeStateAlert={changeStateAlert}/>
+                                    <MainPage 
+                                      alert={alert}
+                                      changeAlert={changeAlert}
+                                      stateAlert={stateAlert}
+                                      changeStateAlert={changeStateAlert}/>
                               </PrivateRoute>}/>
-              <Route path="/user/:username/*" exact={true} 
-                              element={
-                              <PrivateRoute>
-                                    <UserProfile changeRegistration={changeRegistration}
-                                                  registration={registration}
-                                                  alert={alert}
-                                                  changeAlert={changeAlert}
-                                                  stateAlert={stateAlert}
-                                                  changeStateAlert={changeStateAlert}/>
-                              </PrivateRoute>}/>
+              
             <Route path="/LoginPage" exact={true} 
                                     element={<LoginPage 
-                                                        changeRegistration={changeRegistration}
-                                                        registration={registration}
-                                                        alert={alert}
-                                                        changeAlert={changeAlert}
-                                                        stateAlert={stateAlert}
-                                                        changeStateAlert={changeStateAlert}/>}/>
+                                      
+                                      alert={alert}
+                                      changeAlert={changeAlert}
+                                      stateAlert={stateAlert}
+                                      changeStateAlert={changeStateAlert}/>}/>
             <Route path="/SignUp" exact ={true} 
                                   element={<SignUp alert={alert}
-                                                  changeAlert={changeAlert}
-                                                  stateAlert={stateAlert}
-                                                  changeStateAlert={changeStateAlert}/>}/>
+                                    changeAlert={changeAlert}
+                                    stateAlert={stateAlert}
+                                    changeStateAlert={changeStateAlert}/>}/>
           </Routes>
         </BrowserRouter> 
       </AuthProvider>

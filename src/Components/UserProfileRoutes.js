@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes } from 'react-router-dom';
 import TimelineUser from './TimelineUser';
-import Timeline from './Timeline';
+import TimelineLikes from './TimelineLikes';
 import PrivateRoute from './PrivateRoute';
 
 
@@ -9,7 +9,7 @@ const UserProfileRoutes = ({currentUserInfo}) => {
   
       return ( 
         <Routes>
-          <Route path="/" exact={true}
+          <Route path="" exact={true}
                 element={
                 <PrivateRoute>
                   <TimelineUser currentUserInfo={currentUserInfo}/>
@@ -18,7 +18,7 @@ const UserProfileRoutes = ({currentUserInfo}) => {
           <Route path={`/likes`} exact={true}
                 element={
                 <PrivateRoute>
-                  <Timeline currentUserInfo={currentUserInfo}/>
+                  <TimelineLikes currentUserInfo={currentUserInfo}/>
                 </PrivateRoute>}/>
           
         </Routes>

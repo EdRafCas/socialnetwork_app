@@ -1,30 +1,10 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import Alert from '../Elements/Alert';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
-import { useAuth } from '../Context/AuthContext';
-import { db } from '../firebase/FirebaseConfig';
-import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 import {Link } from 'react-router-dom';
 import UserProfileRoutes from './UserProfileRoutes';
-import Account from './Account';
 import Starboy from '../img/starboy.png'
 
-
-const MainPageContainer = styled.div`
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:row;
-  justify-content: center;
-  background:#000;
-  border:solid red 1px;
-`
-const ColumnContainer=styled.div`
-  max-width:40%;
-  display:flex;
-  flex-direction:column;
-`
 const HeaderUser =styled.div`
   display:flex;
   flex-direction:column;
@@ -55,7 +35,6 @@ const UserCard =styled.div`
 const NamesContainer=styled.div`
 display:flex;
 flex-direction:column;
-
 gap:5px;
 
 `
@@ -68,10 +47,8 @@ const Bio=styled.div`
   color:white;
 `
 
-
 const LinksContainer = styled.div`
       width:100%;
-      
       background:black;
       margin:auto;
       display:flex;
@@ -134,43 +111,9 @@ const RedirectLink =styled(Link)`
     }
 `
 
-const UserProfile = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
+const UserProfile = ({currentUserInfo}) => {
 
-  const {user} =useAuth();
-  const [currentUserInfo, changeCurrentUserInfo] =useState([])
-  const [loadingUserData, changeLoadingUserData] =useState(true);
-  
-  useEffect(()=>{
-        const consult = query(
-              collection(db, 'userInfo'),
-              where('uidUser', "==", user.uid),
-              limit(10)
-        );
-        const unsuscribe = onSnapshot(consult, (snapshot)=>{
-              changeCurrentUserInfo(snapshot.docs.map((userData)=>{
-                    /* console.log(userData.data()) */
-                    return{...userData.data(), id:userData.id}
-              }))
-              changeLoadingUserData(false);
-        })
-        console.log(user)
-
-        return unsuscribe;
-  }, [])
-
-
-  
-  
       return ( 
-       <MainPageContainer>
-          <ColumnContainer>
-            {!loadingUserData &&
-            <Account currentUserInfo={currentUserInfo} />
-            }
-          </ColumnContainer>
-
-          <ColumnContainer>
-            {!loadingUserData &&
             <>
               <HeaderUser>
                 <BackgroundImage>
@@ -191,13 +134,6 @@ const UserProfile = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
               </LinksContainer>
               <UserProfileRoutes currentUserInfo={currentUserInfo}/>
             </>
-            }
-          </ColumnContainer>
-          <Alert type={alert.type}
-                  message={alert.message}
-                  stateAlert={stateAlert}
-                  changeStateAlert={changeStateAlert}/>
-       </MainPageContainer> 
       );
 }
  

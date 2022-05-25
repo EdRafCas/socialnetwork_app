@@ -94,7 +94,7 @@ const Account = ({currentUserInfo}) => {
       return ( 
             <AccountManagement>
             <GeneralMenu>
-              <MenuLink to={`/`}>
+              <MenuLink to="">
                 <IconContainer><IconHome/></IconContainer><p>HOME</p>
               </MenuLink>
               <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
