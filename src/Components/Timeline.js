@@ -11,6 +11,8 @@ import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import addLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
+import MessageBox from './MessageBox';
+import '../index.css'
 
 const TimelineContainer = styled.div`
   height:100%;
@@ -137,7 +139,7 @@ const LikeButton=styled.button`
 
 
 
-const Timeline = ({currentUserInfo}) => {
+const Timeline = ({currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
 
     const formatDate = (date) => {
@@ -148,7 +150,12 @@ const Timeline = ({currentUserInfo}) => {
     /* console.log(MessagesSent); */
 
       return ( 
-            <TimelineContainer>
+
+            <TimelineContainer className='timeline-user'>
+              <MessageBox currentUserInfo={currentUserInfo}
+                          addToTimeline={addToTimeline}
+                          message={message}
+                          handleChange={handleChange} />
             {messagesSent.map((Message, index)=>{
               return(
               <Card key={Message.id}>

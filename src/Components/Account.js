@@ -21,11 +21,11 @@ const AccountManagement=styled.div`
 const GeneralMenu = styled.div`
   width:100%;
   /* height:500px; */
-  padding:0rem 1rem;
+  padding:0rem 0rem;
   display:flex;
   flex-direction:column;
   align-content:center;
-  gap:1rem;
+  gap:2rem;
   border:solid ${theme.BorderColor} 1px;
 `
 const MiniProfile=styled.div`
@@ -51,14 +51,14 @@ const MiniUserNames =styled.div`
 `
 
 const MenuLink=styled(Link)`
-  width:auto;
+  width:100%;
   padding:1rem;
   /* border:1px solid white; */
   border-radius:9999px;
   display:flex;
   flex-direction:row;
   align-items:center;
-  height:3.5rem;
+  height:4.5rem;
   gap:1rem;
   text-decoration:none;
   color:${theme.Text};
@@ -93,27 +93,27 @@ const IconContainer=styled.div`
 const Account = ({currentUserInfo}) => {
       return ( 
             <AccountManagement>
-            <GeneralMenu>
-              <MenuLink to="">
-                <IconContainer><IconHome/></IconContainer><p>HOME</p>
-              </MenuLink>
-              <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
-                <IconContainer><IconProfile/></IconContainer><p>PROFILE</p>
-              </MenuLink>
-              <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
-                <IconContainer><IconBookmark/></IconContainer><p>Bookmark</p>
-              </MenuLink>
-            </GeneralMenu>
-            <MiniProfile>
-              <PortraitContainer>
-                <img alt="userportrait" src={ProfileImage}/>
-              </PortraitContainer>
-              <MiniUserNames>
-                <NameContainer>{currentUserInfo[0].name}</NameContainer>
-                <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-              </MiniUserNames>
-              <LogoutButton/>
-            </MiniProfile>
+              <GeneralMenu>
+                <MenuLink to="">
+                  <IconContainer><IconHome/></IconContainer><p>HOME</p>
+                </MenuLink>
+                <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
+                  <IconContainer><IconProfile/></IconContainer><p>PROFILE</p>
+                </MenuLink>
+                <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
+                  <IconContainer><IconBookmark/></IconContainer><p>Bookmark</p>
+                </MenuLink>
+              </GeneralMenu>
+              <MiniProfile>
+                <PortraitContainer>
+                  <img alt="userportrait" src={ProfileImage}/>
+                </PortraitContainer>
+                <MiniUserNames>
+                  <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                  <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                </MiniUserNames>
+                <LogoutButton/>
+              </MiniProfile>
           </AccountManagement>
        );
 }

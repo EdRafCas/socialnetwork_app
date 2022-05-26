@@ -24,3 +24,13 @@ body {
 #root {
   width: 100%;
 }
+
+
+
+.timeline-user {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.timeline-user::-webkit-scrollbar {
+  display: none;
+}

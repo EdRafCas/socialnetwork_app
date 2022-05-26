@@ -12,16 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import addLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 
-const TimelineContainer = styled.div`
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  padding:0rem;
-  border:solid ${theme.BorderColor} 1px;
-  gap:0rem;
-  overflow:scroll;
-  overflow-x:hidden;
-`
+
 const Card =styled.div`
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
@@ -125,7 +116,6 @@ const TimeBar =styled.div`
   border:solid ${theme.BorderColor} 1px;
   width:100%;
 `
-
 const LikeButton=styled.button`
   background:black;
   border-radius:50%;
@@ -148,7 +138,7 @@ const TimelineUser = ({currentUserInfo}) => {
     /* console.log(MessagesSentByUser); */
 
       return ( 
-            <TimelineContainer>
+          <>
             {messagesSentByUser.map((Message, index)=>{
               return(
               <Card key={Message.id}>
@@ -205,7 +195,7 @@ const TimelineUser = ({currentUserInfo}) => {
               </Card>  
               )
             })}          
-            </TimelineContainer>
+          </>
        );
 }
  
