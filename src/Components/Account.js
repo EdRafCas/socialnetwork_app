@@ -13,7 +13,7 @@ const AccountManagement=styled.div`
   display:flex;
   height:100%;
   width:100%;
-  padding:1rem 0rem;
+  padding:0rem 0rem;
   flex-direction:column;
   justify-content:space-between;
   border:solid ${theme.BorderColor} 1px;
@@ -88,9 +88,37 @@ const IconContainer=styled.div`
     fill:black;
   }
 `
+const MessageButtonContainer=styled.div`
+  display:flex;
+  height:100%;
+  flex-direction:column;
+  justify-content:flex-start;
+  /* border:solid red 1px; */
+  padding:2rem 1rem;
+`
+const MessageButton=styled.button`
+  display:flex;
+  height:5rem;
+  width:100%;
+  border-radius:9999px;
+  padding:1rem;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  /* border:solid red 1px; */
+  background:${theme.GradientBackround};
+  p{
+    font-size:1.2rem;
+    font-weight:1000;
+    color:white;
+    /* border:solid red 1px; */
+  }
+  :hover{
+    background:${theme.RedDark}};
+  }
+`
 
-
-const Account = ({currentUserInfo}) => {
+const Account = ({currentUserInfo, showMessageBox, changeShowMessageBox}) => {
       return ( 
             <AccountManagement>
               <GeneralMenu>
@@ -104,6 +132,10 @@ const Account = ({currentUserInfo}) => {
                   <IconContainer><IconBookmark/></IconContainer><p>Bookmark</p>
                 </MenuLink>
               </GeneralMenu>
+              <MessageButtonContainer>
+                <MessageButton onClick={()=>changeShowMessageBox(!showMessageBox)}><p>Message</p></MessageButton>
+              </MessageButtonContainer>
+              
               <MiniProfile>
                 <PortraitContainer>
                   <img alt="userportrait" src={ProfileImage}/>

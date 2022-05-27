@@ -2,21 +2,24 @@ import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Alert from '../Elements/Alert';
 import AddMessage from '../firebase/AddMessage';
+import theme from '../Theme';
 import { useAuth } from '../Context/AuthContext';
 import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 import getUnixTime from 'date-fns/getUnixTime';
 import Account from './Account';
 import MainPageRoutes from './MainPageRoutes';
+import MessageBox from './MessageBox';
 
 
 const MainPageContainer = styled.div`
-  width:100%;
-  height:100%;
   display:flex;
+  position:relative;
   flex-direction:row;
   justify-content: center;
   background:#000;
+  width:100%;
+  height:100%;
   border:solid red 1px;
 `
 const ColumnContainer=styled.div`
@@ -29,7 +32,24 @@ const ColumnContainer2=styled.div`
   display:flex;
   flex-direction:column;
 `
-
+const TranslucidBack=styled.div`
+position:absolute;
+width:100%;
+height:100%;
+background:${theme.LightGrey};
+opacity:50%;
+`
+const MessageCenterBox=styled.div`
+  position:absolute;
+  top:20%;
+  left:40%;
+  /* margin-top:-30rem;
+  margin-left:-30rem;
+  height:60rem;
+  width:60rem;*/
+  background:black; 
+  border-radius:5%;
+`
 
 
 const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
@@ -37,6 +57,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [message, messageChange] = useState('');
   const [currentUserInfo, changeCurrentUserInfo] =useState([])
   const [loadingUserData, changeLoadingUserData] =useState(true);
+  const [showMessageBox, changeShowMessageBox] =useState(false);
   
   useEffect(()=>{
         const consult = query(
@@ -98,7 +119,11 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
        <MainPageContainer>
           <ColumnContainer>
             {!loadingUserData &&
-            <Account currentUserInfo={currentUserInfo} />
+            <Account currentUserInfo={currentUserInfo}
+                     showMessageBox={showMessageBox}
+                     changeShowMessageBox={changeShowMessageBox}
+            
+            />
             }
           </ColumnContainer>
 
@@ -114,6 +139,20 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   message={alert.message}
                   stateAlert={stateAlert}
                   changeStateAlert={changeStateAlert}/>
+          {showMessageBox ?
+          <>
+            <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
+            <MessageCenterBox>
+            <MessageBox currentUserInfo={currentUserInfo}
+                          addToTimeline={addToTimeline}
+                          message={message}
+                          handleChange={handleChange} />
+            </MessageCenterBox>
+          </>
+          
+          :""
+          }
+          
        </MainPageContainer> 
       );
 }

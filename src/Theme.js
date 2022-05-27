@@ -6,6 +6,7 @@ const theme={
       LightGrey:"#423F3E",
       GreenALert: '#43A854',
       RedAlert: '#E34747',
+      RedDark: '#950101',
 }
 
 export default theme;
