@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import {NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import theme from '../Theme';
@@ -15,7 +15,6 @@ const HeaderUser =styled.div`
       height:auto;
       border:solid red 1px;
 `
-
 const BackgroundImage =styled.div`
       border:solid red 1px;
       overflow:hidden;
@@ -66,6 +65,7 @@ const NamesContainer=styled.div`
 
 `
 const Bio=styled.div`
+      padding:1rem 0rem;
       display:flex;
       width:100%;
       height:4rem;
@@ -73,9 +73,40 @@ const Bio=styled.div`
       font-weight:800;
       color:white;
 `
+const EditButton=styled.button`
+      position:absolute;
+      top:1rem;
+      right:1rem;
+      display:flex;
+      height:3rem;
+      width:10rem;
+      border-radius:9999px;
+      padding:0rem;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:${theme.GradientBackround};
+            p{
+            font-size:1rem;
+            font-weight:1000;
+            color:white;
+                  }
+      :hover{
+            background:${theme.RedDark}};
+            }
+      :active{
+            border:solid black 3px;
+            p{
+                  color:black;
 
+            }
+      }
 
-const HeaderUserProfile = ({currentUserInfo}) => {
+`
+
+const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+      
+
       return ( 
             <HeaderUser>
                 <BackgroundImage>
@@ -85,6 +116,9 @@ const HeaderUserProfile = ({currentUserInfo}) => {
                   <ProfilePic>
                         <img alt="userprofile" src={ProfileImage}/>
                   </ProfilePic>
+                  <EditButton onClick={()=>changeShowEditProfile(!showEditProfile)} >
+                        <p>Edit Profile</p>
+                  </EditButton>
                 </ProfilePicContainer>
                 
 
@@ -92,8 +126,8 @@ const HeaderUserProfile = ({currentUserInfo}) => {
                   <NamesContainer>
                     <NameContainer>{currentUserInfo[0].name}</NameContainer>
                     <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                    <Bio>This is a placeholder</Bio>
                   </NamesContainer>
+                  <Bio>This is a placeholder</Bio>
                 </UserCard>
               </HeaderUser>
        );

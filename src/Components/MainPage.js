@@ -10,6 +10,8 @@ import getUnixTime from 'date-fns/getUnixTime';
 import Account from './Account';
 import MainPageRoutes from './MainPageRoutes';
 import MessageBox from './MessageBox';
+import {TranslucidBack,CenterBox } from '../Elements/ElementsFormulary';
+import EditProfileBox from './EditProfileBox';
 
 
 const MainPageContainer = styled.div`
@@ -32,24 +34,8 @@ const ColumnContainer2=styled.div`
   display:flex;
   flex-direction:column;
 `
-const TranslucidBack=styled.div`
-position:absolute;
-width:100%;
-height:100%;
-background:${theme.LightGrey};
-opacity:50%;
-`
-const MessageCenterBox=styled.div`
-  position:absolute;
-  top:20%;
-  left:40%;
-  /* margin-top:-30rem;
-  margin-left:-30rem;
-  height:60rem;
-  width:60rem;*/
-  background:black; 
-  border-radius:5%;
-`
+
+
 
 
 const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
@@ -58,6 +44,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [currentUserInfo, changeCurrentUserInfo] =useState([])
   const [loadingUserData, changeLoadingUserData] =useState(true);
   const [showMessageBox, changeShowMessageBox] =useState(false);
+  const [showEditProfile, changeShowEditProfile] =useState(false);
   
   useEffect(()=>{
         const consult = query(
@@ -87,7 +74,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
 
   const addToTimeline = (e) =>{
     e.preventDefault();
-    AddMessage({
+    if(message !==""){
+     AddMessage({
       message:message,
       uidUser: currentUserInfo[0].uidUser,
       name:currentUserInfo[0].name,
@@ -112,7 +100,9 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
             type:'error',
             message: 'An error ocurred while sending your message'
       })
-    })
+    }) 
+    }
+    
   };
 
       return ( 
@@ -132,7 +122,9 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
               <MainPageRoutes currentUserInfo={currentUserInfo}
                               addToTimeline={addToTimeline}
                               message={message}
-                              handleChange={handleChange}/>
+                              handleChange={handleChange}
+                              showEditProfile={showEditProfile}
+                              changeShowEditProfile={changeShowEditProfile}/>
             }
           </ColumnContainer2>
           <Alert type={alert.type}
@@ -142,16 +134,28 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           {showMessageBox ?
           <>
             <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
-            <MessageCenterBox>
+            <CenterBox>
             <MessageBox currentUserInfo={currentUserInfo}
-                          addToTimeline={addToTimeline}
-                          message={message}
-                          handleChange={handleChange} />
-            </MessageCenterBox>
+                        addToTimeline={addToTimeline}
+                        message={message}
+                        handleChange={handleChange} />
+            </CenterBox>
           </>
           
           :""
           }
+          {showEditProfile ?
+          <>
+            <TranslucidBack onClick={()=>changeShowEditProfile(!showEditProfile)}/>
+            <CenterBox>
+              <EditProfileBox currentUserInfo={currentUserInfo} />
+            </CenterBox>
+                
+          </>
+          
+          :""
+          }
+          
           
        </MainPageContainer> 
       );

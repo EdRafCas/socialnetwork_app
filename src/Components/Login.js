@@ -120,7 +120,7 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
                 onChange={handleChange}/>
             </InputContainer>
             <ButtonContainer>
-              <Button type="submit" >Login</Button>
+              <Button type="submit" ><p>Login</p></Button>
             </ButtonContainer>
             <LogoutButton/>
             <SignUpContainer><span>Don't own an account?</span><span><SignUp to="/SignUp">Sign up</SignUp></span>

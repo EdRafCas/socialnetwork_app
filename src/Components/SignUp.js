@@ -326,6 +326,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                           type="text"
                                           name="alias"
                                           value={alias}
+                                          placeholder="Alias"
                                           place="Alias"
                                           onChange={handleChange}
                                     />

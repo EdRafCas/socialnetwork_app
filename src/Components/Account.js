@@ -116,6 +116,13 @@ const MessageButton=styled.button`
   :hover{
     background:${theme.RedDark}};
   }
+  :active{
+    border:solid black 3px;
+    p{
+      color:black;
+      
+    }
+  }
 `
 
 const Account = ({currentUserInfo, showMessageBox, changeShowMessageBox}) => {

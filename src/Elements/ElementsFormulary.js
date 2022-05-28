@@ -47,14 +47,53 @@ const ButtonContainer=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:space-evenly;
-  width:5rem;
+  width:6rem;
   gap:1rem;
   /* border:solid ${theme.BorderColor} 1px; */
 
 `
 const Button =styled.button`
-  height:2.5rem;
-  width:5rem;;
+  display:flex;
+  height:3rem;
+  width:6rem;
+  border-radius:9999px;
+  padding:0rem;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:${theme.GradientBackround};
+  p{
+    font-size:1rem;
+    font-weight:1000;
+    color:white;
+  }
+  :hover{
+    background:${theme.RedDark}};
+  }
+  :active{
+    border:solid black 3px;
+    p{
+      color:black;
+      
+    }
+  }
+`
+const ButtonDisabled =styled.button`
+  display:flex;
+  height:3rem;
+  width:6rem;
+  border-radius:9999px;
+  padding:0rem;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:${theme.GradientBackround};
+  p{
+    font-size:1rem;
+    font-weight:1000;
+    color:#000;
+  }
+  }
 `
 const Button2 =styled.div`
   height:2.5rem;
@@ -88,5 +127,23 @@ const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
 `
 
- 
-export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, PortraitContainer, NameContainer, AliasContainer} ;
+/*Elements for background */
+const TranslucidBack=styled.div`
+position:absolute;
+width:100%;
+height:100%;
+background:${theme.LightGrey};
+opacity:50%;
+`
+const CenterBox=styled.div`
+position:absolute;
+top:20%;
+left:40%;
+/* margin-top:-30rem;
+margin-left:-30rem;
+height:60rem;
+width:60rem;*/
+background:black; 
+border-radius:5%;
+`
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox} ;

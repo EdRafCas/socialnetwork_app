@@ -5,21 +5,27 @@ import PrivateRoute from './PrivateRoute';
 import UserProfile from './UserProfile';
 
 
-const MainPageRoutes = ({currentUserInfo}) => {
+const MainPageRoutes = ({currentUserInfo,addToTimeline,message, handleChange, showEditProfile, changeShowEditProfile}) => {
   
       return ( 
         <Routes>
           <Route path="" exact={true}
                 element={
                 <PrivateRoute>
-                  <Timeline currentUserInfo={currentUserInfo}/>
+                  <Timeline currentUserInfo={currentUserInfo}
+                            addToTimeline={addToTimeline}
+                            message={message}
+                            handleChange={handleChange}/>
                 </PrivateRoute>}/>
 
           <Route path="/user/:alias/*" exact={true} 
                   element={
                    
                   <PrivateRoute>
-                    <UserProfile currentUserInfo={currentUserInfo}/>
+                    <UserProfile currentUserInfo={currentUserInfo}
+                                  showEditProfile={showEditProfile}
+                                  changeShowEditProfile={changeShowEditProfile}
+                    />
                   </PrivateRoute>
                     
                 }/>

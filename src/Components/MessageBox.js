@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {Button, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
+import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_img.png'
 
 const MessageContainer = styled.div`
@@ -63,7 +63,16 @@ const MessageBox = ({currentUserInfo, addToTimeline, message, handleChange}) => 
                         placeholder="Leave us your message here"
                         value={message}
                         onChange={handleChange}/>
-                  <Button type="submit" name="sendMesssage">Submit</Button>
+                  {message === "" ?
+                  <ButtonDisabled disabled={true}>
+                        <p>Submit</p>
+                  </ButtonDisabled>
+                  :
+                  <Button disabled={!message} type="submit" name="sendMesssage">
+                        <p>Submit</p>
+                  </Button>
+                  }
+                  
             </CreateMessageForm>
       </MessageContainer>     
        );
