@@ -85,6 +85,7 @@ const SpanInputFinal =styled.span`
 
 const EditProfileBox = ({currentUserInfo}) => {
       const [username, changeUsername] =useState()
+      const [bio, changeBio] =useState()
 
       const handleChange = (e) =>{
             switch(e.target.username){
@@ -118,6 +119,19 @@ const EditProfileBox = ({currentUserInfo}) => {
                                     {username ==="" ?
                                           <SpanInputInitial>Name</SpanInputInitial> :
                                           <SpanInputFinal>Name</SpanInputFinal>
+                                    }  
+                        </InputContainer>
+                        <InputContainer>
+                        <FormularyInput Registration
+                                    type="text"
+                                    name="username"
+                                    value={bio}
+                                    placeholder="Username"
+                                    onChange={handleChange}
+                                    />
+                                    {bio ==="" ?
+                                          <SpanInputInitial>Bio</SpanInputInitial> :
+                                          <SpanInputFinal>Bio</SpanInputFinal>
                                     }  
                         </InputContainer>
                   </Formulary>
