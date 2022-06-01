@@ -26,9 +26,18 @@ const FormularyInput =styled.input`
   width:100%;
   text-align:left;
   /* border:solid ${theme.BorderColor} 1px; */
-  height:${(props)=> props.Registration ? "3rem" : "3rem"};
-  background:${(props)=> props.Registration && "none"};
-  color:${(props)=> props.Registration && `${theme.Text}`};
+  height:${(props)=> props.Registration ? "3rem" 
+                     : props.NameBox ? "4rem" 
+                     : props.BioBox ? "7rem" 
+                     :"3rem"};
+  background:${(props)=> props.Registration ? "none"
+                         : props.NameBox ? "none" 
+                         : props.BioBox ? "none" 
+                         : "auto"};
+  color:${(props)=> props.Registration ? `${theme.Text}`
+                    : props.Profile ? `${theme.Text}`
+                    : props.NameBox ? `${theme.Text}`
+                    : "auto"};
   transition:none;
   z-index:100;
   :focus ~ span{
