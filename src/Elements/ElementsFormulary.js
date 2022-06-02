@@ -24,7 +24,7 @@ const FormularyInput =styled.input`
   padding-left:5px;
   border-radius:5px;
   width:100%;
-  text-align:left;
+  text-align:justify;
   /* border:solid ${theme.BorderColor} 1px; */
   height:${(props)=> props.Registration ? "3rem" 
                      : props.NameBox ? "4rem" 
@@ -37,6 +37,7 @@ const FormularyInput =styled.input`
   color:${(props)=> props.Registration ? `${theme.Text}`
                     : props.Profile ? `${theme.Text}`
                     : props.NameBox ? `${theme.Text}`
+                    : props.BioBox ? `${theme.Text}`
                     : "auto"};
   transition:none;
   z-index:100;

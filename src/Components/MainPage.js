@@ -148,7 +148,10 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           <>
             <TranslucidBack onClick={()=>changeShowEditProfile(!showEditProfile)}/>
             <CenterBox>
-              <EditProfileBox currentUserInfo={currentUserInfo} />
+              <EditProfileBox currentUserInfo={currentUserInfo} 
+                              changeShowEditProfile={changeShowEditProfile}
+                              showEditProfile={showEditProfile}
+                />
             </CenterBox>
                 
           </>

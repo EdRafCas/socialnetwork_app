@@ -4,6 +4,7 @@ import theme from '../Theme';
 import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_img.png'
+import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -12,7 +13,10 @@ const ContainerEditProfile=styled.div`
       max-height:45rem;
       max-width:40rem;
       width:40rem;
-      padding:2rem;
+      padding-top:0rem;
+      padding-left:1rem;
+      padding-right:1rem;
+      padding-bottom:2rem;
       border-radius:30px;
       border: solid ${theme.BorderColor} 1px;
       background:black;
@@ -21,6 +25,9 @@ const TopBar=styled.div`
       border: solid ${theme.BorderColor} 1px;
       min-height:3rem;
       padding-bottom:1rem;
+      padding-left:5px;
+      padding-right:5px;
+      padding-top:5px;
       width:100%;
       display:flex;
       flex-direction:row;
@@ -75,31 +82,62 @@ const ProfilePicContainer=styled.div`
       border: solid red 1px;
 `
 const ProfilePic =styled.div`
-      border: solid red 1px;
-      position: absolute;
-      top:-4rem;
-      left:1rem;
-      padding:0;
-      border-radius:50%;
-      height:auto;
+      position:relative;
+      border: solid black 3px;
       display:flex;
       flex-direction:column;
       justify-content:flex-start;
-      width:8rem;
       flex-direction:column;
+      margin-top:-4rem;
+      margin-left:1.2rem;
+      width:8rem;
+      height:8rem;
+      border-radius:50%;
+      opacity:0.8;
+      
       overflow:hidden;
       img{
       width:100%;
       }
 `
+const IconContainerProfile=styled.div`
+      position:absolute;
+      top:50%;
+      left:50%;
+      margin-left:-1.5rem;
+      margin-top:-1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:3rem;
+      width:3rem;
+      border-radius:50%;     
+      border:1px solid white;
+      fill:#000;
+      background:${theme.BorderColor};
+      opacity:0.8;
+      :hover{
+            opacity:1;
+               
+      }
+      svg{
+            max-height:3rem;
+            
+            fill:${theme.Text};     
+      }
+      :active{
+            opacity:0.5;
+            fill:black;
+      }
+`
 const Inputs=styled.div`
-      width:100%;
-      /* border: solid ${theme.BorderColor} 1px; */
-      position:relative;
       display:flex;
       flex-direction:column;
       justify-content: center;
       align-items:center;
+      padding-top:1rem;
+      width:100%;
+      /* border: solid ${theme.BorderColor} 1px; */
       gap:1rem;
 `
 const InputContainer=styled.div`
@@ -108,7 +146,7 @@ const InputContainer=styled.div`
       position:relative;
       display:flex;
       flex-direction:column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items:center;
       gap:1rem;
 `
@@ -130,8 +168,35 @@ const SpanInputFinal =styled.span`
       top:1px;
       color:${theme.Text};  
 `
+const EditButton=styled.button`
+      display:flex;
+      height:3rem;
+      width:6rem;
+      border-radius:9999px;
+      padding:0rem;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:#fff;
+            p{
+            font-size:1rem;
+            font-weight:1000;
+            color:#000;
+                  }
+      :hover{
+            background:${theme.Text}};
+            }
+      :active{
+            border:solid black 3px;
+            p{
+                  color:black;
 
-const EditProfileBox = ({currentUserInfo}) => {
+            }
+      }
+
+`
+
+const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile}) => {
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
 
@@ -160,8 +225,10 @@ const EditProfileBox = ({currentUserInfo}) => {
             <ContainerEditProfile>
             <FormularyBox>
                   <TopBar>
-                        <CloseWindow>X</CloseWindow>
-                        <div>2</div>
+                        <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
+                        <EditButton type="submit">
+                              <p>Save</p>
+                        </EditButton>
                   </TopBar>
                   <BackgroundImage>
                         <img alt="userbackground" src={Starboy}/>
@@ -169,7 +236,9 @@ const EditProfileBox = ({currentUserInfo}) => {
                   <ProfilePicContainer>
                         <ProfilePic>
                               <img alt="userprofile" src={ProfileImage}/>
+                        <IconContainerProfile><IconAddPhoto/></IconContainerProfile>      
                         </ProfilePic>
+                        
                   </ProfilePicContainer>
                   <Inputs>
                         <InputContainer>
