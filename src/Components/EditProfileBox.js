@@ -5,6 +5,7 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_img.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
+import UpdateProfile from '../firebase/UpdateProfile';
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -65,14 +66,31 @@ const FormularyBox =styled.form`
   padding:1rem 0rem;
 `
 const BackgroundImage =styled.div`
+      position:relative;
       border:solid red 1px;
       overflow:hidden;
       height:auto;
             img{
+            opacity:0.8;
             max-width:50rem;
             width:100%;
             overflow:hidden;
             }
+`
+const BackgroundInner=styled.div`
+      position:absolute;
+      display:flex;
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:center;
+      top:50%;
+      left:50%;
+      height:5rem;
+      width:14rem;
+      margin-left:-7rem;
+      margin-top:-2.5rem;
+      border:solid red 1px;
+
 `
 const ProfilePicContainer=styled.div`
       display:flex;
@@ -116,6 +134,32 @@ const IconContainerProfile=styled.div`
       fill:#000;
       background:${theme.BorderColor};
       opacity:0.8;
+      :hover{
+            opacity:1;
+               
+      }
+      svg{
+            max-height:3rem;
+            
+            fill:${theme.Text};     
+      }
+      :active{
+            opacity:0.5;
+            fill:black;
+      }
+`
+const IconContainerBackground=styled.button`
+      display:flex;
+      flex-direction;
+      align-items:center;
+      justify-content:center;
+      height:3rem;
+      width:3rem;
+      border-radius:50%;     
+      border:1px solid white;
+      fill:#000;
+      background:${theme.BorderColor};
+      opacity:0.7;
       :hover{
             opacity:1;
                
@@ -196,6 +240,7 @@ const EditButton=styled.button`
 
 `
 
+
 const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile}) => {
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
@@ -221,9 +266,24 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
             }
       }
 
+      const handlesubmitEdit =(e)=>{
+            e.preventDefault();
+            if(currentUserInfo){
+                  UpdateProfile({
+                        id:currentUserInfo[0].id,
+                        newName:nameEdit,
+                        newBio:bioEdit,
+                  })
+                  setTimeout(()=>{
+                        changeShowEditProfile(!showEditProfile);
+                  }, 500)
+                  
+            }
+      }
+
       return ( 
             <ContainerEditProfile>
-            <FormularyBox>
+            <FormularyBox onSubmit={handlesubmitEdit}>
                   <TopBar>
                         <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
                         <EditButton type="submit">
@@ -232,7 +292,13 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
                   </TopBar>
                   <BackgroundImage>
                         <img alt="userbackground" src={Starboy}/>
+                        <BackgroundInner>
+                              <IconContainerBackground><IconAddPhoto/></IconContainerBackground>
+                              <IconContainerBackground><IconAddPhoto/></IconContainerBackground>
+                        </BackgroundInner>
                   </BackgroundImage>
+                        
+                  
                   <ProfilePicContainer>
                         <ProfilePic>
                               <img alt="userprofile" src={ProfileImage}/>

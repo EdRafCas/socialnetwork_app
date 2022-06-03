@@ -2,11 +2,12 @@ import { db } from "./FirebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 
 
-const UpdateProfile = async({id,uidUser,likes}) => {
-      console.log(id,uidUser,likes)
-      const document = doc(db, "userTimeline" , id); 
+const UpdateProfile = async({id,newName,newBio}) => {
+      console.log(id,newName,newBio)
+      const document = doc(db, "userInfo" , id); 
       return await updateDoc(document, {
-            likes: [...likes, uidUser] 
+            name:newName,
+            bio:newBio
       }); 
 }
 export default UpdateProfile;

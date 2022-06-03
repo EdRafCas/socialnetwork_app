@@ -132,6 +132,7 @@ const NameContainer =styled.h1`
   font-size:1.1rem;
   font-weight:1000;
   color:white;
+  overflow:hidden;
 `
 const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */

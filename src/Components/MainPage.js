@@ -25,11 +25,13 @@ const MainPageContainer = styled.div`
   border:solid red 1px;
 `
 const ColumnContainer=styled.div`
-  max-width:40%;
+  max-width:400px;
+  width:350px;
   display:flex;
   flex-direction:column;
 `
 const ColumnContainer2=styled.div`
+  max-width:60%;
   width:820px;
   display:flex;
   flex-direction:column;
