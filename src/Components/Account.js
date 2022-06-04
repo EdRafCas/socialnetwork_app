@@ -83,8 +83,6 @@ const MiniUserNames =styled.div`
   overflow:hidden;
   max-width:60%;
   min-width:50%;
-
-
 `
 
 const MenuLink=styled(Link)`
