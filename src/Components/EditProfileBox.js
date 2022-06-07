@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
-import ProfileImage from '../img/profile_img.png'
+import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 import UpdateProfile from '../firebase/UpdateProfile';
+import { useAuth } from '../Context/AuthContext';
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -239,11 +240,15 @@ const EditButton=styled.button`
       }
 
 `
-
+const Inputest=styled.input`
+      /* display:none; */
+`
 
 const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile}) => {
+      const {user} =useAuth();
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
+      const [image, changeImage] =useState(null)
 
       useEffect(()=>{
             if(currentUserInfo){
@@ -252,6 +257,7 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
             }
 
       },[currentUserInfo]);
+      
 
       const handleChange = (e) =>{
             switch(e.target.name){
@@ -281,6 +287,13 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
             }
       }
 
+      const handleImageChange = (e) => {
+            console.log(e.target.files[0])
+            if (e.target.files[0]){
+                  changeImage(e.target.files[0])
+            }
+      }
+
       return ( 
             <ContainerEditProfile>
             <FormularyBox onSubmit={handlesubmitEdit}>
@@ -301,12 +314,25 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
                   
                   <ProfilePicContainer>
                         <ProfilePic>
-                              <img alt="userprofile" src={ProfileImage}/>
-                        <IconContainerProfile><IconAddPhoto/></IconContainerProfile>      
+                              {image == null ?
+                              <img alt="UserAvatar" src={user.photoURL} />
+                              :
+                              <img alt="newAvatar" src={image}/>
+                              }
+                        
+                        <IconContainerProfile>
+                              <label>
+                                    <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChange}/>
+                                    <IconAddPhoto/>     
+                              </label>
+                        </IconContainerProfile>      
                         </ProfilePic>
                         
                   </ProfilePicContainer>
+                  
                   <Inputs>
+                  <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChange}/>
+                  <img alt="newAvatar" src={image}/>
                         <InputContainer>
                         <FormularyInput NameBox
                                     type="text"

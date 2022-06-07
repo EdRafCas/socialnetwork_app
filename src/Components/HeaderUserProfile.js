@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import {NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import theme from '../Theme';
 import Starboy from '../img/starboy.png';
-import ProfileImage from '../img/profile_img.png'
+import ProfileImage from '../img/profile_avatar.png';
+import { useAuth } from '../Context/AuthContext';
+
 
 
 const HeaderUser =styled.div`
@@ -105,6 +107,7 @@ const EditButton=styled.button`
 `
 
 const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+      const {user} =useAuth();
       
 
       return ( 
@@ -114,7 +117,12 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
                 </BackgroundImage>
                 <ProfilePicContainer>
                   <ProfilePic>
-                        <img alt="userprofile" src={ProfileImage}/>
+                        {user.photoURL ?
+                        <img alt="UserAvatar" src={user.photoURL} />
+                        :
+                        <img alt="DefaultAvatar" src={ProfileImage}/>
+                        }
+                        
                   </ProfilePic>
                   <EditButton onClick={()=>changeShowEditProfile(!showEditProfile)} >
                         <p>Edit Profile</p>
