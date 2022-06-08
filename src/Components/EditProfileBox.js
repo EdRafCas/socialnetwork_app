@@ -6,7 +6,7 @@ import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 import UpdateProfile from '../firebase/UpdateProfile';
-import { useAuth } from '../Context/AuthContext';
+import UploadPicture from '../firebase/UploadPicture';
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -53,7 +53,6 @@ const CloseWindow=styled.div`
             background:rgba(91, 112, 131, 0.8);
       }
 `
-
 const FormularyBox =styled.form`
   width:${(props)=> props.SignUpFormulary ? "80%" : "100%"};
   display:flex;
@@ -102,10 +101,10 @@ const ProfilePicContainer=styled.div`
 `
 const ProfilePic =styled.div`
       position:relative;
-      border: solid black 3px;
+      border: solid #000 3px;
       display:flex;
       flex-direction:column;
-      justify-content:flex-start;
+      justify-content:center;
       flex-direction:column;
       margin-top:-4rem;
       margin-left:1.2rem;
@@ -113,11 +112,8 @@ const ProfilePic =styled.div`
       height:8rem;
       border-radius:50%;
       opacity:0.8;
-      
       overflow:hidden;
-      img{
-      width:100%;
-      }
+      
 `
 const IconContainerProfile=styled.div`
       position:absolute;
@@ -131,7 +127,7 @@ const IconContainerProfile=styled.div`
       height:3rem;
       width:3rem;
       border-radius:50%;     
-      border:1px solid white;
+      border:1px solid #fff;
       fill:#000;
       background:${theme.BorderColor};
       opacity:0.8;
@@ -241,14 +237,17 @@ const EditButton=styled.button`
 
 `
 const Inputest=styled.input`
-      /* display:none; */
+      display:none;
+`
+const ImageHolder=styled.img`
+      width:100%;
 `
 
-const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile}) => {
-      const {user} =useAuth();
+const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditProfile}) => {
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
-      const [image, changeImage] =useState(null)
+      const [selectedImage, changeSelectedImage] =useState();
+      const [loading, changeLoading] =useState(false);
 
       useEffect(()=>{
             if(currentUserInfo){
@@ -280,6 +279,7 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
                         newName:nameEdit,
                         newBio:bioEdit,
                   })
+                  UploadPicture(selectedImage, user, changeLoading)
                   setTimeout(()=>{
                         changeShowEditProfile(!showEditProfile);
                   }, 500)
@@ -288,9 +288,9 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
       }
 
       const handleImageChange = (e) => {
-            console.log(e.target.files[0])
-            if (e.target.files[0]){
-                  changeImage(e.target.files[0])
+            if (e.target.files && e.target.files.length > 0){
+                  changeSelectedImage(e.target.files[0])
+                  console.log(e.target.files[0])
             }
       }
 
@@ -299,7 +299,7 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
             <FormularyBox onSubmit={handlesubmitEdit}>
                   <TopBar>
                         <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
-                        <EditButton type="submit">
+                        <EditButton disabled={loading} type="submit">
                               <p>Save</p>
                         </EditButton>
                   </TopBar>
@@ -314,11 +314,16 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
                   
                   <ProfilePicContainer>
                         <ProfilePic>
-                              {image == null ?
-                              <img alt="UserAvatar" src={user.photoURL} />
-                              :
-                              <img alt="newAvatar" src={image}/>
-                              }
+                        {selectedImage ?
+                        <ImageHolder alt="newAvatar" src={URL.createObjectURL(selectedImage)}/>
+                        :
+                        selectedImage == null && user.photoURL == null ?
+                        <ImageHolder alt="placeholderAvatar" src={ProfileImage}/>
+                        :
+                        selectedImage == null && user.photoURL ? 
+                        <ImageHolder alt="newAvatar" src={user.photoURL}/>
+                        :""
+                        }
                         
                         <IconContainerProfile>
                               <label>
@@ -327,12 +332,10 @@ const EditProfileBox = ({currentUserInfo, changeShowEditProfile, showEditProfile
                               </label>
                         </IconContainerProfile>      
                         </ProfilePic>
-                        
+                              
                   </ProfilePicContainer>
                   
                   <Inputs>
-                  <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChange}/>
-                  <img alt="newAvatar" src={image}/>
                         <InputContainer>
                         <FormularyInput NameBox
                                     type="text"

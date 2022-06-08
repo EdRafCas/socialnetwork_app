@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
-import ProfileImage from '../img/profile_img.png'
+import ProfileImage from '../img/profile_avatar.png'
 
 const MessageContainer = styled.div`
   width:100%;
@@ -40,13 +40,17 @@ const UserNames =styled.div`
   gap:5px;
 `
 
-const MessageBox = ({currentUserInfo, addToTimeline, message, handleChange}) => {
+const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange}) => {
       return ( 
       <MessageContainer>
             <CreateMessageForm onSubmit={addToTimeline}>
                   <HeaderUser>
                         <PortraitContainer>
-                              <img alt="userportrait" src={ProfileImage}/>
+                        {user.photoURL ?
+                              <img alt="user portrait" src={user.photoURL}/>
+                              :
+                              <img alt="user portrait" src={ProfileImage}/>
+                        }
                         </PortraitContainer>
                         <UserNames>
                               <NameContainer>{currentUserInfo[0].name}</NameContainer>

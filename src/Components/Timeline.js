@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessages from '../Hooks/useObtainMessages';
-import ProfileImage from './../img/profile_img.png';
+import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
@@ -139,7 +139,7 @@ const LikeButton=styled.button`
 
 
 
-const Timeline = ({currentUserInfo, addToTimeline, message, handleChange}) => {
+const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
 
     const formatDate = (date) => {
@@ -152,7 +152,8 @@ const Timeline = ({currentUserInfo, addToTimeline, message, handleChange}) => {
       return ( 
 
             <TimelineContainer className='timeline-user'>
-              <MessageBox currentUserInfo={currentUserInfo}
+              <MessageBox user={user}
+                          currentUserInfo={currentUserInfo}
                           addToTimeline={addToTimeline}
                           message={message}
                           handleChange={handleChange} />
@@ -161,7 +162,12 @@ const Timeline = ({currentUserInfo, addToTimeline, message, handleChange}) => {
               <Card key={Message.id}>
                 <CardColumns>
                   <PortraitContainer>
+                    {message.photo ?
+                    <img alt="userportrait" src={message.photo}/>
+                    :
                     <img alt="userportrait" src={ProfileImage}/>
+                    }
+                    
                   </PortraitContainer>
                 </CardColumns>
                 <CardColumns rightColumn>

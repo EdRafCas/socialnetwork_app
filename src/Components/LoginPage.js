@@ -20,7 +20,7 @@ const ContainerLogin=styled.div`
 `
 
 
-const LoginPage = ({timeline, changeTimeline, changeRegistration, alert, changeAlert, stateAlert, changeStateAlert}) => {
+const LoginPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [email, emailChange] = useState('');
   const [password, passwordChange] = useState('');
   

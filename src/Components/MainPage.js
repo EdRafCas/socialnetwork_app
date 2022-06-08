@@ -37,9 +37,6 @@ const ColumnContainer2=styled.div`
   flex-direction:column;
 `
 
-
-
-
 const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const {user} =useAuth();
   const [message, messageChange] = useState('');
@@ -121,7 +118,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
 
           <ColumnContainer2>
             {!loadingUserData &&
-              <MainPageRoutes currentUserInfo={currentUserInfo}
+              <MainPageRoutes user={user}
+                              currentUserInfo={currentUserInfo}
                               addToTimeline={addToTimeline}
                               message={message}
                               handleChange={handleChange}
@@ -150,7 +148,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           <>
             <TranslucidBack onClick={()=>changeShowEditProfile(!showEditProfile)}/>
             <CenterBox>
-              <EditProfileBox currentUserInfo={currentUserInfo} 
+              <EditProfileBox user={user}
+                              currentUserInfo={currentUserInfo} 
                               changeShowEditProfile={changeShowEditProfile}
                               showEditProfile={showEditProfile}
                 />

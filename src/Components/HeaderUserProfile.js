@@ -6,8 +6,6 @@ import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png';
 import { useAuth } from '../Context/AuthContext';
 
-
-
 const HeaderUser =styled.div`
       display:flex;
       flex-direction:column;
