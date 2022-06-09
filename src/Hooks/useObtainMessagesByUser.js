@@ -12,8 +12,8 @@ const useObtainMessagesByUser = () => {
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", user.uid),
-                  orderBy('date', 'desc'),
-                  limit(30)
+                  orderBy('date', 'desc')
+                  /* limit(30) */
             );
             const unsuscribe = onSnapshot(consult, (snapshot)=>{
                   changeMessagesSentByUser(snapshot.docs.map((messageUser)=>{

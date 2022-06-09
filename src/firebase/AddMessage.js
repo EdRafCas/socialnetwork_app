@@ -2,7 +2,7 @@ import { db } from "./FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
 
-const AddMessage = ({message, uidUser, name, lastname, alias, date, likes, retweets}) => {
+const AddMessage = ({message, uidUser, name, lastname, alias, date, likes, retweets, photoURL}) => {
       return addDoc(collection(db, "userTimeline"), {
             message:message,
             uidUser:uidUser,
@@ -11,7 +11,8 @@ const AddMessage = ({message, uidUser, name, lastname, alias, date, likes, retwe
             alias: alias,
             date: date,
             likes: likes,
-            retweets: retweets
+            retweets: retweets,
+            photoURL: photoURL
       })
 }
  

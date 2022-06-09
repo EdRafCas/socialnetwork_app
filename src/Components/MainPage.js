@@ -82,7 +82,9 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
       alias:currentUserInfo[0].alias,
       date: getUnixTime(new Date()),
       likes: [],
-      retweets: []
+      retweets: [],
+      photoURL: user.photoURL
+
       
     })
     .then(()=>{

@@ -7,6 +7,7 @@ import ProfileImage from '../img/profile_img.png'
 import {ReactComponent as IconHome} from '../img/home_icon.svg';
 import {ReactComponent as IconProfile} from '../img/profile_icon.svg';
 import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
+import { useAuth } from '../Context/AuthContext';
 
 const AccountManagement=styled.div`
   display:flex;
@@ -74,7 +75,6 @@ const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
   max-height:1.2rem;
 `
-
 const MiniUserNames =styled.div`
   display:flex;
   flex-direction:column;
@@ -84,7 +84,6 @@ const MiniUserNames =styled.div`
   max-width:60%;
   min-width:50%;
 `
-
 const MenuLink=styled(Link)`
   width:100%;
   padding:1rem;
@@ -105,7 +104,6 @@ const MenuLink=styled(Link)`
     background:${theme.GradientBackround};
   }
 `
-
 const IconContainer=styled.div`
   border-radius:50%;
   display:flex;
@@ -162,6 +160,7 @@ const MessageButton=styled.button`
 `
 
 const Account = ({currentUserInfo, showMessageBox, changeShowMessageBox}) => {
+      const {user} =useAuth();
       return ( 
             <AccountManagement>
               <GeneralMenu>
@@ -181,7 +180,11 @@ const Account = ({currentUserInfo, showMessageBox, changeShowMessageBox}) => {
               
               <MiniProfile>
                 <PortraitContainer>
-                  <img alt="userportrait" src={ProfileImage}/>
+                  {user.photoURL ?
+                    <img alt="UserAvatar" src={user.photoURL} />
+                    :
+                    <img alt="DefaultAvatar" src={ProfileImage}/>
+                  }
                 </PortraitContainer>
                 <MiniUserNames>
                   <NameContainer>{currentUserInfo[0].name}</NameContainer>

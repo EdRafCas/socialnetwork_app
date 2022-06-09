@@ -5,8 +5,9 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
-import UpdateProfile from '../firebase/UpdateProfile';
+import {UpdateProfile,UpdateTimeline} from '../firebase/UpdateProfile';
 import UploadPicture from '../firebase/UploadPicture';
+import { useAuth } from '../Context/AuthContext';
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -244,6 +245,7 @@ const ImageHolder=styled.img`
 `
 
 const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditProfile}) => {
+      const {user} =useAuth();
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
       const [selectedImage, changeSelectedImage] =useState();
@@ -279,10 +281,15 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                         newName:nameEdit,
                         newBio:bioEdit,
                   })
+                  UpdateTimeline({
+                        id:currentUserInfo[0].id,
+                        newName:nameEdit,
+                        newBio:bioEdit
+                  })
                   UploadPicture(selectedImage, user, changeLoading)
                   setTimeout(()=>{
                         changeShowEditProfile(!showEditProfile);
-                  }, 500)
+                  }, 2000)
                   
             }
       }
