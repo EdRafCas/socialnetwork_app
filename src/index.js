@@ -26,14 +26,8 @@ const Container = styled.div`
   color: ${theme.Text};
 `
 const Index = () => {
-  
-  
-
   const [stateAlert, changeStateAlert] =useState(false);
   const [alert, changeAlert] = useState ({})
-
-
-
 
   return ( 
     <Container>

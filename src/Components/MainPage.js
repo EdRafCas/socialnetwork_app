@@ -2,7 +2,6 @@ import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Alert from '../Elements/Alert';
 import AddMessage from '../firebase/AddMessage';
-import theme from '../Theme';
 import { useAuth } from '../Context/AuthContext';
 import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
