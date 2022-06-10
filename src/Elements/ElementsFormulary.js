@@ -119,8 +119,9 @@ const PortraitContainer =styled.div`
   height:auto;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
+  justify-content:center;
   width:3rem;
+  height:3rem;
   flex-direction:column;
   overflow:hidden;
   img{

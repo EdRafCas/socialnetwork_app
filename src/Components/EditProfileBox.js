@@ -7,7 +7,6 @@ import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 import {UpdateProfile,UpdateTimeline} from '../firebase/UpdateProfile';
 import UploadPicture from '../firebase/UploadPicture';
-import { useAuth } from '../Context/AuthContext';
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -245,7 +244,6 @@ const ImageHolder=styled.img`
 `
 
 const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditProfile}) => {
-      const {user} =useAuth();
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
       const [selectedImage, changeSelectedImage] =useState();
@@ -273,7 +271,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
             }
       }
 
-      const handlesubmitEdit =(e)=>{
+      /* const handlesubmitEdit =(e)=>{
             e.preventDefault();
             if(currentUserInfo){
                   UpdateProfile({
@@ -281,17 +279,51 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                         newName:nameEdit,
                         newBio:bioEdit,
                   })
-                  UpdateTimeline({
-                        id:currentUserInfo[0].id,
-                        newName:nameEdit,
-                        newBio:bioEdit
-                  })
                   UploadPicture(selectedImage, user, changeLoading)
+                  UpdateTimeline({
+                        user:user,
+                        newName:nameEdit,
+                        newBio:bioEdit,
+                        newPhoto:selectedImage,
+                  })
                   setTimeout(()=>{
                         changeShowEditProfile(!showEditProfile);
-                  }, 2000)
+                  }, 5000)
                   
             }
+      } */
+
+      const handlesubmitEdit =async(e)=>{
+            e.preventDefault();
+            if(currentUserInfo)
+            try{
+                  await UpdateProfile({
+                              id:currentUserInfo[0].id,
+                              newName:nameEdit,
+                              newBio:bioEdit,
+                        })
+                        console.log("Updated Profile")
+                        try{
+                              await UploadPicture(selectedImage, user, changeLoading)
+                                    console.log("UploadedPicture picture")
+                                    try{
+                                          await UpdateTimeline({
+                                                      user:user,
+                                                      newName:nameEdit,
+                                                      newBio:bioEdit
+                                                      })
+                                                console.log("Updated Timeline")
+                                    } catch(error){
+                                          console.log(error+"error UpdateTimeline")
+                              }
+                        } catch(error){
+                              console.log(error+"error UploadPicture")
+                        }
+                  changeShowEditProfile(!showEditProfile);
+                  console.log("window changed")
+            } catch(error){
+                  console.log(error+"error UpdateProfile")
+            }     
       }
 
       const handleImageChange = (e) => {

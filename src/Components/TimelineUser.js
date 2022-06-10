@@ -1,9 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
-import ProfileImage from './../img/profile_img.png';
+import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
@@ -34,7 +32,11 @@ const TimelineUser = ({currentUserInfo}) => {
               <Card key={MessageUser.id}>
                 <CardColumns>
                   <PortraitContainer>
+                    {MessageUser.photoURL ?
+                    <img alt="userportrait" src={MessageUser.photoURL}/>
+                    :
                     <img alt="userportrait" src={ProfileImage}/>
+                    }
                   </PortraitContainer>
                 </CardColumns>
                 <CardColumns rightColumn>

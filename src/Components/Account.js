@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import { Link } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
-import ProfileImage from '../img/profile_img.png'
+import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconHome} from '../img/home_icon.svg';
 import {ReactComponent as IconProfile} from '../img/profile_icon.svg';
 import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
@@ -52,7 +52,7 @@ const PortraitContainer =styled.div`
   height:auto;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
+  justify-content:center;
   width:3rem;
   height:3rem;
   max-width:30%;

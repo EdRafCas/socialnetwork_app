@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessages from '../Hooks/useObtainMessages';
-import ProfileImage from './../img/profile_img.png';
+import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
@@ -154,7 +154,11 @@ const TimelineDisplay = ({currentUserInfo}) => {
                 <Card key={Message.id}>
                 <CardColumns>
                   <PortraitContainer>
+                  {Message.photoURL ?
+                    <img alt="userportrait" src={Message.photoURL}/>
+                    :
                     <img alt="userportrait" src={ProfileImage}/>
+                    }
                   </PortraitContainer>
                   
                 </CardColumns>
@@ -169,7 +173,7 @@ const TimelineDisplay = ({currentUserInfo}) => {
                   <TimeBar>
                     {formatDate(Message.date)}
                   </TimeBar>
-                  <TimeBar>
+                  {/* <TimeBar>
                     {Message.id}
                   </TimeBar>
                   <TimeBar>
@@ -177,7 +181,7 @@ const TimelineDisplay = ({currentUserInfo}) => {
                   </TimeBar>
                   <TimeBar>
                     {Message.likes}
-                  </TimeBar>
+                  </TimeBar> */}
                   
                   <InteractionBar>
                     <IconContainer><IconComment/></IconContainer>

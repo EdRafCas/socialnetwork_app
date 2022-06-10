@@ -1,5 +1,6 @@
-import { db } from "./FirebaseConfig";
+import { db, storage } from "./FirebaseConfig";
 import { doc, updateDoc, collection, onSnapshot, orderBy, limit, query, where } from "firebase/firestore";
+import { getDownloadURL, ref} from "firebase/storage"
 
 
 const UpdateProfile = async({id,newName,newBio}) => {
@@ -11,7 +12,7 @@ const UpdateProfile = async({id,newName,newBio}) => {
       }); 
 }
 
-const UpdateTimeline = async({newName,newBio})=>{
+const UpdateTimeline = async({user,newName,newBio})=>{
 
       const consult = query(
             collection(db, 'userTimeline'),
@@ -19,19 +20,19 @@ const UpdateTimeline = async({newName,newBio})=>{
             orderBy('date', 'desc')
             /* limit(30) */
       );
-      console.log(consult)
-      console.log(user)
+      const fileRef= ref(storage, user.uid)
+      const newPhotoURL = await getDownloadURL(fileRef);
 
-      /* onSnapshot(consult, (snapshot)=>{
+      onSnapshot(consult, (snapshot)=>{
             snapshot.docs.map((messageUser)=>{
-                  const documentref =doc(db, "userTimeline", messageUser.id)
-                  updateDoc(documentref,{
+                  const documentref =doc(db, "userTimeline", messageUser.id);
+                  return updateDoc(documentref, {
                         name:newName,
-                        bio:newBio
+                        bio:newBio,
+                        photoURL:newPhotoURL
                   })
             })
-      }) */
-
-
+      })
+     
 }
 export  {UpdateProfile, UpdateTimeline};

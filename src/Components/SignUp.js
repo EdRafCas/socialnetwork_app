@@ -219,48 +219,47 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   })
                   return;
             }
-
             try {
                   await createUserWithEmailAndPassword(auth, email, password)
                   console.log("user created");
-                  try{
-                        await signInWithEmailAndPassword(auth, email, password)
-                        console.log("logged in")
-                        onAuthStateChanged(auth, (user)=>{
-                              if (user){
-                                    const uid = user.uid;
-                                    /* console.log(uid); */
-                                    AddUser({name:name,
-                                          lastname:lastname,
-                                          alias:alias,
-                                          email:email,
-                                          birthMonth:birthMonth,
-                                          birthDay:birthDay,
-                                          birthYear:birthYear,
-                                          uidUser:uid})
-                                    .then(()=>{
-                                          changeStateAlert(true);
-                                          changeAlert({
-                                                type:'success',
-                                                message: 'Account Was created successfully'
-                                          });
-                                          /* logOut();
-                                          console.log("user logged out") */
-                                    })
-                                    .catch((error)=>{
-                                          console.log(error);
-                                    }) 
-                              } else {
-                                    console.log("not logged yet")
-                              };
-                        });
-                  } catch(error){
-                        console.log(error);
-                        changeStateAlert(true);
-                        changeAlert({
-                              type:'error',
-                              message: 'An error ocurred while creating user'});
-                  }           
+                        try{
+                              await signInWithEmailAndPassword(auth, email, password)
+                              console.log("logged in")
+                              onAuthStateChanged(auth, (user)=>{
+                                    if (user){
+                                          const uid = user.uid;
+                                          /* console.log(uid); */
+                                          AddUser({name:name,
+                                                lastname:lastname,
+                                                alias:alias,
+                                                email:email,
+                                                birthMonth:birthMonth,
+                                                birthDay:birthDay,
+                                                birthYear:birthYear,
+                                                uidUser:uid})
+                                          .then(()=>{
+                                                changeStateAlert(true);
+                                                changeAlert({
+                                                      type:'success',
+                                                      message: 'Account Was created successfully'
+                                                });
+                                                /* logOut();
+                                                console.log("user logged out") */
+                                          })
+                                          .catch((error)=>{
+                                                console.log(error);
+                                          }) 
+                                    } else {
+                                          console.log("not logged yet")
+                                    };
+                              });
+                        } catch(error){
+                              console.log(error);
+                              changeStateAlert(true);
+                              changeAlert({
+                                    type:'error',
+                                    message: 'An error ocurred while creating user'});
+                        }           
                   navigate("/");
             } catch(error){
                   changeStateAlert(true)

@@ -42,10 +42,12 @@ const ProfilePic =styled.div`
       height:auto;
       display:flex;
       flex-direction:column;
-      justify-content:flex-start;
+      justify-content:center;
       width:10rem;
+      height:10rem;
       flex-direction:column;
       overflow:hidden;
+      background:#000;
       img{
       width:100%;
       }
