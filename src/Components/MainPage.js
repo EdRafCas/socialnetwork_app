@@ -77,14 +77,11 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
       message:message,
       uidUser: currentUserInfo[0].uidUser,
       name:currentUserInfo[0].name,
-      lastname: currentUserInfo[0].lastname,
       alias:currentUserInfo[0].alias,
       date: getUnixTime(new Date()),
       likes: [],
       retweets: [],
       photoURL: user.photoURL
-
-      
     })
     .then(()=>{
       messageChange("");

@@ -12,7 +12,7 @@ const UpdateProfile = async({id,newName,newBio}) => {
       }); 
 }
 
-const UpdateTimeline = async({user,newName,newBio})=>{
+const UpdateTimeline = async({user,newName})=>{
 
       const consult = query(
             collection(db, 'userTimeline'),
@@ -28,7 +28,6 @@ const UpdateTimeline = async({user,newName,newBio})=>{
                   const documentref =doc(db, "userTimeline", messageUser.id);
                   return updateDoc(documentref, {
                         name:newName,
-                        bio:newBio,
                         photoURL:newPhotoURL
                   })
             })

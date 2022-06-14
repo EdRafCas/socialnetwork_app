@@ -15,6 +15,16 @@ import {Card, CardColumns, UserNameContainer, MessageContent, InteractionBar, Ic
 
 
 const TimelineLikes = ({currentUserInfo}) => {
+    const ExampleOrder = [
+      {name: "Eduardo",
+        value: [{Gold:15, Silver:10}]
+      },
+      {
+        name: "Ana",
+        value: [{Gold:10, Silver:12}]
+      }
+    ]
+
     const [messagesSent] = useObtainMessages();
 
     const formatDate = (date) => {
