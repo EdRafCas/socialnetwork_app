@@ -5,7 +5,7 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
-import {UpdateProfile,UpdateTimeline} from '../firebase/UpdateProfile';
+import {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, CheckUser} from '../firebase/UpdateProfile';
 import UploadPicture from '../firebase/UploadPicture';
 
 const ContainerEditProfile=styled.div`
@@ -271,59 +271,49 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
             }
       }
 
-      /* const handlesubmitEdit =(e)=>{
-            e.preventDefault();
-            if(currentUserInfo){
-                  UpdateProfile({
-                        id:currentUserInfo[0].id,
-                        newName:nameEdit,
-                        newBio:bioEdit,
-                  })
-                  UploadPicture(selectedImage, user, changeLoading)
-                  UpdateTimeline({
-                        user:user,
-                        newName:nameEdit,
-                        newBio:bioEdit,
-                        newPhoto:selectedImage,
-                  })
-                  setTimeout(()=>{
-                        changeShowEditProfile(!showEditProfile);
-                  }, 5000)
-                  
-            }
-      } */
-
       const handlesubmitEdit =async(e)=>{
             e.preventDefault();
-            if(currentUserInfo)
-            try{
-                  await UpdateProfile({
-                              id:currentUserInfo[0].id,
-                              newName:nameEdit,
-                              newBio:bioEdit,
-                        })
-                        console.log("Updated Profile")
-                        try{
-                              await UploadPicture(selectedImage, user, changeLoading)
-                                    console.log("UploadedPicture picture")
+            if(currentUserInfo){
+                  try{
+                        await UpdateProfile({
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit,
+                              })
+                              console.log("Updated Profile")
+                              if(selectedImage){
                                     try{
-                                          await UpdateTimeline({
-                                                      user:user,
-                                                      newName:nameEdit,
-                                                      newBio:bioEdit
-                                                      })
-                                                console.log("Updated Timeline")
+                                          await UploadPicture(selectedImage, user, changeLoading)
+                                                console.log("Uploaded Picture")
+                                                try{
+                                                      await UpdateTimeline({
+                                                                  user:user,
+                                                                  newName:nameEdit
+                                                                  })
+                                                            console.log("Updated Timeline")
+                                                } catch(error){
+                                                      console.log(error+"error UpdateTimeline")
+                                          }
                                     } catch(error){
-                                          console.log(error+"error UpdateTimeline")
+                                          console.log(error+"error UploadPicture")
+                                    }      
+                              } else {
+                                    try{
+                                          await UpdateTimelineNoPicture({
+                                                      user:user,
+                                                      newName:nameEdit
+                                                      })
+                                                console.log("Updated Timeline No Picture")
+                                    } catch(error){
+                                          console.log(error+"error UpdateTimeline No Picture")
+                                    }
                               }
-                        } catch(error){
-                              console.log(error+"error UploadPicture")
-                        }
-                  changeShowEditProfile(!showEditProfile);
-                  console.log("window changed")
-            } catch(error){
-                  console.log(error+"error UpdateProfile")
-            }     
+                        changeShowEditProfile(!showEditProfile);
+                        console.log("Finished changes, closing window")
+                  } catch(error){
+                        console.log(error+"error UpdateProfile")
+                  }           
+            } else { console.log("error loading User")}
       }
 
       const handleImageChange = (e) => {
@@ -338,6 +328,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
             <FormularyBox onSubmit={handlesubmitEdit}>
                   <TopBar>
                         <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
+                        <CloseWindow onClick={()=>CheckUser()} >A</CloseWindow>
                         <EditButton disabled={loading} type="submit">
                               <p>Save</p>
                         </EditButton>
@@ -360,7 +351,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                         <ImageHolder alt="placeholderAvatar" src={ProfileImage}/>
                         :
                         selectedImage == null && user.photoURL ? 
-                        <ImageHolder alt="newAvatar" src={user.photoURL}/>
+                        <ImageHolder alt="user Avatar" src={user.photoURL}/>
                         :""
                         }
                         

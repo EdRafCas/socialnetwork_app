@@ -4,7 +4,7 @@ import { getDownloadURL, ref} from "firebase/storage"
 
 
 const UpdateProfile = async({id,newName,newBio}) => {
-      console.log(id,newName,newBio)
+     /*  console.log(id,newName,newBio) */
       const document = doc(db, "userInfo" , id); 
       return await updateDoc(document, {
             name:newName,
@@ -34,4 +34,40 @@ const UpdateTimeline = async({user,newName})=>{
       })
      
 }
-export  {UpdateProfile, UpdateTimeline};
+const UpdateTimelineNoPicture = async({user,newName})=>{
+
+      const consult = query(
+            collection(db, 'userTimeline'),
+            where('uidUser', "==", user.uid),
+            orderBy('date', 'desc')
+            /* limit(30) */
+      );
+
+      onSnapshot(consult, (snapshot)=>{
+            snapshot.docs.map((messageUser)=>{
+                  const documentref =doc(db, "userTimeline", messageUser.id);
+                  return updateDoc(documentref, {
+                        name:newName
+                  })
+            })
+      })
+     
+}
+const CheckUser = async({currentUserInfo, name, lastname, alias, email, birthMonth, birthDay, birthYear, uidUser})=>{
+
+      const consult = query(
+            collection(db, 'userInfo')
+            /* where('alias', "==", "Amaria") */
+            /* limit(30) */
+      );
+      
+      onSnapshot(consult, (snapshot)=>{
+            snapshot.docs.map((existingUser)=>{
+                  return{...existingUser.data}
+            })
+      })
+
+      
+      
+}
+export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, CheckUser};

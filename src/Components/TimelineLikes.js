@@ -12,8 +12,6 @@ import RemoveLike from '../firebase/RemoveLike';
 import {Card, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '.././Elements/ElementsTimeline'
 
 
-
-
 const TimelineLikes = ({currentUserInfo}) => {
     const ExampleOrder = [
       {name: "Eduardo",
@@ -35,6 +33,7 @@ const TimelineLikes = ({currentUserInfo}) => {
       return items.likes.includes(currentUserInfo[0].uidUser)
       });
     console.log(filterLikes)
+    console.log(ExampleOrder)
 
     /* console.log(MessagesSent); */
 
