@@ -328,7 +328,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
             <FormularyBox onSubmit={handlesubmitEdit}>
                   <TopBar>
                         <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
-                        <CloseWindow onClick={()=>CheckUser()} >A</CloseWindow>
+                        <CloseWindow onClick={()=>CheckUser(currentUserInfo)} >A</CloseWindow>
                         <EditButton disabled={loading} type="submit">
                               <p>Save</p>
                         </EditButton>

@@ -53,21 +53,28 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
       })
      
 }
-const CheckUser = async({currentUserInfo, name, lastname, alias, email, birthMonth, birthDay, birthYear, uidUser})=>{
+const CheckUser = async({alias, changeAliasCheck})=>{
 
       const consult = query(
-            collection(db, 'userInfo')
-            /* where('alias', "==", "Amaria") */
+            collection(db, 'userInfo'),
+            where('alias', "==", alias)
             /* limit(30) */
       );
       
-      onSnapshot(consult, (snapshot)=>{
+      /* console.log(consult) */
+      /* onSnapshot(consult, (snapshot)=>{
             snapshot.docs.map((existingUser)=>{
                   return{...existingUser.data}
             })
-      })
+      }) */
 
-      
+      onSnapshot(consult, (snapshot)=>{
+            if(snapshot.docs.length > 0){
+                  return changeAliasCheck(false)
+            } else{
+                  return changeAliasCheck(true)
+            }
+      })
       
 }
 export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, CheckUser};
