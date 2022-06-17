@@ -8,11 +8,11 @@ import {ButtonContainer} from '../Elements/ElementsFormulary';
 import {auth} from './../firebase/FirebaseConfig';
 import {createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {signInWithEmailAndPassword } from "firebase/auth";
+import { signOut } from 'firebase/auth';
 import {useNavigate} from 'react-router-dom';
 import Alert from './../Elements/Alert';
 import AddUser from '.././firebase/AddUser';
-import { db, } from ".././firebase/FirebaseConfig";
-import { collection, query, where, getDocs,} from "firebase/firestore";
+import { CheckUser } from '../firebase/UpdateProfile';
 
 
 
@@ -129,6 +129,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       const [birthMonth, changeBirthMonth] =useState("");
       const [birthDay, changeBirthDay] =useState("");
       const [birthYear, changeBirthYear] =useState("");
+      const [aliasCheck, changeAliasCheck] =useState(); 
 
       const handleChange = (e) =>{
             switch(e.target.name){
@@ -155,7 +156,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             }
       }
 
-     /*  const logOut = async() =>{
+      const logOut = async() =>{
             try{
                   await signOut(auth);
                   navigate("/LoginPage")
@@ -163,19 +164,12 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   console.log(error);
             }
             
-      } */
+      }
 
       const handleSubmit = async (e) => {
             e.preventDefault();
             changeStateAlert(false);
             changeAlert({});
-
-            const consult = query(
-                  collection(db, 'userInfo'),
-                  where('alias', "==", alias)
-                  /* limit(30) */
-            );
-            const querySnapshot = await getDocs(consult);
 
             const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
             const regularExpressionNames=/^\w+\s?\w+?$/;
@@ -227,78 +221,86 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   })
                   return;
             }
-            if(querySnapshot.docs.length > 0 ){
-                  changeStateAlert(true);
-                  changeAlert({
-                        type:'error',
-                        message: 'This alias already exists'
-                  })
-                  return;
-            }
             try {
-                  await createUserWithEmailAndPassword(auth, email, password)
-                  console.log("user created");
+                  await  CheckUser({changeAliasCheck, alias})
+                  console.log("alias checked")
+                  if(aliasCheck === true){
+                        console.log("alias doesnt exist, we proceed")
                         try{
-                              await signInWithEmailAndPassword(auth, email, password)
-                              console.log("logged in")
-                              onAuthStateChanged(auth, (user)=>{
-                                    if (user){
-                                          const uid = user.uid;
-                                          /* console.log(uid); */
-                                          AddUser({name:name,
-                                                lastname:lastname,
-                                                alias:alias,
-                                                email:email,
-                                                birthMonth:birthMonth,
-                                                birthDay:birthDay,
-                                                birthYear:birthYear,
-                                                uidUser:uid})
-                                          .then(()=>{
-                                                changeStateAlert(true);
-                                                changeAlert({
-                                                      type:'success',
-                                                      message: 'Account Was created successfully'
-                                                });
-                                                /* logOut();
-                                                console.log("user logged out") */
-                                          })
-                                          .catch((error)=>{
-                                                console.log(error);
-                                          }) 
-                                    } else {
-                                          console.log("not logged yet")
-                                    };
-                              });
+                              await createUserWithEmailAndPassword(auth, email, password)
+                              console.log("user created");
+                                    try{
+                                          await signInWithEmailAndPassword(auth, email, password)
+                                          console.log("logged in")
+                                          onAuthStateChanged(auth, (user)=>{
+                                                if (user){
+                                                      const uid = user.uid;
+                                                      /* console.log(uid); */
+                                                      AddUser({name:name,
+                                                            lastname:lastname,
+                                                            alias:alias,
+                                                            email:email,
+                                                            birthMonth:birthMonth,
+                                                            birthDay:birthDay,
+                                                            birthYear:birthYear,
+                                                            uidUser:uid})
+                                                      .then(()=>{
+                                                            changeStateAlert(true);
+                                                            changeAlert({
+                                                                  type:'success',
+                                                                  message: 'Account Was created successfully'
+                                                            });
+                                                            /* logOut();
+                                                            console.log("user logged out") */
+                                                      })
+                                                      .catch((error)=>{
+                                                            console.log(error);
+                                                      }) 
+                                                } else {
+                                                      console.log("not logged yet")
+                                                };
+                                          });
+                                    } catch(error){
+                                          console.log(error);
+                                          changeStateAlert(true);
+                                          changeAlert({
+                                                type:'error',
+                                                message: 'An error ocurred while creating user'});
+                                    }           
+                              navigate("/");
                         } catch(error){
-                              console.log(error);
-                              changeStateAlert(true);
-                              changeAlert({
-                                    type:'error',
-                                    message: 'An error ocurred while creating user'});
-                        }           
-                  navigate("/");
-            } catch(error){
-                  changeStateAlert(true)
-                  let message;
-                  switch(error.code){
-                        case 'auth/invalid-password':
-                              message = 'Password must be at least 6 characters'
-                              break;
-                        case 'auth/email-already-in-use':
-                              message = 'The email is already registered'
-                              break;
-                        case 'auth/invalid-email':
-                              message = 'The provided email is not valid'
-                              break;
-                        default:
-                              message = 'An error ocurred creating the account'
-                              break;
+                              changeStateAlert(true)
+                              let message;
+                              switch(error.code){
+                                    case 'auth/invalid-password':
+                                          message = 'Password must be at least 6 characters'
+                                          break;
+                                    case 'auth/email-already-in-use':
+                                          message = 'The email is already registered'
+                                          break;
+                                    case 'auth/invalid-email':
+                                          message = 'The provided email is not valid'
+                                          break;
+                                    default:
+                                          message = 'An error ocurred creating the account'
+                                          break;
+                        }
+                        changeAlert({
+                              type:'error',
+                              message:message
+                        });
+                        }
+                  } else{
+                        console.log("alias exist")
+                        changeStateAlert(true);
+                        changeAlert({
+                              type:'error',
+                              message: 'That Alias Already exist, please choose another'});
+                        changeAliasCheck(false);
                   }
-                 changeAlert({
-                       type:'error',
-                       message:message
-                 });
-            }
+            }catch(error){
+                  console.log("error user")
+            }       
 
       };
       

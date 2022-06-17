@@ -1,5 +1,5 @@
 import { db, storage } from "./FirebaseConfig";
-import { doc, updateDoc, collection, onSnapshot, orderBy, limit, query, where } from "firebase/firestore";
+import { doc, updateDoc, collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { getDownloadURL, ref} from "firebase/storage"
 
 
@@ -53,28 +53,5 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
       })
      
 }
-const CheckUser = async({alias, changeAliasCheck})=>{
 
-      const consult = query(
-            collection(db, 'userInfo'),
-            where('alias', "==", alias)
-            /* limit(30) */
-      );
-      
-      /* console.log(consult) */
-      /* onSnapshot(consult, (snapshot)=>{
-            snapshot.docs.map((existingUser)=>{
-                  return{...existingUser.data}
-            })
-      }) */
-
-      onSnapshot(consult, (snapshot)=>{
-            if(snapshot.docs.length > 0){
-                  return changeAliasCheck(false)
-            } else{
-                  return changeAliasCheck(true)
-            }
-      })
-      
-}
-export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, CheckUser};
+export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture};

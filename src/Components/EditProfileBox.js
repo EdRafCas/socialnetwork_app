@@ -5,7 +5,7 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
-import {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, CheckUser} from '../firebase/UpdateProfile';
+import {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture} from '../firebase/UpdateProfile';
 import UploadPicture from '../firebase/UploadPicture';
 
 const ContainerEditProfile=styled.div`
@@ -49,6 +49,7 @@ const CloseWindow=styled.div`
       padding:5px;
       text-decoration:none;
       border-radius:50%;
+      cursor:default;
       :hover{
             background:rgba(91, 112, 131, 0.8);
       }
@@ -328,7 +329,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
             <FormularyBox onSubmit={handlesubmitEdit}>
                   <TopBar>
                         <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
-                        <CloseWindow onClick={()=>CheckUser(currentUserInfo)} >A</CloseWindow>
+                        
                         <EditButton disabled={loading} type="submit">
                               <p>Save</p>
                         </EditButton>
