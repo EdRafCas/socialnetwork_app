@@ -49,7 +49,7 @@ const InteractionBar=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:space-around;
-  /* border-top:solid ${theme.BorderColor} 1px; */
+  border-top:solid ${theme.BorderColor} 1px;
   width:100%;
   max-height:6rem;
   padding-top:0.5rem;
@@ -57,9 +57,11 @@ const InteractionBar=styled.div`
 const IconContainer=styled.div`
   border-radius:50%;
   display:flex;
+  justify-content:center;
   align-items:center;
-  height:1.8rem;
-  /* border:1px solid white; */
+  height:2.5rem;
+  width:2.5rem;
+  border:1px solid white;
   fill:currentcolor;
   :hover{
     background:${theme.GradientBackround};
@@ -74,19 +76,23 @@ const IconContainer=styled.div`
   }
 `
 const CounterContainer=styled.div`
-  border-radius:50%;
+  
   display:flex;
+  justify-content:flex-start;
   align-items:center;
-  height:1.8rem;
-  /* border:1px solid white; */
+  border:1px solid white;
   fill:currentcolor;
+  width:40px;
+  height:40px;
+  padding-left:5px;
+  
   :hover{
     background:${theme.GradientBackround};
   }
-    svg{
-      max-height:1.2rem;
-      fill:white;
-    }
+  svg{
+    max-height:1.2rem;
+    fill:white;
+  }
   :active{
     background:white;;
     fill:black;
@@ -96,8 +102,24 @@ const IconContainerCont=styled.div`
   border-radius:50%;
   display:flex;
   align-items:center;
-  height:1.8rem;
+  justify-content:center;
   gap:5px;
+  border:solid red 1px;
+  :hover{
+    /* background:${theme.GradientBackround}; */
+    button{
+      border:solid ${theme.BorderColor} 1px;
+        svg{
+          stroke: #fce57e;
+        }   
+    }
+    div{
+      p{
+        color:#fce57e;
+      }
+    }
+  }
+  
 `
 const TimeBar =styled.div`
   display:flex;
@@ -111,8 +133,14 @@ const LikeButton=styled.button`
   border-radius:50%;
   display:flex;
   align-items:center;
-  height:1.8rem;
+  justify-content:center;
+  height:2.5rem;
+  width:2.5rem;
   gap:5px;
+  
+  :hover{
+   /*  border:solid ${theme.BorderColor} 1px; */
+  }
 `
 
 export {Card, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton};

@@ -131,6 +131,7 @@ const LikeButton=styled.button`
   align-items:center;
   height:1.8rem;
   gap:5px;
+  border:solid ${theme.BorderColor} 1px;
 `
 
 
@@ -186,20 +187,16 @@ const TimelineDisplay = ({currentUserInfo}) => {
                   <InteractionBar>
                     <IconContainer><IconComment/></IconContainer>
                     <IconContainer><IconRetweet/></IconContainer>
-                  <IconContainerCont>
-                    <IconContainer><IconRetweet/></IconContainer>
-                    <CounterContainer>{Message.retweets > 0 ?  Message.retweets.length : "" }</CounterContainer>
-                  </IconContainerCont>
-                  <IconContainerCont>
-                    <LikeButton > 
-                      <IconLike />                               
-                    </LikeButton>
-                    <CounterContainer>{Message.likes.length}</CounterContainer>
-                  </IconContainerCont>
-                  
-                  
-                  
-                  
+                    <IconContainerCont>
+                      <IconContainer><IconRetweet/></IconContainer>
+                      <CounterContainer>{Message.retweets > 0 ?  Message.retweets.length : "" }</CounterContainer>
+                    </IconContainerCont>
+                    <IconContainerCont>
+                      <LikeButton > 
+                        <IconLike />                               
+                      </LikeButton>
+                      <CounterContainer><p>{Message.likes.length}</p></CounterContainer>
+                    </IconContainerCont>
                   </InteractionBar>
                 </CardColumns>
 
