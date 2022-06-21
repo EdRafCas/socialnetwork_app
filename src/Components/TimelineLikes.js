@@ -73,27 +73,23 @@ const TimelineLikes = ({currentUserInfo}) => {
                   </TimeBar> */}
                   
                   <InteractionBar>
-                  <IconContainer><IconComment/></IconContainer>
-                  <IconContainer><IconRetweet/></IconContainer>
-                  <IconContainerCont>
-                    <IconContainer><IconRetweet/></IconContainer>
-                    <CounterContainer>{Message.retweets > 0 ?  Message.retweets.length : "" }</CounterContainer>
-                  </IconContainerCont>
-                  <IconContainerCont>
-                    {!Message.likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
-                      <IconLike />                               
-                    </LikeButton>
-                    :
-                    <LikeButton onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
-                      <IconLikeColor />                               
-                    </LikeButton>}
-                    <CounterContainer>{Message.likes.length}</CounterContainer>
-                  </IconContainerCont>
-                  
-                  
-                  
-                  
+                    <IconContainer Reply ><IconComment/></IconContainer>
+                    <IconContainer Retweet ><IconRetweet/></IconContainer>
+                    <IconContainerCont>
+                      <IconContainer Retweet ><IconRetweet/></IconContainer>
+                      <CounterContainer>{Message.retweets > 0 ?  Message.retweets.length : "" }</CounterContainer>
+                    </IconContainerCont>
+                    <IconContainerCont>
+                      {!Message.likes.includes(currentUserInfo[0].uidUser)?
+                      <LikeButton Like onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                        <IconLike />                               
+                      </LikeButton>
+                      :
+                      <LikeButton onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                        <IconLikeColor />                               
+                      </LikeButton>}
+                      <CounterContainer>{Message.likes.length}</CounterContainer>
+                    </IconContainerCont>
                   </InteractionBar>
                 </CardColumns>
               </Card>  

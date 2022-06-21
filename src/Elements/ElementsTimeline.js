@@ -61,37 +61,41 @@ const IconContainer=styled.div`
   align-items:center;
   height:2.5rem;
   width:2.5rem;
-  border:1px solid white;
+  /* border:1px solid white; */
   fill:currentcolor;
   :hover{
-    background:${theme.GradientBackround};
-  }
+    background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
+                         : props.Like ? `${theme.PinkLikeBackground}` 
+                         : props.Retweet ? `${theme.GreenRetweetBackground}` 
+                         : "auto"};
     svg{
-      max-height:1.2rem;
-      fill:white;
+      max-height:3rem;
+      stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
+                         : props.Like ? `${theme.PinkLike}` 
+                         : props.Retweet ? `${theme.GreenRetweet}` 
+                         : "auto"};
     }
+  }
+  svg{
+    max-height:1.2rem;
+    stroke: ${theme.BorderColor};
+  }
   :active{
     background:white;;
     fill:black;
   }
 `
 const CounterContainer=styled.div`
-  
   display:flex;
   justify-content:flex-start;
   align-items:center;
-  border:1px solid white;
+  /* border:1px solid white; */
   fill:currentcolor;
   width:40px;
   height:40px;
   padding-left:5px;
-  
   :hover{
-    background:${theme.GradientBackround};
-  }
-  svg{
-    max-height:1.2rem;
-    fill:white;
+    
   }
   :active{
     background:white;;
@@ -99,23 +103,22 @@ const CounterContainer=styled.div`
   }
 `
 const IconContainerCont=styled.div`
-  border-radius:50%;
+  /* border-radius:50%; */
+  /*  border:solid red 1px; */
   display:flex;
   align-items:center;
   justify-content:center;
   gap:5px;
-  border:solid red 1px;
   :hover{
-    /* background:${theme.GradientBackround}; */
     button{
-      border:solid ${theme.BorderColor} 1px;
+      background:${theme.PinkLikeBackground};
         svg{
-          stroke: #fce57e;
+          stroke: ${theme.PinkLike};
         }   
     }
     div{
       p{
-        color:#fce57e;
+        color:${theme.PinkLike};
       }
     }
   }

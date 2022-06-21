@@ -82,10 +82,10 @@ const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}
                   </TimeBar> */}
                   
                   <InteractionBar>
-                    <IconContainer><IconComment/></IconContainer>
-                    <IconContainer><IconRetweet/></IconContainer>
+                    <IconContainer Reply ><IconComment/></IconContainer>
+                    <IconContainer Retweet ><IconRetweet/></IconContainer>
                     <IconContainerCont>
-                      <IconContainer><IconRetweet/></IconContainer>
+                      <IconContainer Retweet ><IconRetweet/></IconContainer>
                       <CounterContainer>
                         {
                         Message.retweets > 0 ?  
@@ -96,7 +96,7 @@ const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}
                     </IconContainerCont>
                     <IconContainerCont>
                       {!Message.likes.includes(currentUserInfo[0].uidUser)?
-                      <LikeButton onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                      <LikeButton Like onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
                         <IconLike />                               
                       </LikeButton>
                       :
@@ -104,10 +104,7 @@ const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}
                         <IconLikeColor />                               
                       </LikeButton>}
                       <CounterContainer>
-                        <p>
-                          {Message.likes.length}
-                        </p>
-                        
+                        <p>{Message.likes.length}</p>
                       </CounterContainer>
                     </IconContainerCont>
                   </InteractionBar>

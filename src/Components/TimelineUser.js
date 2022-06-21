@@ -61,22 +61,24 @@ const TimelineUser = ({currentUserInfo}) => {
                   </TimeBar> */}
                   
                   <InteractionBar>
-                  <IconContainer><IconComment/></IconContainer>
-                  <IconContainer><IconRetweet/></IconContainer>
+                  <IconContainer Reply ><IconComment/></IconContainer>
+                  <IconContainer Retweet ><IconRetweet/></IconContainer>
                   <IconContainerCont>
-                    <IconContainer><IconRetweet/></IconContainer>
+                    <IconContainer Retweet ><IconRetweet/></IconContainer>
                     <CounterContainer>{MessageUser.retweets > 0 ?  MessageUser.retweets.length : "" }</CounterContainer>
                   </IconContainerCont>
                   <IconContainerCont>
                     {!MessageUser.likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton onClick={()=>addLike({id:MessageUser.id,uidUser:currentUserInfo[0].uidUser,likes:MessageUser.likes})}> 
+                    <LikeButton  Like onClick={()=>addLike({id:MessageUser.id,uidUser:currentUserInfo[0].uidUser,likes:MessageUser.likes})}> 
                       <IconLike />                               
                     </LikeButton>
                     :
                     <LikeButton onClick={()=>RemoveLike({id:MessageUser.id,uidUser:currentUserInfo[0].uidUser,likes:MessageUser.likes})}> 
                       <IconLikeColor />                               
                     </LikeButton>}
-                    <CounterContainer>{MessageUser.likes.length}</CounterContainer>
+                    <CounterContainer>
+                      <p>{MessageUser.likes.length}</p>
+                    </CounterContainer>
                   </IconContainerCont>
                   
                   
