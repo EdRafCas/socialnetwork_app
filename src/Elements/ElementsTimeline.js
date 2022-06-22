@@ -2,7 +2,24 @@ import styled from 'styled-components'
 import theme from '../Theme'
 
 const Card =styled.div`
+  display:flex;
+  flex-direction:column;
+  border:solid ${theme.BorderColor} 1px;
+  /* border-radius:15px; */
+  gap:0rem;
+  padding-top:0.5rem;
+  background:black;
+`
+const RetweetInfo=styled.div`
+  height:1.5rem;
+  width:100%;
   display:grid;
+  grid-template-columns: repeat(1, 1fr 12fr);
+
+`
+const UserColumns=styled.div`
+  display:grid;
+  width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
   border-bottom:solid ${theme.BorderColor} 1px;
   /* border-radius:15px; */
@@ -146,4 +163,4 @@ const LikeButton=styled.button`
   }
 `
 
-export {Card, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton};
+export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetInfo};

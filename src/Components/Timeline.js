@@ -13,7 +13,7 @@ import addLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import MessageBox from './MessageBox';
 import '../index.css'
-import {Card, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '.././Elements/ElementsTimeline'
+import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '.././Elements/ElementsTimeline'
  
 const TimelineContainer = styled.div`
   height:100%;
@@ -25,7 +25,21 @@ const TimelineContainer = styled.div`
   overflow:scroll;
   overflow-x:hidden;
 `
-
+const IconContainerRetweet=styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-end;
+  align-items:center;
+  height:1.5rem;
+  width:100%;
+  border:1px solid white;
+  fill:currentcolor;
+  }
+  svg{
+    max-height:1.2rem;
+    stroke: ${theme.BorderColor};
+  }
+`
 
 const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
@@ -48,67 +62,73 @@ const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}
             {messagesSent.map((Message, index)=>{
               return(
               <Card key={Message.id}>
-                <CardColumns>
-                  <PortraitContainer>
-                    {Message.photoURL ?
-                    <img alt="userportrait" src={Message.photoURL}/>
-                    :
-                    <img alt="userportrait" src={ProfileImage}/>
-                    }
-                    
-                  </PortraitContainer>
-                </CardColumns>
-                <CardColumns rightColumn>
-                  <UserNameContainer>
-                    <NameContainer>{Message.name}</NameContainer>
-                    
-                    <AliasContainer>@{Message.alias}</AliasContainer>
-                  </UserNameContainer>
-                  <MessageContent>
-                    {Message.message}
-                    
-                  </MessageContent>
-                  <TimeBar>
-                    {formatDate(Message.date)}
-                  </TimeBar>
-                  {/* <TimeBar>
-                    {Message.id}
-                  </TimeBar>
-                  <TimeBar>
-                    {Message.uidUser}
-                  </TimeBar>
-                  <TimeBar>
-                    {Message.likes}
-                  </TimeBar> */}
-                  
-                  <InteractionBar>
-                    <IconContainer Reply ><IconComment/></IconContainer>
-                    <IconContainer Retweet ><IconRetweet/></IconContainer>
-                    <IconContainerCont>
-                      <IconContainer Retweet ><IconRetweet/></IconContainer>
-                      <CounterContainer>
-                        {
-                        Message.retweets > 0 ?  
-                        Message.retweets.length 
-                        : "" 
-                        }
-                      </CounterContainer>
-                    </IconContainerCont>
-                    <IconContainerCont>
-                      {!Message.likes.includes(currentUserInfo[0].uidUser)?
-                      <LikeButton Like onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
-                        <IconLike />                               
-                      </LikeButton>
+                <RetweetInfo>
+                  <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
+                  <div>1</div>
+                </RetweetInfo>
+                <UserColumns>
+                  <CardColumns>
+                    <PortraitContainer>
+                      {Message.photoURL ?
+                      <img alt="userportrait" src={Message.photoURL}/>
                       :
-                      <LikeButton onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
-                        <IconLikeColor />                               
-                      </LikeButton>}
-                      <CounterContainer>
-                        <p>{Message.likes.length}</p>
-                      </CounterContainer>
-                    </IconContainerCont>
-                  </InteractionBar>
-                </CardColumns>
+                      <img alt="userportrait" src={ProfileImage}/>
+                      }
+                      
+                    </PortraitContainer>
+                  </CardColumns>
+                  <CardColumns rightColumn>
+                    <UserNameContainer>
+                      <NameContainer>{Message.name}</NameContainer>
+                      
+                      <AliasContainer>@{Message.alias}</AliasContainer>
+                    </UserNameContainer>
+                    <MessageContent>
+                      {Message.message}
+                      
+                    </MessageContent>
+                    <TimeBar>
+                      {formatDate(Message.date)}
+                    </TimeBar>
+                    {/* <TimeBar>
+                      {Message.id}
+                    </TimeBar>
+                    <TimeBar>
+                      {Message.uidUser}
+                    </TimeBar>
+                    <TimeBar>
+                      {Message.likes}
+                    </TimeBar> */}
+                    
+                    <InteractionBar>
+                      <IconContainer Reply ><IconComment/></IconContainer>
+                      <IconContainer Retweet ><IconRetweet/></IconContainer>
+                      <IconContainerCont>
+                        <IconContainer Retweet ><IconRetweet/></IconContainer>
+                        <CounterContainer>
+                          {
+                          Message.retweets > 0 ?  
+                          Message.retweets.length 
+                          : "" 
+                          }
+                        </CounterContainer>
+                      </IconContainerCont>
+                      <IconContainerCont>
+                        {!Message.likes.includes(currentUserInfo[0].uidUser)?
+                        <LikeButton Like onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                          <IconLike />                               
+                        </LikeButton>
+                        :
+                        <LikeButton onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                          <IconLikeColor />                               
+                        </LikeButton>}
+                        <CounterContainer>
+                          <p>{Message.likes.length}</p>
+                        </CounterContainer>
+                      </IconContainerCont>
+                    </InteractionBar>
+                  </CardColumns>
+                </UserColumns>
               </Card>  
               )
             })}          
