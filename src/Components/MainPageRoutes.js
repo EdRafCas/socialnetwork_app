@@ -5,7 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import UserProfile from './UserProfile';
 
 
-const MainPageRoutes = ({user, currentUserInfo,addToTimeline,message, handleChange, showEditProfile, changeShowEditProfile}) => {
+const MainPageRoutes = ({changeAlert, messageAlert, stateAlert, changeStateAlert, user, currentUserInfo,addToTimeline,message, handleChange,    showEditProfile, changeShowEditProfile}) => {
   
       return ( 
         <Routes>
@@ -16,7 +16,12 @@ const MainPageRoutes = ({user, currentUserInfo,addToTimeline,message, handleChan
                             currentUserInfo={currentUserInfo}
                             addToTimeline={addToTimeline}
                             message={message}
-                            handleChange={handleChange}/>
+                            handleChange={handleChange}
+                            messageAlert={messageAlert}
+                            changeAlert={changeAlert}
+                            stateAlert={stateAlert}
+                            changeStateAlert={changeStateAlert}
+                            />
                 </PrivateRoute>}/>
 
           <Route path="/user/:alias/*" exact={true} 

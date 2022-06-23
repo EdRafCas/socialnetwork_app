@@ -1,5 +1,5 @@
 import { db } from "./FirebaseConfig";
-import { collection, addDoc, updateDoc  } from "firebase/firestore";
+import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
 const AddRetweet = async({id, message, uidUser, name, alias, date, likes, retweets, photoURL}) => {
@@ -8,10 +8,9 @@ const AddRetweet = async({id, message, uidUser, name, alias, date, likes, retwee
 
       try{
             await updateDoc(document, {
-                  likes: [...likes, uidUser]})
+                  retweets: [...retweets, uidUser]})
                   try{
                         await addDoc(collection(db, "userTimeline"), {
-                              message:message,
                               uidUser:uidUser,
                               name: name,
                               alias: alias,

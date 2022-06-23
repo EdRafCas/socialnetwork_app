@@ -122,10 +122,15 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                               message={message}
                               handleChange={handleChange}
                               showEditProfile={showEditProfile}
-                              changeShowEditProfile={changeShowEditProfile}/>
+                              changeShowEditProfile={changeShowEditProfile}
+                              changeAlert={changeAlert}
+                              messageAlert={alert.message}
+                              stateAlert={stateAlert}
+                              changeStateAlert={changeStateAlert}
+                              />
             }
           </ColumnContainer2>
-          <Alert type={alert.type}
+          <Alert  type={alert.type}
                   message={alert.message}
                   stateAlert={stateAlert}
                   changeStateAlert={changeStateAlert}/>

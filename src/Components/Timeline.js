@@ -4,12 +4,15 @@ import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessages from '../Hooks/useObtainMessages';
 import ProfileImage from '../img/profile_avatar.png'
+import getUnixTime from 'date-fns/getUnixTime';
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
+import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
-import addLike from '../firebase/AddLike';
+import AddLike from '../firebase/AddLike';
+import AddRetweet from '../firebase/AddRetweet';
 import RemoveLike from '../firebase/RemoveLike';
 import MessageBox from './MessageBox';
 import '../index.css'
@@ -32,17 +35,74 @@ const IconContainerRetweet=styled.div`
   align-items:center;
   height:1.5rem;
   width:100%;
-  border:1px solid white;
+  min-width:64px;
+  /* border:1px solid white; */
   fill:currentcolor;
-  }
+
   svg{
     max-height:1.2rem;
     stroke: ${theme.BorderColor};
   }
 `
+const NameContainerRetweet = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  color: ${theme.Text};
+  font-size:1rem;
+  font-weight:800;
+  /* border:solid ${theme.BorderColor} 1px; */
+  overflow:hidden;
+  padding-left:5px;
+  gap:5px;
+`
+const RetweetButton=styled.button`
+  background:black;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:2.5rem;
+  width:2.5rem;
+  gap:5px;
+  :hover{
+   /*  border:solid ${theme.BorderColor} 1px; */
+  }
+`
 
-const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}) => {
+const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
+
+    const addRetweetToTimeline = (e) =>{
+      e.preventDefault();
+      if(message !==""){
+       AddRetweet({
+        message:message,
+        uidUser: currentUserInfo[0].uidUser,
+        name:currentUserInfo[0].name,
+        alias:currentUserInfo[0].alias,
+        date: getUnixTime(new Date()),
+        likes: [],
+        retweets: [],
+        photoURL: user.photoURL
+      })
+      .then(()=>{
+        changeStateAlert(true);
+        changeAlert({
+              type:'success',
+              messageAlert: 'Your message was sent successfully'
+        })
+      })
+      .catch((error)=>{
+        changeStateAlert(true);
+        changeAlert({
+              type:'error',
+              messageAlert: 'An error ocurred while sending your message'
+        })
+      }) 
+      }
+      
+    };
 
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -64,7 +124,7 @@ const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}
               <Card key={Message.id}>
                 <RetweetInfo>
                   <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
-                  <div>1</div>
+                  <NameContainerRetweet>{Message.name} <p>Retweeted</p> </NameContainerRetweet>
                 </RetweetInfo>
                 <UserColumns>
                   <CardColumns>
@@ -80,7 +140,6 @@ const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}
                   <CardColumns rightColumn>
                     <UserNameContainer>
                       <NameContainer>{Message.name}</NameContainer>
-                      
                       <AliasContainer>@{Message.alias}</AliasContainer>
                     </UserNameContainer>
                     <MessageContent>
@@ -102,26 +161,30 @@ const Timeline = ({ user, currentUserInfo, addToTimeline, message, handleChange}
                     
                     <InteractionBar>
                       <IconContainer Reply ><IconComment/></IconContainer>
-                      <IconContainer Retweet ><IconRetweet/></IconContainer>
-                      <IconContainerCont>
-                        <IconContainer Retweet ><IconRetweet/></IconContainer>
+                      <IconContainer Retweet ><IconRetweetColor/></IconContainer>
+                      <IconContainerCont Retweet>
+                        <RetweetButton onClick={()=>addRetweetToTimeline}>
+                          <IconRetweet/>
+                        </RetweetButton>
                         <CounterContainer>
                           {
-                          Message.retweets > 0 ?  
-                          Message.retweets.length 
-                          : "" 
+                            Message.retweets > 0 ?  
+                            Message.retweets.length 
+                            : ""
                           }
                         </CounterContainer>
                       </IconContainerCont>
-                      <IconContainerCont>
-                        {!Message.likes.includes(currentUserInfo[0].uidUser)?
-                        <LikeButton Like onClick={()=>addLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
-                          <IconLike />                               
-                        </LikeButton>
-                        :
-                        <LikeButton onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
-                          <IconLikeColor />                               
-                        </LikeButton>}
+                      <IconContainerCont Like>
+                        {
+                          !Message.likes.includes(currentUserInfo[0].uidUser)?
+                          <LikeButton  onClick={()=>AddLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                            <IconLike />                               
+                          </LikeButton>
+                          :
+                          <LikeButton  onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                            <IconLikeColor />                               
+                          </LikeButton>
+                        }
                         <CounterContainer>
                           <p>{Message.likes.length}</p>
                         </CounterContainer>

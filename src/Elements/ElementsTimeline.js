@@ -15,6 +15,7 @@ const RetweetInfo=styled.div`
   width:100%;
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
+  
 
 `
 const UserColumns=styled.div`
@@ -86,7 +87,7 @@ const IconContainer=styled.div`
                          : props.Retweet ? `${theme.GreenRetweetBackground}` 
                          : "auto"};
     svg{
-      max-height:3rem;
+      /* max-height:3rem; */
       stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
                          : props.Like ? `${theme.PinkLike}` 
                          : props.Retweet ? `${theme.GreenRetweet}` 
@@ -126,11 +127,22 @@ const IconContainerCont=styled.div`
   align-items:center;
   justify-content:center;
   gap:5px;
+  button{
+    svg{
+      max-height:1.2rem;
+    }
+  }
   :hover{
     button{
-      background:${theme.PinkLikeBackground};
+      background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
+                         : props.Like ? `${theme.PinkLikeBackground}` 
+                         : props.Retweet ? `${theme.GreenRetweetBackground}` 
+                         : "auto"};
         svg{
-          stroke: ${theme.PinkLike};
+          stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
+                         : props.Like ? `${theme.PinkLike}` 
+                         : props.Retweet ? `${theme.GreenRetweet}` 
+                         : "auto"};
         }   
     }
     div{
