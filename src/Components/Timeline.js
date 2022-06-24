@@ -12,11 +12,13 @@ import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg'
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
-import AddRetweet from '../firebase/AddRetweet';
+import {addRetweetToTimeline} from '../firebase/AddRetweet';
 import RemoveLike from '../firebase/RemoveLike';
 import MessageBox from './MessageBox';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '.././Elements/ElementsTimeline'
+import RetweetTimeline from './RetweetTimeline';
+
  
 const TimelineContainer = styled.div`
   height:100%;
@@ -73,40 +75,10 @@ const RetweetButton=styled.button`
 const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
 
-    const addRetweetToTimeline = (e) =>{
-      e.preventDefault();
-      if(message !==""){
-       AddRetweet({
-        message:message,
-        uidUser: currentUserInfo[0].uidUser,
-        name:currentUserInfo[0].name,
-        alias:currentUserInfo[0].alias,
-        date: getUnixTime(new Date()),
-        likes: [],
-        retweets: [],
-        photoURL: user.photoURL
-      })
-      .then(()=>{
-        changeStateAlert(true);
-        changeAlert({
-              type:'success',
-              messageAlert: 'Your message was sent successfully'
-        })
-      })
-      .catch((error)=>{
-        changeStateAlert(true);
-        changeAlert({
-              type:'error',
-              messageAlert: 'An error ocurred while sending your message'
-        })
-      }) 
-      }
-      
-    };
 
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
- };
+    };
     
 
     /* console.log(MessagesSent); */
@@ -119,13 +91,19 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                           addToTimeline={addToTimeline}
                           message={message}
                           handleChange={handleChange} />
-            {messagesSent.map((Message, index)=>{
+              {messagesSent.map((Message, index)=>{
               return(
               <Card key={Message.id}>
+                {Message.Retweet === "maybe" ?
+                <>
                 <RetweetInfo>
                   <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
                   <NameContainerRetweet>{Message.name} <p>Retweeted</p> </NameContainerRetweet>
                 </RetweetInfo>
+                <RetweetTimeline id={Message.RetweetId} currentUserInfo={currentUserInfo} />
+                </>
+                :
+                <>
                 <UserColumns>
                   <CardColumns>
                     <PortraitContainer>
@@ -163,15 +141,18 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                       <IconContainer Reply ><IconComment/></IconContainer>
                       <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                       <IconContainerCont Retweet>
-                        <RetweetButton onClick={()=>addRetweetToTimeline}>
+                      {
+                          !Message.retweets.includes(currentUserInfo[0].uidUser)?
+                        <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:Message.id, user, currentUserInfo, date: getUnixTime(new Date())})}>
                           <IconRetweet/>
                         </RetweetButton>
+                      :
+                      <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:Message.id, user, currentUserInfo, date: getUnixTime(new Date())})}>
+                          <IconRetweetColor/>
+                        </RetweetButton>
+                      }
                         <CounterContainer>
-                          {
-                            Message.retweets > 0 ?  
-                            Message.retweets.length 
-                            : ""
-                          }
+                          {Message.retweets.length}
                         </CounterContainer>
                       </IconContainerCont>
                       <IconContainerCont Like>
@@ -192,9 +173,11 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                     </InteractionBar>
                   </CardColumns>
                 </UserColumns>
+                </>
+                }
               </Card>  
               )
-            })}          
+              })}          
             </TimelineContainer>
        );
 }
