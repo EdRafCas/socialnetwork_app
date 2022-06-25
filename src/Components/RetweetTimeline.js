@@ -60,13 +60,16 @@ const RetweetButton=styled.button`
 
 const RetweetTimeline = ({id, currentUserInfo}) => {
     const [messageForRetweet] = useObtainMessagesRetweet(id);
+    console.log(messageForRetweet)
+    
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
 
 return ( 
         <Card key={id}>
-          <RetweetInfo>
+          <p>{messageForRetweet}</p>
+         {/*  <RetweetInfo>
             <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
             <NameContainerRetweet>{messageForRetweet.data().name} <p>Retweeted</p> </NameContainerRetweet>
           </RetweetInfo>
@@ -93,16 +96,6 @@ return (
               <TimeBar>
                 {formatDate(messageForRetweet.data().date)}
               </TimeBar>
-              {/* <TimeBar>
-                {Message.id}
-              </TimeBar>
-              <TimeBar>
-                {Message.uidUser}
-              </TimeBar>
-              <TimeBar>
-                {Message.likes}
-              </TimeBar> */}
-              
               <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
                 <IconContainer Retweet ><IconRetweetColor/></IconContainer>
@@ -135,7 +128,7 @@ return (
                 </IconContainerCont>
               </InteractionBar>
             </CardColumns>
-          </UserColumns>
+          </UserColumns> */}
         </Card>
     )
 }

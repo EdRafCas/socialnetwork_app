@@ -32,10 +32,14 @@ const TimelineLikes = ({currentUserInfo}) => {
     var filterLikes= messagesSent.filter(function(items) {
       return items.likes.includes(currentUserInfo[0].uidUser)
       });
-    console.log(filterLikes)
-    console.log(ExampleOrder)
 
-    /* console.log(MessagesSent); */
+     
+    /*
+    console.log(messagesSent)
+    console.log(ExampleOrder)
+    console.log(filterLikes) 
+    */
+
 
       return ( 
             <>

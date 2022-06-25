@@ -94,13 +94,13 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
               {messagesSent.map((Message, index)=>{
               return(
               <Card key={Message.id}>
-                {Message.Retweet === "maybe" ?
+                {Message.Retweet ?
                 <>
                 <RetweetInfo>
                   <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
                   <NameContainerRetweet>{Message.name} <p>Retweeted</p> </NameContainerRetweet>
                 </RetweetInfo>
-                <RetweetTimeline id={Message.RetweetId} currentUserInfo={currentUserInfo} />
+                {/* <RetweetTimeline id={Message.RetweetId} currentUserInfo={currentUserInfo} /> */}
                 </>
                 :
                 <>
