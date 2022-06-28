@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
-const useObtainMessagesRetweet = ({loadingRetweets, changeLoadingRetweets}) => {
+const useObtainMessagesRetweet = ({loadingRetweets}) => {
       const [messageForRetweet, changeMessageForRetweet] = useState('')
 
       useEffect(()=>{
@@ -13,10 +13,9 @@ const useObtainMessagesRetweet = ({loadingRetweets, changeLoadingRetweets}) => {
                    }else{
                         console.log("id no existe")
                    }
-            changeLoadingRetweets(false)
+      
             }
-            return obtainMessage;
-            //eslint-disable-next-line
+            obtainMessage();
       },[])
       
       return[messageForRetweet]

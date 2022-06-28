@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
@@ -13,8 +13,8 @@ import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
-import useObtainMessagesRetweet from '../Hooks/useObtainMessageRetweet';
-import {addRetweetToTimeline} from '../firebase/AddRetweet';
+import { db } from "../firebase/FirebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 const IconContainerRetweet=styled.div`
   display:flex;
@@ -58,21 +58,33 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetTimeline = ({id, currentUserInfo}) => {
-    const [messageForRetweet] = useObtainMessagesRetweet(id);
-    console.log(messageForRetweet)
+const RetweetTimeline = ({currentUserInfo}) => {
+    const [loadingRetweets, changeLoadingRetweets] =useState(true);
+    const [messageForRetweet, changeMessageForRetweet] = useState('')
+
+    useEffect(()=>{
+      const obtainMessage = async() =>{
+            const document = await getDoc(doc(db, 'userTimeline', "c12MatKDeB1sJfUkaSSf" ));
+             if(document.exists){
+                  changeMessageForRetweet(document) 
+             }else{
+                  console.log("id no existe")
+             }
+             
+        changeLoadingRetweets(false)
+      }
+      return obtainMessage;
+
+      //eslint-disable-next-line
+      },[])
     
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
- };
+    };
 
 return ( 
-        <Card key={id}>
-          <p>{messageForRetweet}</p>
-         {/*  <RetweetInfo>
-            <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
-            <NameContainerRetweet>{messageForRetweet.data().name} <p>Retweeted</p> </NameContainerRetweet>
-          </RetweetInfo>
+        <>
+        {!loadingRetweets &&
           <UserColumns>
             <CardColumns>
               <PortraitContainer>
@@ -100,15 +112,18 @@ return (
                 <IconContainer Reply ><IconComment/></IconContainer>
                 <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                 <IconContainerCont Retweet>
-                  <RetweetButton onClick={()=>addRetweetToTimeline}>
+                  {
+                      !messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
+                  <RetweetButton>
                     <IconRetweet/>
                   </RetweetButton>
+                  :
+                  <RetweetButton>
+                    <IconRetweetColor/>
+                  </RetweetButton>
+                  }
                   <CounterContainer>
-                    {
-                      messageForRetweet.data().retweets > 0 ?  
-                      messageForRetweet.data().retweets.length 
-                      : ""
-                    }
+                    {messageForRetweet.data().retweets.length}
                   </CounterContainer>
                 </IconContainerCont>
                 <IconContainerCont Like>
@@ -127,9 +142,10 @@ return (
                   </CounterContainer>
                 </IconContainerCont>
               </InteractionBar>
-            </CardColumns>
-          </UserColumns> */}
-        </Card>
+            </CardColumns> 
+          </UserColumns>
+        }
+        </>
     )
 }
  

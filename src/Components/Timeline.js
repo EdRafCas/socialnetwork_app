@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
@@ -18,6 +18,7 @@ import MessageBox from './MessageBox';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '.././Elements/ElementsTimeline'
 import RetweetTimeline from './RetweetTimeline';
+
 
  
 const TimelineContainer = styled.div`
@@ -74,7 +75,7 @@ const RetweetButton=styled.button`
 
 const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
-
+    
 
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -91,16 +92,18 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                           addToTimeline={addToTimeline}
                           message={message}
                           handleChange={handleChange} />
+
+              
               {messagesSent.map((Message, index)=>{
               return(
               <Card key={Message.id}>
-                {Message.Retweet ?
+                {Message.RetweetId ?
                 <>
                 <RetweetInfo>
                   <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
                   <NameContainerRetweet>{Message.name} <p>Retweeted</p> </NameContainerRetweet>
                 </RetweetInfo>
-                {/* <RetweetTimeline id={Message.RetweetId} currentUserInfo={currentUserInfo} /> */}
+                <RetweetTimeline currentUserInfo={currentUserInfo} />
                 </>
                 :
                 <>
@@ -127,16 +130,6 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                     <TimeBar>
                       {formatDate(Message.date)}
                     </TimeBar>
-                    {/* <TimeBar>
-                      {Message.id}
-                    </TimeBar>
-                    <TimeBar>
-                      {Message.uidUser}
-                    </TimeBar>
-                    <TimeBar>
-                      {Message.likes}
-                    </TimeBar> */}
-                    
                     <InteractionBar>
                       <IconContainer Reply ><IconComment/></IconContainer>
                       <IconContainer Retweet ><IconRetweetColor/></IconContainer>
@@ -177,7 +170,8 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                 }
               </Card>  
               )
-              })}          
+              })}
+                        
             </TimelineContainer>
        );
 }

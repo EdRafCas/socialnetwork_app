@@ -109,7 +109,6 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
             <Account currentUserInfo={currentUserInfo}
                      showMessageBox={showMessageBox}
                      changeShowMessageBox={changeShowMessageBox}
-            
             />
             }
           </ColumnContainer>
