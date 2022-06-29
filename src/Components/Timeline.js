@@ -17,7 +17,7 @@ import RemoveLike from '../firebase/RemoveLike';
 import MessageBox from './MessageBox';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '.././Elements/ElementsTimeline'
-import RetweetTimeline from './RetweetTimeline';
+import RetweetContainer from './RetweetContainer';
 
 
  
@@ -92,8 +92,6 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                           addToTimeline={addToTimeline}
                           message={message}
                           handleChange={handleChange} />
-
-              
               {messagesSent.map((Message, index)=>{
               return(
               <Card key={Message.id}>
@@ -101,9 +99,9 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                 <>
                 <RetweetInfo>
                   <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
-                  <NameContainerRetweet>{Message.name} <p>Retweeted</p> </NameContainerRetweet>
+                  <NameContainerRetweet>{Message.id} <p>Retweeted</p> </NameContainerRetweet>
                 </RetweetInfo>
-                <RetweetTimeline currentUserInfo={currentUserInfo} />
+                <RetweetContainer currentUserInfo={currentUserInfo} originalId={Message.RetweetId} retweetId={Message.id} retweetUidUser={Message.uidUser}/>
                 </>
                 :
                 <>
@@ -136,11 +134,11 @@ const Timeline = ({ changeAlert, changeStateAlert, user, currentUserInfo, addToT
                       <IconContainerCont Retweet>
                       {
                           !Message.retweets.includes(currentUserInfo[0].uidUser)?
-                        <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:Message.id, user, currentUserInfo, date: getUnixTime(new Date())})}>
+                        <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:Message.id, retweets:Message.retweets, user, currentUserInfo, date: getUnixTime(new Date())})}>
                           <IconRetweet/>
                         </RetweetButton>
                       :
-                      <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:Message.id, user, currentUserInfo, date: getUnixTime(new Date())})}>
+                      <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:Message.id, retweets:Message.retweets, user, currentUserInfo, date: getUnixTime(new Date())})}>
                           <IconRetweetColor/>
                         </RetweetButton>
                       }

@@ -112,7 +112,6 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
             />
             }
           </ColumnContainer>
-
           <ColumnContainer2>
             {!loadingUserData &&
               <MainPageRoutes user={user}

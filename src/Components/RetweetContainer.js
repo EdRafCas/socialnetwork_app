@@ -12,38 +12,11 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import RemoveRetweet from '../firebase/RemoveRetweet';
 
-const IconContainerRetweet=styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content:flex-end;
-  align-items:center;
-  height:1.5rem;
-  width:100%;
-  min-width:64px;
-  /* border:1px solid white; */
-  fill:currentcolor;
-
-  svg{
-    max-height:1.2rem;
-    stroke: ${theme.BorderColor};
-  }
-`
-const NameContainerRetweet = styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content:flex-start;
-  color: ${theme.Text};
-  font-size:1rem;
-  font-weight:800;
-  /* border:solid ${theme.BorderColor} 1px; */
-  overflow:hidden;
-  padding-left:5px;
-  gap:5px;
-`
 const RetweetButton=styled.button`
   background:black;
   border-radius:50%;
@@ -58,25 +31,25 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetTimeline = ({currentUserInfo}) => {
+const RetweetContainer = ({currentUserInfo, retweetId, originalId, retweetUidUser}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
 
     useEffect(()=>{
       const obtainMessage = async() =>{
-            const document = await getDoc(doc(db, 'userTimeline', "c12MatKDeB1sJfUkaSSf" ));
+            const document = await getDoc(doc(db, 'userTimeline', originalId));
              if(document.exists){
                   changeMessageForRetweet(document) 
+                  console.log("id existe")
              }else{
                   console.log("id no existe")
              }
              
         changeLoadingRetweets(false)
       }
-      return obtainMessage;
+      obtainMessage()
 
-      //eslint-disable-next-line
-      },[])
+      },[changeLoadingRetweets])
     
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -112,23 +85,21 @@ return (
                 <IconContainer Reply ><IconComment/></IconContainer>
                 <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                 <IconContainerCont Retweet>
-                  {
-                      !messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
-                  <RetweetButton>
-                    <IconRetweet/>
-                  </RetweetButton>
-                  :
-                  <RetweetButton>
-                    <IconRetweetColor/>
-                  </RetweetButton>
+                  {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
+                    <RetweetButton>
+                      <IconRetweet/>
+                    </RetweetButton>
+                    :
+                    <RetweetButton onClick={()=>RemoveRetweet({retweetId:retweetId, originalId:originalId, retweetUidUser, uidUser:currentUserInfo[0].uidUser,retweets:messageForRetweet.data().retweets})}>
+                      <IconRetweetColor/>
+                    </RetweetButton>
                   }
                   <CounterContainer>
                     {messageForRetweet.data().retweets.length}
                   </CounterContainer>
                 </IconContainerCont>
                 <IconContainerCont Like>
-                  {
-                    !messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
+                  {!messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
                     <LikeButton  onClick={()=>AddLike()}> 
                       <IconLike />                               
                     </LikeButton>
@@ -149,4 +120,4 @@ return (
     )
 }
  
-export default RetweetTimeline;
+export default RetweetContainer;

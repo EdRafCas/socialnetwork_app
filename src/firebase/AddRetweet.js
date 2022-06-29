@@ -1,35 +1,8 @@
 import { db } from "./FirebaseConfig";
 import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
-const AddRetweet = async({id, uidUser, name, alias, date, likes, retweets, photoURL}) => {
-      console.log(id,uidUser,likes)
-      const document = doc(db, "userTimeline" , id); 
 
-      try{
-            await updateDoc(document, {
-                  retweets: [...retweets, uidUser]})
-                  try{
-                        await addDoc(collection(db, "userTimeline"), {
-                              Retweet: true,
-                              RetweetId: id,
-                              uidUser:uidUser,
-                              name: name,
-                              alias: alias,
-                              date: date,
-                              likes: likes,
-                              retweets: retweets,
-                              photoURL: photoURL
-                        })
-                  } catch(error){
-                        console.log("Error adding new tweet")
-                  }
-      } catch(error){
-            console.log("Error updating tweet")
-      }
-
-}
-
-const addRetweetToTimeline = ({changeAlert, changeStateAlert, id, user, currentUserInfo, date}) =>{
+const addRetweetToTimeline = ({changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
       if(currentUserInfo){
        AddRetweet({
         id: id,
@@ -37,9 +10,7 @@ const addRetweetToTimeline = ({changeAlert, changeStateAlert, id, user, currentU
         name:currentUserInfo[0].name,
         alias:currentUserInfo[0].alias,
         date: date,
-        likes: [],
-        retweets: [],
-        photoURL: user.photoURL
+        retweets:retweets
       })
       .then(()=>{
         changeStateAlert(true);
@@ -59,7 +30,30 @@ const addRetweetToTimeline = ({changeAlert, changeStateAlert, id, user, currentU
       
     };
 
+const AddRetweet = async({id, uidUser, name, alias, date, retweets}) => {
+      console.log(id,uidUser)
+      const document = doc(db, "userTimeline" , id); 
 
+      try{
+            await updateDoc(document, {
+                  retweets: [...retweets, uidUser]})
+                  try{
+                        await addDoc(collection(db, "userTimeline"), {
+                              Retweet: true,
+                              RetweetId: id,
+                              uidUser:uidUser,
+                              name: name,
+                              alias: alias,
+                              date: date,  
+                        })
+                  } catch(error){
+                        console.log("Error adding new tweet")
+                  }
+      } catch(error){
+            console.log("Error updating tweet")
+      }
+
+}
 
  
 export {AddRetweet, addRetweetToTimeline};
