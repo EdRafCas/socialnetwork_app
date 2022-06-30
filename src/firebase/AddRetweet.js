@@ -2,7 +2,7 @@ import { db } from "./FirebaseConfig";
 import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
-const addRetweetToTimeline = ({changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
+const addRetweetToTimeline = ({originalUidUser, changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
       if(currentUserInfo){
        AddRetweet({
         id: id,
@@ -10,27 +10,28 @@ const addRetweetToTimeline = ({changeAlert, changeStateAlert, id, user, currentU
         name:currentUserInfo[0].name,
         alias:currentUserInfo[0].alias,
         date: date,
-        retweets:retweets
+        retweets:retweets, 
+        originalUidUser:originalUidUser
       })
       .then(()=>{
         changeStateAlert(true);
         changeAlert({
               type:'success',
-              messageAlert: 'Your message was sent successfully'
+              message: 'Your Retweet was added successfully'
         })
       })
       .catch((error)=>{
         changeStateAlert(true);
         changeAlert({
               type:'error',
-              messageAlert: 'An error ocurred while sending your message'
+              message: 'An error ocurred while sending your message'
         })
       }) 
       }
       
     };
 
-const AddRetweet = async({id, uidUser, name, alias, date, retweets}) => {
+const AddRetweet = async({originalUidUser, id, uidUser, name, alias, date, retweets}) => {
       console.log(id,uidUser)
       const document = doc(db, "userTimeline" , id); 
 
@@ -40,7 +41,8 @@ const AddRetweet = async({id, uidUser, name, alias, date, retweets}) => {
                   try{
                         await addDoc(collection(db, "userTimeline"), {
                               Retweet: true,
-                              RetweetId: id,
+                              originalId: id,
+                              originalUidUser:originalUidUser,
                               uidUser:uidUser,
                               name: name,
                               alias: alias,

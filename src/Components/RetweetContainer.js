@@ -31,7 +31,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetContainer = ({currentUserInfo, retweetId, originalId, retweetUidUser}) => {
+const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUidUser}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
 
@@ -90,7 +90,7 @@ return (
                       <IconRetweet/>
                     </RetweetButton>
                     :
-                    <RetweetButton onClick={()=>RemoveRetweet({retweetId:retweetId, originalId:originalId, retweetUidUser, uidUser:currentUserInfo[0].uidUser,retweets:messageForRetweet.data().retweets})}>
+                    <RetweetButton onClick={()=>RemoveRetweet({newRetweetId:newRetweetId, originalId:originalId, retweetUidUser, currentUidUser:currentUserInfo[0].uidUser,originalRetweets:messageForRetweet.data().retweets})}>
                       <IconRetweetColor/>
                     </RetweetButton>
                   }
