@@ -28,9 +28,14 @@ const MainPageRoutes = ({changeAlert, messageAlert, stateAlert, changeStateAlert
                   element={
                    
                   <PrivateRoute>
-                    <UserProfile currentUserInfo={currentUserInfo}
+                    <UserProfile  currentUserInfo={currentUserInfo}
                                   showEditProfile={showEditProfile}
                                   changeShowEditProfile={changeShowEditProfile}
+                                  user={user}
+                                  changeAlert={changeAlert}
+                                  stateAlert={stateAlert}
+                                  changeStateAlert={changeStateAlert}
+
                     />
                   </PrivateRoute>
                     

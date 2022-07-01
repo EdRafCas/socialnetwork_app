@@ -82,7 +82,7 @@ const RedirectLink =styled(Link)`
     }
 `
 
-const UserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
 
       return ( 
             <TimelineUserContainer className='timeline-user'>
@@ -94,7 +94,12 @@ const UserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) 
                 <RedirectLink to =""> Messages</RedirectLink>
                 <RedirectLink to ={`/user/${currentUserInfo[0].alias}/likes`}> Likes</RedirectLink>
               </LinksContainer>
-              <UserProfileRoutes currentUserInfo={currentUserInfo}/>
+              <UserProfileRoutes currentUserInfo={currentUserInfo}
+                                 changeAlert={changeAlert} 
+                                 stateAlert={stateAlert} 
+                                 changeStateAlert={changeStateAlert} 
+                                 user={user}
+              />
             </TimelineUserContainer>
       );
 }

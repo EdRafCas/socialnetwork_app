@@ -5,14 +5,18 @@ import TimelineLikes from './TimelineLikes';
 import PrivateRoute from './PrivateRoute';
 
 
-const UserProfileRoutes = ({currentUserInfo}) => {
+const UserProfileRoutes = ({changeAlert, stateAlert, changeStateAlert, user,currentUserInfo}) => {
   
       return ( 
         <Routes>
           <Route path="" exact={true}
                 element={
                 <PrivateRoute>
-                  <TimelineUser currentUserInfo={currentUserInfo}/>
+                  <TimelineUser currentUserInfo={currentUserInfo}
+                                user={user}
+                                changeAlert={changeAlert}
+                                stateAlert={stateAlert}
+                                changeStateAlert={changeStateAlert}/>
                 </PrivateRoute>}/>
           
           <Route path={`/likes`} exact={true}

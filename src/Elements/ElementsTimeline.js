@@ -4,11 +4,12 @@ import theme from '../Theme'
 const Card =styled.div`
   display:flex;
   flex-direction:column;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   /* border-radius:15px; */
   gap:0rem;
-  padding-top:0.5rem;
+  padding-top:0rem;
   background:black;
+  
 `
 const RetweetInfo=styled.div`
   height:1.5rem;
@@ -174,5 +175,46 @@ const LikeButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
+const RetweetButton=styled.button`
+  background:black;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:2.5rem;
+  width:2.5rem;
+  gap:5px;
+  :hover{
+   /*  border:solid ${theme.BorderColor} 1px; */
+  }
+`
+const IconContainerRetweet=styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-end;
+  align-items:center;
+  height:1.5rem;
+  width:100%;
+  min-width:64px;
+  /* border:1px solid white; */
+  fill:currentcolor;
 
-export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetInfo};
+  svg{
+    max-height:1.2rem;
+    stroke: ${theme.BorderColor};
+  }
+`
+const NameContainerRetweet = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  color: ${theme.Text};
+  font-size:1rem;
+  font-weight:800;
+  /* border:solid ${theme.BorderColor} 1px; */
+  overflow:hidden;
+  padding-left:5px;
+  gap:5px;
+`
+
+export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetInfo, RetweetButton, IconContainerRetweet, NameContainerRetweet};
