@@ -13,6 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import {addRetweetToTimeline} from '../firebase/AddRetweet';
 import RemoveLike from '../firebase/RemoveLike';
+import RemoveRetweet from '../firebase/RemoveRetweet';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
@@ -88,7 +89,7 @@ const TimelineUser = ({changeAlert, stateAlert, changeStateAlert, user,currentUs
                             <IconRetweet/>
                           </RetweetButton>
                         :
-                        <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:MessageUser.id, retweets:MessageUser.retweets, user, currentUserInfo, date: getUnixTime(new Date())})}>
+                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,originalRetweets:MessageUser.retweets, originalId:MessageUser.originalId, newRetweetId:MessageUser.id, retweetUidUser:MessageUser.uidUser})}>
                             <IconRetweetColor/>
                           </RetweetButton>
                         }

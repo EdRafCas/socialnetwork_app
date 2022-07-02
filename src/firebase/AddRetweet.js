@@ -46,7 +46,8 @@ const AddRetweet = async({originalUidUser, id, uidUser, name, alias, date, retwe
                               uidUser:uidUser,
                               name: name,
                               alias: alias,
-                              date: date,  
+                              date: date,
+                              likes:[]
                         })
                   } catch(error){
                         console.log("Error adding new tweet")

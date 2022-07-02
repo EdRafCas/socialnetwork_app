@@ -22,7 +22,11 @@ const UserProfileRoutes = ({changeAlert, stateAlert, changeStateAlert, user,curr
           <Route path={`/likes`} exact={true}
                 element={
                 <PrivateRoute>
-                  <TimelineLikes currentUserInfo={currentUserInfo}/>
+                  <TimelineLikes currentUserInfo={currentUserInfo}
+                                  user={user}
+                                  changeAlert={changeAlert}
+                                  stateAlert={stateAlert}
+                                  changeStateAlert={changeStateAlert}/>
                 </PrivateRoute>}/>
           
         </Routes>
