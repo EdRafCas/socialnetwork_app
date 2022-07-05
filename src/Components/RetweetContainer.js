@@ -47,14 +47,14 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUi
              
         changeLoadingRetweets(false)
       }
-      obtainMessage()
+      obtainMessage();
 
-      },[changeLoadingRetweets])
+      },[changeLoadingRetweets, originalId])
+      
+      const formatDate = (date) => {
+        return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
+      };
     
-    const formatDate = (date) => {
-      return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-    };
-
 return ( 
         <>
         {!loadingRetweets &&
@@ -100,11 +100,11 @@ return (
                 </IconContainerCont>
                 <IconContainerCont Like>
                   {!messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike()}> 
+                    <LikeButton  onClick={()=>AddLike({id:originalId,uidUser:currentUserInfo[0].uidUser,likes:messageForRetweet.data().likes})}> 
                       <IconLike />                               
                     </LikeButton>
                     :
-                    <LikeButton  onClick={()=>RemoveLike()}> 
+                    <LikeButton  onClick={()=>RemoveLike({id:originalId, uidUser:currentUserInfo[0].uidUser, likes:messageForRetweet.data().likes})}> 
                       <IconLikeColor />                               
                     </LikeButton>
                   }
