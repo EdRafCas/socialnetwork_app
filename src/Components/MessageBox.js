@@ -39,8 +39,50 @@ const UserNames =styled.div`
   align-items:center;
   gap:5px;
 `
+const ButtonContainer=styled.div`
+      gap:5px;
+      display:flex;
+      flex-direction:row;
+`
+const ButtonLeft =styled.button`
+      display:flex;
+      height:3rem;
+      width:3rem;
+      border-radius:9999px;
+      padding:0rem;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:${theme.GradientBackround};
+      p{
+            font-size:1rem;
+            font-weight:1000;
+            color:#fff;
+      }
+      `
+      const ButtonExcess =styled.button`
+      display:flex;
+      height:3rem;
+      width:3rem;
+      border-radius:9999px;
+      padding:0rem;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:${theme.GradientBackround};
+      p{
+            font-size:1rem;
+            font-weight:1000;
+            color:${theme.RedAlert};
+      }
+      `
+
+     
 
 const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange}) => {
+
+      const LettersLeft = 20;
+
       return ( 
       <MessageContainer>
             <CreateMessageForm onSubmit={addToTimeline}>
@@ -67,15 +109,32 @@ const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange
                         placeholder="Leave us your message here"
                         value={message}
                         onChange={handleChange}/>
-                  {message === "" ?
-                  <ButtonDisabled disabled={true}>
-                        <p>Submit</p>
-                  </ButtonDisabled>
-                  :
-                  <Button disabled={!message} type="submit" name="sendMesssage">
-                        <p>Submit</p>
-                  </Button>
-                  }
+                  <ButtonContainer>
+                        {message === "" || message.length >160 ?
+                        <>
+                        <ButtonDisabled disabled={true}>
+                              <p>Submit</p>
+                        </ButtonDisabled> 
+                        {message.length >= 160 ?
+                        <ButtonExcess>
+                              <p>-{message.length -160}</p>
+                        </ButtonExcess>
+                        :""}
+                        </>
+                        :
+                        <>
+                        <Button disabled={!message} type="submit" name="sendMesssage">
+                              <p>Submit</p>
+                        </Button>
+                        {message.length >=140 ?
+                        <ButtonLeft>
+                              <p>{ LettersLeft +140 - message.length }</p>
+                        </ButtonLeft>
+                        :""}
+                        </>
+                        }
+                  </ButtonContainer>
+                 
                   
             </CreateMessageForm>
       </MessageContainer>     

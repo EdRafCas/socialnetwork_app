@@ -137,7 +137,7 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
                   </NamesContainer>
                   <Bio>
                   {currentUserInfo[0].bio ? currentUserInfo[0].bio
-                  :"This is a placeholder x2"}
+                  :""}
                   </Bio>
                 </UserCard>
               </HeaderUser>

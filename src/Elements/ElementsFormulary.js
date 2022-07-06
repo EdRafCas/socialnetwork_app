@@ -103,7 +103,6 @@ const ButtonDisabled =styled.button`
     font-weight:1000;
     color:#000;
   }
-  }
 `
 const Button2 =styled.div`
   height:2.5rem;

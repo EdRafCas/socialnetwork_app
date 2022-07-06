@@ -16,6 +16,7 @@ import {UserColumns, CardColumns, UserNameContainer, MessageContent, Interaction
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
+import { AddRetweet } from '../firebase/AddRetweet';
 
 const RetweetButton=styled.button`
   background:black;
@@ -38,18 +39,19 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUi
     useEffect(()=>{
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
-             if(document.exists){
-                  changeMessageForRetweet(document) 
+            changeMessageForRetweet(document) 
+             /* if(document.exists){
                   console.log("id existe")
              }else{
                   console.log("id no existe")
-             }
+             } */
              
-        changeLoadingRetweets(false)
+          changeLoadingRetweets(false)
       }
       obtainMessage();
 
-      },[changeLoadingRetweets, originalId])
+      /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
+      },)
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -86,7 +88,7 @@ return (
                 <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                 <IconContainerCont Retweet>
                   {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
-                    <RetweetButton>
+                    <RetweetButton onClick={()=>AddRetweet()}>
                       <IconRetweet/>
                     </RetweetButton>
                     :
