@@ -38,13 +38,6 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo, ad
       return items.likes.includes(currentUserInfo[0].uidUser)
       });
 
-     
-    /*
-    console.log(messagesSent)
-    console.log(ExampleOrder)
-    console.log(filterLikes) 
-    */
-
 
       return ( 
             <>
@@ -84,7 +77,7 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo, ad
                             <IconRetweet/>
                           </RetweetButton>
                         :
-                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,originalRetweets:Message.retweets, originalId:Message.originalId, newRetweetId:Message.id, retweetUidUser:Message.uidUser})}>
+                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,originalRetweets:Message.retweets, originalId:Message.originalId, currentMessageId:Message.id, retweetUidUser:Message.uidUser})}>
                             <IconRetweetColor/>
                           </RetweetButton>
                         }

@@ -40,7 +40,7 @@ const TimelineUser = ({changeAlert, stateAlert, changeStateAlert, user,currentUs
               <Card key={MessageUser.id}>
                 {MessageUser.originalId?
                  <>
-                 {MessageUser.uidUser==currentUserInfo[0].uidUser ?
+                 {MessageUser.uidUser===currentUserInfo[0].uidUser ?
                  <>
                  <RetweetInfo>
                    <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
@@ -89,7 +89,7 @@ const TimelineUser = ({changeAlert, stateAlert, changeStateAlert, user,currentUs
                             <IconRetweet/>
                           </RetweetButton>
                         :
-                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,originalRetweets:MessageUser.retweets, originalId:MessageUser.originalId, newRetweetId:MessageUser.id, retweetUidUser:MessageUser.uidUser})}>
+                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,originalRetweets:MessageUser.retweets, originalId:MessageUser.originalId, currentMessageUserId:MessageUser.id, retweetUidUser:MessageUser.uidUser})}>
                             <IconRetweetColor/>
                           </RetweetButton>
                         }
