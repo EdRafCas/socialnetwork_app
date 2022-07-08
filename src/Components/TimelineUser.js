@@ -84,12 +84,26 @@ const TimelineUser = ({changeAlert, stateAlert, changeStateAlert, user,currentUs
                         <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                         <IconContainerCont Retweet>
                         {
-                            !MessageUser.retweets.includes(currentUserInfo[0].uidUser)?
-                          <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:MessageUser.id, originalUidUser:MessageUser.uidUser, retweets:MessageUser.retweets, user, currentUserInfo, date: getUnixTime(new Date())})}>
+                          !MessageUser.retweets.includes(currentUserInfo[0].uidUser)?
+                          <RetweetButton onClick={()=>addRetweetToTimeline({
+                          changeAlert, 
+                          changeStateAlert, 
+                          id:MessageUser.id, 
+                          originalUidUser:MessageUser.uidUser, 
+                          retweets:MessageUser.retweets, 
+                          user, 
+                          currentUserInfo, 
+                          date: getUnixTime(new Date())})}>
                             <IconRetweet/>
                           </RetweetButton>
                         :
-                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,originalRetweets:MessageUser.retweets, originalId:MessageUser.originalId, currentMessageUserId:MessageUser.id, retweetUidUser:MessageUser.uidUser})}>
+                        <RetweetButton onClick={()=>RemoveRetweet({
+                        currentUidUser:currentUserInfo[0].uidUser,
+                        originalRetweets:MessageUser.retweets, 
+                        originalId:MessageUser.originalId, 
+                        currentMessageUserId:MessageUser.id, 
+                        retweetUidUser:MessageUser.uidUser})}
+                        >
                             <IconRetweetColor/>
                           </RetweetButton>
                         }
@@ -100,11 +114,18 @@ const TimelineUser = ({changeAlert, stateAlert, changeStateAlert, user,currentUs
                         <IconContainerCont Like>
                           {
                             !MessageUser.likes.includes(currentUserInfo[0].uidUser)?
-                            <LikeButton  onClick={()=>AddLike({id:MessageUser.id,uidUser:currentUserInfo[0].uidUser,likes:MessageUser.likes})}> 
+                            <LikeButton  onClick={()=>AddLike({
+                            id:MessageUser.id,
+                            uidUser:currentUserInfo[0].uidUser,
+                            likes:MessageUser.likes})}
+                              > 
                               <IconLike />                               
                             </LikeButton>
                             :
-                            <LikeButton  onClick={()=>RemoveLike({id:MessageUser.id,uidUser:currentUserInfo[0].uidUser,likes:MessageUser.likes})}> 
+                            <LikeButton  onClick={()=>RemoveLike({
+                            id:MessageUser.id,
+                            uidUser:currentUserInfo[0].uidUser,
+                            likes:MessageUser.likes})}> 
                               <IconLikeColor />                               
                             </LikeButton>
                           }

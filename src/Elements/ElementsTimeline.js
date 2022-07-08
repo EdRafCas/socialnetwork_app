@@ -8,8 +8,10 @@ const Card =styled.div`
   /* border-radius:15px; */
   gap:0rem;
   padding-top:0rem;
-  background:black;
-  
+  z-index:100;
+  :hover{
+    background:rgba(255,255,255, 0.03);
+    }
 `
 const RetweetInfo=styled.div`
   height:1.5rem;
@@ -27,7 +29,7 @@ const UserColumns=styled.div`
   /* border-radius:15px; */
   gap:0rem;
   padding-top:0.5rem;
-  background:black;
+  /* background:black; */
 `
 const CardColumns = styled.div`
   padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
@@ -50,6 +52,7 @@ const UserNameContainer =styled.div`
   display:flex;
   flex-direction:row;
   gap:5px;
+  position:relative;
 `
 const MessageContent = styled.div`
   width:100%;
@@ -113,11 +116,12 @@ const CounterContainer=styled.div`
   width:40px;
   height:40px;
   padding-left:5px;
+  background:none;
   :hover{
     
   }
   :active{
-    background:white;;
+    background:white;
     fill:black;
   }
 `
@@ -128,6 +132,7 @@ const IconContainerCont=styled.div`
   align-items:center;
   justify-content:center;
   gap:5px;
+  background:none;
   button{
     svg{
       max-height:1.2rem;
@@ -139,12 +144,12 @@ const IconContainerCont=styled.div`
                          : props.Like ? `${theme.PinkLikeBackground}` 
                          : props.Retweet ? `${theme.GreenRetweetBackground}` 
                          : "auto"};
-        svg{
-          stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
-                         : props.Like ? `${theme.PinkLike}` 
-                         : props.Retweet ? `${theme.GreenRetweet}` 
-                         : "auto"};
-        }   
+    svg{
+      stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
+                      : props.Like ? `${theme.PinkLike}` 
+                      : props.Retweet ? `${theme.GreenRetweet}` 
+                      : "auto"};
+    }   
     }
     div{
       p{
@@ -158,12 +163,28 @@ const TimeBar =styled.div`
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
-  /* border:solid ${theme.BorderColor} 1px; */
+  border:none;
   width:100%;
 `
 const LikeButton=styled.button`
-  background:black;
+  background:none;
   border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:2.5rem;
+  width:2.5rem;
+  gap:5px;
+  border:none;
+  
+  :hover{
+   /*  border:solid ${theme.BorderColor} 1px; */
+  }
+`
+const RetweetButton=styled.button`
+  background:none;
+  border-radius:50%;
+  border:none;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -175,20 +196,8 @@ const LikeButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-const RetweetButton=styled.button`
-  background:black;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:2.5rem;
-  width:2.5rem;
-  gap:5px;
-  :hover{
-   /*  border:solid ${theme.BorderColor} 1px; */
-  }
-`
 const IconContainerRetweet=styled.div`
+  background:none;
   display:flex;
   flex-direction:row;
   justify-content:flex-end;

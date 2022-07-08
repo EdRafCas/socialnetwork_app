@@ -19,8 +19,9 @@ import RemoveRetweet from '../firebase/RemoveRetweet';
 import { AddRetweet } from '../firebase/AddRetweet';
 
 const RetweetButton=styled.button`
-  background:black;
+  background:none;
   border-radius:50%;
+  border:none;
   display:flex;
   align-items:center;
   justify-content:center;
