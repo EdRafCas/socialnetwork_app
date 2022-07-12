@@ -5,9 +5,11 @@ import {ReactComponent as IconMoreOptions} from '../img/more_icon.svg';
 import {ReactComponent as IconDelete} from '../img/delete_icon.svg';
 import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
-import Box from '@mui/material/Box';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-import { IconContainer } from './ElementsTimeline';
+/* import { IconContainer } from './ElementsTimeline'; */
+import RemoveTweet from '../firebase/RemoveTweet';
+import { UpdateProfilePinnedMessage } from '../firebase/UpdateProfile';
+
 
 const IconMore=styled.div`
   position: absolute;
@@ -54,7 +56,6 @@ const OptionsCard =styled.div`
   background:black;
   
 `
-
 const Option =styled.div`
   width:auto;
   gap:10px;
@@ -66,10 +67,26 @@ const Option =styled.div`
   :hover{
     background:rgba(255,255,255, 0.2);
     }
+  :active{
+    background:rgba(255,255,255, 0.3)
+  }
 `
+const IconContainer=styled.div`
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:2.5rem;
+  width:2.5rem;
+  /* border:1px solid white; */
+  fill:currentcolor;
+  svg{
+    max-height:1.2rem;
+    stroke: ${theme.BorderColor};
+  }
+  `
 
-
-const ShowMoreMenu = () => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
       const [open, setOpen] =useState(false)
 
       
@@ -82,15 +99,6 @@ const ShowMoreMenu = () => {
       };
 
 
-        {/* <>
-            <IconMore Reply onClick={()=>{changeShowOptions(!showOptions)}}
-                      onBlur={()=>changeShowOptions(false)} >
-            <IconMoreOptions/>
-            </IconMore>
-            {showOptions &&
-            <OptionsCard/>
-            }   
-            </> */}
       return ( 
         
           <ClickAwayListener
@@ -104,18 +112,24 @@ const ShowMoreMenu = () => {
               </IconMore>
               {open ? (
                 <OptionsCard >
-                  <Option>
-                    <IconContainer>
+                  {messageUidUser===currentUserInfo[0].uidUser ?
+                  <Option onClick={()=>RemoveTweet({id})}>
+                    <IconContainer >
                       <IconDelete/>
                     </IconContainer>
                     <p>Delete Tweet</p>
                   </Option>
-                  <Option>
+                  :""
+                  }
+                  {messageUidUser===currentUserInfo[0].uidUser ?
+                  <Option onClick={()=>UpdateProfilePinnedMessage({userId:currentUserInfo[0].id, messageId:id })}>
                     <IconContainer>
                       <IconPin/>
                     </IconContainer>
                     <p>Pin Tweet</p>
                   </Option>
+                  :""
+                  }
                   <Option>
                     <IconContainer>
                       <IconBookmark/>

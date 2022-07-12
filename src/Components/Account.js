@@ -159,8 +159,8 @@ const MessageButton=styled.button`
   }
 `
 
-const Account = ({currentUserInfo, showMessageBox, changeShowMessageBox}) => {
-      const {user} =useAuth();
+const Account = ({ user, currentUserInfo, showMessageBox, changeShowMessageBox}) => {
+
       return ( 
             <AccountManagement>
               <GeneralMenu>
@@ -175,7 +175,9 @@ const Account = ({currentUserInfo, showMessageBox, changeShowMessageBox}) => {
                 </MenuLink>
               </GeneralMenu>
               <MessageButtonContainer>
-                <MessageButton onClick={()=>changeShowMessageBox(!showMessageBox)}><p>Message</p></MessageButton>
+                <MessageButton onClick={()=>changeShowMessageBox(!showMessageBox)}>
+                  <p>Message</p>
+                </MessageButton>
               </MessageButtonContainer>
               
               <MiniProfile>

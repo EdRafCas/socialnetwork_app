@@ -13,8 +13,9 @@ const MessageContainer = styled.div`
   align-content:center;
   gap:1rem;
   border:solid ${theme.BorderColor} 1px;
+  background:#000;
+ 
 `
-
 const CreateMessageForm =styled.form`
   display:flex;
   flex-direction:column;
@@ -60,7 +61,7 @@ const ButtonLeft =styled.button`
             color:#fff;
       }
       `
-      const ButtonExcess =styled.button`
+const ButtonExcess =styled.button`
       display:flex;
       height:3rem;
       width:3rem;
@@ -70,12 +71,12 @@ const ButtonLeft =styled.button`
       justify-content:center;
       align-items:center;
       background:${theme.GradientBackround};
-      p{
-            font-size:1rem;
-            font-weight:1000;
-            color:${theme.RedAlert};
-      }
-      `
+            p{
+                  font-size:1rem;
+                  font-weight:1000;
+                  color:${theme.RedAlert};
+            }
+`
 
      
 

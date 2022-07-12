@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
@@ -20,7 +20,7 @@ import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
-
+import { AuthContext } from '../Context/AuthContext';
 
  
 const TimelineContainer = styled.div`
@@ -33,8 +33,6 @@ const TimelineContainer = styled.div`
   overflow:scroll;
   overflow-x:hidden;
 `
-
-
 const EmptyDiv=styled.div`
 `
 
@@ -42,6 +40,8 @@ const EmptyDiv=styled.div`
 const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
     console.log(currentUserInfo[0].uidUser)
+    const {changeShowPopUp} =useContext(AuthContext);
+    const {showPopUp} =useContext(AuthContext);
     
     
     const formatDate = (date) => {
@@ -67,8 +67,12 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                     {Message.uidUser!==currentUserInfo[0].uidUser ?
                     <>
                     <RetweetInfo>
-                      <IconContainerRetweet Retweet ><IconRetweet/></IconContainerRetweet>
-                      <NameContainerRetweet>{Message.name} <p>Retweeted</p> </NameContainerRetweet>
+                      <IconContainerRetweet Retweet >
+                        <IconRetweet/>
+                      </IconContainerRetweet>
+                      <NameContainerRetweet>
+                        {Message.name}<p>Retweeted</p> 
+                      </NameContainerRetweet>
                     </RetweetInfo>
                     <RetweetContainer currentUserInfo={currentUserInfo} 
                                       originalId={Message.originalId} 
@@ -97,18 +101,19 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                       <UserNameContainer>
                         <NameContainer>{Message.name}</NameContainer>
                         <AliasContainer>@{Message.alias}</AliasContainer>
-                        <ShowMoreMenu/>
+                        <ShowMoreMenu messageUidUser={Message.uidUser} 
+                                      currentUserInfo={currentUserInfo}
+                                      id={Message.id} />
                       </UserNameContainer>
                       <MessageContent>
                         {Message.message}
-                        
                       </MessageContent>
                       <TimeBar>
                         {formatDate(Message.date)}
                       </TimeBar>
                       <InteractionBar>
                         <IconContainer Reply ><IconComment/></IconContainer>
-                        <IconContainer Retweet ><IconRetweetColor/></IconContainer>
+                        <IconContainer Retweet onClick={()=>changeShowPopUp(!showPopUp)}><IconRetweetColor/></IconContainer>
                         <IconContainerCont Retweet>
                         {
                           !Message.retweets.includes(currentUserInfo[0].uidUser)?

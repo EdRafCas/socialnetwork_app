@@ -21,7 +21,8 @@ const ContainerEditProfile=styled.div`
       padding-bottom:2rem;
       border-radius:30px;
       border: solid ${theme.BorderColor} 1px;
-      background:black;
+      background:#000;
+      z-index:100;
 `
 const TopBar=styled.div`
       border: solid ${theme.BorderColor} 1px;
@@ -340,9 +341,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                               <IconContainerBackground><IconAddPhoto/></IconContainerBackground>
                               <IconContainerBackground><IconAddPhoto/></IconContainerBackground>
                         </BackgroundInner>
-                  </BackgroundImage>
-                        
-                  
+                  </BackgroundImage>           
                   <ProfilePicContainer>
                         <ProfilePic>
                         {selectedImage ?

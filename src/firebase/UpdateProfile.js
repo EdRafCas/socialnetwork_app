@@ -11,6 +11,15 @@ const UpdateProfile = async({id,newName,newBio}) => {
             bio:newBio
       }); 
 }
+const UpdateProfilePinnedMessage = async({userId,messageId}) => {
+     /*  console.log(id,newName,newBio) */
+      const document = doc(db, "userInfo" , userId); 
+      return await updateDoc(document, {
+            pinnedMessage: messageId
+      }); 
+}
+
+
 
 const UpdateTimeline = async({user,newName})=>{
 
@@ -54,4 +63,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture};
+export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, UpdateProfilePinnedMessage};

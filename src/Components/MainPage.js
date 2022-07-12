@@ -11,6 +11,7 @@ import MainPageRoutes from './MainPageRoutes';
 import MessageBox from './MessageBox';
 import {TranslucidBack,CenterBox } from '../Elements/ElementsFormulary';
 import EditProfileBox from './EditProfileBox';
+import PopUp from '../Elements/PopUp';
 
 
 const MainPageContainer = styled.div`
@@ -106,7 +107,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
        <MainPageContainer>
           <ColumnContainer>
             {!loadingUserData &&
-            <Account currentUserInfo={currentUserInfo}
+            <Account user={user}
+                     currentUserInfo={currentUserInfo}
                      showMessageBox={showMessageBox}
                      changeShowMessageBox={changeShowMessageBox}
             />
@@ -132,11 +134,13 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   message={alert.message}
                   stateAlert={stateAlert}
                   changeStateAlert={changeStateAlert}/>
+          <PopUp/>
           {showMessageBox ?
           <>
             <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
             <CenterBox>
-            <MessageBox currentUserInfo={currentUserInfo}
+            <MessageBox user={user}
+                        currentUserInfo={currentUserInfo}
                         addToTimeline={addToTimeline}
                         message={message}
                         handleChange={handleChange} />
@@ -157,11 +161,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
             </CenterBox>
                 
           </>
-          
           :""
           }
-          
-          
        </MainPageContainer> 
       );
 }

@@ -139,22 +139,23 @@ const AliasContainer = styled.p`
 `
 
 /*Elements for background */
-const TranslucidBack=styled.div`
-position:absolute;
-width:100%;
-height:100%;
-background:${theme.LightGrey};
-opacity:50%;
+  const TranslucidBack=styled.div`
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:${theme.LightGrey};
+  opacity:50%;
 `
 const CenterBox=styled.div`
-position:absolute;
-top:20%;
-left:40%;
-/* margin-top:-30rem;
-margin-left:-30rem;
-height:60rem;
-width:60rem;*/
-background:black; 
-border-radius:5%;
+  position:absolute;
+  top:20%;
+  left:40%;
+  /* margin-top:-30rem;
+  margin-left:-30rem;
+  height:60rem;
+  width:60rem;*/
+  background:black; 
+  border-radius:5%;
+  z-index:101;
 `
 export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox} ;
