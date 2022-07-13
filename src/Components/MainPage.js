@@ -1,8 +1,8 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import Alert from '../Elements/Alert';
 import AddMessage from '../firebase/AddMessage';
-import { useAuth } from '../Context/AuthContext';
+import { useAuth, AuthContext } from '../Context/AuthContext';
 import { db } from '../firebase/FirebaseConfig';
 import { collection, onSnapshot, where, limit, query } from 'firebase/firestore';
 import getUnixTime from 'date-fns/getUnixTime';
@@ -11,7 +11,7 @@ import MainPageRoutes from './MainPageRoutes';
 import MessageBox from './MessageBox';
 import {TranslucidBack,CenterBox } from '../Elements/ElementsFormulary';
 import EditProfileBox from './EditProfileBox';
-import PopUp from '../Elements/PopUp';
+import PopUp from '.././Elements/PopUp'
 
 
 const MainPageContainer = styled.div`
@@ -44,6 +44,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [loadingUserData, changeLoadingUserData] =useState(true);
   const [showMessageBox, changeShowMessageBox] =useState(false);
   const [showEditProfile, changeShowEditProfile] =useState(false);
+  const {popUpAlert} =useContext(AuthContext);
+  const {changePopUpAlert} =useContext(AuthContext);
   
   useEffect(()=>{
         const consult = query(
@@ -105,6 +107,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
 
       return ( 
        <MainPageContainer>
+          <PopUp  type={popUpAlert.type}/>
           <ColumnContainer>
             {!loadingUserData &&
             <Account user={user}
@@ -134,7 +137,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   message={alert.message}
                   stateAlert={stateAlert}
                   changeStateAlert={changeStateAlert}/>
-          <PopUp/>
+
           {showMessageBox ?
           <>
             <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>

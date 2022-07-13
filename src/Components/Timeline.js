@@ -21,6 +21,7 @@ import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageC
 import RetweetContainer from './RetweetContainer';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import { AuthContext } from '../Context/AuthContext';
+import receiveNotification from './ReceiveNotification';
 
  
 const TimelineContainer = styled.div`
@@ -42,6 +43,9 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
     console.log(currentUserInfo[0].uidUser)
     const {changeShowPopUp} =useContext(AuthContext);
     const {showPopUp} =useContext(AuthContext);
+    const {popUpAlert} =useContext(AuthContext);
+    const {changePopUpAlert} =useContext(AuthContext);
+    
     
     
     const formatDate = (date) => {
@@ -52,13 +56,13 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
     /* console.log(MessagesSent); */
 
       return ( 
-
             <TimelineContainer className='timeline-user'>
               <MessageBox user={user}
                           currentUserInfo={currentUserInfo}
                           addToTimeline={addToTimeline}
                           message={message}
-                          handleChange={handleChange} />         
+                          handleChange={handleChange} />   
+                  
               {messagesSent.map((Message, index)=>{
               return(
                 <Card key={Message.id}>
@@ -112,8 +116,8 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                         {formatDate(Message.date)}
                       </TimeBar>
                       <InteractionBar>
-                        <IconContainer Reply ><IconComment/></IconContainer>
-                        <IconContainer Retweet onClick={()=>changeShowPopUp(!showPopUp)}><IconRetweetColor/></IconContainer>
+                        <IconContainer Reply onClick={()=>receiveNotification({notification:"delete", changeShowPopUp:changeShowPopUp, changePopUpAlert:changePopUpAlert})}><IconComment/></IconContainer>
+                        <IconContainer Retweet onClick={()=>receiveNotification({notification:"retweet", changeShowPopUp:changeShowPopUp, changePopUpAlert:changePopUpAlert})}><IconRetweetColor/></IconContainer>
                         <IconContainerCont Retweet>
                         {
                           !Message.retweets.includes(currentUserInfo[0].uidUser)?

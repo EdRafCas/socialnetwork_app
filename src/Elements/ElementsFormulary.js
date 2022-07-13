@@ -143,8 +143,11 @@ const AliasContainer = styled.p`
   position:absolute;
   width:100%;
   height:100%;
+  left:0%;
+  top:0%;
   background:${theme.LightGrey};
   opacity:50%;
+  z-index:100;
 `
 const CenterBox=styled.div`
   position:absolute;
