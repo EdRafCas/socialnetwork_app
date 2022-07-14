@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {ReactComponent as IconMoreOptions} from '../img/more_icon.svg';
@@ -9,6 +9,9 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 /* import { IconContainer } from './ElementsTimeline'; */
 import RemoveTweet from '../firebase/RemoveTweet';
 import { UpdateProfilePinnedMessage } from '../firebase/UpdateProfile';
+import receiveNotification from '../Components/ReceiveNotification';
+import { AuthContext } from '../Context/AuthContext';
+import PopUp from './PopUp';
 
 
 const IconMore=styled.div`
@@ -88,6 +91,10 @@ const IconContainer=styled.div`
 
 const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
       const [open, setOpen] =useState(false)
+      const {changeShowPopUp} =useContext(AuthContext);
+      const {showPopUp} =useContext(AuthContext);
+      const {popUpAlert} =useContext(AuthContext);
+      const {changePopUpAlert} =useContext(AuthContext);
 
       
       const handleClick = () => {
@@ -112,6 +119,19 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
               </IconMore>
               {open ? (
                 <OptionsCard >
+                  {messageUidUser===currentUserInfo[0].uidUser ?
+                  <Option onClick={()=>receiveNotification({
+                    notification:"delete",
+                    changeShowPopUp:changeShowPopUp, 
+                    changePopUpAlert:changePopUpAlert,
+                    id})}>
+                    <IconContainer >
+                      <IconDelete/>
+                    </IconContainer>
+                    <p>Delete Tweet</p>
+                  </Option>
+                  :""
+                  }
                   {messageUidUser===currentUserInfo[0].uidUser ?
                   <Option onClick={()=>RemoveTweet({id})}>
                     <IconContainer >
@@ -139,8 +159,6 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
                 </OptionsCard>
               ) : null}
             </div> 
-
-            
           </ClickAwayListener>  
         
         

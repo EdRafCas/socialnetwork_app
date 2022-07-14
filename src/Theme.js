@@ -14,6 +14,8 @@ const theme={
       GreenALert: '#43A854',
       RedAlert: '#E34747',
       RedDark: '#950101',
+      RedDelete: 'rgb(244, 33, 46)',
+      RedDeleteDark: 'rgb(220, 30, 41)'
 }
 
 export default theme;

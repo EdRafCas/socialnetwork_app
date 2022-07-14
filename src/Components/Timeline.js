@@ -116,8 +116,18 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                         {formatDate(Message.date)}
                       </TimeBar>
                       <InteractionBar>
-                        <IconContainer Reply onClick={()=>receiveNotification({notification:"delete", changeShowPopUp:changeShowPopUp, changePopUpAlert:changePopUpAlert})}><IconComment/></IconContainer>
-                        <IconContainer Retweet onClick={()=>receiveNotification({notification:"retweet", changeShowPopUp:changeShowPopUp, changePopUpAlert:changePopUpAlert})}><IconRetweetColor/></IconContainer>
+                        <IconContainer Reply onClick={()=>receiveNotification({
+                          notification:"delete",
+                          changeShowPopUp:changeShowPopUp, 
+                          changePopUpAlert:changePopUpAlert})}>
+                          <IconComment/>
+                         </IconContainer>
+                        <IconContainer Retweet onClick={()=>receiveNotification({
+                          notification:"retweet",
+                          changeShowPopUp:changeShowPopUp, 
+                          changePopUpAlert:changePopUpAlert})}>
+                          <IconRetweetColor/>
+                        </IconContainer>
                         <IconContainerCont Retweet>
                         {
                           !Message.retweets.includes(currentUserInfo[0].uidUser)?
