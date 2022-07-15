@@ -11,12 +11,23 @@ const UpdateProfile = async({id,newName,newBio}) => {
             bio:newBio
       }); 
 }
-const UpdateProfilePinnedMessage = async({userId,messageId}) => {
-     /*  console.log(id,newName,newBio) */
-      const document = doc(db, "userInfo" , userId); 
-      return await updateDoc(document, {
-            pinnedMessage: messageId
-      }); 
+const UpdateProfilePinnedMessage = async({changeStateAlert, changeAlert, 
+      id, userId, messageId,changeShowPopUp, 
+      showPopUp}) => {
+      
+      await changeShowPopUp(!showPopUp);
+            try{
+                  const document = doc(db, "userInfo" , userId); 
+                  await updateDoc(document, {pinnedMessage: id});
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'success',
+                        message: 'The message was pinned to your Profile'
+                  })
+            }catch{
+                  console.log("show error")
+            }
+
 }
 
 

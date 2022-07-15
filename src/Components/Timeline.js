@@ -40,13 +40,12 @@ const EmptyDiv=styled.div`
 
 const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
-    console.log(currentUserInfo[0].uidUser)
     const {changeShowPopUp} =useContext(AuthContext);
     const {showPopUp} =useContext(AuthContext);
     const {popUpAlert} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     
-    
+    console.log(currentUserInfo[0].uidUser)
     
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -105,7 +104,10 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                       <UserNameContainer>
                         <NameContainer>{Message.name}</NameContainer>
                         <AliasContainer>@{Message.alias}</AliasContainer>
-                        <ShowMoreMenu messageUidUser={Message.uidUser} 
+                        <ShowMoreMenu 
+                                      changeAlert={changeAlert}
+                                      changeStateAlert={changeStateAlert}
+                                      messageUidUser={Message.uidUser} 
                                       currentUserInfo={currentUserInfo}
                                       id={Message.id} />
                       </UserNameContainer>

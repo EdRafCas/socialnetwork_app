@@ -107,7 +107,11 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
 
       return ( 
        <MainPageContainer>
-          <PopUp  type={popUpAlert.type} id={popUpAlert.id}/>
+          <PopUp  type={popUpAlert.type} 
+                  id={popUpAlert.id}
+                  userId={popUpAlert.userId}
+                  changeStateAlert={changeStateAlert}
+                  changeAlert={changeAlert}/>
           <ColumnContainer>
             {!loadingUserData &&
             <Account user={user}

@@ -8,10 +8,8 @@ import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 /* import { IconContainer } from './ElementsTimeline'; */
 import RemoveTweet from '../firebase/RemoveTweet';
-import { UpdateProfilePinnedMessage } from '../firebase/UpdateProfile';
 import receiveNotification from '../Components/ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
-import PopUp from './PopUp';
 
 
 const IconMore=styled.div`
@@ -89,7 +87,7 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
+const ShowMoreMenu = ({changeAlert, changeStateAlert,messageUidUser, currentUserInfo, id}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
       const {showPopUp} =useContext(AuthContext);
@@ -122,8 +120,8 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
                   {messageUidUser===currentUserInfo[0].uidUser ?
                   <Option onClick={()=>receiveNotification({
                     notification:"delete",
-                    changeShowPopUp:changeShowPopUp, 
-                    changePopUpAlert:changePopUpAlert,
+                    changeShowPopUp, 
+                    changePopUpAlert,
                     id})}>
                     <IconContainer >
                       <IconDelete/>
@@ -142,7 +140,12 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
                   :""
                   }
                   {messageUidUser===currentUserInfo[0].uidUser ?
-                  <Option onClick={()=>UpdateProfilePinnedMessage({userId:currentUserInfo[0].id, messageId:id })}>
+                  <Option onClick={()=>receiveNotification({
+                  notification:"pinned", 
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  userId:currentUserInfo[0].id, 
+                  id })}>
                     <IconContainer>
                       <IconPin/>
                     </IconContainer>
