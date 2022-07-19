@@ -126,7 +126,7 @@ const ShowMoreMenu = ({changeAlert, changeStateAlert,messageUidUser, currentUser
                     <IconContainer >
                       <IconDelete/>
                     </IconContainer>
-                    <p>Delete Tweet</p>
+                    <p>Delete Message</p>
                   </Option>
                   :""
                   }
@@ -135,7 +135,7 @@ const ShowMoreMenu = ({changeAlert, changeStateAlert,messageUidUser, currentUser
                     <IconContainer >
                       <IconDelete/>
                     </IconContainer>
-                    <p>Delete Tweet</p>
+                    <p>Delete Message.</p>
                   </Option>
                   :""
                   }
@@ -149,7 +149,7 @@ const ShowMoreMenu = ({changeAlert, changeStateAlert,messageUidUser, currentUser
                     <IconContainer>
                       <IconPin/>
                     </IconContainer>
-                    <p>Pin Tweet</p>
+                    <p>Pin Message</p>
                   </Option>
                   :""
                   }

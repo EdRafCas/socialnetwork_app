@@ -70,7 +70,7 @@ const PopUpButtonPin=styled.button`
     justify-content:center;
     align-items:center;
     border:solid ${theme.BorderColor} 1px;
-    background:${(props)=> props.Red ? `${theme.RedDelete}` 
+    background:${(props)=> props.Pinned ? `${theme.BlueReply}` 
     : "rgba(255,255,255, 0)"};
     p{
         font-size:1.2rem;
@@ -79,7 +79,7 @@ const PopUpButtonPin=styled.button`
         /* border:solid red 1px; */
     }
     :hover{
-        background:${(props)=> props.Red ? `${theme.RedDeleteDark}` 
+        background:${(props)=> props.Pinned ? `${theme.BluePinnedBackground}` 
     : "rgba(255,255,255, 0.2)"};
     }
     :active{
@@ -119,17 +119,17 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert}) => {
                             </PopUpButtonDelete>
                         </PopUpButtonContainer>
                         <PopUpButtonContainer>
-                            <PopUpButtonDelete onClick={()=>changeShowPopUp(false)}>
+                            <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
                                 <p>Cancel</p>
                             </PopUpButtonDelete>
                         </PopUpButtonContainer>
                     </ContainerPopUp>
                     :type ==="pinned" ?
                     <ContainerPopUp>
-                        <PopUpTitle>Delete Message?</PopUpTitle>
-                        <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
+                        <PopUpTitle>Pin this Message?</PopUpTitle>
+                        <PopUpText>If you pin this message it will be shown at the top of your profile.</PopUpText>
                         <PopUpButtonContainer>
-                            <PopUpButtonPin Red onClick={()=>UpdateProfilePinnedMessage({
+                            <PopUpButtonPin Pinned onClick={()=>UpdateProfilePinnedMessage({
                                 changeStateAlert, 
                                 changeAlert,
                                 id,

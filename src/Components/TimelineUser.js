@@ -17,6 +17,8 @@ import RemoveRetweet from '../firebase/RemoveRetweet';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
+import PinnedMessageContainer from './PinnedMessageContainer';
+import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 
 
 const EmptyDiv=styled.div`
@@ -24,7 +26,7 @@ const EmptyDiv=styled.div`
 
 const TimelineUser = ({changeAlert, stateAlert, changeStateAlert, user,currentUserInfo}) => {
     const [messagesSentByUser] = useObtainMessagesByUser();
-
+ 
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
@@ -34,7 +36,21 @@ const TimelineUser = ({changeAlert, stateAlert, changeStateAlert, user,currentUs
     /* console.log(MessagesSentByUser); */
 
       return ( 
-          <>
+          <> 
+            {currentUserInfo[0].pinnedMessage &&
+            <>
+            <RetweetInfo>
+              <IconContainerRetweet  >
+                <IconPin/>
+              </IconContainerRetweet>
+                <NameContainerRetweet>
+                <p>Pinned Message</p> 
+                </NameContainerRetweet>
+            </RetweetInfo>
+            <PinnedMessageContainer user={user}
+                        currentUserInfo={currentUserInfo}/>         
+            </>
+             }
             {messagesSentByUser.map((MessageUser, index)=>{
               return(
               <Card key={MessageUser.id}>

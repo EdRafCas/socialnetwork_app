@@ -5,6 +5,8 @@ const theme={
       Text:"#B2B1B9",
       BlueReply:"rgb(29,155,240)",
       BlueReplyBackground:"rgb(29,155,240, 0.1)",
+      BluePinned:"rgb(29,155,240)",
+      BluePinnedBackground:"rgb(29,155,240, 0.9)",
       PinkLike:"rgb(249,24,128)",
       PinkLikeBackground:"rgb(249,24,128, 0.1)",
       GreenRetweet:"rgb(0, 186, 124)",

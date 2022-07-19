@@ -33,25 +33,25 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUidUser}) => {
-    const [loadingRetweets, changeLoadingRetweets] =useState(true);
-    const [messageForRetweet, changeMessageForRetweet] = useState('')
+const PinnedMessageContainer = ({ currentUserInfo}) => {
+    const [loadingPinned, changeLoadingPinned] =useState(true);
+    const [messagePinned, ChangeMessagePinned] = useState('')
 
     useEffect(()=>{
       const obtainMessage = async() =>{
-            const document = await getDoc(doc(db, 'userTimeline', originalId));
-            changeMessageForRetweet(document) 
+            const document = await getDoc(doc(db, 'userTimeline', "ffXo1cxRfVXL3bkTFDi8" ));
+            ChangeMessagePinned(document) 
              /* if(document.exists){
                   console.log("id existe")
              }else{
                   console.log("id no existe")
              } */
              
-          changeLoadingRetweets(false)
+          changeLoadingPinned(false)
       }
       obtainMessage();
 
-      /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
+      /* By not calling changeLoadingPinned in useEffect it keeps loading each time we update*/
       },)
       
       const formatDate = (date) => {
@@ -60,12 +60,12 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUi
     
 return ( 
         <>
-        {!loadingRetweets &&
+        {!loadingPinned &&
           <UserColumns>
             <CardColumns>
               <PortraitContainer>
-                {messageForRetweet.data().photoURL ?
-                <img alt="userportrait" src={messageForRetweet.data().photoURL}/>
+                {messagePinned.data().photoURL ?
+                <img alt="userportrait" src={messagePinned.data().photoURL}/>
                 :
                 <img alt="userportrait" src={ProfileImage}/>
                 }
@@ -74,56 +74,45 @@ return (
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
-                <NameContainer>{messageForRetweet.data().name}</NameContainer>
-                <AliasContainer>@{messageForRetweet.data().alias}</AliasContainer>
+                <NameContainer>{messagePinned.data().name}</NameContainer>
+                <AliasContainer>@{messagePinned.data().alias}</AliasContainer>
               </UserNameContainer>
               <MessageContent>
-                {messageForRetweet.data().message}
+                {messagePinned.data().message}
                 
               </MessageContent>
               <TimeBar>
-                {formatDate(messageForRetweet.data().date)}
+                {formatDate(messagePinned.data().date)}
               </TimeBar>
               <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
                 <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                 <IconContainerCont Retweet>
-                  {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
-                    <RetweetButton onClick={()=>AddRetweet(
-                      
-                    )}>
+                  {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
+                    <RetweetButton onClick={()=>AddRetweet()}>
                       <IconRetweet/>
                     </RetweetButton>
                     :
-                    <RetweetButton onClick={()=>RemoveRetweet({
-                      newRetweetId:newRetweetId, 
-                      originalId:originalId, 
-                      retweetUidUser, 
-                      currentUidUser:currentUserInfo[0].uidUser,originalRetweets:messageForRetweet.data().retweets})}>
+                    <RetweetButton onClick={()=>RemoveRetweet({})}>
                       <IconRetweetColor/>
                     </RetweetButton>
                   }
                   <CounterContainer>
-                    {messageForRetweet.data().retweets.length}
+                    {messagePinned.data().retweets.length}
                   </CounterContainer>
                 </IconContainerCont>
                 <IconContainerCont Like>
-                  {!messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike({
-                    id:originalId,
-                    uidUser:currentUserInfo[0].uidUser,
-                    likes:messageForRetweet.data().likes})}> 
+                  {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
+                    <LikeButton  onClick={()=>AddLike({})}> 
                       <IconLike />                               
                     </LikeButton>
                     :
-                    <LikeButton  onClick={()=>RemoveLike({
-                      id:originalId, 
-                      uidUser:currentUserInfo[0].uidUser, likes:messageForRetweet.data().likes})}> 
+                    <LikeButton  onClick={()=>RemoveLike({})}> 
                       <IconLikeColor />                               
                     </LikeButton>
                   }
                   <CounterContainer>
-                    <p>{messageForRetweet.data().likes.length}</p>
+                    <p>{messagePinned.data().likes.length}</p>
                   </CounterContainer>
                 </IconContainerCont>
               </InteractionBar>
@@ -134,4 +123,4 @@ return (
     )
 }
  
-export default RetweetContainer;
+export default PinnedMessageContainer;
