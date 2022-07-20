@@ -22,6 +22,7 @@ import RetweetContainer from './RetweetContainer';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import { AuthContext } from '../Context/AuthContext';
 import receiveNotification from './ReceiveNotification';
+import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
  
 const TimelineContainer = styled.div`
   height:100%;
@@ -144,45 +145,26 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                             <IconRetweet/>
                           </RetweetButton>
                         :
-                        <RetweetButton onClick={()=>RemoveRetweet({
-                          currentUidUser:currentUserInfo[0].uidUser,
-                          originalRetweets:Message.retweets, 
-                          originalId:Message.originalId, 
-                          currentMessageId:Message.id, 
-                          retweetUidUser:Message.uidUser})}
-                        >
+                        <>
+                          {
+                          Message.uidUser === currentUserInfo[0].uidUser ?
+                          <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                            currentUidUser:currentUserInfo[0].uidUser,
+                            originalRetweets:Message.retweets, 
+                            currentMessageId:Message.id})}>
                             <IconRetweetColor/>
                           </RetweetButton>
-                        }
-                          <CounterContainer>
-                            {Message.retweets.length}
-                          </CounterContainer>
-                        </IconContainerCont>
-                        <IconContainerCont Retweet>
-                        {
-                          !Message.retweets.includes(currentUserInfo[0].uidUser)?
-                          <RetweetButton onClick={()=>addRetweetToTimeline({
-                          changeAlert,
-                          changeStateAlert,
-                          id:Message.id,
-                          originalUidUser:Message.uidUser, 
-                          retweets:Message.retweets, 
-                          user, 
-                          currentUserInfo, 
-                          date: getUnixTime(new Date())})}
-                          >
-                            <IconRetweet/>
-                          </RetweetButton>
-                        :
-                        <RetweetButton onClick={()=>RemoveRetweet({
-                        currentUidUser:currentUserInfo[0].uidUser,
-                        originalRetweets:Message.retweets, 
-                        originalId:Message.originalId, 
-                        currentMessageId:Message.id, 
-                        retweetUidUser:Message.uidUser})}
-                        >
+                          :
+                          <RetweetButton onClick={()=>RemoveRetweet({
+                            currentUidUser:currentUserInfo[0].uidUser,
+                            originalRetweets:Message.retweets, 
+                            originalId:Message.originalId, 
+                            currentMessageId:Message.id, 
+                            retweetUidUser:Message.uidUser})}>
                             <IconRetweetColor/>
                           </RetweetButton>
+                          }
+                        </>
                         }
                           <CounterContainer>
                             {Message.retweets.length}
