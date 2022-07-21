@@ -18,10 +18,10 @@ import RemoveRetweet from '../firebase/RemoveRetweet';
 import MessageBox from './MessageBox';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
-import RetweetContainer from './RetweetContainer';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import { AuthContext } from '../Context/AuthContext';
 import receiveNotification from './ReceiveNotification';
+import RetweetContainerMainTimeline from './RetweetContainerMainTimeline';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
  
 const TimelineContainer = styled.div`
@@ -41,11 +41,9 @@ const EmptyDiv=styled.div`
 const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
     const {changeShowPopUp} =useContext(AuthContext);
-    const {showPopUp} =useContext(AuthContext);
-    const {popUpAlert} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     
-    console.log(currentUserInfo[0].uidUser)
+    console.log("reloading timeline")
     
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -76,10 +74,13 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                         {Message.name}<p>Retweeted</p> 
                       </NameContainerRetweet>
                     </RetweetInfo>
-                    <RetweetContainer currentUserInfo={currentUserInfo} 
-                                      originalId={Message.originalId} 
-                                      newRetweetId={Message.id} 
-                                      retweetUidUser={Message.uidUser}
+                    <RetweetContainerMainTimeline currentUserInfo={currentUserInfo} 
+                                                  originalId={Message.originalId} 
+                                                  newRetweetId={Message.id} 
+                                                  retweetUidUser={Message.uidUser}
+                                                  changeAlert={changeAlert}
+                                                  changeStateAlert={changeStateAlert}
+                                                  user={user}
                     />
                     </>
                     :

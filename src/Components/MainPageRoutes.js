@@ -5,6 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import UserProfile from './UserProfile';
 
 
+
 const MainPageRoutes = ({changeAlert, messageAlert, stateAlert, changeStateAlert, user, currentUserInfo,addToTimeline,message, handleChange, showEditProfile, changeShowEditProfile}) => {
   
       return ( 
