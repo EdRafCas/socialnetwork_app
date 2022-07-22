@@ -45,7 +45,6 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [showMessageBox, changeShowMessageBox] =useState(false);
   const [showEditProfile, changeShowEditProfile] =useState(false);
   const {popUpAlert} =useContext(AuthContext);
-  const {changePopUpAlert} =useContext(AuthContext);
   
   useEffect(()=>{
         const consult = query(
@@ -110,6 +109,10 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           <PopUp  type={popUpAlert.type} 
                   id={popUpAlert.id}
                   userId={popUpAlert.userId}
+                  user={popUpAlert.user}
+                  currentUserInfo={popUpAlert.currentUserInfo}
+                  originalUidUser={popUpAlert.originalUidUser}
+                  retweets={popUpAlert.retweets}
                   changeStateAlert={changeStateAlert}
                   changeAlert={changeAlert}/>
           <ColumnContainer>

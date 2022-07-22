@@ -7,7 +7,6 @@ import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 /* import { IconContainer } from './ElementsTimeline'; */
-import RemoveTweet from '../firebase/RemoveTweet';
 import receiveNotification from '../Components/ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 
@@ -87,11 +86,9 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({changeAlert, changeStateAlert,messageUidUser, currentUserInfo, id}) => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
-      const {showPopUp} =useContext(AuthContext);
-      const {popUpAlert} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
 
       
@@ -127,15 +124,6 @@ const ShowMoreMenu = ({changeAlert, changeStateAlert,messageUidUser, currentUser
                       <IconDelete/>
                     </IconContainer>
                     <p>Delete Message</p>
-                  </Option>
-                  :""
-                  }
-                  {messageUidUser===currentUserInfo[0].uidUser ?
-                  <Option onClick={()=>RemoveTweet({id})}>
-                    <IconContainer >
-                      <IconDelete/>
-                    </IconContainer>
-                    <p>Delete Message.</p>
                   </Option>
                   :""
                   }

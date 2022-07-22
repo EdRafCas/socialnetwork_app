@@ -88,7 +88,6 @@ return (
               </TimeBar>
               <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
-                <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                 <IconContainerCont Retweet>
                   {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
                     <RetweetButton onClick={()=>addRetweetToTimeline({
