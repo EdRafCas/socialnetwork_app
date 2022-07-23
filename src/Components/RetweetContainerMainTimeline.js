@@ -19,6 +19,7 @@ import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import {addRetweetToTimeline } from '../firebase/AddRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
+import receiveNotification from './ReceiveNotification';
 
 const RetweetButton=styled.button`
   background:none;
@@ -35,7 +36,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetContainerMainTimeline = ({ changeAlert,changeStateAlert,currentUserInfo,user, newRetweetId, originalId, retweetUidUser}) => {
+const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
 
@@ -88,6 +89,47 @@ return (
               </TimeBar>
               <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
+                <IconContainerCont Retweet>
+                  {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
+                    <RetweetButton onClick={()=>receiveNotification({
+                      notification:"retweet",
+                      id:originalId,
+                      retweets:messageForRetweet.data().retweets, 
+                      originalUidUser:messageForRetweet.data().uidUser, 
+                      user, 
+                      currentUserInfo, 
+                      changeShowPopUp, 
+                      changePopUpAlert
+                    })}>
+                      <IconRetweet/>
+                    </RetweetButton>
+                    :
+                    <>
+                    {
+                    messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
+                    <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalRetweets:messageForRetweet.data().retweets,
+                      currentMessageId:originalId,
+                    })}>
+                      <IconRetweetColor/>
+                    </RetweetButton>
+                      :
+                      <RetweetButton onClick={()=>RemoveRetweet({
+                        currentUidUser:currentUserInfo[0].uidUser,
+                        originalRetweets:messageForRetweet.data().retweets,
+                        currentMessageId:originalId,
+                        retweetUidUser:messageForRetweet.data().uidUser
+                      })}>
+                        <IconRetweetColor/>
+                      </RetweetButton>
+                      }
+                    </>
+                  }
+                  <CounterContainer>
+                    {messageForRetweet.data().retweets.length}
+                  </CounterContainer>
+                </IconContainerCont>
                 <IconContainerCont Retweet>
                   {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
                     <RetweetButton onClick={()=>addRetweetToTimeline({

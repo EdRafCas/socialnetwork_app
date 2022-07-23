@@ -74,13 +74,14 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                   {Message.name}<p>Retweeted</p> 
                 </NameContainerRetweet>
               </RetweetInfo>
-              <RetweetContainerMainTimeline currentUserInfo={currentUserInfo} 
-                                            originalId={Message.originalId} 
-                                            newRetweetId={Message.id} 
-                                            retweetUidUser={Message.uidUser}
-                                            changeAlert={changeAlert}
-                                            changeStateAlert={changeStateAlert}
-                                            user={user}/>
+              <RetweetContainerMainTimeline 
+                currentUserInfo={currentUserInfo} 
+                originalId={Message.originalId} 
+                newRetweetId={Message.id} 
+                retweetUidUser={Message.uidUser}
+                changeShowPopUp={changeShowPopUp}
+                changePopUpAlert={changePopUpAlert}
+                user={user}/>
               </>
               :
               <EmptyDiv/>
