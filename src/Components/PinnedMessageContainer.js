@@ -15,8 +15,8 @@ import '../index.css'
 import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-import RemoveRetweet from '../firebase/RemoveRetweet';
-import { AddRetweet } from '../firebase/AddRetweet';
+import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
+import receiveNotification from './ReceiveNotification';
 
 const RetweetButton=styled.button`
   background:none;
@@ -33,13 +33,13 @@ const RetweetButton=styled.button`
   }
 `
 
-const PinnedMessageContainer = ({ currentUserInfo}) => {
+const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUpAlert, currentUserInfo}) => {
     const [loadingPinned, changeLoadingPinned] =useState(true);
     const [messagePinned, ChangeMessagePinned] = useState('')
 
     useEffect(()=>{
       const obtainMessage = async() =>{
-            const document = await getDoc(doc(db, 'userTimeline', "ffXo1cxRfVXL3bkTFDi8" ));
+            const document = await getDoc(doc(db, 'userTimeline', originalId ));
             ChangeMessagePinned(document) 
              /* if(document.exists){
                   console.log("id existe")
@@ -86,14 +86,24 @@ return (
               </TimeBar>
               <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
-                <IconContainer Retweet ><IconRetweetColor/></IconContainer>
                 <IconContainerCont Retweet>
                   {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
-                    <RetweetButton onClick={()=>AddRetweet()}>
+                     <RetweetButton onClick={()=>receiveNotification({
+                      notification:"retweet",
+                      id:originalId, 
+                      retweets:messagePinned.data().retweets, 
+                      originalUidUser:messagePinned.data().uidUser, 
+                      user, 
+                      currentUserInfo, 
+                      changeShowPopUp:changeShowPopUp, 
+                      changePopUpAlert:changePopUpAlert})}>
                       <IconRetweet/>
                     </RetweetButton>
                     :
-                    <RetweetButton onClick={()=>RemoveRetweet({})}>
+                    <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalRetweets:messagePinned.data().retweets, 
+                      currentMessageId:originalId})}>
                       <IconRetweetColor/>
                     </RetweetButton>
                   }

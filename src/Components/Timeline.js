@@ -44,6 +44,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
     const {changePopUpAlert} =useContext(AuthContext);
     
     console.log("reloading timeline")
+
     
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));

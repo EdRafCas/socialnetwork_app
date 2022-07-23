@@ -86,20 +86,20 @@ const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUs
 
       return ( 
             <TimelineUserContainer className='timeline-user'>
-              <HeaderUserProfile currentUserInfo={currentUserInfo}
-                                 changeShowEditProfile={changeShowEditProfile}
-                                 showEditProfile={showEditProfile}
-              />
+              <HeaderUserProfile 
+                  currentUserInfo={currentUserInfo}
+                  changeShowEditProfile={changeShowEditProfile}
+                  showEditProfile={showEditProfile}/>
               <LinksContainer>
                 <RedirectLink to =""> Messages</RedirectLink>
                 <RedirectLink to ={`/user/${currentUserInfo[0].alias}/likes`}> Likes</RedirectLink>
               </LinksContainer>
-              <UserProfileRoutes currentUserInfo={currentUserInfo}
-                                 changeAlert={changeAlert} 
-                                 stateAlert={stateAlert} 
-                                 changeStateAlert={changeStateAlert} 
-                                 user={user}
-              />
+              <UserProfileRoutes 
+                  currentUserInfo={currentUserInfo}
+                  changeAlert={changeAlert} 
+                  stateAlert={stateAlert} 
+                  changeStateAlert={changeStateAlert} 
+                  user={user}/>
             </TimelineUserContainer>
       );
 }
