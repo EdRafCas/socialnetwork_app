@@ -112,8 +112,6 @@ const ButtonSignUp =styled.button`
       :active{
             opacity:0.6;
       }
-      
-
 `
 
 

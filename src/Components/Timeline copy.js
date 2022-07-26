@@ -4,6 +4,7 @@ import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessages from '../Hooks/useObtainMessages';
 import ProfileImage from '../img/profile_avatar.png'
+import getUnixTime from 'date-fns/getUnixTime';
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
@@ -11,6 +12,7 @@ import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg'
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
+import {addRetweetToTimeline} from '../firebase/AddRetweet';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import MessageBox from './MessageBox';
@@ -21,7 +23,6 @@ import { AuthContext } from '../Context/AuthContext';
 import receiveNotification from './ReceiveNotification';
 import RetweetContainerMainTimeline from './RetweetContainerMainTimeline';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
-import MessageTimelineContainer from './MessageTimelineContainer';
  
 const TimelineContainer = styled.div`
   height:100%;
@@ -90,17 +91,6 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
             </>
             :
             <>
-            {/* <MessageTimelineContainer
-              id={Message.id}
-              user={user}
-              currentUserInfo={currentUserInfo}
-              messageUidUser={Message.uidUser}
-              changeShowPopUp={changeShowPopUp}
-              changePopUpAlert={changePopUpAlert}
-              changeAlert={changeAlert}
-              changeStateAlert={changeStateAlert}
-
-            /> */}
             <UserColumns>
               <CardColumns>
                 <PortraitContainer>
