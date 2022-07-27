@@ -90,18 +90,22 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
             </>
             :
             <>
-            {/* <MessageTimelineContainer
+            <MessageTimelineContainer
               id={Message.id}
               user={user}
               currentUserInfo={currentUserInfo}
               messageUidUser={Message.uidUser}
+              messageDate={Message.date}
+              messageMessage={Message.message}
+              messageRetweets={Message.retweets}
+              messageLikes={Message.likes}
+              messageOriginalId={Message.originalId}
               changeShowPopUp={changeShowPopUp}
               changePopUpAlert={changePopUpAlert}
               changeAlert={changeAlert}
               changeStateAlert={changeStateAlert}
-
-            /> */}
-            <UserColumns>
+            />
+            {/* <UserColumns>
               <CardColumns>
                 <PortraitContainer>
                   {Message.photoURL ?
@@ -198,7 +202,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                   </IconContainerCont>
                 </InteractionBar>
               </CardColumns>
-            </UserColumns>
+            </UserColumns> */}
             </>
             }
           </Card>  

@@ -14,7 +14,7 @@ import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
 import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
@@ -35,33 +35,40 @@ const RetweetButton=styled.button`
   }
 `
 
-const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {
+const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
-    const [messageForRetweet, changeMessageForRetweet] = useState('')
+    const [messageForTimeline, changeMessageForTimeline] = useState('')
 
     useEffect(()=>{
-      const obtainMessage = async() =>{
+      const obtainMessageTimeline = async() =>{
             
-            const consult = query(
-              collection(db, 'userInfo'),
-              where('uidUser', "==", messageUidUser),
-              limit(10)
-            );
+      const consult = query(
+        collection(db, 'userInfo'),
+        where('uidUser', "==", messageUidUser),
+        limit(10)
+      );
 
-            const document = await getDoc(doc(db, 'userTimeline', originalId));
-            changeMessageForRetweet(document) 
+      onSnapshot(consult, (snapshot)=>{
+        console.log(snapshot.docs.map((originalUser)=>{
+          return{...originalUser.data(), id:originalUser.id}
+        }))
+      })
+      /* console.log(messageForTimeline) */
+
+            /* const document = await getDoc(doc(db, 'userInfo', messageUidUser));
+            changeMessageForTimeline(document) 
              /* if(document.exists){
                   console.log("id existe")
              }else{
                   console.log("id no existe")
              } */
              
-          changeLoadingMessageData(false)
+        changeLoadingMessageData(false)
       }
-      obtainMessage();
+      obtainMessageTimeline();
 
       /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
-      },)
+      },[])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -73,46 +80,43 @@ return (
     <UserColumns>
       <CardColumns>
         <PortraitContainer>
-          {Message.photoURL ?
-          <img alt="user-portrait" src={Message.photoURL}/>
-          :
+          
           <img alt="user-portrait" src={ProfileImage}/>
-          }
           
         </PortraitContainer>
       </CardColumns>
       <CardColumns rightColumn>
         <UserNameContainer>
-          <NameContainer>{Message.name}</NameContainer>
-          <AliasContainer>@{Message.alias}</AliasContainer>
+          <NameContainer>{messageUidUser}</NameContainer>
+          <AliasContainer>{id}</AliasContainer>
           <ShowMoreMenu 
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}
-                        messageUidUser={Message.uidUser} 
+                        messageUidUser={messageUidUser} 
                         currentUserInfo={currentUserInfo}
-                        id={Message.id} />
+                        id={id} />
         </UserNameContainer>
         <MessageContent>
-          {Message.message}
+          {messageMessage}
         </MessageContent>
         <TimeBar>
-          {formatDate(Message.date)}
+          {formatDate(messageDate)}
         </TimeBar>
         <InteractionBar>
           <IconContainer Reply onClick={()=>receiveNotification({
             notification:"delete",
-            changeShowPopUp:changeShowPopUp, 
-            changePopUpAlert:changePopUpAlert})}>
+            changeShowPopUp, 
+            changePopUpAlert})}>
             <IconComment/>
           </IconContainer>
           <IconContainerCont Retweet>
           {
-            !Message.retweets.includes(currentUserInfo[0].uidUser)?
+            !messageRetweets.includes(currentUserInfo[0].uidUser)?
             <RetweetButton onClick={()=>receiveNotification({
               notification:"retweet",
-              id:Message.id,
-              retweets:Message.retweets,
-              originalUidUser:Message.uidUser,
+              id:id,
+              retweets:messageRetweets,
+              originalUidUser:messageUidUser,
               user,
               currentUserInfo,
               changeShowPopUp:changeShowPopUp, 
@@ -122,52 +126,52 @@ return (
           :
           <>
             {
-            Message.uidUser === currentUserInfo[0].uidUser ?
+            messageUidUser === currentUserInfo[0].uidUser ?
             <RetweetButton onClick={()=>RemoveRetweetSameUser({
               currentUidUser:currentUserInfo[0].uidUser,
-              originalRetweets:Message.retweets, 
-              currentMessageId:Message.id})}>
+              originalRetweets:messageRetweets, 
+              currentMessageId:id})}>
               <IconRetweetColor/>
             </RetweetButton>
             :
             <RetweetButton onClick={()=>RemoveRetweet({
               currentUidUser:currentUserInfo[0].uidUser,
-              originalRetweets:Message.retweets, 
-              originalId:Message.originalId, 
-              currentMessageId:Message.id, 
-              retweetUidUser:Message.uidUser})}>
+              originalRetweets:messageRetweets, 
+              originalId:messageOriginalId, 
+              currentMessageId:id, 
+              retweetUidUser:messageUidUser})}>
               <IconRetweetColor/>
             </RetweetButton>
             }
           </>
           }
             <CounterContainer>
-              {Message.retweets.length}
+              {messageRetweets.length}
             </CounterContainer>
           </IconContainerCont>
           <IconContainerCont Like>
-            {!Message.likes.includes(currentUserInfo[0].uidUser)?
+            {!messageLikes.includes(currentUserInfo[0].uidUser)?
               <LikeButton  onClick={()=>AddLike({
-              id:Message.id,
+              id:id,
               uidUser:currentUserInfo[0].uidUser,
-              likes:Message.likes})}> 
+              likes:messageLikes})}> 
                 <IconLike />                               
               </LikeButton>
               :
               <LikeButton  onClick={()=>RemoveLike({
-              id:Message.id,
+              id:id,
               uidUser:currentUserInfo[0].uidUser,
-              likes:Message.likes})}> 
+              likes:messageLikes})}> 
                 <IconLikeColor />                               
               </LikeButton>
             }
             <CounterContainer>
-              <p>{Message.likes.length}</p>
+              <p>{messageLikes.length}</p>
             </CounterContainer>
           </IconContainerCont>
         </InteractionBar>
       </CardColumns>
-    </UserColumns> 
+    </UserColumns>
   }
   </>
     )
