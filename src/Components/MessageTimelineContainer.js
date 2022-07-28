@@ -37,7 +37,8 @@ const RetweetButton=styled.button`
 
 const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
-    const [messageForTimeline, changeMessageForTimeline] = useState('')
+    const [userFinder, changeUserFinder] = useState([])
+    const [messageForTimeline, changeMessageForTimeline] = useState([])
 
     useEffect(()=>{
       const obtainMessageTimeline = async() =>{
@@ -49,26 +50,18 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
       );
 
       onSnapshot(consult, (snapshot)=>{
-        console.log(snapshot.docs.map((originalUser)=>{
-          return{...originalUser.data(), id:originalUser.id}
-        }))
+        snapshot.docs.map((originalUser)=>{
+          const document = getDoc(doc(db, 'userInfo', originalUser.id))
+          return changeMessageForTimeline(document)
+        })
       })
-      /* console.log(messageForTimeline) */
 
-            /* const document = await getDoc(doc(db, 'userInfo', messageUidUser));
-            changeMessageForTimeline(document) 
-             /* if(document.exists){
-                  console.log("id existe")
-             }else{
-                  console.log("id no existe")
-             } */
-             
-        changeLoadingMessageData(false)
+      changeLoadingMessageData(false)
       }
       obtainMessageTimeline();
 
       /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
-      },[])
+      },[changeMessageForTimeline])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -87,7 +80,7 @@ return (
       </CardColumns>
       <CardColumns rightColumn>
         <UserNameContainer>
-          <NameContainer>{messageUidUser}</NameContainer>
+          <NameContainer>{messageForTimeline.data().id}</NameContainer>
           <AliasContainer>{id}</AliasContainer>
           <ShowMoreMenu 
                         changeAlert={changeAlert}
