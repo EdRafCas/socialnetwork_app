@@ -64,8 +64,8 @@ return (
           <UserColumns>
             <CardColumns>
               <PortraitContainer>
-                {messagePinned.data().photoURL ?
-                <img alt="userportrait" src={messagePinned.data().photoURL}/>
+                {currentUserInfo[0].photoURL ?
+                <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
                 :
                 <img alt="userportrait" src={ProfileImage}/>
                 }
@@ -74,8 +74,8 @@ return (
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
-                <NameContainer>{messagePinned.data().name}</NameContainer>
-                <AliasContainer>@{messagePinned.data().alias}</AliasContainer>
+                <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
               </UserNameContainer>
               <MessageContent>
                 {messagePinned.data().message}
@@ -92,7 +92,7 @@ return (
                       notification:"retweet",
                       id:originalId, 
                       retweets:messagePinned.data().retweets, 
-                      originalUidUser:messagePinned.data().uidUser, 
+                      originalUidUser:currentUserInfo[0].uidUser, 
                       user, 
                       currentUserInfo, 
                       changeShowPopUp:changeShowPopUp, 

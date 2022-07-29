@@ -14,7 +14,7 @@ import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
 import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
-import { doc, getDoc, collection, limit, query, where, onSnapshot} from "firebase/firestore";
+import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
@@ -37,31 +37,30 @@ const RetweetButton=styled.button`
 
 const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
-    const [userFinder, changeUserFinder] = useState([])
-    const [messageForTimeline, changeMessageForTimeline] = useState([])
+    const [messageForTimeline, changeMessageForTimeline] = useState(currentUserInfo)
 
     useEffect(()=>{
       const obtainMessageTimeline = async() =>{
-            
-      const consult = query(
-        collection(db, 'userInfo'),
-        where('uidUser', "==", messageUidUser),
-        limit(10)
-      );
 
-      onSnapshot(consult, (snapshot)=>{
-        snapshot.docs.map((originalUser)=>{
-          const document = getDoc(doc(db, 'userInfo', originalUser.id))
-          return changeMessageForTimeline(document)
+        const consult = query(
+          collection(db, 'userInfo'),
+          where('uidUser', "==", messageUidUser),
+          limit(10)
+        );
+        
+        onSnapshot(consult, (snapshot)=>{
+          changeMessageForTimeline(snapshot.docs.map((originalUser)=>{
+            return {...originalUser.data()}
+          }))
         })
-      })
 
-      changeLoadingMessageData(false)
+        changeLoadingMessageData(false)
       }
-      obtainMessageTimeline();
+      
+    obtainMessageTimeline();
 
-      /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
-      },[changeMessageForTimeline])
+    /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
+    },[messageUidUser])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -73,15 +72,17 @@ return (
     <UserColumns>
       <CardColumns>
         <PortraitContainer>
-          
-          <img alt="user-portrait" src={ProfileImage}/>
-          
+          {messageForTimeline[0].photoURL ?
+            <img alt="userportrait" src={messageForTimeline[0].photoURL}/>
+            :
+            <img alt="userportrait" src={ProfileImage}/>
+          }
         </PortraitContainer>
       </CardColumns>
       <CardColumns rightColumn>
         <UserNameContainer>
-          <NameContainer>{messageForTimeline.data().id}</NameContainer>
-          <AliasContainer>{id}</AliasContainer>
+          <NameContainer>{messageForTimeline[0].name}</NameContainer>
+          <AliasContainer>{messageForTimeline[0].alias}</AliasContainer>
           <ShowMoreMenu 
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}

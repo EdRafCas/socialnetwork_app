@@ -12,21 +12,12 @@ import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg'
 import AddLike from '../firebase/AddLike';
 import {addRetweetToTimeline} from '../firebase/AddRetweet';
 import RemoveLike from '../firebase/RemoveLike';
-import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
-import RetweetContainer from './RetweetContainer';
+import {Card,UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton} from '.././Elements/ElementsTimeline'
+
 import RemoveRetweet from '../firebase/RemoveRetweet';
 
 
 const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
-    const ExampleOrder = [
-      {name: "Eduardo",
-        value: [{Gold:15, Silver:10}]
-      },
-      {
-        name: "Ana",
-        value: [{Gold:10, Silver:12}]
-      }
-    ]
 
     const [messagesLikedByUser] = useObtainMessagesLikesUser();
 

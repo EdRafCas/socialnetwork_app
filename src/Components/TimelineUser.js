@@ -87,8 +87,8 @@ const TimelineUser = ({user,currentUserInfo}) => {
               <UserColumns>
                   <CardColumns>
                     <PortraitContainer>
-                      {MessageUser.photoURL ?
-                      <img alt="userportrait" src={MessageUser.photoURL}/>
+                      {currentUserInfo[0].photoURL ?
+                      <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
                       :
                       <img alt="userportrait" src={ProfileImage}/>
                       }
@@ -97,8 +97,8 @@ const TimelineUser = ({user,currentUserInfo}) => {
                   </CardColumns>
                   <CardColumns rightColumn>
                     <UserNameContainer>
-                      <NameContainer>{MessageUser.name}</NameContainer>
-                      <AliasContainer>@{MessageUser.alias}</AliasContainer>
+                      <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                      <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
                     </UserNameContainer>
                     <MessageContent>
                       {MessageUser.message}
