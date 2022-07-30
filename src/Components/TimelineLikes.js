@@ -64,11 +64,22 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo, ad
                         <IconContainerCont Retweet>
                         {
                             !Message.retweets.includes(currentUserInfo[0].uidUser)?
-                          <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert, changeStateAlert, id:Message.id, originalUidUser:Message.uidUser, retweets:Message.retweets, user, currentUserInfo, date: getUnixTime(new Date())})}>
+                          <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert,
+                          changeStateAlert,
+                          id:Message.id,
+                          originalUidUser:Message.uidUser, 
+                          retweets:Message.retweets, 
+                          user, 
+                          currentUserInfo, 
+                          date: getUnixTime(new Date())})}>
                             <IconRetweet/>
                           </RetweetButton>
                         :
-                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,originalRetweets:Message.retweets, originalId:Message.originalId, currentMessageId:Message.id, retweetUidUser:Message.uidUser})}>
+                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,
+                        originalRetweets:Message.retweets, 
+                        originalId:Message.originalId, 
+                        currentMessageId:Message.id, 
+                        retweetUidUser:Message.uidUser})}>
                             <IconRetweetColor/>
                           </RetweetButton>
                         }
@@ -79,11 +90,15 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo, ad
                         <IconContainerCont Like>
                           {
                             !Message.likes.includes(currentUserInfo[0].uidUser)?
-                            <LikeButton  onClick={()=>AddLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                            <LikeButton  onClick={()=>AddLike({id:Message.id,
+                            uidUser:currentUserInfo[0].uidUser,
+                            likes:Message.likes})}> 
                               <IconLike />                               
                             </LikeButton>
                             :
-                            <LikeButton  onClick={()=>RemoveLike({id:Message.id,uidUser:currentUserInfo[0].uidUser,likes:Message.likes})}> 
+                            <LikeButton  onClick={()=>RemoveLike({id:Message.id,
+                            uidUser:currentUserInfo[0].uidUser,
+                            likes:Message.likes})}> 
                               <IconLikeColor />                               
                             </LikeButton>
                           }
