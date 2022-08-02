@@ -17,6 +17,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
+import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 const RetweetButton=styled.button`
   background:none;
@@ -33,7 +34,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUpAlert, currentUserInfo}) => {
+const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUpAlert, currentUserInfo, changeAlert, changeStateAlert}) => {
     const [loadingPinned, changeLoadingPinned] =useState(true);
     const [messagePinned, ChangeMessagePinned] = useState('')
 
@@ -41,11 +42,6 @@ const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUp
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId ));
             ChangeMessagePinned(document) 
-             /* if(document.exists){
-                  console.log("id existe")
-             }else{
-                  console.log("id no existe")
-             } */
              
           changeLoadingPinned(false)
       }
@@ -76,6 +72,11 @@ return (
               <UserNameContainer>
                 <NameContainer>{currentUserInfo[0].name}</NameContainer>
                 <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                <ShowMoreMenu 
+                        pinnedMenu={true}
+                        messageUidUser={currentUserInfo[0].uidUser} 
+                        currentUserInfo={currentUserInfo}
+                        id={originalId} />
               </UserNameContainer>
               <MessageContent>
                 {messagePinned.data().message}

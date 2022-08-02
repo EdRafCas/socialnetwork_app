@@ -18,7 +18,7 @@ const RetweetInfo=styled.div`
   width:100%;
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
-  
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
 
 `
 const UserColumns=styled.div`
@@ -217,6 +217,7 @@ const NameContainerRetweet = styled.div`
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
+  align-items:end;
   color: ${theme.Text};
   font-size:1rem;
   font-weight:800;

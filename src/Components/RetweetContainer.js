@@ -17,6 +17,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import { AddRetweet } from '../firebase/AddRetweet';
+import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 const RetweetButton=styled.button`
   background:none;
@@ -33,7 +34,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUidUser}) => {
+const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUidUser, changeAlert, changeStateAlert}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
 
@@ -41,11 +42,6 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUi
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForRetweet(document) 
-             /* if(document.exists){
-                  console.log("id existe")
-             }else{
-                  console.log("id no existe")
-             } */
              
           changeLoadingRetweets(false)
       }
@@ -69,13 +65,18 @@ return (
                 :
                 <img alt="userportrait" src={ProfileImage}/>
                 }
-                
               </PortraitContainer>
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
                 <NameContainer>{messageForRetweet.data().name}</NameContainer>
                 <AliasContainer>@{messageForRetweet.data().alias}</AliasContainer>
+                <ShowMoreMenu 
+                        changeAlert={changeAlert}
+                        changeStateAlert={changeStateAlert}
+                        messageUidUser={messageForRetweet.data().uidUser} 
+                        currentUserInfo={currentUserInfo}
+                        id={messageForRetweet.data().id}/>
               </UserNameContainer>
               <MessageContent>
                 {messageForRetweet.data().message}
@@ -89,7 +90,6 @@ return (
                 <IconContainerCont Retweet>
                   {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
                     <RetweetButton onClick={()=>AddRetweet(
-                      
                     )}>
                       <IconRetweet/>
                     </RetweetButton>

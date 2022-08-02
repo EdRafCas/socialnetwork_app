@@ -19,13 +19,13 @@ import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
-
+import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 
 const EmptyDiv=styled.div`
 `
 
-const TimelineUser = ({user,currentUserInfo}) => {
+const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => {
     const [messagesSentByUser] = useObtainMessagesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
@@ -47,7 +47,7 @@ const TimelineUser = ({user,currentUserInfo}) => {
               <IconPin/>
             </IconContainerRetweet>
               <NameContainerRetweet>
-              <p>Pinned Message {currentUserInfo[0].pinnedMessage}</p> 
+              <p>Pinned Message </p> 
               </NameContainerRetweet>
           </RetweetInfo>
           <PinnedMessageContainer 
@@ -55,7 +55,9 @@ const TimelineUser = ({user,currentUserInfo}) => {
             currentUserInfo={currentUserInfo}
             changeShowPopUp={changeShowPopUp}
             changePopUpAlert={changePopUpAlert}
-            originalId={currentUserInfo[0].pinnedMessage}/>          
+            originalId={currentUserInfo[0].pinnedMessage}
+            changeAlert={changeAlert}
+            changeStateAlert={changeStateAlert}/>          
           </>
           }
           {messagesSentByUser.map((MessageUser, index)=>{
@@ -78,7 +80,10 @@ const TimelineUser = ({user,currentUserInfo}) => {
                 originalId={MessageUser.originalId} 
                 newRetweetId={MessageUser.id} 
                 retweetUidUser={MessageUser.uidUser}
-                user={user}/>
+                user={user}
+                changeAlert={changeAlert}
+                changeStateAlert={changeStateAlert}/>
+                
               </>
               :
               <EmptyDiv/>
@@ -98,12 +103,22 @@ const TimelineUser = ({user,currentUserInfo}) => {
                   </CardColumns>
                   <CardColumns rightColumn>
                     <UserNameContainer>
-                      <NameContainer>{currentUserInfo[0].name}</NameContainer>
-                      <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                      <NameContainer>
+                        {currentUserInfo[0].name}
+                      </NameContainer>
+                      <AliasContainer>
+                        @{currentUserInfo[0].alias}
+                      </AliasContainer>
+                      <ShowMoreMenu 
+                        changeAlert={changeAlert}
+                        changeStateAlert={changeStateAlert}
+                        messageUidUser={MessageUser.uidUser} 
+                        currentUserInfo={currentUserInfo}
+                        id={MessageUser.id}/>
+
                     </UserNameContainer>
                     <MessageContent>
                       {MessageUser.message}
-                      
                     </MessageContent>
                     <TimeBar>
                       {formatDate(MessageUser.date)}
@@ -161,7 +176,6 @@ const TimelineUser = ({user,currentUserInfo}) => {
                     </InteractionBar>
                   </CardColumns>
               </UserColumns>
-              
               }
             </Card>  
             )

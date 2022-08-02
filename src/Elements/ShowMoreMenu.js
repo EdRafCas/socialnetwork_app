@@ -14,6 +14,7 @@ import { AuthContext } from '../Context/AuthContext';
 const IconMore=styled.div`
   position: absolute;
   right: 5px;
+  top:-10px;
   border-radius:50%;
   display:flex;
   justify-content:center;
@@ -86,7 +87,7 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
@@ -115,6 +116,19 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
               {open ? (
                 <OptionsCard >
                   {messageUidUser===currentUserInfo[0].uidUser ?
+                  <>
+                  {pinnedMenu===true ?
+                  <Option onClick={()=>receiveNotification({
+                    notification:"delete",
+                    changeShowPopUp, 
+                    changePopUpAlert,
+                    id})}>
+                    <IconContainer >
+                      <IconDelete/>
+                    </IconContainer>
+                    <p>Delete Pinned Message</p>
+                  </Option>
+                  :
                   <Option onClick={()=>receiveNotification({
                     notification:"delete",
                     changeShowPopUp, 
@@ -125,20 +139,38 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id}) => {
                     </IconContainer>
                     <p>Delete Message</p>
                   </Option>
+                  }
+                  </>
                   :""
                   }
                   {messageUidUser===currentUserInfo[0].uidUser ?
+                  <>
+                  {pinnedMenu===true ?
                   <Option onClick={()=>receiveNotification({
-                  notification:"pinned", 
-                  changeShowPopUp, 
-                  changePopUpAlert,
-                  userId:currentUserInfo[0].id, 
-                  id })}>
+                    notification:"pinned", 
+                    changeShowPopUp, 
+                    changePopUpAlert,
+                    userId:currentUserInfo[0].id, 
+                    id })}>
+                    <IconContainer>
+                      <IconPin/>
+                    </IconContainer>
+                    <p>UnPin Message</p>
+                  </Option>
+                  :
+                  <Option onClick={()=>receiveNotification({
+                    notification:"pinned", 
+                    changeShowPopUp, 
+                    changePopUpAlert,
+                    userId:currentUserInfo[0].id, 
+                    id })}>
                     <IconContainer>
                       <IconPin/>
                     </IconContainer>
                     <p>Pin Message</p>
                   </Option>
+                  }
+                  </>
                   :""
                   }
                   <Option>

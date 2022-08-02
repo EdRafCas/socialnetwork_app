@@ -18,6 +18,7 @@ import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
+import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 const RetweetButton=styled.button`
   background:none;
@@ -42,11 +43,6 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForRetweet(document) 
-             /* if(document.exists){
-                  console.log("id existe")
-             }else{
-                  console.log("id no existe")
-             } */
              
           changeLoadingRetweets(false)
       }
@@ -70,17 +66,25 @@ return (
                 :
                 <img alt="userportrait" src={ProfileImage}/>
                 }
-                
               </PortraitContainer>
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
-                <NameContainer>{messageForRetweet.data().name}</NameContainer>
-                <AliasContainer>@{messageForRetweet.data().alias}</AliasContainer>
+                <NameContainer>
+                  {messageForRetweet.data().name}
+                </NameContainer>
+                <AliasContainer>
+                  @{messageForRetweet.data().alias}
+                </AliasContainer>
+                <ShowMoreMenu 
+                        changeAlert={changeAlert}
+                        changeStateAlert={changeStateAlert}
+                        messageUidUser={messageForRetweet.data().uidUser} 
+                        currentUserInfo={currentUserInfo}
+                        id={messageForRetweet.data().id} />
               </UserNameContainer>
               <MessageContent>
                 {messageForRetweet.data().message}
-                
               </MessageContent>
               <TimeBar>
                 {formatDate(messageForRetweet.data().date)}
