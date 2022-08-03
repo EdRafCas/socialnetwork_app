@@ -1,5 +1,5 @@
 import { db, storage } from "./FirebaseConfig";
-import { doc, updateDoc, collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { doc, updateDoc, collection, onSnapshot, orderBy, query, where, deleteDoc } from "firebase/firestore";
 import { getDownloadURL, ref} from "firebase/storage"
 
 
@@ -11,21 +11,40 @@ const UpdateProfile = async({id,newName,newBio}) => {
             bio:newBio
       }); 
 }
-const UpdateProfilePinnedMessage = async({changeStateAlert, changeAlert, 
-      id, userId, messageId,changeShowPopUp, 
-      showPopUp}) => {
+const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp}) => {
       
       await changeShowPopUp(!showPopUp);
             try{
                   const document = doc(db, "userInfo" , userId); 
                   await updateDoc(document, {pinnedMessage: id});
-                  changeStateAlert(true);
-                  changeAlert({
-                        type:'success',
-                        message: 'The message was pinned to your Profile'
-                  })
+                        changeStateAlert(true);
+                        changeAlert({
+                              type:'success',
+                              message: 'The message was pinned to your Profile'
+                        })
             }catch{
                   console.log("show error")
+            }
+
+}
+const RemoveTweetFromPinned = async({changeStateAlert,changeAlert, id, userId, changeShowPopUp, showPopUp}) => {
+      await changeShowPopUp(!showPopUp);
+            try{
+                  const document = doc(db, "userInfo" , userId);
+                  await updateDoc(document, {pinnedMessage:""});
+                        try{
+                              await deleteDoc(doc(db, "userTimeline", id));
+                                    changeStateAlert(true);
+                                    changeAlert({
+                                    type:'success',
+                                    message: 'The message was deleted from your timeline'
+                                    })
+
+                        } catch{
+                              console.log("error deleting tweet")
+                        }
+            }catch{
+                  console.log("error updating pinned message")
             }
 
 }
@@ -74,4 +93,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, UpdateProfilePinnedMessage};
+export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, RemoveTweetFromPinned};

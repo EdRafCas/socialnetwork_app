@@ -119,9 +119,10 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu}) => {
                   <>
                   {pinnedMenu===true ?
                   <Option onClick={()=>receiveNotification({
-                    notification:"delete",
+                    notification:"deleteAndRemove",
                     changeShowPopUp, 
                     changePopUpAlert,
+                    userId:currentUserInfo[0].id,
                     id})}>
                     <IconContainer >
                       <IconDelete/>

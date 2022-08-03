@@ -14,6 +14,12 @@ const receiveNotification = ({userId, notification, changeShowPopUp, changePopUp
     changeShowPopUp(true)
     changePopUpAlert({type: "delete", 
     id: id})
+  } if(notification==="deleteAndRemove"){
+    changeShowPopUp(true)
+    changePopUpAlert({type: "deleteAndRemove", 
+    id: id,
+    userId:userId})
+    console.log(userId)
   } if(notification==="pinned"){
     changeShowPopUp(true)
     changePopUpAlert({type: "pinned",

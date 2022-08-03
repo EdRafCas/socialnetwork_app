@@ -7,6 +7,7 @@ import RemoveTweet from '../firebase/RemoveTweet';
 import {UpdateProfilePinnedMessage} from '../firebase/UpdateProfile';
 import { addRetweetToTimeline } from '../firebase/AddRetweet';
 import getUnixTime from 'date-fns/getUnixTime';
+import { RemoveTweetFromPinned } from '../firebase/UpdateProfile';
 
 const ConfirmationBox =styled.div`
     height:auto;
@@ -164,6 +165,27 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                             changeStateAlert, 
                             changeAlert,
                             id, 
+                            changeShowPopUp, 
+                            showPopUp})}>
+                            <p>Delete</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                </ContainerPopUp>
+                :type ==="deleteAndRemove" ?
+                <ContainerPopUp>
+                    <PopUpTitle>Delete Message?</PopUpTitle>
+                    <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete Red onClick={()=>RemoveTweetFromPinned({
+                            changeStateAlert, 
+                            changeAlert,
+                            id,
+                            userId, 
                             changeShowPopUp, 
                             showPopUp})}>
                             <p>Delete</p>
