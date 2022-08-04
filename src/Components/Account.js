@@ -23,10 +23,10 @@ const AccountManagement=styled.div`
 const GeneralMenu = styled.div`
   width:100%;
   /* height:500px; */
-  padding:0rem 0rem;
+  padding:1rem 0rem;
   display:flex;
   flex-direction:column;
-  align-content:center;
+  justify-content:flex-start;
   gap:2rem;
   border:solid ${theme.BorderColor} 1px;
 `
@@ -85,14 +85,17 @@ const MiniUserNames =styled.div`
   min-width:50%;
 `
 const MenuLink=styled(Link)`
-  width:100%;
-  padding:1rem;
+  display:flex;
+  margin:auto;
+  margin-left:0px;
+  padding:2rem;
   /* border:1px solid white; */
   border-radius:9999px;
   display:flex;
   flex-direction:row;
+  justify-content:flex-start;
   align-items:center;
-  height:4.5rem;
+  height:3.5rem;
   gap:1rem;
   text-decoration:none;
   color:${theme.Text};
@@ -101,7 +104,7 @@ const MenuLink=styled(Link)`
     font-weight:800;
   }
   :hover{
-    background:${theme.GradientBackround};
+    background:rgba(255,255,255, 0.2);
   }
 `
 const IconContainer=styled.div`
@@ -128,14 +131,14 @@ const MessageButtonContainer=styled.div`
   flex-direction:column;
   justify-content:flex-start;
   /* border:solid red 1px; */
-  padding:2rem 1rem;
+  padding:2rem 2rem;
 `
 const MessageButton=styled.button`
   display:flex;
-  height:5rem;
+  height:4rem;
   width:100%;
   border-radius:9999px;
-  padding:1rem;
+  padding:2rem;
   flex-direction:column;
   justify-content:center;
   align-items:center;
