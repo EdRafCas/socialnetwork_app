@@ -4,10 +4,9 @@ import theme from '../Theme'
 import { TranslucidBack, CenterBox } from './ElementsFormulary';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveTweet from '../firebase/RemoveTweet';
-import {UpdateProfilePinnedMessage} from '../firebase/UpdateProfile';
+import {UpdateProfilePinnedMessage, RemoveTweetFromPinned, AddBookmarkToUser} from '../firebase/UpdateProfile';
 import { addRetweetToTimeline } from '../firebase/AddRetweet';
 import getUnixTime from 'date-fns/getUnixTime';
-import { RemoveTweetFromPinned } from '../firebase/UpdateProfile';
 
 const ConfirmationBox =styled.div`
     height:auto;
@@ -118,7 +117,7 @@ const PopUpButtonPin=styled.button`
     }
 `
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo}) => {
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks}) => {
         const {changeShowPopUp} =useContext(AuthContext);
         const {showPopUp} =useContext(AuthContext);
      
@@ -210,6 +209,28 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                             changeShowPopUp, 
                             showPopUp})}>
                             <p>Pin Message</p>
+                        </PopUpButtonPin>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                </ContainerPopUp>
+                :type ==="bookmark" ?
+                <ContainerPopUp>
+                    <PopUpTitle>Add to bookmarks?</PopUpTitle>
+                    <PopUpText>This message will be added to your Boomark list (we won't notify the creator).</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonPin Pinned onClick={()=>AddBookmarkToUser({
+                            changeStateAlert, 
+                            changeAlert,
+                            id,
+                            userId, 
+                            bookmarks,
+                            changeShowPopUp, 
+                            showPopUp})}>
+                            <p>Bookmark Message</p>
                         </PopUpButtonPin>
                     </PopUpButtonContainer>
                     <PopUpButtonContainer>

@@ -5,8 +5,8 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
-import {UpdateProfileNoImage, UpdateTimeline, UpdateTimelineNoPicture} from '../firebase/UpdateProfile';
-import UpdateProfileImage from '../firebase/UploadPicture';
+import {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture} from '../firebase/UpdateProfile';
+import UploadPicture from '../firebase/UploadPicture';
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -275,28 +275,47 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
 
       const handlesubmitEdit =async(e)=>{
             e.preventDefault();
-            if(selectedImage){
+            if(currentUserInfo){
                   try{
-                        await UpdateProfileImage({
-                              file:selectedImage,
-                              user:user,
-                              changeLoading, 
-                              id:currentUserInfo[0].id,
-                              newName:nameEdit,
-                              newBio:bioEdit})
+                        await UpdateProfile({
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit,
+                              })
+                              console.log("Updated Profile")
+                              if(selectedImage){
+                                    try{
+                                          await UploadPicture(selectedImage, user, changeLoading)
+                                                console.log("Uploaded Picture")
+                                                try{
+                                                      await UpdateTimeline({
+                                                                  user:user,
+                                                                  newName:nameEdit
+                                                                  })
+                                                            console.log("Updated Timeline")
+                                                } catch(error){
+                                                      console.log(error+"error UpdateTimeline")
+                                          }
+                                    } catch(error){
+                                          console.log(error+"error UploadPicture")
+                                    }      
+                              } else {
+                                    try{
+                                          await UpdateTimelineNoPicture({
+                                                      user:user,
+                                                      newName:nameEdit
+                                                      })
+                                                console.log("Updated Timeline No Picture")
+                                    } catch(error){
+                                          console.log(error+"error UpdateTimeline No Picture")
+                                    }
+                              }
                         changeShowEditProfile(!showEditProfile);
                         console.log("Finished changes, closing window")
                   } catch(error){
                         console.log(error+"error UpdateProfile")
                   }           
-            } else { 
-                  await UpdateProfileNoImage({
-                        id:currentUserInfo[0].id,
-                        newName:nameEdit,
-                        newBio:bioEdit,
-                  })
-                  console.log("Updated Profile No picture")
-            }
+            } else { console.log("error loading User")}
       }
 
       const handleImageChange = (e) => {

@@ -1,19 +1,26 @@
 import { getDownloadURL, ref, uploadBytes  } from "firebase/storage"
-import { storage } from "./FirebaseConfig";
+import { db, storage } from "./FirebaseConfig";
 import { updateProfile } from "firebase/auth";
+import { doc, updateDoc} from "firebase/firestore";
 
 
-const UploadPicture = async(file, user ,setLoading) => {
+const UpdateProfileImage = async({file, user ,changeLoading, id, newName, newBio}) => {
       const fileRef= ref(storage, user.uid)
       
-      setLoading(true);
+      changeLoading(true);
       const snapshot = await uploadBytes(fileRef, file);
 
       const newPhotoURL = await getDownloadURL(fileRef); 
 
       updateProfile(user, {photoURL: newPhotoURL})
 
-      setLoading(false);
+      const document = doc(db, "userInfo" , id)
+      updateDoc(document, {
+            name:newName,
+            bio:newBio,
+            photoURL:newPhotoURL}); 
+
+            changeLoading(false);
       console.log("upload done")
 }
-export default UploadPicture;
+export default UpdateProfileImage;

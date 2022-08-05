@@ -87,7 +87,7 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu}) => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
@@ -116,33 +116,34 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu}) => {
               {open ? (
                 <OptionsCard >
                   {messageUidUser===currentUserInfo[0].uidUser ?
-                  <>
-                  {pinnedMenu===true ?
-                  <Option onClick={()=>receiveNotification({
-                    notification:"deleteAndRemove",
-                    changeShowPopUp, 
-                    changePopUpAlert,
-                    userId:currentUserInfo[0].id,
-                    id})}>
-                    <IconContainer >
-                      <IconDelete/>
-                    </IconContainer>
-                    <p>Delete Pinned Message</p>
-                  </Option>
+                    <>
+                    {pinnedMenu===true ?
+                      <Option onClick={()=>receiveNotification({
+                        notification:"deleteAndRemove",
+                        changeShowPopUp, 
+                        changePopUpAlert,
+                        userId:currentUserInfo[0].id,
+                        id})}>
+                        <IconContainer >
+                          <IconDelete/>
+                        </IconContainer>
+                        <p>Delete Pinned Message</p>
+                      </Option>
+                    :
+                      <Option onClick={()=>receiveNotification({
+                        notification:"delete",
+                        changeShowPopUp, 
+                        changePopUpAlert,
+                        id})}>
+                        <IconContainer >
+                          <IconDelete/>
+                        </IconContainer>
+                        <p>Delete Message</p>
+                      </Option>
+                    }
+                    </>
                   :
-                  <Option onClick={()=>receiveNotification({
-                    notification:"delete",
-                    changeShowPopUp, 
-                    changePopUpAlert,
-                    id})}>
-                    <IconContainer >
-                      <IconDelete/>
-                    </IconContainer>
-                    <p>Delete Message</p>
-                  </Option>
-                  }
-                  </>
-                  :""
+                    ""
                   }
                   {messageUidUser===currentUserInfo[0].uidUser ?
                   <>
@@ -174,12 +175,30 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu}) => {
                   </>
                   :""
                   }
-                  <Option>
+                  {!currentUserInfo[0].bookmarks.includes(id)?
+                    <Option onClick={()=>receiveNotification({
+                      notification:"bookmark", 
+                      changeShowPopUp, 
+                      changePopUpAlert,
+                      userId:currentUserInfo[0].id,
+                      bookmarks:currentUserInfo[0].bookmarks, 
+                      id })}>
                     <IconContainer>
                       <IconBookmark/>
                     </IconContainer>
-                    <p>Bookmark Tweet</p>
-                  </Option>
+                    <p>Bookmark Message</p>
+                    </Option>
+                  :
+                    <Option onClick={()=>receiveNotification({
+                      notification:"alreadyBookmark",
+                      changeAlert, 
+                      changeStateAlert})}>
+                    <IconContainer>
+                      <IconBookmark/>
+                    </IconContainer>
+                    <p>Bookmark Message</p>
+                    </Option>
+                  }
                 </OptionsCard>
               ) : null}
             </div> 

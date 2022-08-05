@@ -113,6 +113,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   currentUserInfo={popUpAlert.currentUserInfo}
                   originalUidUser={popUpAlert.originalUidUser}
                   retweets={popUpAlert.retweets}
+                  bookmarks={popUpAlert.bookmarks}
                   changeStateAlert={changeStateAlert}
                   changeAlert={changeAlert}/>
           <ColumnContainer>

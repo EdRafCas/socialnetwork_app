@@ -88,7 +88,7 @@ const MenuLink=styled(Link)`
   display:flex;
   margin:auto;
   margin-left:0px;
-  padding:2rem;
+  padding:1.5rem;
   /* border:1px solid white; */
   border-radius:9999px;
   display:flex;

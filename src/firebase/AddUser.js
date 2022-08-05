@@ -2,7 +2,7 @@ import { db } from "./FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
 
-const AddUser = ({name, lastname, alias, email, birthMonth, birthDay, birthYear, uidUser}) => {
+const AddUser = ({name, lastname, alias, email, birthMonth, birthDay, birthYear, uidUser, photoURL, pinnedMessage, bookmarks}) => {
       return addDoc(collection(db, "userInfo"), {
             name:name,
             lastname:lastname,
@@ -11,7 +11,10 @@ const AddUser = ({name, lastname, alias, email, birthMonth, birthDay, birthYear,
             birthMonth: birthMonth,
             birthDay:birthDay,
             birthYear:birthYear,
-            uidUser:uidUser
+            uidUser:uidUser,
+            photoURL:photoURL,
+            pinnedMessage:pinnedMessage, 
+            bookmarks:bookmarks,
       })
 }
  

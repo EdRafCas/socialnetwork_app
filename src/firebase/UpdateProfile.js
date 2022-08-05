@@ -3,7 +3,7 @@ import { doc, updateDoc, collection, onSnapshot, orderBy, query, where, deleteDo
 import { getDownloadURL, ref} from "firebase/storage"
 
 
-const UpdateProfile = async({id,newName,newBio}) => {
+const UpdateProfileNoImage = async({id,newName,newBio}) => {
      /*  console.log(id,newName,newBio) */
       const document = doc(db, "userInfo" , id); 
       return await updateDoc(document, {
@@ -27,6 +27,23 @@ const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId
             }
 
 }
+const AddBookmarkToUser = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp, bookmarks}) => {
+      
+      await changeShowPopUp(!showPopUp);
+            try{
+                  const document = doc(db, "userInfo" , userId); 
+                  await updateDoc(document, {bookmarks: [...bookmarks, id]});
+                        changeStateAlert(true);
+                        changeAlert({
+                              type:'success',
+                              message: 'The message was added to your bookmark list'
+                        })
+            }catch{
+                  console.log("show error")
+            }
+
+}
+
 const RemoveTweetFromPinned = async({changeStateAlert,changeAlert, id, userId, changeShowPopUp, showPopUp}) => {
       await changeShowPopUp(!showPopUp);
             try{
@@ -93,4 +110,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfile, UpdateTimeline, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, RemoveTweetFromPinned};
+export  {UpdateProfileNoImage, UpdateTimeline, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, AddBookmarkToUser, RemoveTweetFromPinned};
