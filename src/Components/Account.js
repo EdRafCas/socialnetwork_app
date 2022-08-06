@@ -168,13 +168,22 @@ const Account = ({ user, currentUserInfo, showMessageBox, changeShowMessageBox})
             <AccountManagement>
               <GeneralMenu>
                 <MenuLink to="">
-                  <IconContainer><IconHome/></IconContainer><p>HOME</p>
+                  <IconContainer>
+                    <IconHome/>
+                  </IconContainer>
+                  <p>HOME</p>
                 </MenuLink>
                 <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
-                  <IconContainer><IconProfile/></IconContainer><p>PROFILE</p>
+                  <IconContainer>
+                    <IconProfile/>
+                  </IconContainer>
+                  <p>PROFILE</p>
                 </MenuLink>
                 <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
-                  <IconContainer><IconBookmark/></IconContainer><p>Bookmark</p>
+                  <IconContainer>
+                    <IconBookmark/>
+                  </IconContainer>
+                  <p>Bookmark</p>
                 </MenuLink>
               </GeneralMenu>
               <MessageButtonContainer>

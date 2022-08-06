@@ -24,10 +24,8 @@ const MainPageRoutes = ({changeAlert, messageAlert, stateAlert, changeStateAlert
                             changeStateAlert={changeStateAlert}
                             />
                 </PrivateRoute>}/>
-
           <Route path="/user/:alias/*" exact={true} 
                   element={
-                   
                   <PrivateRoute>
                     <UserProfile  currentUserInfo={currentUserInfo}
                                   showEditProfile={showEditProfile}
