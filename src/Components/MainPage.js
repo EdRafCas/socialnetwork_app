@@ -144,8 +144,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           <Alert  type={alert.type}
                   message={alert.message}
                   stateAlert={stateAlert}
-                  changeStateAlert={changeStateAlert}/>
-
+                  changeStateAlert={changeStateAlert}
+                  />
           {showMessageBox ?
           <>
             <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
@@ -157,7 +157,6 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                         handleChange={handleChange} />
             </CenterBox>
           </>
-          
           :""
           }
           {showEditProfile ?

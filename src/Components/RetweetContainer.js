@@ -14,7 +14,7 @@ import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
 import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import { AddRetweet } from '../firebase/AddRetweet';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
@@ -34,14 +34,27 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, retweetUidUser, changeAlert, changeStateAlert}) => {
+const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalUidUser, retweetUidUser, changeAlert, changeStateAlert}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
+    const [userInfoForRetweet, changeUserInfoForRetweet] =useState(currentUserInfo)
 
     useEffect(()=>{
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForRetweet(document) 
+
+            const consult = query(
+              collection(db, 'userInfo'),
+              where('uidUser', "==", originalUidUser),
+              limit(10)
+            );
+
+            onSnapshot(consult, (snapshot)=>{
+              changeUserInfoForRetweet(snapshot.docs.map((originalUser)=>{
+                return {...originalUser.data()}
+              }))
+            })
              
           changeLoadingRetweets(false)
       }
@@ -60,8 +73,8 @@ return (
           <UserColumns>
             <CardColumns>
               <PortraitContainer>
-                {messageForRetweet.data().photoURL ?
-                <img alt="userportrait" src={messageForRetweet.data().photoURL}/>
+                {userInfoForRetweet[0].photoURL ?
+                <img alt="userportrait" src={userInfoForRetweet[0].photoURL}/>
                 :
                 <img alt="userportrait" src={ProfileImage}/>
                 }
@@ -69,8 +82,8 @@ return (
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
-                <NameContainer>{messageForRetweet.data().name}</NameContainer>
-                <AliasContainer>@{messageForRetweet.data().alias}</AliasContainer>
+                <NameContainer>{userInfoForRetweet[0].name}</NameContainer>
+                <AliasContainer>@{userInfoForRetweet[0].alias}</AliasContainer>
                 <ShowMoreMenu 
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}

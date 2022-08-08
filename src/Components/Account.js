@@ -7,7 +7,6 @@ import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconHome} from '../img/home_icon.svg';
 import {ReactComponent as IconProfile} from '../img/profile_icon.svg';
 import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
-import { useAuth } from '../Context/AuthContext';
 
 const AccountManagement=styled.div`
   display:flex;
@@ -179,7 +178,7 @@ const Account = ({ user, currentUserInfo, showMessageBox, changeShowMessageBox})
                   </IconContainer>
                   <p>PROFILE</p>
                 </MenuLink>
-                <MenuLink to={`/user/${currentUserInfo[0].alias}`}>
+                <MenuLink to={`/user/Bookmarks`}>
                   <IconContainer>
                     <IconBookmark/>
                   </IconContainer>

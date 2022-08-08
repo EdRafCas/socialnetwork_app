@@ -275,28 +275,28 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
 
       const handlesubmitEdit =async(e)=>{
             e.preventDefault();
-            if(selectedImage){
-                  try{
-                        await UpdateProfileImage({
-                              file:selectedImage,
-                              user:user,
-                              changeLoading, 
+                  if(selectedImage){
+                        try{
+                              await UpdateProfileImage({
+                                    file:selectedImage,
+                                    user:user,
+                                    changeLoading, 
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit})
+                        } catch(error){
+                              console.log(error+"error UpdateProfile")
+                        }           
+                  } else { 
+                        await UpdateProfileNoImage({
                               id:currentUserInfo[0].id,
                               newName:nameEdit,
-                              newBio:bioEdit})
-                        changeShowEditProfile(!showEditProfile);
-                        console.log("Finished changes, closing window")
-                  } catch(error){
-                        console.log(error+"error UpdateProfile")
-                  }           
-            } else { 
-                  await UpdateProfileNoImage({
-                        id:currentUserInfo[0].id,
-                        newName:nameEdit,
-                        newBio:bioEdit,
-                  })
-                  console.log("Updated Profile No picture")
-            }
+                              newBio:bioEdit,
+                        })
+                        console.log("Updated Profile No picture")
+                  }
+            changeShowEditProfile(!showEditProfile);
+            console.log("Finished changes, closing window")
       }
 
       const handleImageChange = (e) => {

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {Link } from 'react-router-dom';
-import UserProfileRoutes from './UserProfileRoutes';
 import '../index.css'
-import HeaderUserProfile from './HeaderUserProfile';
+import BookmarkTimelineContainer from './MessageTimelineContainer';
+import { AuthContext } from '../Context/AuthContext';
+
 
 const TimelineUserContainer = styled.div`
   height:100%;
@@ -82,16 +83,28 @@ const RedirectLink =styled(Link)`
     }
 `
 
-const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+      const {changeShowPopUp} =useContext(AuthContext);
+      const {changePopUpAlert} =useContext(AuthContext);
 
       return ( 
             <TimelineUserContainer className='timeline-user'>
-              <HeaderUserProfile 
-                  currentUserInfo={currentUserInfo}
-                  changeShowEditProfile={changeShowEditProfile}
-                  showEditProfile={showEditProfile}
-                  />
-              <LinksContainer>
+              {currentUserInfo[0].bookmarks.map((Bookmarks, index)=>{
+                  return(
+                        <BookmarkTimelineContainer key={index}
+                        id={Bookmarks}
+                        user={user}
+                        currentUserInfo={currentUserInfo}
+                        changeShowPopUp={changeShowPopUp}
+                        changePopUpAlert={changePopUpAlert}
+                        changeAlert={changeAlert}
+                        changeStateAlert={changeStateAlert}
+
+                        />
+                  )
+              })}
+              
+              {/* <LinksContainer>
                 <RedirectLink to =""> Messages</RedirectLink>
                 <RedirectLink to ={`/user/${currentUserInfo[0].alias}/likes`}> Likes</RedirectLink>
               </LinksContainer>
@@ -100,9 +113,9 @@ const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUs
                   changeAlert={changeAlert} 
                   stateAlert={stateAlert} 
                   changeStateAlert={changeStateAlert} 
-                  user={user}/>
+                  user={user}/> */}
             </TimelineUserContainer>
       );
 }
  
-export default UserProfile;
+export default BookmarksUser;

@@ -68,13 +68,12 @@ const RemoveTweetFromPinned = async({changeStateAlert,changeAlert, id, userId, c
 
 
 
-const UpdateTimeline = async({user,newName})=>{
+/* const UpdateTimeline = async({user,newName})=>{
 
       const consult = query(
             collection(db, 'userTimeline'),
             where('uidUser', "==", user.uid),
             orderBy('date', 'desc')
-            /* limit(30) */
       );
       const fileRef= ref(storage, user.uid)
       const newPhotoURL = await getDownloadURL(fileRef);
@@ -89,7 +88,8 @@ const UpdateTimeline = async({user,newName})=>{
             })
       })
      
-}
+} */
+
 const UpdateTimelineNoPicture = async({user,newName})=>{
 
       const consult = query(
@@ -110,4 +110,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfileNoImage, UpdateTimeline, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, AddBookmarkToUser, RemoveTweetFromPinned};
+export  {UpdateProfileNoImage, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, AddBookmarkToUser, RemoveTweetFromPinned};

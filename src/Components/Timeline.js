@@ -78,6 +78,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
               <RetweetContainerMainTimeline 
                 currentUserInfo={currentUserInfo} 
                 originalId={Message.originalId} 
+                originalUidUser={Message.originalUidUser}
                 newRetweetId={Message.id} 
                 retweetUidUser={Message.uidUser}
                 changeShowPopUp={changeShowPopUp}

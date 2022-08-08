@@ -78,7 +78,8 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               <RetweetContainer 
                 currentUserInfo={currentUserInfo} 
                 originalId={MessageUser.originalId} 
-                newRetweetId={MessageUser.id} 
+                newRetweetId={MessageUser.id}
+                originalUidUser={MessageUser.originalUidUser} 
                 retweetUidUser={MessageUser.uidUser}
                 user={user}
                 changeAlert={changeAlert}

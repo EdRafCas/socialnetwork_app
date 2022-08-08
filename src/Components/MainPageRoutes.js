@@ -3,6 +3,7 @@ import {Route, Routes} from 'react-router-dom';
 import Timeline from './Timeline';
 import PrivateRoute from './PrivateRoute';
 import UserProfile from './UserProfile';
+import BookmarksUser from './BookmarksUser';
 
 
 
@@ -34,10 +35,21 @@ const MainPageRoutes = ({changeAlert, messageAlert, stateAlert, changeStateAlert
                                   changeAlert={changeAlert}
                                   stateAlert={stateAlert}
                                   changeStateAlert={changeStateAlert}
-
-                    />
+                                  />
                   </PrivateRoute>
-                    
+                }/>
+          <Route path="/user/Bookmarks" exact={true} 
+                  element={
+                  <PrivateRoute>
+                    <BookmarksUser  currentUserInfo={currentUserInfo}
+                                  showEditProfile={showEditProfile}
+                                  changeShowEditProfile={changeShowEditProfile}
+                                  user={user}
+                                  changeAlert={changeAlert}
+                                  stateAlert={stateAlert}
+                                  changeStateAlert={changeStateAlert}
+                                  />
+                  </PrivateRoute>
                 }/>
         </Routes>
       );
