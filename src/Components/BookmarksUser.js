@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {Link } from 'react-router-dom';
 import '../index.css'
-import BookmarkTimelineContainer from './MessageTimelineContainer';
+import BookmarkTimelineContainer from './BookmarkTimelineContainer';
 import { AuthContext } from '../Context/AuthContext';
+import {Card, RetweetInfo, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
+
 
 
 const TimelineUserContainer = styled.div`
@@ -89,31 +91,25 @@ const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, current
 
       return ( 
             <TimelineUserContainer className='timeline-user'>
+                  <div>
+                        render cheking
+                  </div>
               {currentUserInfo[0].bookmarks.map((Bookmarks, index)=>{
                   return(
-                        <BookmarkTimelineContainer key={index}
-                        id={Bookmarks}
-                        user={user}
-                        currentUserInfo={currentUserInfo}
-                        changeShowPopUp={changeShowPopUp}
-                        changePopUpAlert={changePopUpAlert}
-                        changeAlert={changeAlert}
-                        changeStateAlert={changeStateAlert}
+                        <Card key={index}>
+                              <BookmarkTimelineContainer 
+                              id={Bookmarks}
+                              user={user}
+                              currentUserInfo={currentUserInfo}
+                              changeShowPopUp={changeShowPopUp}
+                              changePopUpAlert={changePopUpAlert}
+                              changeAlert={changeAlert}
+                              changeStateAlert={changeStateAlert}
+                              />
+                        </Card>
 
-                        />
                   )
               })}
-              
-              {/* <LinksContainer>
-                <RedirectLink to =""> Messages</RedirectLink>
-                <RedirectLink to ={`/user/${currentUserInfo[0].alias}/likes`}> Likes</RedirectLink>
-              </LinksContainer>
-              <UserProfileRoutes 
-                  currentUserInfo={currentUserInfo}
-                  changeAlert={changeAlert} 
-                  stateAlert={stateAlert} 
-                  changeStateAlert={changeStateAlert} 
-                  user={user}/> */}
             </TimelineUserContainer>
       );
 }

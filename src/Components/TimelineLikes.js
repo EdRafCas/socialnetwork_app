@@ -1,25 +1,16 @@
-import React from 'react';
-import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
+import React, {useContext} from 'react';
 import useObtainMessagesLikesUser from '../Hooks/useObtainMessagesLikesUser';
-import ProfileImage from '../img/profile_avatar.png';
-import getUnixTime from 'date-fns/getUnixTime';
 import {format, fromUnixTime} from 'date-fns';
-import {ReactComponent as IconComment} from '../img/comment_icon.svg';
-import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
-import {ReactComponent as IconLike} from '../img/like_icon.svg';
-import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
-import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
-import AddLike from '../firebase/AddLike';
-import {addRetweetToTimeline} from '../firebase/AddRetweet';
-import RemoveLike from '../firebase/RemoveLike';
-import {Card,UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton} from '.././Elements/ElementsTimeline'
-
-import RemoveRetweet from '../firebase/RemoveRetweet';
+import {Card} from '.././Elements/ElementsTimeline'
+import MessageTimelineContainer from './MessageTimelineContainer';
+import { AuthContext } from '../Context/AuthContext';
 
 
-const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
+const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo}) => {
 
     const [messagesLikedByUser] = useObtainMessagesLikesUser();
+    const {changeShowPopUp} =useContext(AuthContext);
+    const {changePopUpAlert} =useContext(AuthContext);
 
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -35,80 +26,21 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo, ad
             {filterLikes.map((Message, index)=>{
               return(
               <Card key={Message.id}>
-                <UserColumns>
-                    <CardColumns>
-                      <PortraitContainer>
-                        {Message.photoURL ?
-                        <img alt="userportrait" src={Message.photoURL}/>
-                        :
-                        <img alt="userportrait" src={ProfileImage}/>
-                        }
-                        
-                      </PortraitContainer>
-                    </CardColumns>
-                    <CardColumns rightColumn>
-                      <UserNameContainer>
-                        <NameContainer>{Message.name}</NameContainer>
-                        <AliasContainer>@{Message.alias}</AliasContainer>
-                      </UserNameContainer>
-                      <MessageContent>
-                        {Message.message}
-                        
-                      </MessageContent>
-                      <TimeBar>
-                        {formatDate(Message.date)}
-                      </TimeBar>
-                      <InteractionBar>
-                        <IconContainer Reply ><IconComment/></IconContainer>
-                        <IconContainer Retweet ><IconRetweetColor/></IconContainer>
-                        <IconContainerCont Retweet>
-                        {
-                            !Message.retweets.includes(currentUserInfo[0].uidUser)?
-                          <RetweetButton onClick={()=>addRetweetToTimeline({changeAlert,
-                          changeStateAlert,
-                          id:Message.id,
-                          originalUidUser:Message.uidUser, 
-                          retweets:Message.retweets, 
-                          user, 
-                          currentUserInfo, 
-                          date: getUnixTime(new Date())})}>
-                            <IconRetweet/>
-                          </RetweetButton>
-                        :
-                        <RetweetButton onClick={()=>RemoveRetweet({currentUidUser:currentUserInfo[0].uidUser,
-                        originalRetweets:Message.retweets, 
-                        originalId:Message.originalId, 
-                        currentMessageId:Message.id, 
-                        retweetUidUser:Message.uidUser})}>
-                            <IconRetweetColor/>
-                          </RetweetButton>
-                        }
-                          <CounterContainer>
-                            {Message.retweets.length}
-                          </CounterContainer>
-                        </IconContainerCont>
-                        <IconContainerCont Like>
-                          {
-                            !Message.likes.includes(currentUserInfo[0].uidUser)?
-                            <LikeButton  onClick={()=>AddLike({id:Message.id,
-                            uidUser:currentUserInfo[0].uidUser,
-                            likes:Message.likes})}> 
-                              <IconLike />                               
-                            </LikeButton>
-                            :
-                            <LikeButton  onClick={()=>RemoveLike({id:Message.id,
-                            uidUser:currentUserInfo[0].uidUser,
-                            likes:Message.likes})}> 
-                              <IconLikeColor />                               
-                            </LikeButton>
-                          }
-                          <CounterContainer>
-                            <p>{Message.likes.length}</p>
-                          </CounterContainer>
-                        </IconContainerCont>
-                      </InteractionBar>
-                    </CardColumns>
-                </UserColumns>
+                <MessageTimelineContainer
+                  id={Message.id}
+                  user={user}
+                  currentUserInfo={currentUserInfo}
+                  messageUidUser={Message.uidUser}
+                  messageDate={Message.date}
+                  messageMessage={Message.message}
+                  messageRetweets={Message.retweets}
+                  messageLikes={Message.likes}
+                  messageOriginalId={Message.originalId}
+                  changeShowPopUp={changeShowPopUp}
+                  changePopUpAlert={changePopUpAlert}
+                  changeAlert={changeAlert}
+                  changeStateAlert={changeStateAlert}
+                />
               </Card>  
               )
             })}          

@@ -44,7 +44,6 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForRetweet(document) 
-             
             const consult = query(
               collection(db, 'userInfo'),
               where('uidUser', "==", originalUidUser),

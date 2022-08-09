@@ -181,7 +181,7 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                       changeShowPopUp, 
                       changePopUpAlert,
                       userId:currentUserInfo[0].id,
-                      bookmarks:currentUserInfo[0].bookmarks, 
+                      bookmarks:currentUserInfo[0].bookmarks,
                       id })}>
                     <IconContainer>
                       <IconBookmark/>

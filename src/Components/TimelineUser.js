@@ -84,7 +84,6 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                 user={user}
                 changeAlert={changeAlert}
                 changeStateAlert={changeStateAlert}/>
-                
               </>
               :
               <EmptyDiv/>

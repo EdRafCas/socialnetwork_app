@@ -14,7 +14,7 @@ import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
 import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
-import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
+import { collection, limit, query, where, onSnapshot, doc, getDoc} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
@@ -37,30 +37,32 @@ const RetweetButton=styled.button`
 
 const BookmarkTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
-    const [messageForTimeline, changeMessageForTimeline] = useState(currentUserInfo)
+    const [messageForBookMark, changeMessageForBookMark] = useState('')
+    const [userInfoForBookmark, changeUserInfoForBookmark] =useState(currentUserInfo)
 
     useEffect(()=>{
       const obtainBookmarkTimeline = async() =>{
+        const document = await getDoc(doc(db, 'userTimeline', id));
+        changeMessageForBookMark(document)
 
         const consult = query(
           collection(db, 'userInfo'),
-          where('uidUser', "==", messageUidUser),
+          where('uidUser', "==", messageForBookMark.data().uidUser),
           limit(10)
         );
         
         onSnapshot(consult, (snapshot)=>{
-          changeMessageForTimeline(snapshot.docs.map((originalUser)=>{
+          changeUserInfoForBookmark(snapshot.docs.map((originalUser)=>{
             return {...originalUser.data()}
           }))
-        })
+        }) 
 
         changeLoadingMessageData(false)
       }
-      
-    obtainBookmarkTimeline();
+      obtainBookmarkTimeline()
 
     /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
-    },[messageUidUser])
+    },)
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -69,33 +71,33 @@ const BookmarkTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,m
 return ( 
   <>
   {!loadingMessageData &&
+    <>
+    <div>{messageForBookMark.data().uidUser}</div>
     <UserColumns>
       <CardColumns>
         <PortraitContainer>
-          {messageForTimeline[0].photoURL ?
-            <img alt="userportrait" src={messageForTimeline[0].photoURL}/>
-            :
+          
             <img alt="userportrait" src={ProfileImage}/>
-          }
+
         </PortraitContainer>
       </CardColumns>
       <CardColumns rightColumn>
         <UserNameContainer>
-          <NameContainer>{messageForTimeline[0].name}</NameContainer>
-          <AliasContainer>{messageForTimeline[0].alias}</AliasContainer>
+          <NameContainer></NameContainer>
+          <AliasContainer></AliasContainer>
           <ShowMoreMenu 
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}
-                        messageUidUser={messageUidUser} 
+                        messageUidUser={userInfoForBookmark[0].uidUser} 
                         currentUserInfo={currentUserInfo}
                         id={id} />
         </UserNameContainer>
         <MessageContent>
-          {messageMessage}
-        </MessageContent>
-        <TimeBar>
-          {formatDate(messageDate)}
-        </TimeBar>
+                {messageForBookMark.data().message}
+              </MessageContent>
+              <TimeBar>
+                {messageForBookMark.data().date}
+              </TimeBar>
         <InteractionBar>
           <IconContainer Reply onClick={()=>receiveNotification({
             notification:"delete",
@@ -105,12 +107,12 @@ return (
           </IconContainer>
           <IconContainerCont Retweet>
           {
-            !messageRetweets.includes(currentUserInfo[0].uidUser)?
+            !messageForBookMark.data().retweets.includes(currentUserInfo[0].uidUser)?
             <RetweetButton onClick={()=>receiveNotification({
               notification:"retweet",
               id:id,
-              retweets:messageRetweets,
-              originalUidUser:messageUidUser,
+              retweets:messageForBookMark.data().retweets, 
+              originalUidUser:messageForBookMark.data().uidUser, 
               user,
               currentUserInfo,
               changeShowPopUp:changeShowPopUp, 
@@ -120,27 +122,26 @@ return (
           :
           <>
             {
-            messageUidUser === currentUserInfo[0].uidUser ?
+            messageForBookMark.data().uidUser === currentUserInfo[0].uidUser ?
             <RetweetButton onClick={()=>RemoveRetweetSameUser({
               currentUidUser:currentUserInfo[0].uidUser,
-              originalRetweets:messageRetweets, 
+              originalRetweets:messageForBookMark.data().retweets, 
               currentMessageId:id})}>
               <IconRetweetColor/>
             </RetweetButton>
             :
             <RetweetButton onClick={()=>RemoveRetweet({
               currentUidUser:currentUserInfo[0].uidUser,
-              originalRetweets:messageRetweets, 
-              originalId:messageOriginalId, 
+              originalRetweets:messageForBookMark.data().retweets,
               currentMessageId:id, 
-              retweetUidUser:messageUidUser})}>
+              retweetUidUser:messageForBookMark.data().uidUser})}>
               <IconRetweetColor/>
             </RetweetButton>
             }
           </>
           }
             <CounterContainer>
-              {messageRetweets.length}
+              {messageForBookMark.data().retweets.length}
             </CounterContainer>
           </IconContainerCont>
           <IconContainerCont Like>
@@ -148,24 +149,25 @@ return (
               <LikeButton  onClick={()=>AddLike({
               id:id,
               uidUser:currentUserInfo[0].uidUser,
-              likes:messageLikes})}> 
+              likes:messageForBookMark.data().likes})}> 
                 <IconLike />                               
               </LikeButton>
               :
               <LikeButton  onClick={()=>RemoveLike({
               id:id,
               uidUser:currentUserInfo[0].uidUser,
-              likes:messageLikes})}> 
+              likes:messageForBookMark.data().likes})}> 
                 <IconLikeColor />                               
               </LikeButton>
             }
             <CounterContainer>
-              <p>{messageLikes.length}</p>
+              <p>{messageForBookMark.data().likes.length}</p>
             </CounterContainer>
           </IconContainerCont>
         </InteractionBar>
       </CardColumns>
     </UserColumns>
+    </>
   }
   </>
     )
