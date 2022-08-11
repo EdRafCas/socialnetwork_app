@@ -88,8 +88,6 @@ const RedirectLink =styled(Link)`
 const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
-      
-
       return ( 
             <TimelineUserContainer className='timeline-user'>
               {currentUserInfo[0].bookmarks.map((Bookmarks, index)=>{

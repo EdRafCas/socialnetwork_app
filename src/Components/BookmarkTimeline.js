@@ -35,7 +35,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, currentUserInfo,changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, userInfoForBookmark, changeUserInfoForBookmark, changeLikesState, likesState}) => {
+const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, currentUserInfo,changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, userInfoForBookmark, changeUserInfoForBookmark, changeLikesState, likesState, update, changeUpdate}) => {
     const [loadingBookmarkData, changeLoadingBookmarkData] =useState(true);
 
     useEffect(()=>{
@@ -45,7 +45,7 @@ const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, cu
           where('uidUser', "==", uidUser),
           limit(10)
         );
-        
+        console.log(consult)
         onSnapshot(consult, (snapshot)=>{
           changeUserInfoForBookmark(snapshot.docs.map((originalUser)=>{
             return {...originalUser.data()}
@@ -145,8 +145,8 @@ return (
           <IconContainerCont Like>
             {!likes.includes(currentUserInfo[0].uidUser)?
               <LikeButton  onClick={()=>AddLike({
-              changeLikesState,
-              likesState,
+              update,
+              changeUpdate,
               id:id,
               uidUser:currentUserInfo[0].uidUser,
               likes:likes}) }> 
@@ -154,6 +154,10 @@ return (
               </LikeButton>
               :
               <LikeButton  onClick={()=>RemoveLike({
+              update,
+              changeUpdate,
+              changeLikesState,
+              likesState,
               id:id,
               uidUser:currentUserInfo[0].uidUser,
               likes:likes})}> 

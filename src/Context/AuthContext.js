@@ -16,6 +16,7 @@ const AuthProvider = ({children}) => {
       const [loading, changeLoading] =useState(true);
       const [showPopUp, changeShowPopUp] =useState(false)
       const [popUpAlert, changePopUpAlert] =useState({})
+      const [update, changeUpdate] =useState(0)
 
 
       //onetime check
@@ -33,7 +34,9 @@ const AuthProvider = ({children}) => {
              changeShowPopUp:changeShowPopUp, 
              showPopUp:showPopUp,
              popUpAlert:popUpAlert,
-             changePopUpAlert:changePopUpAlert
+             changePopUpAlert:changePopUpAlert,
+             changeUpdate:changeUpdate,
+             update:update
              }}>
                   {!loading && children}
             </AuthContext.Provider>
