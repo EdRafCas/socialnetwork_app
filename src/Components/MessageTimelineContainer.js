@@ -35,7 +35,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {
+const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForTimeline, changeMessageForTimeline] = useState(currentUserInfo)
 
@@ -53,14 +53,14 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
             return {...originalUser.data()}
           }))
         })
-
+        console.log("message loaded")
         changeLoadingMessageData(false)
       }
       
     obtainMessageTimeline();
 
     /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
-    },[messageUidUser])
+    },[update, currentUserInfo, messageUidUser])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -114,7 +114,9 @@ return (
               user,
               currentUserInfo,
               changeShowPopUp:changeShowPopUp, 
-              changePopUpAlert:changePopUpAlert})}>
+              changePopUpAlert:changePopUpAlert,
+              update,
+              changeUpdate})}>
               <IconRetweet/>
             </RetweetButton>
           :
@@ -124,7 +126,9 @@ return (
             <RetweetButton onClick={()=>RemoveRetweetSameUser({
               currentUidUser:currentUserInfo[0].uidUser,
               originalRetweets:messageRetweets, 
-              currentMessageId:id})}>
+              currentMessageId:id, 
+              update,
+              changeUpdate})}>
               <IconRetweetColor/>
             </RetweetButton>
             :
@@ -133,7 +137,9 @@ return (
               originalRetweets:messageRetweets, 
               originalId:messageOriginalId, 
               currentMessageId:id, 
-              retweetUidUser:messageUidUser})}>
+              retweetUidUser:messageUidUser, 
+              update,
+              changeUpdate})}>
               <IconRetweetColor/>
             </RetweetButton>
             }
@@ -148,14 +154,18 @@ return (
               <LikeButton  onClick={()=>AddLike({
               id:id,
               uidUser:currentUserInfo[0].uidUser,
-              likes:messageLikes})}> 
+              likes:messageLikes,
+              update,
+              changeUpdate})}> 
                 <IconLike />                               
               </LikeButton>
               :
               <LikeButton  onClick={()=>RemoveLike({
               id:id,
               uidUser:currentUserInfo[0].uidUser,
-              likes:messageLikes})}> 
+              likes:messageLikes,
+              update,
+              changeUpdate})}> 
                 <IconLikeColor />                               
               </LikeButton>
             }

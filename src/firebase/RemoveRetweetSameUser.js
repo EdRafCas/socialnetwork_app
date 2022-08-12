@@ -1,8 +1,8 @@
 import { db } from "./FirebaseConfig";
-import { collection, doc, addDoc, updateDoc, deleteDoc, query, where, onSnapshot, orderBy  } from "firebase/firestore";
+import { collection, doc,updateDoc, deleteDoc, query, where, onSnapshot} from "firebase/firestore";
 
 
-const RemoveRetweetSameUser = async({currentUidUser,originalRetweets, currentMessageId}) => {
+const RemoveRetweetSameUser = async({update,changeUpdate,currentUidUser,originalRetweets, currentMessageId}) => {
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", currentUidUser),
@@ -23,9 +23,8 @@ const RemoveRetweetSameUser = async({currentUidUser,originalRetweets, currentMes
             const document = doc(db, "userTimeline" , currentMessageId);
             await updateDoc(document, {
                   retweets: removedRetweets 
-            });  
-            
-      
+            });
+            changeUpdate(update-1)      
 }
 
 export default RemoveRetweetSameUser;

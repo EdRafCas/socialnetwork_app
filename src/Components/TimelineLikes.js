@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import useObtainMessagesLikesUser from '../Hooks/useObtainMessagesLikesUser';
-import {format, fromUnixTime} from 'date-fns';
 import {Card} from '.././Elements/ElementsTimeline'
 import MessageTimelineContainer from './MessageTimelineContainer';
 import { AuthContext } from '../Context/AuthContext';
@@ -11,11 +10,9 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo}) =
     const [messagesLikedByUser] = useObtainMessagesLikesUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
-
-    const formatDate = (date) => {
-      return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
- };
-
+    const {update} =useContext(AuthContext);
+    const {changeUpdate} =useContext(AuthContext);
+    
     var filterLikes= messagesLikedByUser.filter(function(items) {
       return items.likes.includes(currentUserInfo[0].uidUser)
       });
@@ -40,6 +37,8 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo}) =
                   changePopUpAlert={changePopUpAlert}
                   changeAlert={changeAlert}
                   changeStateAlert={changeStateAlert}
+                  update={update}
+                  changeUpdate={changeUpdate}
                 />
               </Card>  
               )

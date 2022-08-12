@@ -2,7 +2,6 @@ import React,{useContext} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import useObtainMessages from '../Hooks/useObtainMessages';
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import MessageBox from './MessageBox';
 import '../index.css'
@@ -29,15 +28,11 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
     const [messagesSent] = useObtainMessages();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
+    const {update} =useContext(AuthContext);
+    const {changeUpdate} =useContext(AuthContext);
     
     console.log("reloading timeline")
     console.log(currentUserInfo)
-
-    
-    const formatDate = (date) => {
-      return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-    };
-    
 
     /* console.log(MessagesSent); */
 
@@ -63,7 +58,9 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                   {Message.name}<p>Retweeted</p> 
                 </NameContainerRetweet>
               </RetweetInfo>
-              <RetweetContainerMainTimeline 
+              <RetweetContainerMainTimeline
+                update={update}
+                changeUpdate={changeUpdate} 
                 currentUserInfo={currentUserInfo} 
                 originalId={Message.originalId} 
                 originalUidUser={Message.originalUidUser}
@@ -82,6 +79,8 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
             <MessageTimelineContainer
               id={Message.id}
               user={user}
+              update={update}
+              changeUpdate={changeUpdate}
               currentUserInfo={currentUserInfo}
               messageUidUser={Message.uidUser}
               messageDate={Message.date}

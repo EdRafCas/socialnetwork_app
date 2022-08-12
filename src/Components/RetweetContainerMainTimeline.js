@@ -35,7 +35,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser}) => {
+const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
     const [userInfoForRetweet, changeUserInfoForRetweet] =useState(currentUserInfo)
@@ -55,14 +55,14 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
                 return {...originalUser.data()}
               }))
             })
-
+            console.log("retweet reload")
 
           changeLoadingRetweets(false)
       }
       obtainMessage();
 
       /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
-      },)
+      },[currentUserInfo, update, originalId, originalUidUser])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));

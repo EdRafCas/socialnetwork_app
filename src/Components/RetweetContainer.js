@@ -34,7 +34,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalUidUser, retweetUidUser, changeAlert, changeStateAlert}) => {
+const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalUidUser, retweetUidUser, changeAlert, changeStateAlert, update, changeUpdate}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
     const [userInfoForRetweet, changeUserInfoForRetweet] =useState(currentUserInfo)
@@ -56,12 +56,13 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalU
               }))
             })
              
+            console.log("reload retweet")
           changeLoadingRetweets(false)
       }
       obtainMessage();
 
       /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
-      },)
+      },[currentUserInfo, update, originalId, originalUidUser])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -108,6 +109,8 @@ return (
                     </RetweetButton>
                     :
                     <RetweetButton onClick={()=>RemoveRetweet({
+                      update,
+                      changeUpdate,
                       newRetweetId:newRetweetId, 
                       originalId:originalId, 
                       retweetUidUser, 
@@ -122,6 +125,8 @@ return (
                 <IconContainerCont Like>
                   {!messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
                     <LikeButton  onClick={()=>AddLike({
+                    update,
+                    changeUpdate,
                     id:originalId,
                     uidUser:currentUserInfo[0].uidUser,
                     likes:messageForRetweet.data().likes})}> 
@@ -129,6 +134,8 @@ return (
                     </LikeButton>
                     :
                     <LikeButton  onClick={()=>RemoveLike({
+                      update,
+                      changeUpdate,
                       id:originalId, 
                       uidUser:currentUserInfo[0].uidUser, likes:messageForRetweet.data().likes})}> 
                       <IconLikeColor />                               

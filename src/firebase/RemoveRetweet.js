@@ -1,8 +1,8 @@
 import { db } from "./FirebaseConfig";
-import { collection, doc, addDoc, updateDoc, deleteDoc, query, where, onSnapshot, orderBy  } from "firebase/firestore";
+import { collection, doc, updateDoc, deleteDoc, query, where, onSnapshot} from "firebase/firestore";
 
 
-const RemoveRetweet = async({newRetweetId, originalId, retweetUidUser, currentUidUser,originalRetweets, currentMessageId}) => {
+const RemoveRetweet = async({update,changeUpdate,newRetweetId, originalId, retweetUidUser, currentUidUser,originalRetweets, currentMessageId}) => {
       if(retweetUidUser === currentUidUser){
             await deleteDoc(doc(db, "userTimeline", newRetweetId))
                   try{
@@ -12,7 +12,8 @@ const RemoveRetweet = async({newRetweetId, originalId, retweetUidUser, currentUi
                         const document = doc(db, "userTimeline" , originalId); 
                         await updateDoc(document, {
                               retweets: removedRetweets 
-                        });    
+                        });
+                        changeUpdate(update-1)      
                   } catch{
                         console.log("error deleting")
                   }
@@ -37,7 +38,8 @@ const RemoveRetweet = async({newRetweetId, originalId, retweetUidUser, currentUi
             const document = doc(db, "userTimeline" , currentMessageId);
             await updateDoc(document, {
                   retweets: removedRetweets 
-            });  
+            });
+            changeUpdate(update-1)    
             
       }
 }

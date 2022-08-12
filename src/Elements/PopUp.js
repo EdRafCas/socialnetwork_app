@@ -120,7 +120,8 @@ const PopUpButtonPin=styled.button`
 const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks}) => {
         const {changeShowPopUp} =useContext(AuthContext);
         const {showPopUp} =useContext(AuthContext);
-     
+        const {update} =useContext(AuthContext);
+        const {changeUpdate} =useContext(AuthContext);
 
 
       return (
@@ -136,6 +137,8 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                     <PopUpText>you Will Re-post this message and will be visible in your timeline</PopUpText>
                     <PopUpButtonContainer>
                         <PopUpButtonRetweet Green onClick={()=>addRetweetToTimeline({
+                        update,
+                        changeUpdate,
                         changeAlert,
                         changeStateAlert,
                         id,
@@ -165,7 +168,9 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                             changeAlert,
                             id, 
                             changeShowPopUp, 
-                            showPopUp})}>
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
                             <p>Delete</p>
                         </PopUpButtonDelete>
                     </PopUpButtonContainer>
@@ -186,7 +191,9 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                             id,
                             userId, 
                             changeShowPopUp, 
-                            showPopUp})}>
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
                             <p>Delete</p>
                         </PopUpButtonDelete>
                     </PopUpButtonContainer>
@@ -207,7 +214,9 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                             id,
                             userId, 
                             changeShowPopUp, 
-                            showPopUp})}>
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
                             <p>Pin Message</p>
                         </PopUpButtonPin>
                     </PopUpButtonContainer>

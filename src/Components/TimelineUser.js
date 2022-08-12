@@ -29,6 +29,8 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
     const [messagesSentByUser] = useObtainMessagesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
+    const {update} =useContext(AuthContext);
+    const {changeUpdate} =useContext(AuthContext);
  
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -50,7 +52,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               <p>Pinned Message </p> 
               </NameContainerRetweet>
           </RetweetInfo>
-          <PinnedMessageContainer 
+          <PinnedMessageContainer
+            update={update}
+            changeUpdate={changeUpdate} 
             user={user}
             currentUserInfo={currentUserInfo}
             changeShowPopUp={changeShowPopUp}
@@ -76,6 +80,8 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                 </NameContainerRetweet>
               </RetweetInfo>
               <RetweetContainer 
+                update={update}
+                changeUpdate={changeUpdate}
                 currentUserInfo={currentUserInfo} 
                 originalId={MessageUser.originalId} 
                 newRetweetId={MessageUser.id}
@@ -83,7 +89,8 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                 retweetUidUser={MessageUser.uidUser}
                 user={user}
                 changeAlert={changeAlert}
-                changeStateAlert={changeStateAlert}/>
+                changeStateAlert={changeStateAlert}
+                />
               </>
               :
               <EmptyDiv/>

@@ -34,7 +34,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUpAlert, currentUserInfo, changeAlert, changeStateAlert}) => {
+const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUpAlert, currentUserInfo, update, changeUpdate}) => {
     const [loadingPinned, changeLoadingPinned] =useState(true);
     const [messagePinned, ChangeMessagePinned] = useState('')
 
@@ -42,13 +42,14 @@ const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUp
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId ));
             ChangeMessagePinned(document) 
-             
+          
+          console.log("reload pinned")
           changeLoadingPinned(false)
       }
       obtainMessage();
 
       /* By not calling changeLoadingPinned in useEffect it keeps loading each time we update*/
-      },)
+      },[currentUserInfo, update, originalId])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -102,6 +103,8 @@ return (
                     </RetweetButton>
                     :
                     <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                      update,
+                      changeUpdate,
                       currentUidUser:currentUserInfo[0].uidUser,
                       originalRetweets:messagePinned.data().retweets, 
                       currentMessageId:originalId})}>
@@ -114,11 +117,21 @@ return (
                 </IconContainerCont>
                 <IconContainerCont Like>
                   {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike({})}> 
+                    <LikeButton  onClick={()=>AddLike({
+                      id:originalId,
+                      uidUser:currentUserInfo[0].uidUser,
+                      likes:messagePinned.data().likes,
+                      update,
+                      changeUpdate})}> 
                       <IconLike />                               
                     </LikeButton>
                     :
-                    <LikeButton  onClick={()=>RemoveLike({})}> 
+                    <LikeButton  onClick={()=>RemoveLike({
+                      id:originalId,
+                      uidUser:currentUserInfo[0].uidUser,
+                      likes:messagePinned.data().likes,
+                      update,
+                      changeUpdate})}> 
                       <IconLikeColor />                               
                     </LikeButton>
                   }

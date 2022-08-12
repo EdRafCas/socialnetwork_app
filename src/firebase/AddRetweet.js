@@ -2,7 +2,7 @@ import { db } from "./FirebaseConfig";
 import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
-const addRetweetToTimeline = ({changeShowPopUp, showPopUp, originalUidUser, changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
+const addRetweetToTimeline = ({update, changeUpdate, changeShowPopUp, showPopUp, originalUidUser, changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
       if(currentUserInfo){
        AddRetweet({
         id: id,
@@ -20,6 +20,7 @@ const addRetweetToTimeline = ({changeShowPopUp, showPopUp, originalUidUser, chan
               message: 'Your Retweet was added successfully'
         })
         changeShowPopUp(false)
+        changeUpdate(update+1)
       })
       .catch((error)=>{
         changeStateAlert(true);

@@ -14,7 +14,7 @@ import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
 import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
-import { collection, limit, query, where, onSnapshot, doc, getDoc} from "firebase/firestore";
+import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
@@ -35,7 +35,7 @@ const RetweetButton=styled.button`
   }
 `
 
-const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, currentUserInfo,changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, userInfoForBookmark, changeUserInfoForBookmark, changeLikesState, likesState, update, changeUpdate}) => {
+const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, currentUserInfo,changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, userInfoForBookmark, changeUserInfoForBookmark, update, changeUpdate}) => {
     const [loadingBookmarkData, changeLoadingBookmarkData] =useState(true);
 
     useEffect(()=>{
@@ -45,20 +45,18 @@ const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, cu
           where('uidUser', "==", uidUser),
           limit(10)
         );
-        console.log(consult)
         onSnapshot(consult, (snapshot)=>{
           changeUserInfoForBookmark(snapshot.docs.map((originalUser)=>{
             return {...originalUser.data()}
           }))
         }) 
-        changeLikesState(likes.length)
-        console.log(userInfoForBookmark)
+        console.log("bookmark refresh")
         changeLoadingBookmarkData(false)
       }
       obtainBookmarkTimeline()
 
     /* By not calling changeLoadingBookmarkData in useEffect it keeps loading each time we update*/
-    },[uidUser])
+    },[changeUserInfoForBookmark, uidUser])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -82,7 +80,6 @@ return (
         <UserNameContainer>
           <NameContainer>{userInfoForBookmark[0].name}</NameContainer>
           <AliasContainer>@{userInfoForBookmark[0].alias}</AliasContainer>
-          <button onClick={()=>changeLikesState(likesState+1)}>{likesState}</button>
           <ShowMoreMenu 
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}
@@ -124,7 +121,9 @@ return (
             <RetweetButton onClick={()=>RemoveRetweetSameUser({
               currentUidUser:currentUserInfo[0].uidUser,
               originalRetweets:retweets, 
-              currentMessageId:id})}>
+              currentMessageId:id,
+              update,
+              changeUpdate})}>
               <IconRetweetColor/>
             </RetweetButton>
             :
@@ -132,7 +131,9 @@ return (
               currentUidUser:currentUserInfo[0].uidUser,
               originalRetweets:retweets,
               currentMessageId:id, 
-              retweetUidUser:uidUser})}>
+              retweetUidUser:uidUser,
+              update,
+              changeUpdate})}>
               <IconRetweetColor/>
             </RetweetButton>
             }
@@ -156,8 +157,6 @@ return (
               <LikeButton  onClick={()=>RemoveLike({
               update,
               changeUpdate,
-              changeLikesState,
-              likesState,
               id:id,
               uidUser:currentUserInfo[0].uidUser,
               likes:likes})}> 

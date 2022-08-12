@@ -1,5 +1,4 @@
 import React,{useState, useEffect, useContext} from 'react';
-import {format, fromUnixTime} from 'date-fns';
 import '../index.css'
 import { db } from "../firebase/FirebaseConfig";
 import {doc, getDoc} from "firebase/firestore";
@@ -12,7 +11,6 @@ const BookmarkTimelineContainer = ({ id, user, currentUserInfo, changeShowPopUp,
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForBookMark, changeMessageForBookMark] = useState('')
     const [userInfoForBookmark, changeUserInfoForBookmark] =useState(currentUserInfo)
-    const [likesState, changeLikesState] = useState('')
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
     
@@ -20,14 +18,13 @@ const BookmarkTimelineContainer = ({ id, user, currentUserInfo, changeShowPopUp,
       const obtainBookmarkTimeline = async() =>{
         const document = await getDoc(doc(db, 'userTimeline', id));
         changeMessageForBookMark(document)
-       console.log(messageForBookMark)
-
+       console.log("reload bookmark")
         changeLoadingMessageData(false)
       }
-      obtainBookmarkTimeline()
+    obtainBookmarkTimeline();
 
     /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
-    },[currentUserInfo, changeMessageForBookMark, changeUserInfoForBookmark, likesState, update])
+    },[currentUserInfo, changeMessageForBookMark, changeUserInfoForBookmark, update, id])
 
     
 return ( 
@@ -49,8 +46,6 @@ return (
       changeStateAlert={changeStateAlert}
       userInfoForBookmark={userInfoForBookmark}
       changeUserInfoForBookmark={changeUserInfoForBookmark}
-      likesState={likesState}
-      changeLikesState={changeLikesState}
       update={update}
       changeUpdate={changeUpdate}
     />
