@@ -122,14 +122,11 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
                         :
                         <img alt="DefaultAvatar" src={ProfileImage}/>
                         }
-                        
                   </ProfilePic>
                   <EditButton onClick={()=>changeShowEditProfile(!showEditProfile)} >
                         <p>Edit Profile</p>
                   </EditButton>
                 </ProfilePicContainer>
-                
-
                 <UserCard>
                   <NamesContainer>
                     <NameContainer>{currentUserInfo[0].name}</NameContainer>

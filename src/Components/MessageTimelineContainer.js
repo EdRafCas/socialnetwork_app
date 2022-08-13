@@ -19,6 +19,7 @@ import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import { Link } from 'react-router-dom';
 
 const RetweetButton=styled.button`
   background:none;
@@ -32,6 +33,24 @@ const RetweetButton=styled.button`
   gap:5px;
   :hover{
    /*  border:solid ${theme.BorderColor} 1px; */
+  }
+`
+const UserNameContainerLink =styled(Link)`
+  width:auto;
+  padding:0rem;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+ /*  border:solid ${theme.BorderColor} 1px; */
+  display:flex;
+  flex-direction:row;
+  gap:5px;
+  position:relative;
+  text-decoration:none;
+  font-size:1.1rem;
+  font-weight:1000;
+  color:white;
+  overflow:hidden;
+  :hover{
+    text-decoration:underline;
   }
 `
 
@@ -81,8 +100,12 @@ return (
       </CardColumns>
       <CardColumns rightColumn>
         <UserNameContainer>
-          <NameContainer>{messageForTimeline[0].name}</NameContainer>
-          <AliasContainer>{messageForTimeline[0].alias}</AliasContainer>
+          <UserNameContainerLink to={`/user/${messageForTimeline[0].alias}`}>
+            {messageForTimeline[0].name}
+          </UserNameContainerLink >
+          <AliasContainer>
+            @{messageForTimeline[0].alias}
+          </AliasContainer>
           <ShowMoreMenu 
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}
