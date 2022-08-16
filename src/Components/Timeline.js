@@ -33,7 +33,6 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
     
     console.log("reloading timeline")
     console.log(currentUserInfo)
-
     /* console.log(MessagesSent); */
 
       return ( 

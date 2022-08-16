@@ -1,10 +1,14 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import UserProfileRoutes from './UserProfileRoutes';
 import '../index.css'
+import HeaderUserProfileAlias from './HeaderUserProfileAlias';
 import HeaderUserProfile from './HeaderUserProfile';
+import {useParams } from 'react-router-dom';
+import { db } from "../firebase/FirebaseConfig";
+import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 
 const TimelineUserContainer = styled.div`
   height:100%;
@@ -82,25 +86,67 @@ const RedirectLink =styled(Link)`
     }
 `
 
+
 const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+      const {alias} =useParams();
+      console.log(alias)
+      const [userByAlias, changeUserByAlias] = useState(currentUserInfo)
+      const [loadingUserData, changeLoadingUserData] =useState(true)
+      useEffect(()=>{
+            const ObtainUserByAlias = async() =>{
+                  const consult = query(
+                        collection(db, 'userInfo'),
+                        where('alias', "==", alias),
+                        limit(10)
+                      );
+                      
+                  onSnapshot(consult, (snapshot)=>{
+                        changeUserByAlias(snapshot.docs.map((userAlias)=>{
+                              return {...userAlias.data(), id:userAlias.id}
+                        }))
+                  })
+                  changeLoadingUserData(false)
+                  console.log("UserByaliasLoaded")
+                  console.log(userByAlias[0].id)
+            }
+            ObtainUserByAlias();
+      },[currentUserInfo, alias])
 
       return ( 
             <TimelineUserContainer className='timeline-user'>
-              <HeaderUserProfile 
-                  currentUserInfo={currentUserInfo}
-                  changeShowEditProfile={changeShowEditProfile}
-                  showEditProfile={showEditProfile}
+                  {currentUserInfo[0].alias===alias ?
+                  <HeaderUserProfile 
+                        currentUserInfo={currentUserInfo}
+                        changeShowEditProfile={changeShowEditProfile}
+                        showEditProfile={showEditProfile}
                   />
-              <LinksContainer>
-                <RedirectLink to =""> Messages</RedirectLink>
-                <RedirectLink to ={`/user/${currentUserInfo[0].alias}/likes`}> Likes</RedirectLink>
-              </LinksContainer>
-              <UserProfileRoutes 
+                  :
+                  <HeaderUserProfileAlias
+                        currentUserInfo={currentUserInfo}
+                        changeShowEditProfile={changeShowEditProfile}
+                        showEditProfile={showEditProfile}
+                        userByAlias={userByAlias}
+                        changeUserByAlias={changeUserByAlias}
+                        loadingUserData={loadingUserData}
+                        changeLoadingUserData={changeLoadingUserData}
+                  />
+                  }
+            <LinksContainer>
+                  <RedirectLink to =""> 
+                  Messages
+                  </RedirectLink>
+                  <RedirectLink to ={`/user/${alias}/likes`}> 
+                  Likes
+                  </RedirectLink>
+            </LinksContainer>
+            <UserProfileRoutes 
                   currentUserInfo={currentUserInfo}
                   changeAlert={changeAlert} 
                   stateAlert={stateAlert} 
                   changeStateAlert={changeStateAlert} 
-                  user={user}/>
+                  user={user}
+                  userByAlias={userByAlias}
+            />
             </TimelineUserContainer>
       );
 }
