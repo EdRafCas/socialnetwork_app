@@ -1,36 +1,41 @@
 import React from 'react';
 import {Route, Routes, useParams } from 'react-router-dom';
-import TimelineUser from './TimelineUser';
-import TimelineLikes from './TimelineLikes';
+import TimelineUserAlias from './TimelineUserAlias';
+import TimelineLikesAlias from './TimelineLikesAlias';
 import PrivateRoute from './PrivateRoute';
 
 
-const UserProfileRoutes = ({userByAlias, changeAlert, stateAlert, changeStateAlert, user,currentUserInfo}) => {
+const UserProfileRoutesAlias = ({userByAlias, changeAlert, stateAlert, changeStateAlert, user,currentUserInfo}) => {
   const {alias} =useParams();
+  console.log(alias)
       return ( 
         <Routes>
           <Route path="" exact={true}
                 element={
                 <PrivateRoute>
-                    <TimelineUser currentUserInfo={currentUserInfo}
+                    <TimelineUserAlias 
+                                  currentUserInfo={currentUserInfo}
                                   user={user}
                                   changeAlert={changeAlert}
                                   stateAlert={stateAlert}
                                   changeStateAlert={changeStateAlert}
+                                  userByAlias={userByAlias}
                                   />
                 </PrivateRoute>}/>
           <Route path={`/likes`} exact={true}
                 element={
                 <PrivateRoute>
-                  <TimelineLikes currentUserInfo={currentUserInfo}
+                  <TimelineLikesAlias currentUserInfo={currentUserInfo}
                                   user={user}
                                   changeAlert={changeAlert}
                                   stateAlert={stateAlert}
-                                  changeStateAlert={changeStateAlert}/>
+                                  changeStateAlert={changeStateAlert}
+                                  userByAlias={userByAlias}
+                                  />
                 </PrivateRoute>}/>
           
         </Routes>
       );
 }
  
-export default UserProfileRoutes;
+export default UserProfileRoutesAlias;

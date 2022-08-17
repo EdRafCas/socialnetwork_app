@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {Link} from 'react-router-dom';
 import UserProfileRoutes from './UserProfileRoutes';
+import UserProfileRoutesAlias from './UserProfileRoutesAlias';
 import '../index.css'
 import HeaderUserProfileAlias from './HeaderUserProfileAlias';
 import HeaderUserProfile from './HeaderUserProfile';
@@ -89,7 +90,6 @@ const RedirectLink =styled(Link)`
 
 const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       const {alias} =useParams();
-      console.log(alias)
       const [userByAlias, changeUserByAlias] = useState(currentUserInfo)
       const [loadingUserData, changeLoadingUserData] =useState(true)
       useEffect(()=>{
@@ -106,47 +106,63 @@ const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUs
                         }))
                   })
                   changeLoadingUserData(false)
-                  console.log("UserByaliasLoaded")
-                  console.log(userByAlias[0].id)
+                  console.log("ObtainUserByAlias" + " " + userByAlias[0].uidUser + " "+ currentUserInfo[0].alias)
             }
             ObtainUserByAlias();
-      },[currentUserInfo, alias])
+      },[currentUserInfo])
 
       return ( 
             <TimelineUserContainer className='timeline-user'>
-                  {currentUserInfo[0].alias===alias ?
+                  {currentUserInfo[0].alias === userByAlias[0].alias ?
+                  <>
                   <HeaderUserProfile 
                         currentUserInfo={currentUserInfo}
                         changeShowEditProfile={changeShowEditProfile}
                         showEditProfile={showEditProfile}
                   />
+                  <LinksContainer>
+                        <RedirectLink to =""> 
+                        Messages
+                        </RedirectLink>
+                        <RedirectLink to ={`/user/${alias}/likes`}> 
+                        Likes
+                        </RedirectLink>
+                  </LinksContainer>
+                  <UserProfileRoutes 
+                        currentUserInfo={currentUserInfo}
+                        changeAlert={changeAlert} 
+                        stateAlert={stateAlert} 
+                        changeStateAlert={changeStateAlert} 
+                        user={user}
+                  />
+                  </>
                   :
+                  <>
                   <HeaderUserProfileAlias
                         currentUserInfo={currentUserInfo}
                         changeShowEditProfile={changeShowEditProfile}
                         showEditProfile={showEditProfile}
-                        userByAlias={userByAlias}
-                        changeUserByAlias={changeUserByAlias}
                         loadingUserData={loadingUserData}
-                        changeLoadingUserData={changeLoadingUserData}
+                        userByAlias={userByAlias}
+                        />
+                  <LinksContainer>
+                        <RedirectLink to =""> 
+                              Messages
+                        </RedirectLink>
+                        <RedirectLink to ={`/user/${alias}/likes`}> 
+                              Likes
+                        </RedirectLink>
+                  </LinksContainer>
+                  <UserProfileRoutesAlias 
+                        currentUserInfo={currentUserInfo}
+                        changeAlert={changeAlert} 
+                        stateAlert={stateAlert} 
+                        changeStateAlert={changeStateAlert} 
+                        user={user}
+                        userByAlias={userByAlias}
                   />
+                  </>
                   }
-            <LinksContainer>
-                  <RedirectLink to =""> 
-                  Messages
-                  </RedirectLink>
-                  <RedirectLink to ={`/user/${alias}/likes`}> 
-                  Likes
-                  </RedirectLink>
-            </LinksContainer>
-            <UserProfileRoutes 
-                  currentUserInfo={currentUserInfo}
-                  changeAlert={changeAlert} 
-                  stateAlert={stateAlert} 
-                  changeStateAlert={changeStateAlert} 
-                  user={user}
-                  userByAlias={userByAlias}
-            />
             </TimelineUserContainer>
       );
 }

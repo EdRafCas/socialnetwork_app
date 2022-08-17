@@ -31,6 +31,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
+    console.log("TimelineUser")
  
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -164,7 +165,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                           <LikeButton  onClick={()=>AddLike({
                           id:MessageUser.id,
                           uidUser:currentUserInfo[0].uidUser,
-                          likes:MessageUser.likes})}
+                          likes:MessageUser.likes, 
+                          update,
+                          changeUpdate})}
                             > 
                             <IconLike />                               
                           </LikeButton>
@@ -172,7 +175,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                           <LikeButton  onClick={()=>RemoveLike({
                           id:MessageUser.id,
                           uidUser:currentUserInfo[0].uidUser,
-                          likes:MessageUser.likes})}> 
+                          likes:MessageUser.likes, 
+                          update,
+                          changeUpdate})}> 
                             <IconLikeColor />                               
                           </LikeButton>
                         }

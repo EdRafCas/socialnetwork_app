@@ -3,11 +3,9 @@ import {useParams } from 'react-router-dom';
 import {NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png';
-
 import {HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton} from './../Elements/ElemenstProfile'
 
-
-const HeaderUserProfileAlias = ({userByAlias,loadingUserData, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+const HeaderUserProfileAlias = ({loadingUserData,userByAlias, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       const {alias} =useParams();
       return ( 
             <>

@@ -12,7 +12,7 @@ const useObtainMessagesLikesUser = () => {
             const consult = query(
                   collection(db, 'userTimeline'),
                   /* where('uidUser', "==", user.uid), */
-                  /* where('Retweet', "!==", true),  */
+                  /* where('uidUser', "!==", null), */ 
                   orderBy('date', 'desc'),
                   /* limit(30) */
             );

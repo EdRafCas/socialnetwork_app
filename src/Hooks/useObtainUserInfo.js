@@ -10,7 +10,6 @@ const useObtainUserInfo = () => {
 
       useEffect(()=>{
 
-            
             const consult = query(
                   collection(db, 'userInfo'),
                   where('uidUser', "==", user.uid),

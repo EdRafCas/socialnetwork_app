@@ -10,6 +10,7 @@ import {HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic, UserCard, Na
 const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       const {user} =useAuth();
       const {alias} =useParams();
+      console.log("HeaderUserProfile")
       
 
       return ( 

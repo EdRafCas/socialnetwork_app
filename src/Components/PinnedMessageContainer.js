@@ -42,15 +42,13 @@ const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUp
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId ));
             ChangeMessagePinned(document) 
-          
-          console.log("reload pinned")
+          console.log("PinnedMessageContainer")
           changeLoadingPinned(false)
       }
       obtainMessage();
-
       /* By not calling changeLoadingPinned in useEffect it keeps loading each time we update*/
       },[currentUserInfo, update, originalId])
-      
+
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
       };

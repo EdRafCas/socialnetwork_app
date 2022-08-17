@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
-import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
+import useObtainMessagesByUserAlias from '../Hooks/useObtainMessagesByUserAlias';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -14,7 +14,7 @@ import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
 import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
-import PinnedMessageContainer from './PinnedMessageContainer';
+import PinnedMessageContainerAlias from './PinnedMessageContainerAlias';
 import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
@@ -26,21 +26,17 @@ const EmptyDiv=styled.div`
 `
 
 const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, changeStateAlert}) => {
-    const [messagesSentByUser] = useObtainMessagesByUser();
+    const [messagesSentByUserAlias] = useObtainMessagesByUserAlias(userByAlias[0].uidUser);
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
-
-    console.log(userByAlias)
  
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
     
 
-
-    /* console.log(MessagesSentByUser); */
 
       return ( 
         <> 
@@ -54,19 +50,20 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
               <p>Pinned Message </p> 
               </NameContainerRetweet>
           </RetweetInfo>
-          <PinnedMessageContainer
+          <PinnedMessageContainerAlias
             update={update}
             changeUpdate={changeUpdate} 
             user={user}
-            currentUserInfo={userByAlias}
+            currentUserInfo={currentUserInfo}
             changeShowPopUp={changeShowPopUp}
             changePopUpAlert={changePopUpAlert}
             originalId={userByAlias[0].pinnedMessage}
             changeAlert={changeAlert}
-            changeStateAlert={changeStateAlert}/>          
+            changeStateAlert={changeStateAlert}
+            userByAlias={userByAlias}/>          
           </>
           }
-          {messagesSentByUser.map((MessageUser, index)=>{
+          {messagesSentByUserAlias.map((MessageUser, index)=>{
             return(
             <Card key={MessageUser.id}>
               {MessageUser.originalId?
@@ -102,8 +99,8 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
               <UserColumns>
                   <CardColumns>
                     <PortraitContainer>
-                      {currentUserInfo[0].photoURL ?
-                      <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
+                      {userByAlias[0].photoURL ?
+                      <img alt="userportrait" src={userByAlias[0].photoURL}/>
                       :
                       <img alt="userportrait" src={ProfileImage}/>
                       }
@@ -113,10 +110,10 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                   <CardColumns rightColumn>
                     <UserNameContainer>
                       <NameContainer>
-                        {currentUserInfo[0].name}
+                        {userByAlias[0].name}
                       </NameContainer>
                       <AliasContainer>
-                        @{currentUserInfo[0].alias}
+                        @{userByAlias[0].alias}
                       </AliasContainer>
                       <ShowMoreMenu 
                         changeAlert={changeAlert}
@@ -166,7 +163,9 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                           <LikeButton  onClick={()=>AddLike({
                           id:MessageUser.id,
                           uidUser:currentUserInfo[0].uidUser,
-                          likes:MessageUser.likes})}
+                          likes:MessageUser.likes,
+                          update,
+                          changeUpdate})}
                             > 
                             <IconLike />                               
                           </LikeButton>
@@ -174,7 +173,9 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                           <LikeButton  onClick={()=>RemoveLike({
                           id:MessageUser.id,
                           uidUser:currentUserInfo[0].uidUser,
-                          likes:MessageUser.likes})}> 
+                          likes:MessageUser.likes, 
+                          update,
+                          changeUpdate})}> 
                             <IconLikeColor />                               
                           </LikeButton>
                         }
