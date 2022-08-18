@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -69,7 +69,9 @@ return (
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
-                <NameContainer>{currentUserInfo[0].name}</NameContainer>
+              <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`}>
+                  {currentUserInfo[0].alias}
+                </UserNameContainerLink >
                 <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
                 <ShowMoreMenu 
                         pinnedMenu={true}

@@ -24,7 +24,7 @@ const useObtainMessagesByUserAlias = (uidUserbyalias) => {
             })
 
             return unsuscribe;
-      }, [user])
+      }, [user, uidUserbyalias])
 
       return [messagesSentByUserAlias];
 }

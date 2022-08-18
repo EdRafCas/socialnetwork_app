@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
 import theme from '../Theme'
 
 const Card =styled.div`
@@ -14,6 +15,14 @@ const Card =styled.div`
     }
 `
 const RetweetInfo=styled.div`
+  height:1.5rem;
+  width:100%;
+  display:grid;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+
+`
+const RetweetInfoContainer=styled.div`
   height:1.5rem;
   width:100%;
   display:grid;
@@ -227,4 +236,23 @@ const NameContainerRetweet = styled.div`
   gap:5px;
 `
 
-export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetInfo, RetweetButton, IconContainerRetweet, NameContainerRetweet};
+const UserNameContainerLink =styled(Link)`
+  width:auto;
+  padding:0rem;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+ /*  border:solid ${theme.BorderColor} 1px; */
+  display:flex;
+  flex-direction:row;
+  gap:5px;
+  position:relative;
+  text-decoration:none;
+  font-size:1.1rem;
+  font-weight:1000;
+  color:white;
+  overflow:hidden;
+  :hover{
+    text-decoration:underline;
+  }
+`
+
+export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink};

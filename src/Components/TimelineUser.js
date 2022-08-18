@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
+import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
 import {ReactComponent as IconPin} from '../img/pin_icon.svg';
@@ -72,31 +72,31 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               <>
               {MessageUser.uidUser===currentUserInfo[0].uidUser ?
               <>
-              <RetweetInfo>
-                <IconContainerRetweet Retweet >
-                  <IconRetweet/>
-                </IconContainerRetweet>
-                <NameContainerRetweet> 
-                  <p> You Retweeted</p> 
-                </NameContainerRetweet>
-              </RetweetInfo>
-              <RetweetContainer 
-                update={update}
-                changeUpdate={changeUpdate}
-                currentUserInfo={currentUserInfo} 
-                originalId={MessageUser.originalId} 
-                newRetweetId={MessageUser.id}
-                originalUidUser={MessageUser.originalUidUser} 
-                retweetUidUser={MessageUser.uidUser}
-                user={user}
-                changeAlert={changeAlert}
-                changeStateAlert={changeStateAlert}
-                />
+                <RetweetInfo>
+                  <IconContainerRetweet Retweet >
+                    <IconRetweet/>
+                  </IconContainerRetweet>
+                  <NameContainerRetweet> 
+                    <p> You Retweeted</p> 
+                  </NameContainerRetweet>
+                </RetweetInfo>
+                <RetweetContainer 
+                  update={update}
+                  changeUpdate={changeUpdate}
+                  currentUserInfo={currentUserInfo} 
+                  originalId={MessageUser.originalId} 
+                  newRetweetId={MessageUser.id}
+                  originalUidUser={MessageUser.originalUidUser} 
+                  retweetUidUser={MessageUser.uidUser}
+                  user={user}
+                  changeAlert={changeAlert}
+                  changeStateAlert={changeStateAlert}
+                  />
               </>
               :
               <EmptyDiv/>
               }
-            </>
+              </>
             :
               <UserColumns>
                   <CardColumns>
@@ -111,9 +111,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                   </CardColumns>
                   <CardColumns rightColumn>
                     <UserNameContainer>
-                      <NameContainer>
+                      <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`} >
                         {currentUserInfo[0].name}
-                      </NameContainer>
+                      </UserNameContainerLink>
                       <AliasContainer>
                         @{currentUserInfo[0].alias}
                       </AliasContainer>

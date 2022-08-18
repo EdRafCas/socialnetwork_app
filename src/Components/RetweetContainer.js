@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -82,8 +82,12 @@ return (
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
-                <NameContainer>{userInfoForRetweet[0].name}</NameContainer>
-                <AliasContainer>@{userInfoForRetweet[0].alias}</AliasContainer>
+                <UserNameContainerLink to={`/user/${userInfoForRetweet[0].alias}`}>
+                  {userInfoForRetweet[0].name}
+                  </UserNameContainerLink>
+                <AliasContainer>
+                  @{userInfoForRetweet[0].alias}
+                  </AliasContainer>
                 <ShowMoreMenu 
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}

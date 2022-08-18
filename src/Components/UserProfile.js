@@ -106,10 +106,10 @@ const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUs
                         }))
                   })
                   changeLoadingUserData(false)
-                  console.log("ObtainUserByAlias" + " " + userByAlias[0].uidUser + " "+ currentUserInfo[0].alias)
+                  console.log("ObtainUserByAlias"+" "+ userByAlias[0].uidUser+" "+ currentUserInfo[0].alias)
             }
             ObtainUserByAlias();
-      },[currentUserInfo])
+      },[currentUserInfo, alias])
 
       return ( 
             <TimelineUserContainer className='timeline-user'>

@@ -12,14 +12,13 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserColumns, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
-import { Link } from 'react-router-dom';
 
 const RetweetButton=styled.button`
   background:none;
@@ -33,24 +32,6 @@ const RetweetButton=styled.button`
   gap:5px;
   :hover{
    /*  border:solid ${theme.BorderColor} 1px; */
-  }
-`
-const UserNameContainerLink =styled(Link)`
-  width:auto;
-  padding:0rem;
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
- /*  border:solid ${theme.BorderColor} 1px; */
-  display:flex;
-  flex-direction:row;
-  gap:5px;
-  position:relative;
-  text-decoration:none;
-  font-size:1.1rem;
-  font-weight:1000;
-  color:white;
-  overflow:hidden;
-  :hover{
-    text-decoration:underline;
   }
 `
 

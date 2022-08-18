@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '../Elements/ElementsTimeline'
+import {Card, RetweetInfo, UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainerAlias from './PinnedMessageContainerAlias';
 import {ReactComponent as IconPin} from '../img/pin_icon.svg';
@@ -68,14 +68,12 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
             <Card key={MessageUser.id}>
               {MessageUser.originalId?
               <>
-              {MessageUser.uidUser===currentUserInfo[0].uidUser ?
-              <>
               <RetweetInfo>
                 <IconContainerRetweet Retweet >
                   <IconRetweet/>
                 </IconContainerRetweet>
                 <NameContainerRetweet> 
-                  <p> You Retweeted</p> 
+                  <p> {userByAlias[0].name} Retweeted</p> 
                 </NameContainerRetweet>
               </RetweetInfo>
               <RetweetContainer 
@@ -91,10 +89,6 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                 changeStateAlert={changeStateAlert}
                 />
               </>
-              :
-              <EmptyDiv/>
-              }
-            </>
             :
               <UserColumns>
                   <CardColumns>
@@ -109,9 +103,9 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                   </CardColumns>
                   <CardColumns rightColumn>
                     <UserNameContainer>
-                      <NameContainer>
+                      <UserNameContainerLink to={`/user/${userByAlias[0].alias}`}>
                         {userByAlias[0].name}
-                      </NameContainer>
+                      </UserNameContainerLink>
                       <AliasContainer>
                         @{userByAlias[0].alias}
                       </AliasContainer>
