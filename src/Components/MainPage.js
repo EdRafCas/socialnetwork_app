@@ -124,18 +124,18 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           </ColumnContainer>
           <ColumnContainer2>
             {!loadingUserData &&
-              <MainPageRoutes user={user}
-                              currentUserInfo={currentUserInfo}
-                              addToTimeline={addToTimeline}
-                              message={message}
-                              handleChange={handleChange}
-                              showEditProfile={showEditProfile}
-                              changeShowEditProfile={changeShowEditProfile}
-                              changeAlert={changeAlert}
-                              messageAlert={alert.message}
-                              stateAlert={stateAlert}
-                              changeStateAlert={changeStateAlert}
-                              />
+            <MainPageRoutes user={user}
+                            currentUserInfo={currentUserInfo}
+                            addToTimeline={addToTimeline}
+                            message={message}
+                            handleChange={handleChange}
+                            showEditProfile={showEditProfile}
+                            changeShowEditProfile={changeShowEditProfile}
+                            changeAlert={changeAlert}
+                            messageAlert={alert.message}
+                            stateAlert={stateAlert}
+                            changeStateAlert={changeStateAlert}
+                            />
             }
           </ColumnContainer2>
           <Alert  type={alert.type}
@@ -145,28 +145,27 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   />
           {showMessageBox ?
           <>
-            <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
-            <CenterBox>
-            <MessageBox user={user}
-                        currentUserInfo={currentUserInfo}
-                        addToTimeline={addToTimeline}
-                        message={message}
-                        handleChange={handleChange} />
-            </CenterBox>
+          <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
+          <CenterBox>
+          <MessageBox user={user}
+                      currentUserInfo={currentUserInfo}
+                      addToTimeline={addToTimeline}
+                      message={message}
+                      handleChange={handleChange} />
+          </CenterBox>
           </>
           :""
           }
           {showEditProfile ?
           <>
-            <TranslucidBack onClick={()=>changeShowEditProfile(!showEditProfile)}/>
-            <CenterBox>
-              <EditProfileBox user={user}
-                              currentUserInfo={currentUserInfo} 
-                              changeShowEditProfile={changeShowEditProfile}
-                              showEditProfile={showEditProfile}
-                />
-            </CenterBox>
-                
+          <TranslucidBack onClick={()=>changeShowEditProfile(!showEditProfile)}/>
+          <CenterBox>
+            <EditProfileBox user={user}
+                            currentUserInfo={currentUserInfo} 
+                            changeShowEditProfile={changeShowEditProfile}
+                            showEditProfile={showEditProfile}
+              />
+          </CenterBox>
           </>
           :""
           }

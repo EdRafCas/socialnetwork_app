@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
+import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -34,6 +35,18 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
+const MessageLink=styled(Link)`
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  border-bottom:solid ${theme.BorderColor} 1px;
+  /* border-radius:15px; */
+  gap:0rem;
+  padding-top:0.5rem;
+  /* background:black; */
+  text-decoration:none;
+
+`
 
 const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
@@ -50,7 +63,7 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
         
         onSnapshot(consult, (snapshot)=>{
           changeMessageForTimeline(snapshot.docs.map((originalUser)=>{
-            return {...originalUser.data()}
+            return {...originalUser.data(), id:originalUser.id}
           }))
         })
         console.log("message loaded")
@@ -69,7 +82,7 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
 return ( 
   <>
   {!loadingMessageData &&
-    <UserColumns>
+    <MessageLink to={`/user/${messageForTimeline[0].alias}/status/${messageForTimeline[0].id}`}>
       <CardColumns>
         <PortraitContainer>
           {messageForTimeline[0].photoURL ?
@@ -150,7 +163,7 @@ return (
           </>
           }
             <CounterContainer>
-              {messageRetweets.length}
+              <p>{messageRetweets.length}</p>
             </CounterContainer>
           </IconContainerCont>
           <IconContainerCont Like>
@@ -179,7 +192,7 @@ return (
           </IconContainerCont>
         </InteractionBar>
       </CardColumns>
-    </UserColumns>
+    </MessageLink>
   }
   </>
     )

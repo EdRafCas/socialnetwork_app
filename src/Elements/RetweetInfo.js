@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
@@ -9,24 +10,28 @@ import { doc, getDoc, query, collection, where, limit, onSnapshot } from "fireba
 
 
 
-const RetweetButton=styled.button`
-  background:none;
-  border-radius:50%;
-  border:none;
+const RetweetLink = styled(Link)`
   display:flex;
-  align-items:center;
-  justify-content:center;
-  height:2.5rem;
-  width:2.5rem;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:end;
+  color: ${theme.Text};
+  font-size:1rem;
+  font-weight:800;
+  /* border:solid ${theme.BorderColor} 1px; */
+  overflow:hidden;
+  padding-left:5px;
   gap:5px;
+  text-decoration:none;
   :hover{
-   /*  border:solid ${theme.BorderColor} 1px; */
+    text-decoration:underline;
   }
 `
 
+
 const RetweetInfo = ({retweetUidUser, currentUserInfo}) => {
     const [loadingInfo, changeLoadinInfo] =useState(true);
-    const [retweeterInfo, changeRetweeterInfo] =useState([])
+    const [retweeterInfo, changeRetweeterInfo] =useState([{}])
 
     useEffect(()=>{
       const obtainRetweeterInfo = async() =>{
@@ -41,7 +46,7 @@ const RetweetInfo = ({retweetUidUser, currentUserInfo}) => {
                 return {...retweeterUser.data(), id:retweeterUser.id}
               }))
             })
-            console.log(retweeterInfo)
+            console.log("loaded username Retweet")
 
             changeLoadinInfo(false)
       }
@@ -52,18 +57,18 @@ const RetweetInfo = ({retweetUidUser, currentUserInfo}) => {
       
     
 return ( 
-        <>
-        {!loadingInfo &&
-          <RetweetInfoContainer>
-            <IconContainerRetweet Retweet >
-              <IconRetweet/>
-            </IconContainerRetweet>
-            <NameContainerRetweet>
-              {retweeterInfo[0].name}<p>Retweeted</p> 
-            </NameContainerRetweet>
-          </RetweetInfoContainer>
-        }
-        </>
+  <>
+    {!loadingInfo &&
+      <RetweetInfoContainer>
+          <IconContainerRetweet Retweet >
+            <IconRetweet/>
+          </IconContainerRetweet> 
+          <RetweetLink to={`/user/${retweeterInfo[0].alias}`}>
+            {retweeterInfo[0].name} <p>Retweeted</p> 
+          </RetweetLink>
+      </RetweetInfoContainer>
+    }
+  </>
     )
 }
  

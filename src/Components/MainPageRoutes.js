@@ -4,6 +4,7 @@ import Timeline from './Timeline';
 import PrivateRoute from './PrivateRoute';
 import UserProfile from './UserProfile';
 import BookmarksUser from './BookmarksUser';
+import StatusMessage from './StatusMessage';
 
 
 
@@ -29,6 +30,19 @@ const MainPageRoutes = ({changeAlert, messageAlert, stateAlert, changeStateAlert
                   element={
                   <PrivateRoute>
                     <UserProfile  currentUserInfo={currentUserInfo}
+                                  showEditProfile={showEditProfile}
+                                  changeShowEditProfile={changeShowEditProfile}
+                                  user={user}
+                                  changeAlert={changeAlert}
+                                  stateAlert={stateAlert}
+                                  changeStateAlert={changeStateAlert}
+                                  />
+                  </PrivateRoute>
+                }/>
+          <Route path="/user/:alias/status/:id" exact={true} 
+                  element={
+                  <PrivateRoute>
+                    <StatusMessage currentUserInfo={currentUserInfo}
                                   showEditProfile={showEditProfile}
                                   changeShowEditProfile={changeShowEditProfile}
                                   user={user}

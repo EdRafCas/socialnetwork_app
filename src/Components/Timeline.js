@@ -2,14 +2,12 @@ import React,{useContext} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import useObtainMessages from '../Hooks/useObtainMessages';
-import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import MessageBox from './MessageBox';
 import '../index.css'
-import {Card,IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
+import {Card} from '.././Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import RetweetContainerMainTimeline from './RetweetContainerMainTimeline';
 import MessageTimelineContainer from './MessageTimelineContainer';
-import { Link } from 'react-router-dom';
 import RetweetInfo from '../Elements/RetweetInfo';
  
 const TimelineContainer = styled.div`
@@ -24,19 +22,7 @@ const TimelineContainer = styled.div`
 `
 const EmptyDiv=styled.div`
 `
-const RetweetRedirect =styled(Link)`
-  display:flex;
-  flex-direction:row;
-  justify-content:flex-start;
-  align-items:end;
-  color: ${theme.Text};
-  font-size:1rem;
-  font-weight:800;
-  /* border:solid ${theme.BorderColor} 1px; */
-  overflow:hidden;
-  padding-left:5px;
-  gap:5px;
-`
+
 
 const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {
     const [messagesSent] = useObtainMessages();
@@ -63,10 +49,9 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
             <>
               {Message.uidUser!==currentUserInfo[0].uidUser ?
               <>
-              {/* <RetweetInfo
+              <RetweetInfo
               retweetUidUser={Message.uidUser}
-              /> */}
-              
+              />
               <RetweetContainerMainTimeline
                 update={update}
                 changeUpdate={changeUpdate} 

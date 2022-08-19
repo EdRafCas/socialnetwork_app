@@ -14,7 +14,7 @@ const Card =styled.div`
     background:rgba(255,255,255, 0.03);
     }
 `
-const RetweetInfo=styled.div`
+const PinnedInfo=styled.div`
   height:1.5rem;
   width:100%;
   display:grid;
@@ -126,6 +126,7 @@ const CounterContainer=styled.div`
   height:40px;
   padding-left:5px;
   background:none;
+  color:${theme.Text};
   :hover{
     
   }
@@ -174,6 +175,7 @@ const TimeBar =styled.div`
   justify-content:flex-start;
   border:none;
   width:100%;
+  color:${theme.Text};
 `
 const LikeButton=styled.button`
   background:none;
@@ -255,4 +257,4 @@ const UserNameContainerLink =styled(Link)`
   }
 `
 
-export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink};
+export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink};

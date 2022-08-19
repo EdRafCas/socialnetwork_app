@@ -136,6 +136,7 @@ const NameContainer =styled.h1`
 `
 const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
+  color:${theme.Text}
 `
 
 /*Elements for background */
