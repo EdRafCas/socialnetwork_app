@@ -1,12 +1,11 @@
 import React from 'react';
-import {Route, Routes, useParams } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import TimelineUser from './TimelineUser';
 import TimelineLikes from './TimelineLikes';
 import PrivateRoute from './PrivateRoute';
 
 
-const UserProfileRoutes = ({userByAlias, changeAlert, stateAlert, changeStateAlert, user,currentUserInfo}) => {
-  const {alias} =useParams();
+const UserProfileRoutes = ({changeAlert, stateAlert, changeStateAlert, user,currentUserInfo}) => {
       return ( 
         <Routes>
           <Route path="" exact={true}

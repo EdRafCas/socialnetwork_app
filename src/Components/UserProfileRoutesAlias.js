@@ -1,13 +1,11 @@
 import React from 'react';
-import {Route, Routes, useParams } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import TimelineUserAlias from './TimelineUserAlias';
 import TimelineLikesAlias from './TimelineLikesAlias';
 import PrivateRoute from './PrivateRoute';
 
 
 const UserProfileRoutesAlias = ({userByAlias, changeAlert, stateAlert, changeStateAlert, user,currentUserInfo}) => {
-  const {alias} =useParams();
-  console.log(alias)
       return ( 
         <Routes>
           <Route path="" exact={true}

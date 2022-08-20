@@ -128,7 +128,6 @@ const CounterContainer=styled.div`
   background:none;
   color:${theme.Text};
   :hover{
-    
   }
   :active{
     background:white;

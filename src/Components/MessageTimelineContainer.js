@@ -82,7 +82,7 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
 return ( 
   <>
   {!loadingMessageData &&
-    <MessageLink to={`/user/${messageForTimeline[0].alias}/status/${messageForTimeline[0].id}`}>
+    <MessageLink to={`/user/${messageForTimeline[0].alias}/status/${id}`}>
       <CardColumns>
         <PortraitContainer>
           {messageForTimeline[0].photoURL ?
