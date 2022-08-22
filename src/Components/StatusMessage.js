@@ -120,6 +120,7 @@ const InteractionBarMessage=styled.div`
   width:100%;
   max-height:6rem;
   padding-top:0.5rem;
+  padding-bottom:0.5rem;
 `
 const MessageContentBig = styled.div`
   width:100%;

@@ -56,92 +56,97 @@ const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUp
 return ( 
         <>
         {!loadingPinned &&
-          <UserColumns>
-            <CardColumns>
-              <PortraitContainer>
-                {currentUserInfo[0].photoURL ?
-                <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
-                :
-                <img alt="userportrait" src={ProfileImage}/>
-                }
-                
-              </PortraitContainer>
-            </CardColumns>
-            <CardColumns rightColumn>
-              <UserNameContainer>
-              <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`}>
-                  {currentUserInfo[0].alias}
-                </UserNameContainerLink >
-                <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                <ShowMoreMenu 
-                        pinnedMenu={true}
-                        messageUidUser={currentUserInfo[0].uidUser} 
-                        currentUserInfo={currentUserInfo}
-                        id={originalId} />
-              </UserNameContainer>
-              <MessageContent>
-                {messagePinned.data().message}
-                
-              </MessageContent>
-              <TimeBar>
-                {formatDate(messagePinned.data().date)}
-              </TimeBar>
-              <InteractionBar>
-                <IconContainer Reply ><IconComment/></IconContainer>
-                <IconContainerCont Retweet>
-                  {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
-                     <RetweetButton onClick={()=>receiveNotification({
-                      notification:"retweet",
-                      id:originalId, 
-                      retweets:messagePinned.data().retweets, 
-                      originalUidUser:currentUserInfo[0].uidUser, 
-                      user, 
-                      currentUserInfo, 
-                      changeShowPopUp:changeShowPopUp, 
-                      changePopUpAlert:changePopUpAlert})}>
-                      <IconRetweet/>
-                    </RetweetButton>
-                    :
-                    <RetweetButton onClick={()=>RemoveRetweetSameUser({
-                      update,
-                      changeUpdate,
-                      currentUidUser:currentUserInfo[0].uidUser,
-                      originalRetweets:messagePinned.data().retweets, 
-                      currentMessageId:originalId})}>
-                      <IconRetweetColor/>
-                    </RetweetButton>
-                  }
-                  <CounterContainer>
-                    {messagePinned.data().retweets.length}
-                  </CounterContainer>
-                </IconContainerCont>
-                <IconContainerCont Like>
-                  {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike({
-                      id:originalId,
-                      uidUser:currentUserInfo[0].uidUser,
-                      likes:messagePinned.data().likes,
-                      update,
-                      changeUpdate})}> 
-                      <IconLike />                               
-                    </LikeButton>
-                    :
-                    <LikeButton  onClick={()=>RemoveLike({
-                      id:originalId,
-                      uidUser:currentUserInfo[0].uidUser,
-                      likes:messagePinned.data().likes,
-                      update,
-                      changeUpdate})}> 
-                      <IconLikeColor />                               
-                    </LikeButton>
-                  }
-                  <CounterContainer>
-                    <p>{messagePinned.data().likes.length}</p>
-                  </CounterContainer>
-                </IconContainerCont>
-              </InteractionBar>
-            </CardColumns> 
-          </UserColumns>
+        <>
+        <UserColumns>
+          <CardColumns>
+            <PortraitContainer>
+              {currentUserInfo[0].photoURL ?
+              <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
+              :
+              <img alt="userportrait" src={ProfileImage}/>
+              }
+              
+            </PortraitContainer>
+          </CardColumns>
+          <CardColumns rightColumn>
+            <UserNameContainer>
+            <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`}>
+                {currentUserInfo[0].alias}
+              </UserNameContainerLink >
+              <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+              <ShowMoreMenu 
+                      pinnedMenu={true}
+                      messageUidUser={currentUserInfo[0].uidUser} 
+                      currentUserInfo={currentUserInfo}
+                      id={originalId} />
+            </UserNameContainer>
+            <MessageContent>
+              {messagePinned.data().message}
+              
+            </MessageContent>
+            <TimeBar>
+              {formatDate(messagePinned.data().date)}
+            </TimeBar>
+            
+          </CardColumns> 
+        </UserColumns>
+        <InteractionBar>
+          <IconContainer Reply >
+            <IconComment/>
+          </IconContainer>
+          <IconContainerCont Retweet>
+            {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
+                <RetweetButton onClick={()=>receiveNotification({
+                notification:"retweet",
+                id:originalId, 
+                retweets:messagePinned.data().retweets, 
+                originalUidUser:currentUserInfo[0].uidUser, 
+                user, 
+                currentUserInfo, 
+                changeShowPopUp:changeShowPopUp, 
+                changePopUpAlert:changePopUpAlert})}>
+                <IconRetweet/>
+              </RetweetButton>
+              :
+              <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                update,
+                changeUpdate,
+                currentUidUser:currentUserInfo[0].uidUser,
+                originalRetweets:messagePinned.data().retweets, 
+                currentMessageId:originalId})}>
+                <IconRetweetColor/>
+              </RetweetButton>
+            }
+            <CounterContainer>
+              {messagePinned.data().retweets.length}
+            </CounterContainer>
+          </IconContainerCont>
+          <IconContainerCont Like>
+            {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
+              <LikeButton  onClick={()=>AddLike({
+                id:originalId,
+                uidUser:currentUserInfo[0].uidUser,
+                likes:messagePinned.data().likes,
+                update,
+                changeUpdate})}> 
+                <IconLike />                               
+              </LikeButton>
+              :
+              <LikeButton  onClick={()=>RemoveLike({
+                id:originalId,
+                uidUser:currentUserInfo[0].uidUser,
+                likes:messagePinned.data().likes,
+                update,
+                changeUpdate})}> 
+                <IconLikeColor />                               
+              </LikeButton>
+            }
+            <CounterContainer>
+              <p>{messagePinned.data().likes.length}</p>
+            </CounterContainer>
+          </IconContainerCont>
+        </InteractionBar>
+        </>
         }
         </>
     )
