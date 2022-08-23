@@ -40,7 +40,7 @@ const ColumnContainer2=styled.div`
 const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const {user} =useAuth();
   const [message, messageChange] = useState('');
-  const [currentUserInfo, changeCurrentUserInfo] =useState([])
+  const [currentUserInfo, changeCurrentUserInfo] =useState([{}])
   const [loadingUserData, changeLoadingUserData] =useState(true);
   const [showMessageBox, changeShowMessageBox] =useState(false);
   const [showEditProfile, changeShowEditProfile] =useState(false);

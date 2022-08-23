@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
+import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -13,13 +13,14 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import LoadingComponent from '../Elements/LoadingComponent';
 
 
 const RetweetButton=styled.button`
@@ -52,7 +53,7 @@ const MessageLink=styled(Link)`
 const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
-    const [userInfoForRetweet, changeUserInfoForRetweet] =useState(currentUserInfo)
+    const [userInfoForRetweet, changeUserInfoForRetweet] =useState([{}])
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -84,7 +85,7 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
     
 return ( 
         <>
-        {!loadingRetweets &&
+        {!loadingRetweets ?
         <>
           <MessageLink to={`/user/${userInfoForRetweet[0].alias}/status/${originalId}`}>
             <CardColumns>
@@ -191,6 +192,8 @@ return (
             </IconContainerCont>
           </InteractionBar>
         </>
+        :
+        <LoadingComponent/>
         }
         </>
     )

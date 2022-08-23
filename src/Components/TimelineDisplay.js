@@ -23,7 +23,6 @@ const TimelineContainer = styled.div`
 `
 
 
-
 const TimelineDisplay = ({currentUserInfo}) => {
     const [messagesSent] = useObtainMessages();
 
@@ -31,15 +30,11 @@ const TimelineDisplay = ({currentUserInfo}) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
     
-
-    /* console.log(MessagesSent); */
-
       return ( 
             <TimelineContainer>
             {messagesSent.map((Message, index)=>{
              
               return(
-              
                 <Card key={Message.id}>
                 <CardColumns>
                   <PortraitContainer>
@@ -57,7 +52,6 @@ const TimelineDisplay = ({currentUserInfo}) => {
                   </UserNameContainer>
                   <MessageContent>
                     {Message.message}
-                    
                   </MessageContent>
                   <TimeBar>
                     {formatDate(Message.date)}

@@ -76,9 +76,7 @@ const ButtonExcess =styled.button`
                   font-weight:1000;
                   color:${theme.RedAlert};
             }
-`
-
-     
+`     
 
 const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange}) => {
 

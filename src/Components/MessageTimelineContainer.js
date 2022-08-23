@@ -13,13 +13,14 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import LoadingComponent from '../Elements/LoadingComponent';
 
 const RetweetButton=styled.button`
   background:none;
@@ -50,7 +51,7 @@ const MessageLink=styled(Link)`
 
 const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
-    const [messageForTimeline, changeMessageForTimeline] = useState(currentUserInfo)
+    const [messageForTimeline, changeMessageForTimeline] = useState([{}])
 
     useEffect(()=>{
       const obtainMessageTimeline = async() =>{
@@ -81,7 +82,7 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
     
 return ( 
   <>
-  {!loadingMessageData &&
+  {!loadingMessageData ?
   <>
     <MessageLink to={`/user/${messageForTimeline[0].alias}/status/${id}`}>
       <CardColumns>
@@ -195,6 +196,8 @@ return (
       </IconContainerCont>
     </InteractionBar>
   </>
+  :
+  <LoadingComponent/>
   }
   </>
     )

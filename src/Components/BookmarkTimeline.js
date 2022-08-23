@@ -20,6 +20,8 @@ import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
+import LoadingComponent from '../Elements/LoadingComponent';
+
 const RetweetButton=styled.button`
   background:none;
   border-radius:50%;
@@ -172,7 +174,8 @@ return (
     </UserColumns>
     </>
   :
-  <div>empty</div>}
+  <LoadingComponent/>
+  }
   </>
     )
 }

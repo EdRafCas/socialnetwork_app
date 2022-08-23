@@ -10,7 +10,7 @@ import { AuthContext } from '../Context/AuthContext';
 const BookmarkTimelineContainer = ({ id, user, currentUserInfo, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForBookMark, changeMessageForBookMark] = useState('')
-    const [userInfoForBookmark, changeUserInfoForBookmark] =useState(currentUserInfo)
+    const [userInfoForBookmark, changeUserInfoForBookmark] =useState([{}])
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
     
@@ -51,7 +51,9 @@ return (
     />
     </>
   :
-  <div></div>}
+    <>
+    </>
+  }
   </>
     )
 }

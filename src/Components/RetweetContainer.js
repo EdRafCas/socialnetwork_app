@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
+import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -18,6 +18,7 @@ import { doc, getDoc, query, collection, where, limit, onSnapshot } from "fireba
 import RemoveRetweet from '../firebase/RemoveRetweet';
 import { AddRetweet } from '../firebase/AddRetweet';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import LoadingComponent from '../Elements/LoadingComponent';
 
 const RetweetButton=styled.button`
   background:none;
@@ -37,7 +38,7 @@ const RetweetButton=styled.button`
 const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalUidUser, retweetUidUser, changeAlert, changeStateAlert, update, changeUpdate}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
-    const [userInfoForRetweet, changeUserInfoForRetweet] =useState(currentUserInfo)
+    const [userInfoForRetweet, changeUserInfoForRetweet] =useState([{}])
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -69,7 +70,7 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalU
     
 return ( 
         <>
-        {!loadingRetweets &&
+        {!loadingRetweets ?
           <UserColumns>
             <CardColumns>
               <PortraitContainer>
@@ -151,6 +152,8 @@ return (
               </InteractionBar>
             </CardColumns> 
           </UserColumns>
+        :
+        <LoadingComponent/>
         }
         </>
     )

@@ -38,7 +38,6 @@ const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, current
                               changeStateAlert={changeStateAlert}
                               />
                         </Card>
-
                   )
               })}
             </TimelineUserContainer>

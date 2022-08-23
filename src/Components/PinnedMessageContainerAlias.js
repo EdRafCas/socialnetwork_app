@@ -18,6 +18,7 @@ import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import LoadingComponent from '../Elements/LoadingComponent';
 
 const RetweetButton=styled.button`
   background:none;
@@ -56,7 +57,7 @@ const PinnedMessageContainerAlias = ({ userByAlias, originalId, user, changeShow
     
 return ( 
         <>
-        {!loadingPinned &&
+        {!loadingPinned ?
           <UserColumns>
             <CardColumns>
               <PortraitContainer>
@@ -141,6 +142,8 @@ return (
               </InteractionBar>
             </CardColumns> 
           </UserColumns>
+        :
+        <LoadingComponent/>
         }
         </>
     )

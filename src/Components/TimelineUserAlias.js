@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
-import styled from 'styled-components';
-import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
+import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUserAlias from '../Hooks/useObtainMessagesByUserAlias';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -23,9 +22,6 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import RetweetInfo from '../Elements/RetweetInfo';
 
 
-const EmptyDiv=styled.div`
-`
-
 const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, changeStateAlert}) => {
     const [messagesSentByUserAlias] = useObtainMessagesByUserAlias(userByAlias[0].uidUser);
     const {changeShowPopUp} =useContext(AuthContext);
@@ -43,7 +39,6 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
         <> 
           {userByAlias[0].pinnedMessage &&
           <>
-
           <PinnedInfo>
             <IconContainerRetweet  >
               <IconPin/>

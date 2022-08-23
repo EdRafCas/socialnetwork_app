@@ -6,8 +6,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import '../index.css'
 import { AuthContext } from '../Context/AuthContext';
-import {Card} from '../Elements/ElementsTimeline'
-import {UserNameContainerLink, MessageContent,IconContainer,IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserNameContainerLink,IconContainer,IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import {AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -22,8 +21,21 @@ import RemoveRetweet from '../firebase/RemoveRetweet';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import LoadingComponent from '../Elements/LoadingComponent';
 
 
+const CardMessage =styled.div`
+  display:flex;
+  flex-direction:column;
+  /* border:solid ${theme.BorderColor} 1px; */
+  /* border-radius:15px; */
+  gap:0rem;
+  padding-top:0rem;
+  z-index:100;
+  :hover{
+    background:rgba(255,255,255, 0.03);
+    }
+`
 const TimelineUserContainer = styled.div`
   height:100%;
   display:flex;
@@ -51,17 +63,6 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
   `
-
-const UserColumnsMessage=styled.div`
-  display:grid;
-  width:100%;
-  grid-template-rows: repeat(1, 1.5fr 6fr);
-  border-bottom:solid ${theme.BorderColor} 1px;
-  /* border-radius:15px; */
-  gap:0rem;
-  padding-top:0.5rem;
-  /* background:black; */
-`
 const PortraitContainerMessage =styled.div`
   /* border: solid red 1px; */
   padding:0;
@@ -87,7 +88,7 @@ const CardRowsMessage = styled.div`
   justify-content:space-between;
   align-items:center;
   /* border:solid ${theme.BorderColor} 1px; */
-  gap:auto;
+  gap:1rem;
 `
 const CardColumnMessage = styled.div`
   padding: 1rem 0.5rem 0rem 0.5rem;
@@ -105,7 +106,7 @@ const UserNameContainerMessage =styled.div`
   padding:0rem;
   position:relative;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -135,14 +136,48 @@ const MessageContentBig = styled.div`
   white-space:normal;
   overflow:hidden;
 `
-const CounterContainerBig=styled.div`
+/* const CounterContainerBig=styled.div`
   display:flex;
   justify-content:flex-start;
   align-items:center;
-  /* border:1px solid white; */
+border:1px solid white; 
   fill:currentcolor;
   width:40px;
   height:40px;
+  padding-left:5px;
+  background:none;
+  color:${theme.Text};
+  :hover{
+}
+:active{
+      background:white;
+      fill:black;
+}
+p{
+      font-size:1.2rem
+}
+` */
+
+const CounterBar=styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  border-top:solid ${theme.BorderColor} 1px;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+  width:100%;
+  max-height:6rem;
+  padding-top:0.5rem;
+  padding-bottom:0.5rem;
+  gap:3rem;
+`
+const CounterBarContainer=styled.div`
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  /* border:1px solid white; */
+  fill:currentcolor;
+  width:auto;
+  height:auto;
   padding-left:5px;
   background:none;
   color:${theme.Text};
@@ -155,7 +190,7 @@ const CounterContainerBig=styled.div`
   p{
       font-size:1.2rem
   }
-`
+  `
 
 const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo}) => {
       const {alias} =useParams();
@@ -184,10 +219,9 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                         }))
                   })
                   changeLoadingMessage(false)
-                  console.log("ObtainMessageById"+" "+ userByAliasId[0].uidUser+" "+ currentUserInfo[0].alias)
             }
             ObtainMessageById();
-      },[currentUserInfo, alias, update])
+      },[currentUserInfo, alias, update, id])
 
       const formatDate = (date) => {
             return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -195,9 +229,9 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
 
       return ( 
             <>
-            {!loadingMessage && 
+            {!loadingMessage ?
             <TimelineUserContainer className='timeline-user'>
-                  <Card >
+                  <CardMessage >
                         <CardRowsMessage>
                               <PortraitContainerMessage>
                               {userByAliasId[0].photoURL ?
@@ -228,6 +262,16 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                               <TimeBar>
                               {formatDate(infoForMessage.data().date)}
                               </TimeBar>
+                              {infoForMessage.data().retweets.length >0 &&
+                              <CounterBar>
+                                    <CounterBarContainer>
+                                    <p>{infoForMessage.data().retweets.length}  Retweets </p> 
+                                    </CounterBarContainer>
+                                    <CounterBarContainer>
+                                    <p>{infoForMessage.data().likes.length}  Likes </p> 
+                                    </CounterBarContainer>
+                              </CounterBar>
+                              }
                               <InteractionBarMessage>
                                     <IconContainer Reply >
                                           <IconComment/>
@@ -272,9 +316,9 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     }
                                     </>
                                     }
-                                    <CounterContainerBig>
+                                    {/* <CounterContainerBig>
                                     <p>{infoForMessage.data().retweets.length}</p>
-                                    </CounterContainerBig>
+                                    </CounterContainerBig> */}
                                     </IconContainerCont>
                                     <IconContainerCont Like>
                                           {!infoForMessage.data().likes.includes(currentUserInfo[0].uidUser)?
@@ -296,14 +340,16 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                                 <IconLikeColor />                               
                                           </LikeButton>
                                           }
-                                          <CounterContainerBig>
+                                          {/* <CounterContainerBig>
                                           <p>{infoForMessage.data().likes.length}</p>
-                                          </CounterContainerBig>
+                                          </CounterContainerBig> */}
                                     </IconContainerCont>
                               </InteractionBarMessage>
                         </CardColumnMessage> 
-                  </Card>
+                  </CardMessage>
             </TimelineUserContainer>
+            :
+            <LoadingComponent/>
             }
             </>
       );

@@ -13,8 +13,6 @@ import {useNavigate} from 'react-router-dom';
 import Alert from './../Elements/Alert';
 import AddUser from '.././firebase/AddUser';
 
-
-
 const RegistrationContainer =styled.div`
       display:flex;
       flex-direction:column;
@@ -114,7 +112,6 @@ const ButtonSignUp =styled.button`
       
 
 `
-
 
 const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       const navigate = useNavigate();
