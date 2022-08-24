@@ -6,19 +6,13 @@ import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
-import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
-import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
-import AddLike from '../firebase/AddLike';
-import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
-import RemoveRetweet from '../firebase/RemoveRetweet';
-import { AddRetweet } from '../firebase/AddRetweet';
-import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
+
 
 const RetweetButton=styled.button`
   background:none;
@@ -34,8 +28,38 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
+const MessageContainer=styled.div`
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+ /*  border-bottom:solid ${theme.BorderColor} 1px; */
+  /* border-radius:15px; */
+  gap:0rem;
+  padding-top:0.5rem;
+  /* background:black; */
+  text-decoration:none;
+  z-index:99;
+`
+const UserNameContainerDisplay =styled.div`
+  width:auto;
+  padding:0rem;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+ /*  border:solid ${theme.BorderColor} 1px; */
+  display:flex;
+  flex-direction:row;
+  gap:5px;
+  position:relative;
+  text-decoration:none;
+  font-size:1.1rem;
+  font-weight:1000;
+  color:white;
+  overflow:hidden;
+  :hover{
+    text-decoration:underline;
+  }
+`
 
-const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalUidUser, retweetUidUser, changeAlert, changeStateAlert, update, changeUpdate}) => {
+const RetweetContainerDisplay = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
     const [userInfoForRetweet, changeUserInfoForRetweet] =useState([{}])
@@ -44,7 +68,6 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalU
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForRetweet(document) 
-
             const consult = query(
               collection(db, 'userInfo'),
               where('uidUser', "==", originalUidUser),
@@ -56,11 +79,12 @@ const RetweetContainer = ({ currentUserInfo, newRetweetId, originalId, originalU
                 return {...originalUser.data()}
               }))
             })
-             
-            console.log("reload retweet")
+            console.log("retweet reload")
+
           changeLoadingRetweets(false)
       }
       obtainMessage();
+
       /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
       },[currentUserInfo, update, originalId, originalUidUser])
       
@@ -72,7 +96,7 @@ return (
         <>
         {!loadingRetweets ?
         <>
-          <UserColumns>
+          <MessageContainer >
             <CardColumns>
               <PortraitContainer>
                 {userInfoForRetweet[0].photoURL ?
@@ -84,76 +108,41 @@ return (
             </CardColumns>
             <CardColumns rightColumn>
               <UserNameContainer>
-                <UserNameContainerLink to={`/user/${userInfoForRetweet[0].alias}`}>
-                  {userInfoForRetweet[0].name}
-                  </UserNameContainerLink>
+                <UserNameContainerDisplay >
+                  {userInfoForRetweet[0].alias}
+                </UserNameContainerDisplay >
                 <AliasContainer>
                   @{userInfoForRetweet[0].alias}
-                  </AliasContainer>
-                <ShowMoreMenu 
-                        changeAlert={changeAlert}
-                        changeStateAlert={changeStateAlert}
-                        messageUidUser={messageForRetweet.data().uidUser} 
-                        currentUserInfo={currentUserInfo}
-                        id={messageForRetweet.data().id}/>
+                </AliasContainer>
               </UserNameContainer>
               <MessageContent>
                 {messageForRetweet.data().message}
-                
               </MessageContent>
               <TimeBar>
                 {formatDate(messageForRetweet.data().date)}
               </TimeBar>
             </CardColumns> 
-          </UserColumns>
+          </MessageContainer>
           <InteractionBar>
             <IconContainer Reply ><IconComment/></IconContainer>
             <IconContainerCont Retweet>
-              {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
-                <RetweetButton onClick={()=>AddRetweet(
-                )}>
-                  <IconRetweet/>
-                </RetweetButton>
-                :
-                <RetweetButton onClick={()=>RemoveRetweet({
-                  update,
-                  changeUpdate,
-                  newRetweetId:newRetweetId, 
-                  originalId:originalId, 
-                  retweetUidUser, 
-                  currentUidUser:currentUserInfo[0].uidUser,originalRetweets:messageForRetweet.data().retweets})}>
-                  <IconRetweetColor/>
-                </RetweetButton>
-              }
+              <RetweetButton >
+                <IconRetweet/>
+              </RetweetButton>
               <CounterContainer>
                 {messageForRetweet.data().retweets.length}
               </CounterContainer>
             </IconContainerCont>
             <IconContainerCont Like>
-              {!messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
-                <LikeButton  onClick={()=>AddLike({
-                update,
-                changeUpdate,
-                id:originalId,
-                uidUser:currentUserInfo[0].uidUser,
-                likes:messageForRetweet.data().likes})}> 
+                <LikeButton> 
                   <IconLike />                               
                 </LikeButton>
-                :
-                <LikeButton  onClick={()=>RemoveLike({
-                  update,
-                  changeUpdate,
-                  id:originalId, 
-                  uidUser:currentUserInfo[0].uidUser, likes:messageForRetweet.data().likes})}> 
-                  <IconLikeColor />                               
-                </LikeButton>
-              }
               <CounterContainer>
                 <p>{messageForRetweet.data().likes.length}</p>
               </CounterContainer>
             </IconContainerCont>
           </InteractionBar>
-          </>
+        </>
         :
         <LoadingComponent/>
         }
@@ -161,4 +150,4 @@ return (
     )
 }
  
-export default RetweetContainer;
+export default RetweetContainerDisplay;

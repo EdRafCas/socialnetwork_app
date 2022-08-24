@@ -15,7 +15,7 @@ const TimelineContainer = styled.div`
   display:flex;
   flex-direction:column;
   padding:0rem;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   gap:0rem;
   overflow:scroll;
   overflow-x:hidden;

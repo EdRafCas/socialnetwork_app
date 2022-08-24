@@ -10,8 +10,9 @@ import Alert from '../Elements/Alert';
 import LogoutButton from './LogoutButton';
 
 const AccountManagement = styled.div`
-  width:100%;
-  height:500px;
+  width:auto;
+  min-width:40%;
+  height:auto;
   padding:1rem 1rem;
   display:flex;
   flex-direction:column;
@@ -27,7 +28,7 @@ const SignUpContainer=styled.div`
 const SignUp =styled(Link)`
   background:none;
   color:${theme.Text};
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 
 

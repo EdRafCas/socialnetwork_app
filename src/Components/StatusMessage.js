@@ -15,6 +15,7 @@ import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
+import {ReactComponent as IconReturnArrow} from '../img/return_arrow_icon.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -22,6 +23,8 @@ import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
+import {useNavigate} from 'react-router-dom';
+
 
 
 const CardMessage =styled.div`
@@ -48,7 +51,6 @@ const TimelineUserContainer = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
 `
-
 const RetweetButton=styled.button`
   background:none;
   border-radius:50%;
@@ -191,6 +193,38 @@ const CounterBarContainer=styled.div`
       font-size:1.2rem
   }
   `
+const IconContainerArrow=styled.div`
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+height:3rem;
+width:3rem;
+/* border:1px solid white; */
+fill:currentcolor;
+:hover{
+  background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
+                       : props.Like ? `${theme.PinkLikeBackground}` 
+                       : props.Retweet ? `${theme.GreenRetweetBackground}` 
+                       : "auto"};
+  svg{
+    /* max-height:3rem; */
+    stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
+                       : props.Like ? `${theme.PinkLike}` 
+                       : props.Retweet ? `${theme.GreenRetweet}` 
+                       : "auto"};
+  }
+}
+svg{
+  max-height:1.5rem;
+  stroke: ${theme.BorderColor};
+}
+:active{
+  background:white;;
+  fill:black;
+  stroke:#000;
+}
+`
 
 const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo}) => {
       const {alias} =useParams();
@@ -202,6 +236,8 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
       const [loadingMessage, changeLoadingMessage] =useState(true)
       const {update} =useContext(AuthContext);
       const {changeUpdate} =useContext(AuthContext);
+      const navigate = useNavigate();
+
 
       useEffect(()=>{
             const ObtainMessageById = async() =>{
@@ -228,9 +264,11 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
           };
 
       return ( 
-            <>
-            {!loadingMessage ?
             <TimelineUserContainer className='timeline-user'>
+                  <IconContainerArrow onClick={() => navigate(-1)} Reply >
+                        <IconReturnArrow/>
+                  </IconContainerArrow>
+                  {!loadingMessage ?   
                   <CardMessage >
                         <CardRowsMessage>
                               <PortraitContainerMessage>
@@ -347,11 +385,10 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                               </InteractionBarMessage>
                         </CardColumnMessage> 
                   </CardMessage>
+                  :
+                  <LoadingComponent/>
+                  }
             </TimelineUserContainer>
-            :
-            <LoadingComponent/>
-            }
-            </>
       );
 }
  

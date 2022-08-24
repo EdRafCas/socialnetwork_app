@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
-import theme from '../Theme';
 import TimelineDisplay from './TimelineDisplay';
 import Login from './Login';
 
@@ -8,10 +7,10 @@ import Login from './Login';
 const ContainerLogin=styled.div`
   width:100%;
   height:100%;
-  display:grid;
-  grid-template-columns: repeat(1, 3fr 2fr);
-  justify-content: flex-start;
-  background:${theme.GradientBackround};
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  background:#000;
 
 @media(max-width: 760px){ 
   display:flex;
@@ -27,17 +26,17 @@ const LoginPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
       
       return ( 
       <ContainerLogin>
-      <TimelineDisplay />
-      <Login  
-                email={email}
-                emailChange={emailChange}
-                password={password}
-                passwordChange={passwordChange}
-                alert={alert}
-                changeAlert={changeAlert}
-                stateAlert={stateAlert}
-                changeStateAlert={changeStateAlert}/>
-        
+        <TimelineDisplay />
+        <Login  
+                  email={email}
+                  emailChange={emailChange}
+                  password={password}
+                  passwordChange={passwordChange}
+                  alert={alert}
+                  changeAlert={changeAlert}
+                  stateAlert={stateAlert}
+                  changeStateAlert={changeStateAlert}/>
+          
       </ContainerLogin>
        );
 }

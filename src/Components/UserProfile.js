@@ -31,7 +31,8 @@ const LinksContainer = styled.div`
   flex-direction:row;
   justify-content:center;
   margin:0;
-  border: 3px solid ${theme.BorderColor};
+ /*  border-top: 1px solid ${theme.BorderColor}; */
+  border-bottom: 1px solid ${theme.BorderColor};
   a{    
         text-decoration:none;
   }
@@ -50,9 +51,11 @@ const RedirectLink =styled(Link)`
       /* border-bottom: 1px solid #FFFFFF; */
       box-sizing: content-box;
       font-size:1rem;
-      display:inline-block;
+      display:flex;
+      justify-content:center;
       color:white;
       width:auto;
+      min-width:7rem;
       padding:15px 5px;
       margin: 0.25rem 0.5rem;
       letter-spacing:1px;
@@ -61,11 +64,11 @@ const RedirectLink =styled(Link)`
       
       
       :hover{
-            color:#000000;
-            background:#fff;
+            color:#fff;
+            background:${theme.BorderColor};
             
             :active{
-                  border: 3px double #000;
+                  border: 2px double #000;
                   font-size: 14px;
                   font-weight: 800;
             }   

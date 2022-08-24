@@ -17,7 +17,7 @@ const AccountManagement=styled.div`
   flex-direction:column;
   align-items:center;
   justify-content:space-between;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 const GeneralMenu = styled.div`
   width:100%;
@@ -27,7 +27,7 @@ const GeneralMenu = styled.div`
   flex-direction:column;
   justify-content:flex-start;
   gap:2rem;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 const MiniProfile=styled.div`
   display:flex;
@@ -45,7 +45,7 @@ const MiniProfile=styled.div`
   }
 `
 const PortraitContainer =styled.div`
-  border: solid red 1px;
+  /* border: solid red 1px; */
   padding:0;
   border-radius:50%;
   height:auto;

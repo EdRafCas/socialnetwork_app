@@ -9,10 +9,10 @@ const HeaderUser =styled.div`
       padding:0rem;
       width:100%;
       height:auto;
-      border:solid red 1px;
+      /* border:solid red 1px; */
 `
 const BackgroundImage =styled.div`
-      border:solid red 1px;
+      /* border:solid red 1px; */
       overflow:hidden;
       height:auto;
             img{
@@ -26,10 +26,10 @@ const ProfilePicContainer=styled.div`
       width:100%;
       height:6rem;    
       position: relative;
-      border: solid red 1px;
+      /* border: solid red 1px; */
 `
 const ProfilePic =styled.div`
-      border: solid red 1px;
+      /* border: solid red 1px; */
       position: absolute;
       top:-5rem;
       left:1rem;
@@ -53,7 +53,7 @@ const UserCard =styled.div`
       height:10rem;
       display:flex;
       flex-direction:column;
-      border:solid red 1px;
+      /* border:solid red 1px; */
 
 `
 const NamesContainer=styled.div`
