@@ -29,7 +29,7 @@ const RetweetLink = styled(Link)`
 `
 
 
-const RetweetInfo = ({retweetUidUser, currentUserInfo}) => {
+const RetweetInfo = ({retweetUidUser, currentUidUser}) => {
     const [loadingInfo, changeLoadinInfo] =useState(true);
     const [retweeterInfo, changeRetweeterInfo] =useState([{}])
 
@@ -47,13 +47,12 @@ const RetweetInfo = ({retweetUidUser, currentUserInfo}) => {
               }))
             })
             console.log("loaded username Retweet")
-
             changeLoadinInfo(false)
       }
       obtainRetweeterInfo();
 
       /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
-      },[currentUserInfo, retweetUidUser])
+      },[currentUidUser, retweetUidUser])
       
     
 return ( 
@@ -64,7 +63,11 @@ return (
             <IconRetweet/>
           </IconContainerRetweet> 
           <RetweetLink to={`/user/${retweeterInfo[0].alias}`}>
-            {retweeterInfo[0].name} <p>Retweeted</p> 
+            {retweetUidUser===currentUidUser?
+            <p>You Retweeted</p> 
+            :
+            <p>{retweeterInfo[0].name+" "}Retweeted</p> 
+            }
           </RetweetLink>
       </RetweetInfoContainer>
     }

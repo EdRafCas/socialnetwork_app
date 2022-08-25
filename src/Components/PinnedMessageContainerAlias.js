@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {MessageLink, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, InteractionBarPinned} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -58,7 +58,8 @@ const PinnedMessageContainerAlias = ({ userByAlias, originalId, user, changeShow
 return ( 
         <>
         {!loadingPinned ?
-          <UserColumns>
+        <>
+          <MessageLink to={`/user/${userByAlias[0].alias}/status/${originalId}`}>
             <CardColumns>
               <PortraitContainer>
                 {userByAlias[0].photoURL ?
@@ -86,62 +87,63 @@ return (
               <TimeBar>
                 {formatDate(messagePinned.data().date)}
               </TimeBar>
-              <InteractionBar>
-                <IconContainer Reply ><IconComment/></IconContainer>
-                <IconContainerCont Retweet>
-                  {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
-                     <RetweetButton onClick={()=>receiveNotification({
-                      notification:"retweet",
-                      id:originalId, 
-                      retweets:messagePinned.data().retweets, 
-                      originalUidUser:userByAlias[0].uidUser, 
-                      user, 
-                      currentUserInfo, 
-                      changeShowPopUp:changeShowPopUp, 
-                      changePopUpAlert:changePopUpAlert})}>
-                      <IconRetweet/>
-                    </RetweetButton>
-                    :
-                    <RetweetButton onClick={()=>RemoveRetweetSameUser({
-                      update,
-                      changeUpdate,
-                      currentUidUser:currentUserInfo[0].uidUser,
-                      originalRetweets:messagePinned.data().retweets, 
-                      currentMessageId:originalId})}>
-                      <IconRetweetColor/>
-                    </RetweetButton>
-                  }
-                  <CounterContainer>
-                    {messagePinned.data().retweets.length}
-                  </CounterContainer>
-                </IconContainerCont>
-                <IconContainerCont Like>
-                  {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike({
-                      id:originalId,
-                      uidUser:currentUserInfo[0].uidUser,
-                      likes:messagePinned.data().likes,
-                      update,
-                      changeUpdate})}> 
-                      <IconLike />                               
-                    </LikeButton>
-                    :
-                    <LikeButton  onClick={()=>RemoveLike({
-                      id:originalId,
-                      uidUser:currentUserInfo[0].uidUser,
-                      likes:messagePinned.data().likes,
-                      update,
-                      changeUpdate})}> 
-                      <IconLikeColor />                               
-                    </LikeButton>
-                  }
-                  <CounterContainer>
-                    <p>{messagePinned.data().likes.length}</p>
-                  </CounterContainer>
-                </IconContainerCont>
-              </InteractionBar>
             </CardColumns> 
-          </UserColumns>
+          </MessageLink>
+          <InteractionBarPinned>
+            <IconContainer Reply ><IconComment/></IconContainer>
+            <IconContainerCont Retweet>
+              {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
+                  <RetweetButton onClick={()=>receiveNotification({
+                  notification:"retweet",
+                  id:originalId, 
+                  retweets:messagePinned.data().retweets, 
+                  originalUidUser:userByAlias[0].uidUser, 
+                  user, 
+                  currentUserInfo, 
+                  changeShowPopUp:changeShowPopUp, 
+                  changePopUpAlert:changePopUpAlert})}>
+                  <IconRetweet/>
+                </RetweetButton>
+                :
+                <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                  update,
+                  changeUpdate,
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  originalRetweets:messagePinned.data().retweets, 
+                  currentMessageId:originalId})}>
+                  <IconRetweetColor/>
+                </RetweetButton>
+              }
+              <CounterContainer>
+                {messagePinned.data().retweets.length}
+              </CounterContainer>
+            </IconContainerCont>
+            <IconContainerCont Like>
+              {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
+                <LikeButton  onClick={()=>AddLike({
+                  id:originalId,
+                  uidUser:currentUserInfo[0].uidUser,
+                  likes:messagePinned.data().likes,
+                  update,
+                  changeUpdate})}> 
+                  <IconLike />                               
+                </LikeButton>
+                :
+                <LikeButton  onClick={()=>RemoveLike({
+                  id:originalId,
+                  uidUser:currentUserInfo[0].uidUser,
+                  likes:messagePinned.data().likes,
+                  update,
+                  changeUpdate})}> 
+                  <IconLikeColor />                               
+                </LikeButton>
+              }
+              <CounterContainer>
+                <p>{messagePinned.data().likes.length}</p>
+              </CounterContainer>
+            </IconContainerCont>
+          </InteractionBarPinned>
+        </>
         :
         <LoadingComponent/>
         }

@@ -5,8 +5,9 @@ import theme from '../Theme'
 const Card =styled.div`
   display:flex;
   flex-direction:column;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   /* border-radius:15px; */
+  border-bottom:solid ${theme.BorderColor} 1px;
   gap:0rem;
   padding-top:0rem;
   z-index:100;
@@ -28,6 +29,7 @@ const RetweetInfoContainer=styled.div`
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
   /* border-bottom:solid ${theme.BorderColor} 1px; */
+  border:none;
 
 `
 const UserColumns=styled.div`
@@ -81,7 +83,8 @@ const InteractionBar=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:space-around;
-  /* border-top:solid ${theme.BorderColor} 1px; */
+  border:none;
+  /* border-bottom:solid ${theme.BorderColor} 2px; */
   width:100%;
   max-height:6rem;
   padding-top:0.5rem;
@@ -258,5 +261,29 @@ const UserNameContainerLink =styled(Link)`
     text-decoration:underline;
   }
 `
+const MessageLink=styled(Link)`
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+ /*  border-bottom:solid ${theme.BorderColor} 1px; */
+  /* border-radius:15px; */
+  gap:0rem;
+  padding-top:0.5rem;
+  /* background:black; */
+  text-decoration:none;
+  z-index:99;
+`
+const InteractionBarPinned=styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  border:none;
+  border-bottom:solid ${theme.BorderColor} 2px;
+  width:100%;
+  max-height:6rem;
+  padding-top:0.5rem;
+  padding-bottom:0.5rem;
+  z-index:100;
+`
 
-export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink};
+export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink, MessageLink, InteractionBarPinned};

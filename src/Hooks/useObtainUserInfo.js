@@ -6,7 +6,7 @@ import { useAuth } from '../Context/AuthContext';
 
 const useObtainUserInfo = () => {
       const {user} =useAuth();
-      const [currentUserInfo, changeCurrentUserInfo] =useState([])
+      const [currentUserInfo, changeCurrentUserInfo] =useState([{}])
 
       useEffect(()=>{
 

@@ -130,7 +130,7 @@ const MessageButtonContainer=styled.div`
   flex-direction:column;
   justify-content:flex-start;
   /* border:solid red 1px; */
-  padding:2rem 2rem;
+  padding:0.5rem 0.5rem;
 `
 const MessageButton=styled.button`
   display:flex;

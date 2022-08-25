@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -72,7 +72,7 @@ return (
         <>
         {!loadingRetweets ?
         <>
-          <UserColumns>
+          <MessageLink to={`/user/${userInfoForRetweet[0].alias}/status/${originalId}`}>
             <CardColumns>
               <PortraitContainer>
                 {userInfoForRetweet[0].photoURL ?
@@ -105,7 +105,7 @@ return (
                 {formatDate(messageForRetweet.data().date)}
               </TimeBar>
             </CardColumns> 
-          </UserColumns>
+          </MessageLink>
           <InteractionBar>
             <IconContainer Reply ><IconComment/></IconContainer>
             <IconContainerCont Retweet>

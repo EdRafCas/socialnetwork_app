@@ -12,7 +12,7 @@ const MessageContainer = styled.div`
   flex-direction:column;
   align-content:center;
   gap:1rem;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   background:#000;
  
 `

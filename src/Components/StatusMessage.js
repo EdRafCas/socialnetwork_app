@@ -300,7 +300,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                               <TimeBar>
                               {formatDate(infoForMessage.data().date)}
                               </TimeBar>
-                              {infoForMessage.data().retweets.length >0 &&
+                              {infoForMessage.data().retweets.length > 0 || infoForMessage.data().likes.length > 0 ?
                               <CounterBar>
                                     <CounterBarContainer>
                                     <p>{infoForMessage.data().retweets.length}  Retweets </p> 
@@ -309,6 +309,8 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     <p>{infoForMessage.data().likes.length}  Likes </p> 
                                     </CounterBarContainer>
                               </CounterBar>
+                              :
+                              ""
                               }
                               <InteractionBarMessage>
                                     <IconContainer Reply >

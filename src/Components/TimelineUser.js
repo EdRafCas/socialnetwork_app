@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card, PinnedInfo, UserColumns, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '.././Elements/ElementsTimeline'
+import {Card, PinnedInfo,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet, MessageLink} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
 import {ReactComponent as IconPin} from '../img/pin_icon.svg';
@@ -45,7 +45,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
       return ( 
         <> 
           {currentUserInfo[0].pinnedMessage &&
-          <>
+          <Card>
           <PinnedInfo>
             <IconContainerRetweet  >
               <IconPin/>
@@ -64,7 +64,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
             originalId={currentUserInfo[0].pinnedMessage}
             changeAlert={changeAlert}
             changeStateAlert={changeStateAlert}/>          
-          </>
+          </Card>
           }
           {messagesSentByUser.map((MessageUser, index)=>{
             return(
@@ -74,6 +74,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               {MessageUser.uidUser===currentUserInfo[0].uidUser ?
               <>
                 <RetweetInfo
+                currentUidUser={currentUserInfo[0].uidUser}
                 retweetUidUser={MessageUser.uidUser}
                 />
                 <RetweetContainer 
@@ -93,44 +94,42 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               <EmptyDiv/>
               }
               </>
-            :
+              :
               <>
-              <UserColumns>
-                  <CardColumns>
-                    <PortraitContainer>
-                      {currentUserInfo[0].photoURL ?
-                      <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
-                      :
-                      <img alt="userportrait" src={ProfileImage}/>
-                      }
-                      
-                    </PortraitContainer>
-                  </CardColumns>
-                  <CardColumns rightColumn>
-                    <UserNameContainer>
-                      <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`} >
-                        {currentUserInfo[0].name}
-                      </UserNameContainerLink>
-                      <AliasContainer>
-                        @{currentUserInfo[0].alias}
-                      </AliasContainer>
-                      <ShowMoreMenu 
-                        changeAlert={changeAlert}
-                        changeStateAlert={changeStateAlert}
-                        messageUidUser={MessageUser.uidUser} 
-                        currentUserInfo={currentUserInfo}
-                        id={MessageUser.id}/>
+              <MessageLink to={`/user/${currentUserInfo[0].alias}/status/${MessageUser.id}`}>
+                <CardColumns>
+                  <PortraitContainer>
+                    {currentUserInfo[0].photoURL ?
+                    <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
+                    :
+                    <img alt="userportrait" src={ProfileImage}/>
+                    }
+                  </PortraitContainer>
+                </CardColumns>
+                <CardColumns rightColumn>
+                  <UserNameContainer>
+                    <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`} >
+                      {currentUserInfo[0].name}
+                    </UserNameContainerLink>
+                    <AliasContainer>
+                      @{currentUserInfo[0].alias}
+                    </AliasContainer>
+                    <ShowMoreMenu 
+                      changeAlert={changeAlert}
+                      changeStateAlert={changeStateAlert}
+                      messageUidUser={MessageUser.uidUser} 
+                      currentUserInfo={currentUserInfo}
+                      id={MessageUser.id}/>
 
-                    </UserNameContainer>
-                    <MessageContent>
-                      {MessageUser.message}
-                    </MessageContent>
-                    <TimeBar>
-                      {formatDate(MessageUser.date)}
-                    </TimeBar>
-                    
-                  </CardColumns>
-              </UserColumns>
+                  </UserNameContainer>
+                  <MessageContent>
+                    {MessageUser.message}
+                  </MessageContent>
+                  <TimeBar>
+                    {formatDate(MessageUser.date)}
+                  </TimeBar>
+                </CardColumns>
+              </MessageLink>
               <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
                 <IconContainerCont Retweet>
