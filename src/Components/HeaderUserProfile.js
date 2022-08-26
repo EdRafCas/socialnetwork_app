@@ -1,10 +1,24 @@
 import React from 'react';
+import styled from 'styled-components';
 import {useParams } from 'react-router-dom';
 import {NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png';
 import { useAuth } from '../Context/AuthContext';
-import {HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton} from './../Elements/ElemenstProfile'
+import {HeaderUser,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton} from './../Elements/ElemenstProfile'
+
+const BackgroundImageUser =styled.div`
+      /* border:solid red 1px; */
+      overflow:hidden;
+      height:380px;
+      width:100%;
+            img{
+            max-width:50rem;
+            width:100%;
+            height:auto;
+            overflow:hidden;
+            }
+`
 
 
 const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) => {
@@ -15,9 +29,13 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
 
       return ( 
             <HeaderUser>
-                <BackgroundImage>
+                <BackgroundImageUser>
+                  {currentUserInfo[0].backgroundURL ?
+                  <img alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
+                  :
                   <img alt="userbackground" src={Starboy}/>
-                </BackgroundImage>
+                  }
+                </BackgroundImageUser>
                 <ProfilePicContainer>
                   <ProfilePic>
                         {user.photoURL ?

@@ -1,6 +1,7 @@
 import { db, storage } from "./FirebaseConfig";
 import { doc, updateDoc, collection, onSnapshot, orderBy, query, where, deleteDoc } from "firebase/firestore";
-import { getDownloadURL, ref} from "firebase/storage"
+import { getDownloadURL, ref, uploadBytes} from "firebase/storage"
+import { updateProfile } from "firebase/auth";
 
 
 const UpdateProfileNoImage = async({id,newName,newBio}) => {
@@ -11,6 +12,87 @@ const UpdateProfileNoImage = async({id,newName,newBio}) => {
             bio:newBio
       }); 
 }
+
+const UpdateProfileImage = async({file, user ,changeLoading, id, newName, newBio}) => {
+      const fileRef= ref(storage, user.uid)
+      
+      changeLoading(true);
+      const snapshot = await uploadBytes(fileRef, file);
+
+      const newPhotoURL = await getDownloadURL(fileRef); 
+
+      updateProfile(user, {photoURL: newPhotoURL})
+
+      const document = doc(db, "userInfo" , id)
+      updateDoc(document, {
+            name:newName,
+            bio:newBio,
+            photoURL:newPhotoURL}); 
+
+            changeLoading(false);
+      console.log("upload done")
+}
+
+const UpdateProfileImageBackground = async({file, user ,changeLoading, id, newName, newBio}) => {
+      const fileRefBackground= ref(storage, user.uid+"_Background")
+      
+      changeLoading(true);
+      const snapshotBackground = await uploadBytes(fileRefBackground, file);
+
+      const newPhotoBackgroundURL = await getDownloadURL(fileRefBackground); 
+
+      const document = doc(db, "userInfo" , id)
+      updateDoc(document, {
+            name:newName,
+            bio:newBio,
+            backgroundURL:newPhotoBackgroundURL}); 
+
+            changeLoading(false);
+      console.log("upload done")
+}
+
+/* const UpdateProfileImages = async({file, fileBackground, user ,changeLoading, id, newName, newBio}) => {
+
+      const fileRef= ref(storage, user.uid)
+      const fileRefBackground= ref(storage, user.uid+"_Background")
+      
+      changeLoading(true);
+      const snapshot = await uploadBytes(fileRef, file);
+      const snapshotBackground = await uploadBytes(fileRefBackground, fileBackground);
+
+      const newPhotoURL = await getDownloadURL(fileRef);
+      const newPhotoBackgroundURL = await getDownloadURL(fileRefBackground);  
+
+      updateProfile(user, {photoURL: newPhotoURL})
+      
+      const document = doc(db, "userInfo" , id)
+      updateDoc(document, {
+            name:newName,
+            bio:newBio,
+            photoURL:newPhotoURL,
+            backgroundURL:newPhotoBackgroundURL}); 
+
+            changeLoading(false);
+      console.log("upload done")
+} */
+
+const UpdateProfileImageOnlyBackground = async({file,user ,changeLoading, id, newName, newBio}) => {
+      const fileRefBackground= ref(storage, user.uid+"_Background")
+      
+      changeLoading(true);
+      const snapshotBackground = await uploadBytes(fileRefBackground, file);
+
+      const newPhotoBackgroundURL = await getDownloadURL(fileRefBackground);  
+
+      const document = doc(db, "userInfo" , id)
+      updateDoc(document, {
+            backgroundURL:newPhotoBackgroundURL}); 
+
+            changeLoading(false);
+      console.log("upload done")
+}
+
+
 const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp}) => {
       
       await changeShowPopUp(!showPopUp);
@@ -110,4 +192,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfileNoImage, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, AddBookmarkToUser, RemoveTweetFromPinned};
+export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, AddBookmarkToUser, RemoveTweetFromPinned};

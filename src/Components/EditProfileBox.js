@@ -5,8 +5,8 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
-import {UpdateProfileNoImage, UpdateTimeline, UpdateTimelineNoPicture} from '../firebase/UpdateProfile';
-import UpdateProfileImage from '../firebase/UploadPicture';
+import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground} from '../firebase/UpdateProfile';
+
 
 const ContainerEditProfile=styled.div`
       position:absolute;
@@ -25,7 +25,7 @@ const ContainerEditProfile=styled.div`
       z-index:100;
 `
 const TopBar=styled.div`
-      border: solid ${theme.BorderColor} 1px;
+      /* border: solid ${theme.BorderColor} 1px; */
       min-height:3rem;
       padding-bottom:1rem;
       padding-left:5px;
@@ -67,7 +67,7 @@ const FormularyBox =styled.form`
   /* border:solid ${theme.BorderColor} 1px; */
   padding:1rem 0rem;
 `
-const BackgroundImage =styled.div`
+const BackgroundImageContainer =styled.div`
       position:relative;
       border:solid red 1px;
       overflow:hidden;
@@ -147,7 +147,7 @@ const IconContainerProfile=styled.div`
             fill:black;
       }
 `
-const IconContainerBackground=styled.button`
+const IconContainerBackground=styled.div`
       display:flex;
       flex-direction;
       align-items:center;
@@ -244,12 +244,22 @@ const Inputest=styled.input`
 const ImageHolder=styled.img`
       width:100%;
 `
+const BackgroundImage=styled.img`
+      opacity:0.8;
+      max-width:50rem;
+      width:100%;
+      overflow:hidden;
+      max-height:300px;
+      overflow:hidden;
+
+`
 
 const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditProfile}) => {
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
-      const [selectedImage, changeSelectedImage] =useState();
-      const [loading, changeLoading] =useState(false);
+      const [selectedImage, changeSelectedImage] =useState(null);
+      const [selectedImageBackground, changeSelectedImageBackground] =useState(null);
+      const [loading, changeLoading] =useState(false);      
 
       useEffect(()=>{
             if(currentUserInfo){
@@ -275,7 +285,22 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
 
       const handlesubmitEdit =async(e)=>{
             e.preventDefault();
-                  if(selectedImage){
+                  if(selectedImageBackground && selectedImage == null){
+                        console.log("Only Background")
+                        try{
+                              await UpdateProfileImageBackground({
+                                    file:selectedImageBackground,
+                                    user:user,
+                                    changeLoading, 
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit})
+                        } catch(error){
+                              console.log(error+"error UpdateProfileImageBackground")
+                        }                                   
+                  } 
+                  if (selectedImage && selectedImageBackground == null){
+                        console.log("only profile")
                         try{
                               await UpdateProfileImage({
                                     file:selectedImage,
@@ -287,13 +312,36 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                         } catch(error){
                               console.log(error+"error UpdateProfile")
                         }           
-                  } else { 
+                  }
+                  if (selectedImage && selectedImageBackground){
+                        try{
+                              await UpdateProfileImage({
+                                    file:selectedImage,
+                                    user:user,
+                                    changeLoading, 
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit});
+                                    try{
+                                          await UpdateProfileImageOnlyBackground({
+                                                file:selectedImageBackground,
+                                                user:user, 
+                                                changeLoading, 
+                                                id:currentUserInfo[0].id})
+                                    } catch(error){
+                                          console.log(error)
+                                    }
+                        } catch(error){
+                              console.log("error uploading both images")
+                        }
+                  } 
+                  if (selectedImage==null && selectedImageBackground==null) { 
                         await UpdateProfileNoImage({
                               id:currentUserInfo[0].id,
                               newName:nameEdit,
                               newBio:bioEdit,
                         })
-                        console.log("Updated Profile No picture")
+                        console.log("none selected")
                   }
             changeShowEditProfile(!showEditProfile);
             console.log("Finished changes, closing window")
@@ -305,24 +353,69 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                   console.log(e.target.files[0])
             }
       }
-
+      const handleImageChangeBackground = (e) => {
+            if (e.target.files && e.target.files.length > 0){
+                  changeSelectedImageBackground(e.target.files[0])
+                  console.log(e.target.files[0])
+            }
+      }
+      const handleSubmitBackground =async(e)=>{
+            e.preventDefault();
+            if (selectedImageBackground){
+                  try{
+                        await UpdateProfileImageBackground({
+                              file:selectedImageBackground,
+                              user:user,
+                              changeLoading, 
+                              id:currentUserInfo[0].id})
+                  } catch(error){
+                        console.log(error+"error UpdateProfileImageBackground")
+                  }           
+            }
+            changeShowEditProfile(!showEditProfile);
+            console.log("Finished changes Backgroun, closing window")
+      }
+      
       return ( 
             <ContainerEditProfile>
+             {/* <form onSubmit={handleSubmitBackground}>
+             <label>
+                  <input type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>   
+            </label>
+            <button type="submit">
+                  <p>test</p>
+            </button>
+            </form> */}     
             <FormularyBox onSubmit={handlesubmitEdit}>
                   <TopBar>
                         <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
-                        
                         <EditButton disabled={loading} type="submit">
                               <p>Save</p>
                         </EditButton>
                   </TopBar>
-                  <BackgroundImage>
-                        <img alt="userbackground" src={Starboy}/>
+                  <BackgroundImageContainer>
+                        {selectedImageBackground ?
+                        <BackgroundImage alt="userbackground" src={URL.createObjectURL(selectedImageBackground)}/>
+                        :
+                        selectedImageBackground == null && currentUserInfo[0].backgroundURL == null ?
+                        <BackgroundImage alt="userbackground" src={Starboy}/>
+                        :
+                        selectedImageBackground == null && currentUserInfo[0].backgroundURL ?
+                        <BackgroundImage alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
+                        :""
+                        }
                         <BackgroundInner>
-                              <IconContainerBackground><IconAddPhoto/></IconContainerBackground>
-                              <IconContainerBackground><IconAddPhoto/></IconContainerBackground>
+                              <IconContainerBackground>
+                              <label>
+                                    <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>
+                                    <IconAddPhoto/>     
+                              </label>
+                              </IconContainerBackground>
+                              <IconContainerBackground>
+                                    <IconAddPhoto/>
+                              </IconContainerBackground>
                         </BackgroundInner>
-                  </BackgroundImage>           
+                  </BackgroundImageContainer>           
                   <ProfilePicContainer>
                         <ProfilePic>
                         {selectedImage ?
@@ -334,8 +427,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                         selectedImage == null && user.photoURL ? 
                         <ImageHolder alt="user Avatar" src={user.photoURL}/>
                         :""
-                        }
-                        
+                        }  
                         <IconContainerProfile>
                               <label>
                                     <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChange}/>
