@@ -116,19 +116,62 @@ const PopUpButtonPin=styled.button`
         : "rgba(255,255,255, 0.3)"}
     }
 `
+const BackgroundBox=styled.div`
+  position:absolute;
+  width:100%;
+  top:20%;
+  left:00%;
+  /* margin-top:-30rem;
+  margin-left:-30rem;
+  height:60rem;
+  width:60rem;*/
+  background:black; 
+  z-index:101;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  img{
+    height:40rem;
+    width:auto;
+    justify-content:center;
+  }
+`
+const CloseWindow=styled.div`
+    position:fixed;
+    top:2.5rem;
+    left:2.5rem;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    height:2.5rem;
+    width:2.5rem;
+    font-size:1.2rem;
+    color:white;
+    /* border: solid ${theme.BorderColor} 1px; */
+    padding:5px;
+    text-decoration:none;
+    border-radius:50%;
+    z-index:103;
+    cursor:default;
+    :hover{
+        background:rgba(91, 112, 131, 0.8);
+    }
+`
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks}) => {
+
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture}) => {
         const {changeShowPopUp} =useContext(AuthContext);
         const {showPopUp} =useContext(AuthContext);
         const {update} =useContext(AuthContext);
         const {changeUpdate} =useContext(AuthContext);
-
 
       return (
         <>
         {showPopUp ===true ?
         <>
         <TranslucidBack onClick={()=>changeShowPopUp(!showPopUp)} />
+        <CloseWindow onClick={()=>changeShowPopUp(false)} >X</CloseWindow>
         <CenterBox>
             <ConfirmationBox>
                 {type ==="retweet" ?
@@ -251,6 +294,11 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                 :""}
             </ConfirmationBox>
         </CenterBox>
+        { type ==="backgroundPicture" &&
+        <BackgroundBox>
+            <img alt="userbackground" src={backgroundPicture}/>
+        </BackgroundBox>
+        }
         </>
         :
         ""}

@@ -1,6 +1,6 @@
 
 
-const receiveNotification = ({userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser, retweets, user, bookmarks, currentUserInfo, changeAlert, changeStateAlert}) => {
+const receiveNotification = ({userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser, retweets, user, bookmarks, profilePicture, backgroundPicture,currentUserInfo, changeAlert, changeStateAlert}) => {
   if(notification==="retweet"){
     changeShowPopUp(true)
     changePopUpAlert({type: "retweet",
@@ -30,6 +30,14 @@ const receiveNotification = ({userId, notification, changeShowPopUp, changePopUp
     id: id,
     userId:userId,
     bookmarks:bookmarks})
+  } if(notification==="profilePicture"){
+    changeShowPopUp(true)
+    changePopUpAlert({type: "profilePicture",
+    profilePicture:profilePicture})
+  } if(notification==="backgroundPicture"){
+    changeShowPopUp(true)
+    changePopUpAlert({type: "backgroundPicture",
+    backgroundPicture:backgroundPicture})
   } if(notification==="alreadyBookmark"){
     changeStateAlert(true);
       changeAlert({

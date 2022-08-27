@@ -111,6 +111,8 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   originalUidUser={popUpAlert.originalUidUser}
                   retweets={popUpAlert.retweets}
                   bookmarks={popUpAlert.bookmarks}
+                  profilePicture={popUpAlert.profilePicture}
+                  backgroundPicture={popUpAlert.backgroundPicture}
                   changeStateAlert={changeStateAlert}
                   changeAlert={changeAlert}/>
           <ColumnContainer>

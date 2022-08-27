@@ -55,6 +55,7 @@ const OptionsCard =styled.div`
   padding:5px;
   padding-right:15px;
   background:black;
+  color:${theme.Text} ;
   
 `
 const Option =styled.div`
@@ -93,7 +94,8 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
       const {changePopUpAlert} =useContext(AuthContext);
 
       
-      const handleClick = () => {
+      const handleClick = (e) => {
+        e.preventDefault();
         setOpen((prev) => !prev);
       };
 

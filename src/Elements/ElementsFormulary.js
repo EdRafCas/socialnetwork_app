@@ -134,13 +134,14 @@ const NameContainer =styled.h1`
   color:white;
   overflow:hidden;
 `
+
 const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
-  color:${theme.Text}
+  color:${theme.Text};
 `
 
 /*Elements for background */
-  const TranslucidBack=styled.div`
+const TranslucidBack=styled.div`
   position:absolute;
   width:100%;
   height:100%;
