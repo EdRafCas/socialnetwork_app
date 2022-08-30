@@ -11,7 +11,8 @@ const useObtainMessagesLikesUser = () => {
       useEffect(()=>{
             const consult = query(
                   collection(db, 'userTimeline'),
-                  /* where('uidUser', "==", user.uid), */
+                  where('uidUser', "==", user.uid),
+                  where('Like', "==", true),
                   /* where('uidUser', "!==", null), */ 
                   orderBy('date', 'desc'),
                   /* limit(30) */

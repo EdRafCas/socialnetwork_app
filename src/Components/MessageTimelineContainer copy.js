@@ -21,7 +21,6 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 
-
 const RetweetButton=styled.button`
   background:none;
   border-radius:50%;
@@ -164,7 +163,6 @@ return (
           <LikeButton  onClick={()=>AddLike({
           id:id,
           uidUser:currentUserInfo[0].uidUser,
-          originalUidUser:messageUidUser,
           likes:messageLikes,
           update,
           changeUpdate})}> 
