@@ -14,16 +14,16 @@ import { collection, doc, updateDoc, deleteDoc, query, where, onSnapshot} from "
             likes: removedLike 
       }); 
 } */
-const RemoveLike = async({update,changeUpdate,newLikeId, originalId, likeUidUser, currentUidUser,originalRetweets, currentMessageId}) => {
+const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, currentUidUser,originalLikes, originalMessageId}) => {
       if(likeUidUser === currentUidUser){
-            await deleteDoc(doc(db, "userTimeline", newLikeId))
+            await deleteDoc(doc(db, "userTimeline", newId))
                   try{
-                        const removedRetweets = originalRetweets.filter(function(item){
+                        const removedLikes = originalLikes.filter(function(item){
                               return item !== currentUidUser
                         })
                         const document = doc(db, "userTimeline" , originalId); 
                         await updateDoc(document, {
-                              retweets: removedRetweets 
+                              likes: removedLikes 
                         });
                         changeUpdate(update-1)      
                   } catch{
@@ -33,26 +33,27 @@ const RemoveLike = async({update,changeUpdate,newLikeId, originalId, likeUidUser
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", currentUidUser),
-                  where('originalId', "==", currentMessageId)
+                  where('originalId', "==", originalMessageId)
                   /* orderBy('date', 'desc') */
                   /* limit(30) */
             );
             onSnapshot(consult, (snapshot)=>{
-                  snapshot.docs.forEach((retweetToDelete) => {
+                  snapshot.docs.forEach((likeToDelete) => {
                         // doc.data() is never undefined for query doc snapshots
-                        console.log(retweetToDelete.id, " => ", retweetToDelete.data(), " => ", retweetToDelete.data().originalId);
-                        deleteDoc(doc(db, "userTimeline", retweetToDelete.id))
+                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId);
+                        deleteDoc(doc(db, "userTimeline", likeToDelete.id))
                       });
             })
-            const removedRetweets = originalRetweets.filter(function(item){
+            const removedLikes = originalLikes.filter(function(item){
                   return item !== currentUidUser
             })
-            const document = doc(db, "userTimeline" , currentMessageId);
+            const document = doc(db, "userTimeline" , originalMessageId);
             await updateDoc(document, {
-                  retweets: removedRetweets 
+                  likes: removedLikes 
             });
             changeUpdate(update-1)    
             
       }
 }
+
 export default RemoveLike;

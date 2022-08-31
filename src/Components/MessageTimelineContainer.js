@@ -11,6 +11,7 @@ import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
+import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
 import {CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
@@ -171,14 +172,30 @@ return (
             <IconLike />                               
           </LikeButton>
           :
-          <LikeButton  onClick={()=>RemoveLike({
-          id:id,
-          uidUser:currentUserInfo[0].uidUser,
-          likes:messageLikes,
-          update,
-          changeUpdate})}> 
+          <>
+          {
+          messageUidUser === currentUserInfo[0].uidUser ?
+          <LikeButton  onClick={()=>RemoveLikeSameUser({
+            currentUidUser:currentUserInfo[0].uidUser,
+            originalLikes:messageLikes,
+            originalMessageId:id,
+            update,
+            changeUpdate})}> 
             <IconLikeColor />                               
           </LikeButton>
+          :
+          <LikeButton  onClick={()=>RemoveLike({
+            currentUidUser:currentUserInfo[0].uidUser,
+            originalLikes:messageLikes,
+            originalMessageId:id,
+            likeUidUser:messageUidUser,
+            newId:id,
+            update,
+            changeUpdate})}> 
+            <IconLikeColor />                               
+          </LikeButton>
+          }
+          </>
         }
         <CounterContainer>
           <p>{messageLikes.length}</p>

@@ -99,7 +99,6 @@ return (
               </UserNameContainer>
               <MessageContent>
                 {messageForRetweet.data().message}
-                
               </MessageContent>
               <TimeBar>
                 {formatDate(messageForRetweet.data().date)}

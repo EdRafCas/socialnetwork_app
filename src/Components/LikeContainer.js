@@ -21,6 +21,7 @@ import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
+import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 
 
 const RetweetButton=styled.button`
@@ -110,7 +111,7 @@ return (
                         changeStateAlert={changeStateAlert}
                         messageUidUser={messageForLike.data().uidUser} 
                         currentUserInfo={currentUserInfo}
-                        id={messageForLike.data().id} />
+                        id={messageForLike.data().id}/>
               </UserNameContainer>
               <MessageContent>
                 {messageForLike.data().message}
@@ -118,6 +119,10 @@ return (
               <TimeBar>
                 {formatDate(messageForLike.data().date)}
               </TimeBar>
+              <TimeBar>
+                {newId}
+              </TimeBar>
+
             </CardColumns> 
           </MessageLink>
           <InteractionBar>
@@ -174,20 +179,36 @@ return (
                 changeUpdate,
                 id:originalId,
                 uidUser:currentUserInfo[0].uidUser,
+                originalUidUser:messageForLike.data().originalUidUser,
                 likes:messageForLike.data().likes})}> 
                   <IconLike />                               
                 </LikeButton>
                 :
-                <LikeButton  onClick={()=>RemoveLike({
+                <>
+                {
+                messageForLike.data().uidUser ===currentUserInfo[0].uidUser ?
+                <LikeButton  onClick={()=>RemoveLikeSameUser({
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  originalLikes:messageForLike.data().likes,
+                  originalMessageId:originalId,
                   update,
-                  changeUpdate,
-                  id:originalId, 
-                  currentMessageId:originalId,
-                  likeUidUser:messageForLike.data().uidUser,
-                  uidUser:currentUserInfo[0].uidUser, 
-                  likes:messageForLike.data().likes})}> 
+                  changeUpdate})}> 
                   <IconLikeColor />                               
                 </LikeButton>
+                :
+                <LikeButton  onClick={()=>RemoveLike({
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  originalLikes:messageForLike.data().likes,
+                  originalMessageId:originalId,
+                  likeUidUser:messageForLike.data().uidUser,
+                  newId:newId,
+                  update,
+                  changeUpdate})}> 
+                  <IconLikeColor />                               
+                </LikeButton>
+                }
+                </>
+                
               }
               <CounterContainer>
                 <p>{messageForLike.data().likes.length}</p>
