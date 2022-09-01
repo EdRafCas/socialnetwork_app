@@ -4,14 +4,14 @@ import { collection, onSnapshot, orderBy, where,  query } from 'firebase/firesto
 import { useAuth } from '../Context/AuthContext';
 
 
-const useObtainMessagesLikesUser = () => {
+const useObtainMessagesLikesByUserAlias = (uidUserbyalias) => {
       const {user} =useAuth();
       const [messagesLikedByUser, changeMessagesLikedByUser] =useState([])
 
       useEffect(()=>{
             const consult = query(
                   collection(db, 'userTimeline'),
-                  where('uidUser', "==", user.uid),
+                  where('uidUser', "==", uidUserbyalias),
                   where('Like', "==", true),
                   /* where('uidUser', "!==", null), */ 
                   orderBy('date', 'desc'),
@@ -30,4 +30,4 @@ const useObtainMessagesLikesUser = () => {
       return [messagesLikedByUser];
 }
  
-export default useObtainMessagesLikesUser;
+export default useObtainMessagesLikesByUserAlias;

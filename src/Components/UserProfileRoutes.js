@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import TimelineUser from './TimelineUser';
-import TimelineLikes from './TimelineLikes';
+import TimelineLikesUser from './TimelineLikesUser';
 import PrivateRoute from './PrivateRoute';
 
 
@@ -21,7 +21,7 @@ const UserProfileRoutes = ({changeAlert, stateAlert, changeStateAlert, user,curr
           <Route path={`/likes`} exact={true}
                 element={
                 <PrivateRoute>
-                  <TimelineLikes currentUserInfo={currentUserInfo}
+                  <TimelineLikesUser currentUserInfo={currentUserInfo}
                                   user={user}
                                   changeAlert={changeAlert}
                                   stateAlert={stateAlert}

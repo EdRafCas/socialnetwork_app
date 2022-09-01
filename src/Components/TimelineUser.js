@@ -11,6 +11,7 @@ import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
+import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
 import {Card, PinnedInfo,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet, MessageLink} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
@@ -38,6 +39,10 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
     
+    var filtertype= messagesSentByUser.filter(function(items) {
+      return items.type.includes("retweet") ||
+              items.type.includes("message") 
+      });
 
 
     /* console.log(MessagesSentByUser); */
@@ -61,12 +66,11 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
             currentUserInfo={currentUserInfo}
             changeShowPopUp={changeShowPopUp}
             changePopUpAlert={changePopUpAlert}
-            originalId={currentUserInfo[0].pinnedMessage}
             changeAlert={changeAlert}
             changeStateAlert={changeStateAlert}/>          
           </Card>
           }
-          {messagesSentByUser.map((MessageUser, index)=>{
+          {filtertype.map((MessageUser, index)=>{
             return(
             <Card key={MessageUser.id}>
               {MessageUser.originalId?
@@ -120,13 +124,15 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                       messageUidUser={MessageUser.uidUser} 
                       currentUserInfo={currentUserInfo}
                       id={MessageUser.id}/>
-
                   </UserNameContainer>
                   <MessageContent>
                     {MessageUser.message}
                   </MessageContent>
                   <TimeBar>
                     {formatDate(MessageUser.date)}
+                  </TimeBar>
+                  <TimeBar>
+                    {MessageUser.id}
                   </TimeBar>
                 </CardColumns>
               </MessageLink>
@@ -164,6 +170,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                     <LikeButton  onClick={()=>AddLike({
                     id:MessageUser.id,
                     uidUser:currentUserInfo[0].uidUser,
+                    originalUidUser:MessageUser.uidUser,
                     likes:MessageUser.likes, 
                     update,
                     changeUpdate})}
@@ -171,14 +178,29 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                       <IconLike />                               
                     </LikeButton>
                     :
-                    <LikeButton  onClick={()=>RemoveLike({
-                    id:MessageUser.id,
-                    uidUser:currentUserInfo[0].uidUser,
-                    likes:MessageUser.likes, 
+                    <>
+                    {MessageUser.uidUser === currentUserInfo[0].uidUser ?
+                    <LikeButton  onClick={()=>RemoveLikeSameUser({
+                    currentUidUser:currentUserInfo[0].uidUser,
+                    originalLikes:MessageUser.likes,
+                    originalMessageId:MessageUser.id,
                     update,
                     changeUpdate})}> 
                       <IconLikeColor />                               
                     </LikeButton>
+                    :
+                    <LikeButton  onClick={()=>RemoveLike({
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalLikes:MessageUser.likes,
+                      originalMessageId:MessageUser.id,
+                      likeUidUser:MessageUser.uidUser,
+                      newId:MessageUser.id,
+                      update,
+                      changeUpdate})}> 
+                      <IconLikeColor />                               
+                    </LikeButton>
+                    }
+                    </>
                   }
                   <CounterContainer>
                     <p>{MessageUser.likes.length}</p>

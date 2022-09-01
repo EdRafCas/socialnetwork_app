@@ -1,14 +1,14 @@
 import React, {useContext} from 'react';
-import useObtainMessagesLikesUser from '../Hooks/useObtainMessagesLikesUser';
-import {Card} from '.././Elements/ElementsTimeline'
+import useObtainMessagesLikesByUser from '../Hooks/useObtainMessagesLikesByUser';
+import {Card} from '../Elements/ElementsTimeline'
 import MessageTimelineContainer from './MessageTimelineContainer';
 import { AuthContext } from '../Context/AuthContext';
 import LikeContainer from './LikeContainer';
 
 
-const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo}) => {
+const TimelineLikesUser = ({changeAlert, changeStateAlert, user, currentUserInfo}) => {
 
-    const [messagesLikedByUser] = useObtainMessagesLikesUser();
+    const [messagesLikedByUser] = useObtainMessagesLikesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
@@ -60,4 +60,4 @@ const TimelineLikes = ({changeAlert, changeStateAlert, user, currentUserInfo}) =
        );
 }
  
-export default TimelineLikes;
+export default TimelineLikesUser;

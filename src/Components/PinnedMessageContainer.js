@@ -38,7 +38,7 @@ const RetweetButton=styled.button`
 
 const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUpAlert, currentUserInfo, update, changeUpdate}) => {
     const [loadingPinned, changeLoadingPinned] =useState(true);
-    const [messagePinned, ChangeMessagePinned] = useState('')
+    const [messagePinned, ChangeMessagePinned] = useState({})
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -84,7 +84,6 @@ return (
               </UserNameContainer>
               <MessageContent>
                 {messagePinned.data().message}
-                
               </MessageContent>
               <TimeBar>
                 {formatDate(messagePinned.data().date)}

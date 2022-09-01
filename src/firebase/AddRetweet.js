@@ -42,7 +42,7 @@ const AddRetweet = async({originalUidUser, id, uidUser, name, alias, date, retwe
                   retweets: [...retweets, uidUser]})
                   try{
                         await addDoc(collection(db, "userTimeline"), {
-                              Retweet: true,
+                              type:"retweet",
                               originalId: id,
                               originalUidUser:originalUidUser,
                               uidUser:uidUser,

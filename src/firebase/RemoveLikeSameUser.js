@@ -6,7 +6,8 @@ const RemoveLikeSameUser = async({update,changeUpdate,currentUidUser,originalLik
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", currentUidUser),
-                  where('originalId', "==", originalMessageId)
+                  where('originalId', "==", originalMessageId),
+                  where('type', "==", "like")
                   /* orderBy('date', 'desc') */
                   /* limit(30) */
             );

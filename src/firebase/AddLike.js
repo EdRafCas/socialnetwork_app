@@ -24,12 +24,11 @@ const AddLike = async({originalUidUser, id, uidUser, likes, changeUpdate, update
                   likes: [...likes, uidUser]})
                   try{
                         await addDoc(collection(db, "userTimeline"), {
-                              Like: true,
+                              type:"like",
                               originalId: id,
                               originalUidUser:originalUidUser,
                               uidUser:uidUser,
-                              date: getUnixTime(new Date()),
-                              likes:[]
+                              date: getUnixTime(new Date())
                         })
                         console.log("like added")
                   } catch(error){
