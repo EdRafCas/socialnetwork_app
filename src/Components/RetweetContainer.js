@@ -19,6 +19,7 @@ import RemoveRetweet from '../firebase/RemoveRetweet';
 import { AddRetweet } from '../firebase/AddRetweet';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
+import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 
 const RetweetButton=styled.button`
   background:none;
@@ -134,18 +135,36 @@ return (
                 update,
                 changeUpdate,
                 id:originalId,
+                originalUidUser:messageForRetweet.data().uidUser,
                 uidUser:currentUserInfo[0].uidUser,
                 likes:messageForRetweet.data().likes})}> 
                   <IconLike />                               
                 </LikeButton>
                 :
-                <LikeButton  onClick={()=>RemoveLike({
+                <>
+                {
+                  retweetUidUser === currentUserInfo[0].uidUser ?
+                <LikeButton  onClick={()=>RemoveLikeSameUser({
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  originalLikes:messageForRetweet.data().likes,
+                  originalMessageId:originalId,
                   update,
-                  changeUpdate,
-                  id:originalId, 
-                  uidUser:currentUserInfo[0].uidUser, likes:messageForRetweet.data().likes})}> 
+                  changeUpdate})}> 
                   <IconLikeColor />                               
                 </LikeButton>
+                :
+                <LikeButton  onClick={()=>RemoveLike({
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  originalLikes:messageForRetweet.data().likes,
+                  originalMessageId:originalId,
+                  likeUidUser:retweetUidUser,
+                  newId:newRetweetId,
+                  update,
+                  changeUpdate})}> 
+                  <IconLikeColor />                               
+                </LikeButton>
+                }
+                </>
               }
               <CounterContainer>
                 <p>{messageForRetweet.data().likes.length}</p>
