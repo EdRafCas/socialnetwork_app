@@ -21,6 +21,7 @@ import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
+import AddRemove from '../firebase/AddRemove';
 
 
 const RetweetButton=styled.button`
@@ -45,7 +46,7 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
 
     useEffect(()=>{
       const obtainMessageTimeline = async() =>{
-
+      console.log("loading message")
         const consult = query(
           collection(db, 'userInfo'),
           where('uidUser', "==", messageUidUser),
@@ -161,42 +162,29 @@ return (
         </CounterContainer>
       </IconContainerCont>
       <IconContainerCont Like>
-        {!messageLikes.includes(currentUserInfo[0].uidUser)?
-          <LikeButton  onClick={()=>AddLike({
+          <LikeButton  onClick={() => AddRemove({
+          messageLikes,
+          currentUserInfo, 
+          messageUidUser, 
           id:id,
+          messageUidUser, 
           uidUser:currentUserInfo[0].uidUser,
           originalUidUser:messageUidUser,
           likes:messageLikes,
+          originalLikes:messageLikes,
+          originalMessageId:id,
+          currentUidUser:currentUserInfo[0].uidUser,
+          likeUidUser:messageUidUser,
+          newId:id,
           update,
-          changeUpdate})}> 
-            <IconLike />                               
+          changeUpdate,
+          })}> 
+          {!messageLikes.includes(currentUserInfo[0].uidUser)?
+            <IconLike />
+            :
+            <IconLikeColor />
+          }                              
           </LikeButton>
-          :
-          <>
-          {
-          messageUidUser === currentUserInfo[0].uidUser ?
-          <LikeButton  onClick={()=>RemoveLikeSameUser({
-            currentUidUser:currentUserInfo[0].uidUser,
-            originalLikes:messageLikes,
-            originalMessageId:id,
-            update,
-            changeUpdate})}> 
-            <IconLikeColor />                               
-          </LikeButton>
-          :
-          <LikeButton  onClick={()=>RemoveLike({
-            currentUidUser:currentUserInfo[0].uidUser,
-            originalLikes:messageLikes,
-            originalMessageId:id,
-            likeUidUser:messageUidUser,
-            newId:id,
-            update,
-            changeUpdate})}> 
-            <IconLikeColor />                               
-          </LikeButton>
-          }
-          </>
-        }
         <CounterContainer>
           <p>{messageLikes.length}</p>
         </CounterContainer>

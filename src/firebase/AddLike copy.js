@@ -18,18 +18,18 @@ import getUnixTime from 'date-fns/getUnixTime';
 const AddLike = async({originalUidUser, id, uidUser, likes, changeUpdate, update}) => {
       console.log(id,uidUser,"executing Addlike")
       const document = doc(db, "userTimeline" , id); 
+
       try{
-            await addDoc(collection(db, "userTimeline"), {
-                        type:"like",
-                        originalId: id,
-                        originalUidUser:originalUidUser,
-                        uidUser:uidUser,
-                        date: getUnixTime(new Date())})
-                  console.log("like document created")
+            await updateDoc(document, {
+                  likes: [...likes, uidUser]})
+                  console.log("like added")
                   try{
-                        await updateDoc(document, {
-                              likes: [...likes, uidUser]})
-                        console.log("like added on original document")
+                        await addDoc(collection(db, "userTimeline"), {
+                              type:"like",
+                              originalId: id,
+                              originalUidUser:originalUidUser,
+                              uidUser:uidUser,
+                              date: getUnixTime(new Date())})
                   } catch(error){
                         console.log("Error adding new Like Container")
                   }

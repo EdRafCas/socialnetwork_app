@@ -14,9 +14,11 @@ import { collection, doc, updateDoc, deleteDoc, query, where, onSnapshot} from "
             likes: removedLike 
       }); 
 } */
+
 const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, currentUidUser,originalLikes, originalMessageId}) => {
       if(likeUidUser === currentUidUser){
             await deleteDoc(doc(db, "userTimeline", newId))
+            console.log("deleting unsing remove like my like")
                   try{
                         const removedLikes = originalLikes.filter(function(item){
                               return item !== currentUidUser
@@ -25,22 +27,26 @@ const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, cu
                         await updateDoc(document, {
                               likes: removedLikes 
                         });
-                        changeUpdate(update-1)      
+                        changeUpdate(update-1)    
+                        console.log(update+" "+"RemoveLike") 
                   } catch{
                         console.log("error deleting")
                   }
       } else {
-            const consult = query(
+            console.log("deleting unsing remove like not my like ")
+            const consulta = query(
                   collection(db, 'userTimeline'),
+                  where('type', "==", "like"),
                   where('uidUser', "==", currentUidUser),
                   where('originalId', "==", originalMessageId)
+                  
                   /* orderBy('date', 'desc') */
                   /* limit(30) */
             );
-            onSnapshot(consult, (snapshot)=>{
+            onSnapshot(consulta, (snapshot)=>{
                   snapshot.docs.forEach((likeToDelete) => {
                         // doc.data() is never undefined for query doc snapshots
-                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId);
+                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId, "This function is supposed to be for deleating likes");
                         deleteDoc(doc(db, "userTimeline", likeToDelete.id))
                       });
             })
@@ -51,7 +57,8 @@ const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, cu
             await updateDoc(document, {
                   likes: removedLikes 
             });
-            changeUpdate(update-1)    
+            changeUpdate(update-1)
+            console.log(update+" "+"RemoveLike 2")     
             
       }
 }
