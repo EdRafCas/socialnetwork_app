@@ -12,14 +12,7 @@ const RemoveLikeSameUser = async({update,changeUpdate,currentUidUser,originalLik
                   /* orderBy('date', 'desc') */
                   /* limit(30) */
             );
-            onSnapshot(consult, (snapshot)=>{
-                  snapshot.docs.forEach((likeToDelete) => {
-                        // doc.data() is never undefined for query doc snapshots
-                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId);
-                        deleteDoc(doc(db, "userTimeline", likeToDelete.id))
-                        console.log(update+" "+"RemoveLikeSameUser method")  
-                      });
-            })
+
             const removedLikes = originalLikes.filter(function(item){
                   return item !== currentUidUser
             })
@@ -27,8 +20,17 @@ const RemoveLikeSameUser = async({update,changeUpdate,currentUidUser,originalLik
             await updateDoc(document, {
                   likes: removedLikes 
             });
-            changeUpdate(update-1)
-            console.log(update+" "+"RemoveLikeSameUser")      
+
+            const unsuscribe = onSnapshot(consult, (snapshot)=>{
+                  snapshot.docs.map((likeToDelete) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId);
+                        changeUpdate(update-1)
+                        console.log(update+" "+"RemoveLikeSameUser")      
+                        return deleteDoc(doc(db, "userTimeline", likeToDelete.id))
+                      });
+            unsuscribe();
+            })
 }
 
 export default RemoveLikeSameUser;

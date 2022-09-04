@@ -21,17 +21,11 @@ const RemoveRetweet = async({update,changeUpdate,newRetweetId, originalId, retwe
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", currentUidUser),
-                  where('originalId', "==", currentMessageId)
+                  where('originalId', "==", currentMessageId),
+                  where('type', "==", "retweet")
                   /* orderBy('date', 'desc') */
                   /* limit(30) */
             );
-            onSnapshot(consult, (snapshot)=>{
-                  snapshot.docs.forEach((retweetToDelete) => {
-                        // doc.data() is never undefined for query doc snapshots
-                        console.log(retweetToDelete.id, " => ", retweetToDelete.data(), " => ", retweetToDelete.data().originalId);
-                        deleteDoc(doc(db, "userTimeline", retweetToDelete.id))
-                      });
-            })
             const removedRetweets = originalRetweets.filter(function(item){
                   return item !== currentUidUser
             })
@@ -39,7 +33,17 @@ const RemoveRetweet = async({update,changeUpdate,newRetweetId, originalId, retwe
             await updateDoc(document, {
                   retweets: removedRetweets 
             });
-            changeUpdate(update-1)    
+
+            const unsuscribe = onSnapshot(consult, (snapshot)=>{
+                  snapshot.docs.map((retweetToDelete) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(retweetToDelete.id, " => ", retweetToDelete.data(), " => ", retweetToDelete.data().originalId);
+                        changeUpdate(update-1+ "using for remove retweet");
+                        return deleteDoc(doc(db, "userTimeline", retweetToDelete.id))
+                      });
+            unsuscribe();
+            })
+            
             
       }
 }

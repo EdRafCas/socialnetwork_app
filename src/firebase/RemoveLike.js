@@ -33,8 +33,9 @@ const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, cu
                         console.log("error deleting")
                   }
       } else {
-            console.log("deleting unsing remove like not my like ")
-            const consulta = query(
+            console.log("deleting using remove like not my like ")
+
+            const consult = query(
                   collection(db, 'userTimeline'),
                   where('type', "==", "like"),
                   where('uidUser', "==", currentUidUser),
@@ -43,13 +44,7 @@ const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, cu
                   /* orderBy('date', 'desc') */
                   /* limit(30) */
             );
-            onSnapshot(consulta, (snapshot)=>{
-                  snapshot.docs.forEach((likeToDelete) => {
-                        // doc.data() is never undefined for query doc snapshots
-                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId, "This function is supposed to be for deleating likes");
-                        deleteDoc(doc(db, "userTimeline", likeToDelete.id))
-                      });
-            })
+
             const removedLikes = originalLikes.filter(function(item){
                   return item !== currentUidUser
             })
@@ -57,8 +52,18 @@ const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, cu
             await updateDoc(document, {
                   likes: removedLikes 
             });
-            changeUpdate(update-1)
-            console.log(update+" "+"RemoveLike 2")     
+
+            const unsuscribe = onSnapshot(consult, (snapshot)=>{
+                  snapshot.docs.map((likeToDelete) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId, "This function is supposed to be for deleating likes");
+                        changeUpdate(update-1)
+                        console.log(update+" "+" update change after removing like")  
+                        return deleteDoc(doc(db, "userTimeline", likeToDelete.id))
+                      });
+            unsuscribe();
+            })
+            
             
       }
 }
