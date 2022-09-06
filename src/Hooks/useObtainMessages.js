@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { db } from '../firebase/FirebaseConfig';
-import { collection, onSnapshot, orderBy, limit, query } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy,where, query } from 'firebase/firestore';
 import { useAuth } from '../Context/AuthContext';
 
 
@@ -11,7 +11,7 @@ const useObtainMessages = () => {
       useEffect(()=>{
             const consult = query(
                   collection(db, 'userTimeline'),
-                  /* where('uidUser', "==", user.uid), */
+                  where('type', 'in', ['message', "retweet"]),
                   orderBy('date', 'desc'),
                   /* limit(30) */
             );

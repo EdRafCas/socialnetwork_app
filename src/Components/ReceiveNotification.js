@@ -1,6 +1,6 @@
 
 
-const receiveNotification = ({userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser, retweets, user, bookmarks, profilePicture, backgroundPicture,currentUserInfo, changeAlert, changeStateAlert}) => {
+const receiveNotification = ({e, userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser, retweets, user, bookmarks, profilePicture, backgroundPicture,currentUserInfo, changeAlert, changeStateAlert}) => {
   if(notification==="retweet"){
     changeShowPopUp(true)
     changePopUpAlert({type: "retweet",
@@ -11,6 +11,7 @@ const receiveNotification = ({userId, notification, changeShowPopUp, changePopUp
       currentUserInfo:currentUserInfo
     })
   } if(notification==="delete"){
+
     changeShowPopUp(true)
     changePopUpAlert({type: "delete", 
     id: id})

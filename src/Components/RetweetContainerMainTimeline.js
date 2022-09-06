@@ -48,7 +48,11 @@ const MessageLink=styled(Link)`
   padding-top:0.5rem;
   /* background:black; */
   text-decoration:none;
-  z-index:99;
+  pointer-events: none;
+  z-index:80;
+  :hover{
+    pointer-events: auto;
+  }
 `
 
 const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, retweetUidUser, newRetweetId}) => {
@@ -146,8 +150,7 @@ return (
                   originalRetweets:messageForRetweet.data().retweets,
                   currentMessageId:originalId,
                   update,
-                  changeUpdate
-                })}>
+                  changeUpdate})}>
                   <IconRetweetColor/>
                 </RetweetButton>
                   :

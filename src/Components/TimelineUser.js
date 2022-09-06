@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
+import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -63,6 +63,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
             update={update}
             changeUpdate={changeUpdate} 
             user={user}
+            originalId={currentUserInfo[0].pinnedMessage}
             currentUserInfo={currentUserInfo}
             changeShowPopUp={changeShowPopUp}
             changePopUpAlert={changePopUpAlert}
@@ -156,7 +157,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                   <RetweetButton onClick={()=>RemoveRetweetSameUser({
                   currentUidUser:currentUserInfo[0].uidUser,
                   originalRetweets:MessageUser.retweets, 
-                  currentMessageId:MessageUser.id})}>
+                  currentMessageId:MessageUser.id,
+                  update,
+                  changeUpdate})}>
                     <IconRetweetColor/>
                   </RetweetButton>
                 }

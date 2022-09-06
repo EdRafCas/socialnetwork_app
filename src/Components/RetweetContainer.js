@@ -16,6 +16,7 @@ import {MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, Mess
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
+import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import { AddRetweet } from '../firebase/AddRetweet';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
@@ -115,15 +116,30 @@ return (
                   <IconRetweet/>
                 </RetweetButton>
                 :
+                <>
+                {messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser?
+                <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                  update,
+                  changeUpdate,
+                  currentUidUser:currentUserInfo[0].uidUser,originalRetweets:messageForRetweet.data().retweets, 
+                  currentMessageId:originalId}
+                  )}>
+                  <IconRetweetColor/>
+                </RetweetButton>
+                :
                 <RetweetButton onClick={()=>RemoveRetweet({
                   update,
                   changeUpdate,
+                  currentUidUser:currentUserInfo[0].uidUser,originalRetweets:messageForRetweet.data().retweets, 
+                  currentMessageId:originalId, 
                   newRetweetId:newRetweetId, 
-                  originalId:originalId, 
-                  retweetUidUser, 
-                  currentUidUser:currentUserInfo[0].uidUser,originalRetweets:messageForRetweet.data().retweets})}>
+                  retweetUidUser}
+                  )}>
                   <IconRetweetColor/>
                 </RetweetButton>
+
+                }
+                </>
               }
               <CounterContainer>
                 {messageForRetweet.data().retweets.length}

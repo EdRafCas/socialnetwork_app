@@ -47,8 +47,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
           <Card key={Message.id}>
             {Message.originalId?
             <>
-              {Message.uidUser!==currentUserInfo[0].uidUser ?
-              <>
+            
               <RetweetInfo retweetUidUser={Message.uidUser}/>
               <RetweetContainerMainTimeline
                 update={update}
@@ -61,10 +60,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                 changeShowPopUp={changeShowPopUp}
                 changePopUpAlert={changePopUpAlert}
                 user={user}/>
-              </>
-              :
-              <EmptyDiv/>
-              }
+              
             </>
             :
             <>

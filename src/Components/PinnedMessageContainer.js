@@ -42,7 +42,7 @@ const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUp
 
     useEffect(()=>{
       const obtainMessage = async() =>{
-            const document = await getDoc(doc(db, 'userTimeline', originalId ));
+            const document = await getDoc(doc(db, 'userTimeline', currentUserInfo[0].pinnedMessage));
             ChangeMessagePinned(document) 
           console.log("PinnedMessageContainer")
           changeLoadingPinned(false)

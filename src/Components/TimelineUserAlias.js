@@ -152,6 +152,7 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                     <LikeButton  onClick={()=>AddLike({
                     id:MessageUser.id,
                     uidUser:currentUserInfo[0].uidUser,
+                    originalUidUser:MessageUser.uidUser,
                     likes:MessageUser.likes,
                     update,
                     changeUpdate})}
@@ -160,11 +161,13 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                     </LikeButton>
                     :
                     <LikeButton  onClick={()=>RemoveLike({
-                    id:MessageUser.id,
-                    uidUser:currentUserInfo[0].uidUser,
-                    likes:MessageUser.likes, 
-                    update,
-                    changeUpdate})}> 
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalLikes:MessageUser.likes,
+                      originalMessageId:MessageUser.id,
+                      likeUidUser:MessageUser.uidUser, 
+                      newId:MessageUser.id,
+                      update,
+                      changeUpdate})}> 
                       <IconLikeColor />                               
                     </LikeButton>
                   }

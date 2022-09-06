@@ -22,7 +22,7 @@ const RemoveRetweetSameUser = async({update,changeUpdate,currentUidUser,original
                   snapshot.docs.map((retweetToDelete) => {
                         // doc.data() is never undefined for query doc snapshots
                         console.log(retweetToDelete.id, " => ", retweetToDelete.data(), " => ", retweetToDelete.data().originalId);
-                        changeUpdate(update-1+ "using this to remove retweet from same user")      
+                        changeUpdate(update-1 + "using this to remove retweet from same user")      
                         return deleteDoc(doc(db, "userTimeline", retweetToDelete.id))
                       });
             unsuscribe();

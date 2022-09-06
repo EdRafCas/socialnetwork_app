@@ -56,7 +56,7 @@ const OptionsCard =styled.div`
   padding-right:15px;
   background:black;
   color:${theme.Text} ;
-  
+  z-index:100;
 `
 const Option =styled.div`
   width:auto;
@@ -102,109 +102,109 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
       const handleClickAway = () => {
         setOpen(false);
       };
-
-
+      
+      
       return ( 
         
-          <ClickAwayListener
-            mouseEvent="onMouseDown"
-            touchEvent="onTouchStart"
-            onClickAway={handleClickAway}
-          >
-            <div>
-              <IconMore Reply>
-                <IconMoreOptions type="button" onClick={handleClick}/>
-              </IconMore>
-              {open ? (
-                <OptionsCard >
-                  {messageUidUser===currentUserInfo[0].uidUser ?
-                    <>
-                    {pinnedMenu===true ?
-                      <Option onClick={()=>receiveNotification({
-                        notification:"deleteAndRemove",
-                        changeShowPopUp, 
-                        changePopUpAlert,
-                        userId:currentUserInfo[0].id,
-                        id})}>
-                        <IconContainer >
-                          <IconDelete/>
-                        </IconContainer>
-                        <p>Delete Pinned Message</p>
-                      </Option>
-                    :
-                      <Option onClick={()=>receiveNotification({
-                        notification:"delete",
-                        changeShowPopUp, 
-                        changePopUpAlert,
-                        id})}>
-                        <IconContainer >
-                          <IconDelete/>
-                        </IconContainer>
-                        <p>Delete Message</p>
-                      </Option>
-                    }
-                    </>
-                  :
-                    ""
-                  }
-                  {messageUidUser===currentUserInfo[0].uidUser ?
-                  <>
-                  {pinnedMenu===true ?
-                  <Option onClick={()=>receiveNotification({
-                    notification:"pinned", 
+      <ClickAwayListener
+        mouseEvent="onMouseDown"
+        touchEvent="onTouchStart"
+        onClickAway={handleClickAway}
+      >
+        <div>
+          <IconMore Reply>
+            <IconMoreOptions type="button" onClick={handleClick}/>
+          </IconMore>
+          {open ? (
+            <OptionsCard >
+              {messageUidUser===currentUserInfo[0].uidUser ?
+                <>
+                {pinnedMenu===true ?
+                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                    notification:"deleteAndRemove",
                     changeShowPopUp, 
                     changePopUpAlert,
-                    userId:currentUserInfo[0].id, 
-                    id })}>
-                    <IconContainer>
-                      <IconPin/>
+                    userId:currentUserInfo[0].id,
+                    id})}}>
+                    <IconContainer >
+                      <IconDelete/>
                     </IconContainer>
-                    <p>UnPin Message</p>
+                    <p>Delete Pinned Message</p>
                   </Option>
-                  :
-                  <Option onClick={()=>receiveNotification({
-                    notification:"pinned", 
+                :
+                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                    notification:"delete",
                     changeShowPopUp, 
                     changePopUpAlert,
-                    userId:currentUserInfo[0].id, 
-                    id })}>
-                    <IconContainer>
-                      <IconPin/>
+                    id})}}>
+                    <IconContainer >
+                      <IconDelete/>
                     </IconContainer>
-                    <p>Pin Message</p>
+                    <p>Delete Message</p>
                   </Option>
-                  }
-                  </>
-                  :""
-                  }
-                  {!currentUserInfo[0].bookmarks.includes(id)?
-                    <Option onClick={()=>receiveNotification({
-                      notification:"bookmark", 
-                      changeShowPopUp, 
-                      changePopUpAlert,
-                      userId:currentUserInfo[0].id,
-                      bookmarks:currentUserInfo[0].bookmarks,
-                      id })}>
-                    <IconContainer>
-                      <IconBookmark/>
-                    </IconContainer>
-                    <p>Bookmark Message</p>
-                    </Option>
-                  :
-                    <Option onClick={()=>receiveNotification({
-                      notification:"alreadyBookmark",
-                      changeAlert, 
-                      changeStateAlert})}>
-                    <IconContainer>
-                      <IconBookmark/>
-                    </IconContainer>
-                    <p>Bookmark Message</p>
-                    </Option>
-                  }
-                </OptionsCard>
-              ) : null}
-            </div> 
-          </ClickAwayListener>  
+                }
+                </>
+              :
+                ""
+              }
+              {messageUidUser===currentUserInfo[0].uidUser ?
+              <>
+              {pinnedMenu===true ?
+              <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                notification:"pinned", 
+                changeShowPopUp, 
+                changePopUpAlert,
+                userId:currentUserInfo[0].id, 
+                id })}}>
+                <IconContainer>
+                  <IconPin/>
+                </IconContainer>
+                <p>UnPin Message</p>
+              </Option>
+              :
+              <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                notification:"pinned", 
+                changeShowPopUp, 
+                changePopUpAlert,
+                userId:currentUserInfo[0].id, 
+                id })}}>
+                <IconContainer>
+                  <IconPin/>
+                </IconContainer>
+                <p>Pin Message</p>
+              </Option>
+              }
+              </>
+              :""
+              }
+              {!currentUserInfo[0].bookmarks.includes(id)?
+                <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  notification:"bookmark", 
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  userId:currentUserInfo[0].id,
+                  bookmarks:currentUserInfo[0].bookmarks,
+                  id })}}>
+                <IconContainer>
+                  <IconBookmark/>
+                </IconContainer>
+                <p>Bookmark Message</p>
+                </Option>
+              :
+                <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  notification:"alreadyBookmark",
+                  changeAlert, 
+                  changeStateAlert})}}>
+                <IconContainer>
+                  <IconBookmark/>
+                </IconContainer>
+                <p>Bookmark Message</p>
+                </Option>
+              }
+            </OptionsCard>
+          ) : null}
+        </div> 
+      </ClickAwayListener>  
         
         
        );
