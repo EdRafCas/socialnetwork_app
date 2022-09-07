@@ -9,9 +9,6 @@ import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
-import AddLike from '../firebase/AddLike';
-import RemoveLike from '../firebase/RemoveLike';
-import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
 import {CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
@@ -94,11 +91,11 @@ return (
             @{messageForTimeline[0].alias}
           </AliasContainer>
           <ShowMoreMenu 
-                        changeAlert={changeAlert}
-                        changeStateAlert={changeStateAlert}
-                        messageUidUser={messageUidUser} 
-                        currentUserInfo={currentUserInfo}
-                        id={id} />
+            changeAlert={changeAlert}
+            changeStateAlert={changeStateAlert}
+            messageUidUser={messageUidUser} 
+            currentUserInfo={currentUserInfo}
+            id={id} />
         </UserNameContainer>
         <MessageContent>
           {messageMessage}
@@ -165,7 +162,6 @@ return (
           <LikeButton  onClick={() => AddRemove({
           messageLikes,
           currentUserInfo, 
-          messageUidUser, 
           id:id,
           messageUidUser, 
           uidUser:currentUserInfo[0].uidUser,

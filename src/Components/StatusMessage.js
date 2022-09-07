@@ -24,6 +24,7 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import {useNavigate} from 'react-router-dom';
+import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 
 
 
@@ -367,18 +368,35 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                                 changeUpdate,
                                                 id:id,
                                                 uidUser:currentUserInfo[0].uidUser,
+                                                originalUidUser:infoForMessage.data().uidUser,
                                                 likes:infoForMessage.data().likes})}> 
                                                 <IconLike />                               
                                           </LikeButton>
                                           :
-                                          <LikeButton  onClick={()=>RemoveLike({
+                                          <>
+                                          {infoForMessage.data().uidUser ===(currentUserInfo[0].uidUser)?
+                                          <LikeButton  onClick={()=>RemoveLikeSameUser({
+                                                currentUidUser:currentUserInfo[0].uidUser, 
+                                                originalLikes:infoForMessage.data().likes,
+                                                originalMessageId:id, 
                                                 update,
-                                                changeUpdate,
-                                                id:id, 
-                                                uidUser:currentUserInfo[0].uidUser, 
-                                                likes:infoForMessage.data().likes})}> 
+                                                changeUpdate})}> 
                                                 <IconLikeColor />                               
                                           </LikeButton>
+                                          :
+                                          <LikeButton  onClick={()=>RemoveLike({
+                                                currentUidUser:currentUserInfo[0].uidUser, 
+                                                originalLikes:infoForMessage.data().likes,
+                                                originalMessageId:id,
+                                                likeUidUser:infoForMessage.data().uidUser,
+                                                newId:id,
+                                                update,
+                                                changeUpdate,
+                                                })}> 
+                                                <IconLikeColor />                               
+                                          </LikeButton>
+                                          }
+                                          </>
                                           }
                                           {/* <CounterContainerBig>
                                           <p>{infoForMessage.data().likes.length}</p>

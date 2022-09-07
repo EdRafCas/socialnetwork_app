@@ -48,7 +48,6 @@ const MessageLink=styled(Link)`
   padding-top:0.5rem;
   /* background:black; */
   text-decoration:none;
-  pointer-events: none;
   z-index:80;
   :hover{
     pointer-events: auto;
@@ -110,12 +109,23 @@ return (
                 <AliasContainer>
                   @{userInfoForRetweet[0].alias}
                 </AliasContainer>
-                <ShowMoreMenu 
-                        changeAlert={changeAlert}
-                        changeStateAlert={changeStateAlert}
-                        messageUidUser={messageForRetweet.data().uidUser} 
-                        currentUserInfo={currentUserInfo}
-                        id={messageForRetweet.data().id} />
+                { messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
+                  <ShowMoreMenu 
+                    retweetSameUser={true}
+                    changeAlert={changeAlert}
+                    changeStateAlert={changeStateAlert}
+                    messageUidUser={messageForRetweet.data().uidUser} 
+                    currentUserInfo={currentUserInfo}
+                    id={messageForRetweet.data().id} />
+                  :
+                  <ShowMoreMenu 
+                    retweet={true}
+                    changeAlert={changeAlert}
+                    changeStateAlert={changeStateAlert}
+                    messageUidUser={messageForRetweet.data().uidUser} 
+                    currentUserInfo={currentUserInfo}
+                    id={messageForRetweet.data().id} />
+                }
               </UserNameContainer>
               <MessageContent>
                 {messageForRetweet.data().message}

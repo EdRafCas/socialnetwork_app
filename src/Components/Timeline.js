@@ -60,7 +60,6 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                 changeShowPopUp={changeShowPopUp}
                 changePopUpAlert={changePopUpAlert}
                 user={user}/>
-              
             </>
             :
             <>
