@@ -47,8 +47,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
           <Card key={Message.id}>
             {Message.originalId?
             <>
-            
-              <RetweetInfo retweetUidUser={Message.uidUser}/>
+              {/* <RetweetInfo retweetUidUser={Message.uidUser}/> */}
               <RetweetContainerMainTimeline
                 update={update}
                 changeUpdate={changeUpdate} 

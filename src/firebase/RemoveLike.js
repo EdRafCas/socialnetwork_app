@@ -18,7 +18,7 @@ import { collection, doc, updateDoc, deleteDoc, query, where, onSnapshot} from "
 const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, currentUidUser,originalLikes, originalMessageId}) => {
       if(likeUidUser === currentUidUser){
             await deleteDoc(doc(db, "userTimeline", newId))
-            console.log("deleting unsing remove like my like")
+            console.log("deleting using remove like my like")
                   try{
                         const removedLikes = originalLikes.filter(function(item){
                               return item !== currentUidUser

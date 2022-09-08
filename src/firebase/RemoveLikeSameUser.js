@@ -3,7 +3,7 @@ import { collection, doc,updateDoc, deleteDoc, query, where, onSnapshot} from "f
 
 
 const RemoveLikeSameUser = async({update,changeUpdate,currentUidUser,originalLikes, originalMessageId}) => {
-      console.log("removedusing removelikesameuser")
+      console.log("removedusing removelike sameuser")
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", currentUidUser),

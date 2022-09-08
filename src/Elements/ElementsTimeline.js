@@ -7,7 +7,7 @@ const Card =styled.div`
   flex-direction:column;
   /* border:solid ${theme.BorderColor} 1px; */
   /* border-radius:15px; */
-  border-bottom:solid ${theme.BorderColor} 1px;
+  /* border-top:solid ${theme.BorderColor} 1px; */
   gap:0rem;
   padding-top:0rem;
   z-index:100;
@@ -84,7 +84,7 @@ const InteractionBar=styled.div`
   flex-direction:row;
   justify-content:space-around;
   border:none;
-  /* border-bottom:solid ${theme.BorderColor} 2px; */
+  border-bottom:solid ${theme.BorderColor} 1px;
   width:100%;
   max-height:6rem;
   padding-top:0.5rem;

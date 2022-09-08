@@ -22,6 +22,7 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
+import RetweetInfo from '../Elements/RetweetInfo';
 
 
 const RetweetButton=styled.button`
@@ -53,6 +54,11 @@ const MessageLink=styled(Link)`
     pointer-events: auto;
   }
 `
+const EmptyDiv =styled.div`
+visibility:hidden
+display:none;
+overflow:hidden;
+`
 
 const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, retweetUidUser, newRetweetId}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
@@ -63,6 +69,12 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForRetweet(document) 
+           /*  if(document.exists()){
+              console.log(originalId +" existe")
+            
+            } else{
+              console.log(originalId +" no existe")
+            } */
             const consult = query(
               collection(db, 'userInfo'),
               where('uidUser', "==", originalUidUser),
@@ -88,146 +100,153 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
       };
     
 return ( 
-        <>
+      <>
         {!loadingRetweets ?
         <>
-          <MessageLink to={`/user/${userInfoForRetweet[0].alias}/status/${originalId}`}>
-            <CardColumns>
-              <PortraitContainer>
-                {userInfoForRetweet[0].photoURL ?
-                <img alt="userportrait" src={userInfoForRetweet[0].photoURL}/>
-                :
-                <img alt="userportrait" src={ProfileImage}/>
-                }
-              </PortraitContainer>
-            </CardColumns>
-            <CardColumns rightColumn>
-              <UserNameContainer>
-                <UserNameContainerLink to={`/user/${userInfoForRetweet[0].alias}`}>
-                  {userInfoForRetweet[0].alias}
-                </UserNameContainerLink >
-                <AliasContainer>
-                  @{userInfoForRetweet[0].alias}
-                </AliasContainer>
-                { messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
-                  <ShowMoreMenu 
-                    retweetSameUser={true}
-                    changeAlert={changeAlert}
-                    changeStateAlert={changeStateAlert}
-                    messageUidUser={messageForRetweet.data().uidUser} 
-                    currentUserInfo={currentUserInfo}
-                    id={messageForRetweet.data().id} />
+          {messageForRetweet.exists() ?
+          <>
+            <RetweetInfo retweetUidUser={retweetUidUser}/>
+            <MessageLink to={`/user/${userInfoForRetweet[0].alias}/status/${originalId}`}>
+              <CardColumns>
+                <PortraitContainer>
+                  {userInfoForRetweet[0].photoURL ?
+                  <img alt="userportrait" src={userInfoForRetweet[0].photoURL}/>
                   :
-                  <ShowMoreMenu 
-                    retweet={true}
-                    changeAlert={changeAlert}
-                    changeStateAlert={changeStateAlert}
-                    messageUidUser={messageForRetweet.data().uidUser} 
-                    currentUserInfo={currentUserInfo}
-                    id={messageForRetweet.data().id} />
-                }
-              </UserNameContainer>
-              <MessageContent>
-                {messageForRetweet.data().message}
-              </MessageContent>
-              <TimeBar>
-                {formatDate(messageForRetweet.data().date)}
-              </TimeBar>
-            </CardColumns> 
-          </MessageLink>
-          <InteractionBar>
-            <IconContainer Reply ><IconComment/></IconContainer>
-            <IconContainerCont Retweet>
-              {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
-                <RetweetButton onClick={()=>receiveNotification({
-                  notification:"retweet",
-                  id:originalId,
-                  retweets:messageForRetweet.data().retweets, 
-                  originalUidUser:messageForRetweet.data().uidUser, 
-                  user, 
-                  currentUserInfo, 
-                  changeShowPopUp, 
-                  changePopUpAlert
-                })}>
-                  <IconRetweet/>
-                </RetweetButton>
-                :
-                <>
-                {
-                messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
-                <RetweetButton onClick={()=>RemoveRetweetSameUser({
-                  currentUidUser:currentUserInfo[0].uidUser,
-                  originalRetweets:messageForRetweet.data().retweets,
-                  currentMessageId:originalId,
-                  update,
-                  changeUpdate})}>
-                  <IconRetweetColor/>
-                </RetweetButton>
+                  <img alt="userportrait" src={ProfileImage}/>
+                  }
+                </PortraitContainer>
+              </CardColumns>
+              <CardColumns rightColumn>
+                <UserNameContainer>
+                  <UserNameContainerLink to={`/user/${userInfoForRetweet[0].alias}`}>
+                    {userInfoForRetweet[0].alias}
+                  </UserNameContainerLink >
+                  <AliasContainer>
+                    @{userInfoForRetweet[0].alias}
+                  </AliasContainer>
+                  { messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
+                    <ShowMoreMenu 
+                      retweetSameUser={true}
+                      changeAlert={changeAlert}
+                      changeStateAlert={changeStateAlert}
+                      messageUidUser={messageForRetweet.data().uidUser} 
+                      currentUserInfo={currentUserInfo}
+                      id={messageForRetweet.data().id} />
+                    :
+                    <ShowMoreMenu 
+                      retweet={true}
+                      changeAlert={changeAlert}
+                      changeStateAlert={changeStateAlert}
+                      messageUidUser={messageForRetweet.data().uidUser} 
+                      currentUserInfo={currentUserInfo}
+                      id={messageForRetweet.data().id} />
+                  }
+                </UserNameContainer>
+                <MessageContent>
+                  {messageForRetweet.data().message}
+                </MessageContent>
+                <TimeBar>
+                  {formatDate(messageForRetweet.data().date)}
+                </TimeBar>
+              </CardColumns> 
+            </MessageLink>
+            <InteractionBar>
+              <IconContainer Reply ><IconComment/></IconContainer>
+              <IconContainerCont Retweet>
+                {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
+                  <RetweetButton onClick={()=>receiveNotification({
+                    notification:"retweet",
+                    id:originalId,
+                    retweets:messageForRetweet.data().retweets, 
+                    originalUidUser:messageForRetweet.data().uidUser, 
+                    user, 
+                    currentUserInfo, 
+                    changeShowPopUp, 
+                    changePopUpAlert
+                  })}>
+                    <IconRetweet/>
+                  </RetweetButton>
                   :
-                  <RetweetButton onClick={()=>RemoveRetweet({
+                  <>
+                  {
+                  messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
+                  <RetweetButton onClick={()=>RemoveRetweetSameUser({
                     currentUidUser:currentUserInfo[0].uidUser,
                     originalRetweets:messageForRetweet.data().retweets,
                     currentMessageId:originalId,
-                    retweetUidUser:messageForRetweet.data().uidUser,
                     update,
-                    changeUpdate
-                  })}>
+                    changeUpdate})}>
                     <IconRetweetColor/>
                   </RetweetButton>
-                  }
-                </>
-              }
-              <CounterContainer>
-                {messageForRetweet.data().retweets.length}
-              </CounterContainer>
-            </IconContainerCont>
-            <IconContainerCont Like>
-              {!messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
-                <LikeButton  onClick={()=>AddLike({
-                update,
-                changeUpdate,
-                id:originalId,
-                uidUser:currentUserInfo[0].uidUser,
-                likes:messageForRetweet.data().likes})}> 
-                  <IconLike />                               
-                </LikeButton>
-                :
-                
-                <>
-                {
-                  messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
-                <LikeButton  onClick={()=>RemoveLikeSameUser({
-                  currentUidUser:currentUserInfo[0].uidUser,
-                  originalLikes:messageForRetweet.data().likes,
-                  originalMessageId:originalId,
+                    :
+                    <RetweetButton onClick={()=>RemoveRetweet({
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalRetweets:messageForRetweet.data().retweets,
+                      currentMessageId:originalId,
+                      retweetUidUser:messageForRetweet.data().uidUser,
+                      update,
+                      changeUpdate
+                    })}>
+                      <IconRetweetColor/>
+                    </RetweetButton>
+                    }
+                  </>
+                }
+                <CounterContainer>
+                  {messageForRetweet.data().retweets.length}
+                </CounterContainer>
+              </IconContainerCont>
+              <IconContainerCont Like>
+                {!messageForRetweet.data().likes.includes(currentUserInfo[0].uidUser)?
+                  <LikeButton  onClick={()=>AddLike({
                   update,
-                  changeUpdate})}> 
-                  <IconLikeColor />                               
-                </LikeButton>
+                  changeUpdate,
+                  originalUidUser:messageForRetweet.data().uidUser,
+                  id:originalId,
+                  uidUser:currentUserInfo[0].uidUser,
+                  likes:messageForRetweet.data().likes})}> 
+                    <IconLike />                               
+                  </LikeButton>
                   :
-                <LikeButton  onClick={()=>RemoveLike({
-                  currentUidUser:currentUserInfo[0].uidUser,
-                  originalLikes:messageForRetweet.data().likes,
-                  originalMessageId:originalId,
-                  likeUidUser:retweetUidUser,
-                  newId:newRetweetId,
-                  update,
-                  changeUpdate})}> 
-                  <IconLikeColor />                               
-                </LikeButton>
-              }
-              </>
-              }
-              <CounterContainer>
-                <p>{messageForRetweet.data().likes.length}</p>
-              </CounterContainer>
-            </IconContainerCont>
-          </InteractionBar>
+                  <>
+                  {
+                    messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
+                  <LikeButton  onClick={()=>RemoveLikeSameUser({
+                    currentUidUser:currentUserInfo[0].uidUser,
+                    originalLikes:messageForRetweet.data().likes,
+                    originalMessageId:originalId,
+                    update,
+                    changeUpdate})}> 
+                    <IconLikeColor />                               
+                  </LikeButton>
+                    :
+                  <LikeButton  onClick={()=>RemoveLike({
+                    currentUidUser:currentUserInfo[0].uidUser,
+                    originalLikes:messageForRetweet.data().likes,
+                    originalMessageId:originalId,
+                    likeUidUser:originalUidUser,
+                    newId:newRetweetId,
+                    update,
+                    changeUpdate})}> 
+                    <IconLikeColor />                               
+                  </LikeButton>
+                }
+                </>
+                }
+                <CounterContainer>
+                  <p>{messageForRetweet.data().likes.length}</p>
+                </CounterContainer>
+              </IconContainerCont>
+            </InteractionBar>
+          </>
+          :
+          <EmptyDiv/>
+          }
         </>
         :
         <LoadingComponent/>
         }
-        </>
+      </>
     )
 }
  

@@ -291,13 +291,15 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                           changeStateAlert={changeStateAlert}
                                           messageUidUser={infoForMessage.data().uidUser} 
                                           currentUserInfo={currentUserInfo}
-                                          id={infoForMessage.data().id} />
+                                          id={id} />
                               </UserNameContainerMessage>
                         </CardRowsMessage>
                         <CardColumnMessage rightColumn>
                               <MessageContentBig>
-                              {infoForMessage.data().message}
+                              <p>{infoForMessage.data().message} + {id}</p>
+                              
                               </MessageContentBig>
+                              
                               <TimeBar>
                               {formatDate(infoForMessage.data().date)}
                               </TimeBar>
