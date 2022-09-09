@@ -105,7 +105,8 @@ return (
         <>
           {messageForRetweet.exists() ?
           <>
-            <RetweetInfo retweetUidUser={retweetUidUser}/>
+            <RetweetInfo retweetUidUser={retweetUidUser}
+                        currentUidUser={currentUserInfo[0].uidUser}/>
             <MessageLink to={`/user/${userInfoForRetweet[0].alias}/status/${originalId}`}>
               <CardColumns>
                 <PortraitContainer>

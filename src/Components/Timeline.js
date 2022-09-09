@@ -8,7 +8,6 @@ import {Card} from '.././Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import RetweetContainerMainTimeline from './RetweetContainerMainTimeline';
 import MessageTimelineContainer from './MessageTimelineContainer';
-import RetweetInfo from '../Elements/RetweetInfo';
  
 const TimelineContainer = styled.div`
   height:100%;
@@ -19,8 +18,6 @@ const TimelineContainer = styled.div`
   gap:0rem;
   overflow:scroll;
   overflow-x:hidden;
-`
-const EmptyDiv=styled.div`
 `
 
 
@@ -47,7 +44,6 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
           <Card key={Message.id}>
             {Message.originalId?
             <>
-              {/* <RetweetInfo retweetUidUser={Message.uidUser}/> */}
               <RetweetContainerMainTimeline
                 update={update}
                 changeUpdate={changeUpdate} 

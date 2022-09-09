@@ -5,7 +5,6 @@ import useObtainMessages from '../Hooks/useObtainMessages';
 import {Card} from '.././Elements/ElementsTimeline'
 import RetweetContainerDisplay from './RetweetContainerDisplay';
 import MessageTimelineContainerDisplay from './MessageTimelineContainerDisplay';
-import RetweetInfo from '../Elements/RetweetInfo';
 import '../index.css'
 
 const TimelineContainer = styled.div`
@@ -35,7 +34,6 @@ const TimelineDisplay = () => {
           <>
             {Message.uidUser?
             <>
-            <RetweetInfo retweetUidUser={Message.uidUser}/>
             <RetweetContainerDisplay
               originalId={Message.originalId} 
               originalUidUser={Message.originalUidUser}

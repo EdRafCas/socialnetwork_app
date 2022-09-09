@@ -165,6 +165,7 @@ return (
           <LikeButton  onClick={()=>AddLike({
           update,
           changeUpdate,
+          originalUidUser:uidUser,
           id:id,
           uidUser:currentUserInfo[0].uidUser,
           likes:likes}) }> 
@@ -174,9 +175,11 @@ return (
           <LikeButton  onClick={()=>RemoveLike({
           update,
           changeUpdate,
-          id:id,
+          originalMessageId:id,
+          likeUidUser:uidUser,
+          currentUidUser:currentUserInfo[0].uidUser,
           uidUser:currentUserInfo[0].uidUser,
-          likes:likes})}> 
+          originalLikes:likes})}> 
             <IconLikeColor />                               
           </LikeButton>
         }

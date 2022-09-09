@@ -12,6 +12,7 @@ import {CardColumns, UserNameContainer, MessageContent, InteractionBar, IconCont
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import LoadingComponent from '../Elements/LoadingComponent';
+import RetweetInfo from '../Elements/RetweetInfo';
 
 
 const RetweetButton=styled.button`
@@ -58,8 +59,13 @@ const UserNameContainerDisplay =styled.div`
     text-decoration:underline;
   }
 `
+const EmptyDiv =styled.div`
+visibility:hidden
+display:none;
+overflow:hidden;
+`
 
-const RetweetContainerDisplay = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate}) => {
+const RetweetContainerDisplay = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, retweetUidUser}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
     const [userInfoForRetweet, changeUserInfoForRetweet] =useState([{}])
@@ -68,6 +74,12 @@ const RetweetContainerDisplay = ({ changeShowPopUp, changePopUpAlert, changeAler
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForRetweet(document) 
+            /*  if(document.exists()){
+              console.log(originalId +" existe")
+            
+            } else{
+              console.log(originalId +" no existe")
+            } */
             const consult = query(
               collection(db, 'userInfo'),
               where('uidUser', "==", originalUidUser),
@@ -93,60 +105,67 @@ const RetweetContainerDisplay = ({ changeShowPopUp, changePopUpAlert, changeAler
       };
     
 return ( 
-        <>
+      <>
         {!loadingRetweets ?
         <>
-          <MessageContainer >
-            <CardColumns>
-              <PortraitContainer>
-                {userInfoForRetweet[0].photoURL ?
-                <img alt="userportrait" src={userInfoForRetweet[0].photoURL}/>
-                :
-                <img alt="userportrait" src={ProfileImage}/>
-                }
-              </PortraitContainer>
-            </CardColumns>
-            <CardColumns rightColumn>
-              <UserNameContainer>
-                <UserNameContainerDisplay >
-                  {userInfoForRetweet[0].alias}
-                </UserNameContainerDisplay >
-                <AliasContainer>
-                  @{userInfoForRetweet[0].alias}
-                </AliasContainer>
-              </UserNameContainer>
-              <MessageContent>
-                {messageForRetweet.data().message}
-              </MessageContent>
-              <TimeBar>
-                {formatDate(messageForRetweet.data().date)}
-              </TimeBar>
-            </CardColumns> 
-          </MessageContainer>
-          <InteractionBar>
-            <IconContainer Reply ><IconComment/></IconContainer>
-            <IconContainerCont Retweet>
-              <RetweetButton >
-                <IconRetweet/>
-              </RetweetButton>
-              <CounterContainer>
-                {messageForRetweet.data().retweets.length}
-              </CounterContainer>
-            </IconContainerCont>
-            <IconContainerCont Like>
-                <LikeButton> 
-                  <IconLike />                               
-                </LikeButton>
-              <CounterContainer>
-                <p>{messageForRetweet.data().likes.length}</p>
-              </CounterContainer>
-            </IconContainerCont>
-          </InteractionBar>
+          {messageForRetweet.exists() ?
+          <>
+            <RetweetInfo retweetUidUser={retweetUidUser}/>
+            <MessageContainer >
+              <CardColumns>
+                <PortraitContainer>
+                  {userInfoForRetweet[0].photoURL ?
+                  <img alt="userportrait" src={userInfoForRetweet[0].photoURL}/>
+                  :
+                  <img alt="userportrait" src={ProfileImage}/>
+                  }
+                </PortraitContainer>
+              </CardColumns>
+              <CardColumns rightColumn>
+                <UserNameContainer>
+                  <UserNameContainerDisplay >
+                    {userInfoForRetweet[0].alias}
+                  </UserNameContainerDisplay >
+                  <AliasContainer>
+                    @{userInfoForRetweet[0].alias}
+                  </AliasContainer>
+                </UserNameContainer>
+                <MessageContent>
+                  {messageForRetweet.data().message}
+                </MessageContent>
+                <TimeBar>
+                  {formatDate(messageForRetweet.data().date)}
+                </TimeBar>
+              </CardColumns> 
+            </MessageContainer>
+            <InteractionBar>
+              <IconContainer Reply ><IconComment/></IconContainer>
+              <IconContainerCont Retweet>
+                <RetweetButton >
+                  <IconRetweet/>
+                </RetweetButton>
+                <CounterContainer>
+                  {messageForRetweet.data().retweets.length}
+                </CounterContainer>
+              </IconContainerCont>
+              <IconContainerCont Like>
+                  <LikeButton> 
+                    <IconLike />                               
+                  </LikeButton>
+                <CounterContainer>
+                  <p>{messageForRetweet.data().likes.length}</p>
+                </CounterContainer>
+              </IconContainerCont>
+            </InteractionBar>
+          </>
+          :
+          <EmptyDiv/>
+          }
         </>
         :
         <LoadingComponent/>
         }
-        </>
+      </>
     )
 }
  

@@ -38,7 +38,7 @@ const RemoveRetweet = async({update,changeUpdate,newRetweetId, originalId, retwe
                   snapshot.docs.map((retweetToDelete) => {
                         // doc.data() is never undefined for query doc snapshots
                         console.log(retweetToDelete.id, " => ", retweetToDelete.data(), " => ", retweetToDelete.data().originalId);
-                        changeUpdate(update-1+ "using for remove retweet");
+                        changeUpdate(update-1+ " using for remove retweet");
                         return deleteDoc(doc(db, "userTimeline", retweetToDelete.id))
                       });
             unsuscribe();

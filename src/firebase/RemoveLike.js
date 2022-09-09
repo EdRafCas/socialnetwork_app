@@ -28,7 +28,7 @@ const RemoveLike = async({update,changeUpdate,newId, originalId, likeUidUser, cu
                               likes: removedLikes 
                         });
                         changeUpdate(update-1)    
-                        console.log(update+" "+"RemoveLike") 
+                        console.log(update+" executing RemoveLike if like is from same user") 
                   } catch{
                         console.log("error deleting")
                   }
