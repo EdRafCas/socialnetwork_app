@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Timeline from './Timeline';
 import PrivateRoute from './PrivateRoute';
-import UserProfile from './UserProfile';
+import ProfileContainer from './ProfileContainer';
 import BookmarksUser from './BookmarksUser';
 import StatusMessage from './StatusMessage';
 
@@ -29,7 +29,7 @@ const MainPageRoutes = ({changeAlert, messageAlert, stateAlert, changeStateAlert
           <Route path="/user/:alias/*" exact={true} 
                   element={
                   <PrivateRoute>
-                    <UserProfile  currentUserInfo={currentUserInfo}
+                    <ProfileContainer  currentUserInfo={currentUserInfo}
                                   showEditProfile={showEditProfile}
                                   changeShowEditProfile={changeShowEditProfile}
                                   user={user}

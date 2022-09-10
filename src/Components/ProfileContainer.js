@@ -90,84 +90,96 @@ const RedirectLink =styled(Link)`
     }
 `
 
+const EmptyDiv =styled.div`
+visibility:hidden
+display:none;
+overflow:hidden;
+`
 
-const UserProfile = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
-      const {alias} =useParams();
-      const [userByAlias, changeUserByAlias] = useState(currentUserInfo)
+const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+      let {alias} =useParams();
+      const [userByAlias, changeUserByAlias] = useState([{}])
       const [loadingUserData, changeLoadingUserData] =useState(true)
       useEffect(()=>{
             const ObtainUserByAlias = async() =>{
+                  console.log(alias)
+                  console.log(userByAlias)
                   const consult = query(
                         collection(db, 'userInfo'),
-                        where('alias', "==", alias),
+                        where('alias', "==", 'Hannibal'),
                         limit(10)
                       );
-                      
                   onSnapshot(consult, (snapshot)=>{
                         changeUserByAlias(snapshot.docs.map((userAlias)=>{
                               return {...userAlias.data(), id:userAlias.id}
                         }))
-                  })
-                  changeLoadingUserData(false)
-                  console.log("ObtainUserByAlias"+" "+ userByAlias[0].uidUser+" "+ currentUserInfo[0].alias)
+                  });
+                  changeLoadingUserData(false) 
+                  console.log(currentUserInfo)
+                  console.log(userByAlias)                
             }
-            ObtainUserByAlias();
+            ObtainUserByAlias();    
+            console.log(userByAlias)
       },[currentUserInfo, alias])
 
       return ( 
+
             <TimelineUserContainer className='timeline-user'>
-                  {currentUserInfo[0].alias === userByAlias[0].alias ?
-                  <>
-                  <HeaderUserProfile 
-                        currentUserInfo={currentUserInfo}
-                        changeShowEditProfile={changeShowEditProfile}
-                        showEditProfile={showEditProfile}
-                  />
-                  <LinksContainer>
-                        <RedirectLink to =""> 
+            {!loadingUserData ?    
+            <> 
+            {currentUserInfo[0].alias === userByAlias[0].alias ?
+            <>
+            <HeaderUserProfile 
+                  currentUserInfo={currentUserInfo}
+                  changeShowEditProfile={changeShowEditProfile}
+                  showEditProfile={showEditProfile}/>
+            <LinksContainer>
+                  <RedirectLink to =""> 
+                  Messages
+                  </RedirectLink>
+                  <RedirectLink to ={`/user/${alias}/likes`}> 
+                  Likes
+                  </RedirectLink>
+            </LinksContainer>
+            <UserProfileRoutes 
+                  currentUserInfo={currentUserInfo}
+                  changeAlert={changeAlert} 
+                  stateAlert={stateAlert} 
+                  changeStateAlert={changeStateAlert} 
+                  user={user}/>
+            </>
+            :
+            <>
+            <HeaderUserProfileAlias
+                  currentUserInfo={currentUserInfo}
+                  changeShowEditProfile={changeShowEditProfile}
+                  showEditProfile={showEditProfile}
+                  loadingUserData={loadingUserData}
+                  userByAlias={userByAlias}/>
+            <LinksContainer>
+                  <RedirectLink to =""> 
                         Messages
-                        </RedirectLink>
-                        <RedirectLink to ={`/user/${alias}/likes`}> 
+                  </RedirectLink>
+                  <RedirectLink to ={`/user/${alias}/likes`}> 
                         Likes
-                        </RedirectLink>
-                  </LinksContainer>
-                  <UserProfileRoutes 
-                        currentUserInfo={currentUserInfo}
-                        changeAlert={changeAlert} 
-                        stateAlert={stateAlert} 
-                        changeStateAlert={changeStateAlert} 
-                        user={user}
-                  />
-                  </>
-                  :
-                  <>
-                  <HeaderUserProfileAlias
-                        currentUserInfo={currentUserInfo}
-                        changeShowEditProfile={changeShowEditProfile}
-                        showEditProfile={showEditProfile}
-                        loadingUserData={loadingUserData}
-                        userByAlias={userByAlias}
-                        />
-                  <LinksContainer>
-                        <RedirectLink to =""> 
-                              Messages
-                        </RedirectLink>
-                        <RedirectLink to ={`/user/${alias}/likes`}> 
-                              Likes
-                        </RedirectLink>
-                  </LinksContainer>
-                  <UserProfileRoutesAlias 
-                        currentUserInfo={currentUserInfo}
-                        changeAlert={changeAlert} 
-                        stateAlert={stateAlert} 
-                        changeStateAlert={changeStateAlert} 
-                        user={user}
-                        userByAlias={userByAlias}
-                  />
-                  </>
-                  }
+                  </RedirectLink>
+            </LinksContainer>
+            <UserProfileRoutesAlias 
+                  currentUserInfo={currentUserInfo}
+                  changeAlert={changeAlert} 
+                  stateAlert={stateAlert} 
+                  changeStateAlert={changeStateAlert} 
+                  user={user}
+                  userByAlias={userByAlias}/>
+            </>
+            }
+            </>  
+            :
+            ""
+            }
             </TimelineUserContainer>
+
       );
 }
  
-export default UserProfile;
+export default ProfileContainer;

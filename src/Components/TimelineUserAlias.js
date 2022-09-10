@@ -19,7 +19,6 @@ import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
-import RetweetInfo from '../Elements/RetweetInfo';
 
 
 const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, changeStateAlert}) => {
@@ -65,9 +64,6 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
             <Card key={MessageUser.id}>
               {MessageUser.originalId?
               <>
-              <RetweetInfo
-              retweetUidUser={MessageUser.uidUser}
-              />
               <RetweetContainer 
                 update={update}
                 changeUpdate={changeUpdate}
