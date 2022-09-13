@@ -32,8 +32,6 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
     
-
-
       return ( 
         <> 
           {userByAlias[0].pinnedMessage &&

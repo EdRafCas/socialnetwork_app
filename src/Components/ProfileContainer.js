@@ -1,15 +1,10 @@
 import React,{useEffect, useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {Link} from 'react-router-dom';
-import UserProfileRoutes from './UserProfileRoutes';
-import UserProfileRoutesAlias from './UserProfileRoutesAlias';
 import '../index.css'
-import HeaderUserProfileAlias from './HeaderUserProfileAlias';
-import HeaderUserProfile from './HeaderUserProfile';
 import {useParams } from 'react-router-dom';
-import { db } from "../firebase/FirebaseConfig";
-import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
+import ProfileUser from './ProfileUser';
+import ProfileUserAlias from './ProfileUserAlias';
 
 const TimelineUserContainer = styled.div`
   height:100%;
@@ -23,72 +18,6 @@ const TimelineUserContainer = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
 `
-const LinksContainer = styled.div`
-  width:100%;
-  background:black;
-  margin:auto;
-  display:flex;
-  flex-direction:row;
-  justify-content:center;
-  margin:0;
- /*  border-top: 1px solid ${theme.BorderColor}; */
-  border-bottom: 1px solid ${theme.BorderColor};
-  a{    
-        text-decoration:none;
-  }
-  @media(max-width: 720px){ /* 950px */
-    width: 100%;
-    min-width:600px;
-  }
-  @media(max-width: 400px){ 
-        width: 100%;
-        min-width:400px;
-        
-  }
-      
-`
-const RedirectLink =styled(Link)`
-      /* border-bottom: 1px solid #FFFFFF; */
-      box-sizing: content-box;
-      font-size:1rem;
-      display:flex;
-      justify-content:center;
-      color:white;
-      width:auto;
-      min-width:7rem;
-      padding:15px 5px;
-      margin: 0.25rem 0.5rem;
-      letter-spacing:1px;
-      white-space: nowrap;
-      border: none;
-      
-      
-      :hover{
-            color:#fff;
-            background:${theme.BorderColor};
-            
-            :active{
-                  border: 2px double #000;
-                  font-size: 14px;
-                  font-weight: 800;
-            }   
-      }
-      @media(max-width: 400px){ 
-            font-size:12px;
-            padding:10px 2px;
-           
-            :hover{
-            color:#000000;
-            background:#fff;
-            
-                  :active{
-                        border: 3px double #000;
-                        font-size: 12px;
-                        font-weight: 800;
-                  }   
-      }
-    }
-`
 
 const EmptyDiv =styled.div`
 visibility:hidden
@@ -98,28 +27,14 @@ overflow:hidden;
 
 const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       let {alias} =useParams();
-      const [userByAlias, changeUserByAlias] = useState([{}])
       const [loadingUserData, changeLoadingUserData] =useState(true)
       useEffect(()=>{
-            const ObtainUserByAlias = async() =>{
-                  console.log(alias)
-                  console.log(userByAlias)
-                  const consult = query(
-                        collection(db, 'userInfo'),
-                        where('alias', "==", 'Hannibal'),
-                        limit(10)
-                      );
-                  onSnapshot(consult, (snapshot)=>{
-                        changeUserByAlias(snapshot.docs.map((userAlias)=>{
-                              return {...userAlias.data(), id:userAlias.id}
-                        }))
-                  });
+            const loadingProfiles = async() =>{
                   changeLoadingUserData(false) 
                   console.log(currentUserInfo)
-                  console.log(userByAlias)                
+             
             }
-            ObtainUserByAlias();    
-            console.log(userByAlias)
+            loadingProfiles();    
       },[currentUserInfo, alias])
 
       return ( 
@@ -127,50 +42,22 @@ const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, curr
             <TimelineUserContainer className='timeline-user'>
             {!loadingUserData ?    
             <> 
-            {currentUserInfo[0].alias === userByAlias[0].alias ?
-            <>
-            <HeaderUserProfile 
-                  currentUserInfo={currentUserInfo}
-                  changeShowEditProfile={changeShowEditProfile}
-                  showEditProfile={showEditProfile}/>
-            <LinksContainer>
-                  <RedirectLink to =""> 
-                  Messages
-                  </RedirectLink>
-                  <RedirectLink to ={`/user/${alias}/likes`}> 
-                  Likes
-                  </RedirectLink>
-            </LinksContainer>
-            <UserProfileRoutes 
-                  currentUserInfo={currentUserInfo}
-                  changeAlert={changeAlert} 
-                  stateAlert={stateAlert} 
-                  changeStateAlert={changeStateAlert} 
-                  user={user}/>
-            </>
+            {currentUserInfo[0].alias === alias ?
+            <ProfileUser
+            user={user}
+            currentUserInfo={currentUserInfo}
+            showEditProfile={showEditProfile}
+            changeShowEditProfile={changeShowEditProfile}
+            alias={alias}/>
             :
             <>
-            <HeaderUserProfileAlias
+            <ProfileUserAlias
+                  user={user}
                   currentUserInfo={currentUserInfo}
                   changeShowEditProfile={changeShowEditProfile}
                   showEditProfile={showEditProfile}
                   loadingUserData={loadingUserData}
-                  userByAlias={userByAlias}/>
-            <LinksContainer>
-                  <RedirectLink to =""> 
-                        Messages
-                  </RedirectLink>
-                  <RedirectLink to ={`/user/${alias}/likes`}> 
-                        Likes
-                  </RedirectLink>
-            </LinksContainer>
-            <UserProfileRoutesAlias 
-                  currentUserInfo={currentUserInfo}
-                  changeAlert={changeAlert} 
-                  stateAlert={stateAlert} 
-                  changeStateAlert={changeStateAlert} 
-                  user={user}
-                  userByAlias={userByAlias}/>
+                  alias={alias}/>
             </>
             }
             </>  
