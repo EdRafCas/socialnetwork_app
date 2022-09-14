@@ -71,7 +71,10 @@ const BackgroundImageContainer =styled.div`
       position:relative;
       border:solid red 1px;
       overflow:hidden;
+      width:100%;
       height:auto;
+      max-height:20rem;
+      min-height:10rem;
             img{
             opacity:0.8;
             max-width:50rem;
@@ -80,18 +83,20 @@ const BackgroundImageContainer =styled.div`
             }
 `
 const BackgroundInner=styled.div`
-      position:absolute;
+      position:relative;
       display:flex;
-      flex-direction:row;
-      justify-content:space-between;
+      flex-direction:column;
+      justify-content:center;
       align-items:center;
-      top:50%;
-      left:50%;
-      height:5rem;
-      width:14rem;
-      margin-left:-7rem;
-      margin-top:-2.5rem;
+      margin:auto;
+      width:100%;
+      /* margin-left:-7rem;
+      margin-top:-2.5rem; */
       border:solid red 1px;
+      img{
+            width:60%;
+
+      }
 
 `
 const ProfilePicContainer=styled.div`
@@ -148,6 +153,8 @@ const IconContainerProfile=styled.div`
       }
 `
 const IconContainerBackground=styled.div`
+      position: absolute;
+      top:40%;
       display:flex;
       flex-direction;
       align-items:center;
@@ -245,12 +252,10 @@ const ImageHolder=styled.img`
       width:100%;
 `
 const BackgroundImage=styled.img`
-      opacity:0.8;
-      max-width:50rem;
+      /* opacity:0.8;
       width:100%;
       overflow:hidden;
-      max-height:300px;
-      overflow:hidden;
+      max-width:50rem; */
 
 `
 
@@ -394,48 +399,47 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                         </EditButton>
                   </TopBar>
                   <BackgroundImageContainer>
-                        {selectedImageBackground ?
-                        <BackgroundImage alt="userbackground" src={URL.createObjectURL(selectedImageBackground)}/>
-                        :
-                        selectedImageBackground == null && currentUserInfo[0].backgroundURL == null ?
-                        <BackgroundImage alt="userbackground" src={Starboy}/>
-                        :
-                        selectedImageBackground == null && currentUserInfo[0].backgroundURL ?
-                        <BackgroundImage alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
-                        :""
-                        }
                         <BackgroundInner>
+                              {selectedImageBackground ?
+                              <BackgroundImage alt="userbackground" src={URL.createObjectURL(selectedImageBackground)}/>
+                              :
+                              selectedImageBackground == null && currentUserInfo[0].backgroundURL == null ?
+                              <BackgroundImage alt="userbackground" src={Starboy}/>
+                              :
+                              selectedImageBackground == null && currentUserInfo[0].backgroundURL ?
+                              <BackgroundImage alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
+                              :""
+                              }
                               <IconContainerBackground>
                               <label>
                                     <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>
                                     <IconAddPhoto/>     
                               </label>
                               </IconContainerBackground>
-                              <IconContainerBackground>
+                              {/* <IconContainerBackground>
                                     <IconAddPhoto/>
-                              </IconContainerBackground>
+                              </IconContainerBackground> */}
                         </BackgroundInner>
                   </BackgroundImageContainer>           
                   <ProfilePicContainer>
                         <ProfilePic>
-                        {selectedImage ?
-                        <ImageHolder alt="newAvatar" src={URL.createObjectURL(selectedImage)}/>
-                        :
-                        selectedImage == null && user.photoURL == null ?
-                        <ImageHolder alt="placeholderAvatar" src={ProfileImage}/>
-                        :
-                        selectedImage == null && user.photoURL ? 
-                        <ImageHolder alt="user Avatar" src={user.photoURL}/>
-                        :""
-                        }  
-                        <IconContainerProfile>
-                              <label>
-                                    <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChange}/>
-                                    <IconAddPhoto/>     
-                              </label>
-                        </IconContainerProfile>      
+                              {selectedImage ?
+                              <ImageHolder alt="newAvatar" src={URL.createObjectURL(selectedImage)}/>
+                              :
+                              selectedImage == null && user.photoURL == null ?
+                              <ImageHolder alt="placeholderAvatar" src={ProfileImage}/>
+                              :
+                              selectedImage == null && user.photoURL ? 
+                              <ImageHolder alt="user Avatar" src={user.photoURL}/>
+                              :""
+                              }  
+                              <IconContainerProfile>
+                                    <label>
+                                          <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChange}/>
+                                          <IconAddPhoto/>     
+                                    </label>
+                              </IconContainerProfile>      
                         </ProfilePic>
-                              
                   </ProfilePicContainer>
                   
                   <Inputs>

@@ -44,11 +44,11 @@ const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, curr
             <> 
             {currentUserInfo[0].alias === alias ?
             <ProfileUser
-            user={user}
-            currentUserInfo={currentUserInfo}
-            showEditProfile={showEditProfile}
-            changeShowEditProfile={changeShowEditProfile}
-            alias={alias}/>
+                  user={user}
+                  currentUserInfo={currentUserInfo}
+                  showEditProfile={showEditProfile}
+                  changeShowEditProfile={changeShowEditProfile}
+                  alias={alias}/>
             :
             <>
             <ProfileUserAlias

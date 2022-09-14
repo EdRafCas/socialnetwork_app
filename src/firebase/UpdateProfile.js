@@ -109,6 +109,22 @@ const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId
             }
 
 }
+const UpdateProfileRemovePinned = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp}) => {
+      
+      await changeShowPopUp(!showPopUp);
+            try{
+                  const document = doc(db, "userInfo" , userId); 
+                  await updateDoc(document, {pinnedMessage: ""});
+                        changeStateAlert(true);
+                        changeAlert({
+                              type:'success',
+                              message: 'The message was removed from your Profile'
+                        })
+            }catch{
+                  console.log("show error")
+            }
+
+}
 const AddBookmarkToUser = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp, bookmarks}) => {
       
       await changeShowPopUp(!showPopUp);
@@ -192,4 +208,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, AddBookmarkToUser, RemoveTweetFromPinned};
+export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned};

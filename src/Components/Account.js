@@ -119,8 +119,8 @@ const IconContainer=styled.div`
       fill:white;
     }
   :active{
-    background:white;;
-    fill:black;
+    /* background:white;;
+    fill:black; */
   }
 `
 const MessageButtonContainer=styled.div`

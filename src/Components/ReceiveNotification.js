@@ -10,8 +10,12 @@ const receiveNotification = ({e, userId, notification, changeShowPopUp, changePo
       user:user, 
       currentUserInfo:currentUserInfo
     })
+  } if(notification==="unPin"){
+    changeShowPopUp(true)
+    changePopUpAlert({type: "unPin", 
+    id: id,
+    userId:userId})
   } if(notification==="delete"){
-
     changeShowPopUp(true)
     changePopUpAlert({type: "delete", 
     id: id})

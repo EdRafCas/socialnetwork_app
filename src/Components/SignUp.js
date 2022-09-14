@@ -252,8 +252,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                                 birthYear:birthYear,
                                                 uidUser:uid,
                                                 photoURL:"",
-                                                backgroundURL:"",
-                                                pinnedMessage:{},
+                                                pinnedMessage:"",
                                                 bookmarks:[]})
                                           .then(()=>{
                                                 changeStateAlert(true);

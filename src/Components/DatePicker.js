@@ -252,7 +252,7 @@ const DatePicker = ({birthMonth, changeBirthMonth, birthDay, changeBirthDay, bir
                                                             onClick={handleClick}>
                                                             {year}       
                                                       </Option>
-                                          })};
+                                          })}
                                     </Options>
                               }
                         </YearPicker>

@@ -147,12 +147,11 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               :
                 ""
               }
-
               {messageUidUser===currentUserInfo[0].uidUser ?
               <>
                 {pinnedMenu===true ?
                   <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
-                    notification:"pinned", 
+                    notification:"unPin", 
                     changeShowPopUp, 
                     changePopUpAlert,
                     userId:currentUserInfo[0].id, 
