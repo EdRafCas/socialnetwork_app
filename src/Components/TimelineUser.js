@@ -21,7 +21,6 @@ import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
-import RetweetInfo from '../Elements/RetweetInfo';
 
 
 const EmptyDiv=styled.div`

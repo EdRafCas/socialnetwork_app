@@ -35,6 +35,12 @@ const receiveNotification = ({e, userId, notification, changeShowPopUp, changePo
     id: id,
     userId:userId,
     bookmarks:bookmarks})
+  } if(notification==="removeFromBookmark"){
+    changeShowPopUp(true)
+    changePopUpAlert({type: "removeFromBookmark",
+    id: id,
+    userId:userId,
+    bookmarks:bookmarks})
   } if(notification==="profilePicture"){
     changeShowPopUp(true)
     changePopUpAlert({type: "profilePicture",

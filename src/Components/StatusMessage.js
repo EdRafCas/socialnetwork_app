@@ -296,20 +296,18 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                         </CardRowsMessage>
                         <CardColumnMessage rightColumn>
                               <MessageContentBig>
-                              <p>{infoForMessage.data().message} + {id}</p>
-                              
+                                    <p>{infoForMessage.data().message}</p>
                               </MessageContentBig>
-                              
                               <TimeBar>
                               {formatDate(infoForMessage.data().date)}
                               </TimeBar>
                               {infoForMessage.data().retweets.length > 0 || infoForMessage.data().likes.length > 0 ?
                               <CounterBar>
                                     <CounterBarContainer>
-                                    <p>{infoForMessage.data().retweets.length}  Retweets </p> 
+                                          <p>{infoForMessage.data().retweets.length}  Retweets </p> 
                                     </CounterBarContainer>
                                     <CounterBarContainer>
-                                    <p>{infoForMessage.data().likes.length}  Likes </p> 
+                                          <p>{infoForMessage.data().likes.length}  Likes </p> 
                                     </CounterBarContainer>
                               </CounterBar>
                               :

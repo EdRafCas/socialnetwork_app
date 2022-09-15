@@ -9,6 +9,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 /* import { IconContainer } from './ElementsTimeline'; */
 import receiveNotification from '../Components/ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
+import { RemoveFromBookMark } from '../firebase/UpdateProfile';
 
 
 const IconMore=styled.div`
@@ -50,12 +51,14 @@ const OptionsCard =styled.div`
   top:2rem;
   position:absolute;
   border:solid ${theme.BorderColor} 1px;
+  background:black;
   width:auto;
   height:auto;
   padding:5px;
   padding-right:15px;
   background:black;
-  color:${theme.Text} ;
+  opacity:1;
+  color:${theme.Text};
   z-index:100;
 `
 const Option =styled.div`
@@ -65,6 +68,9 @@ const Option =styled.div`
   flex-direction:row;
   justify-content:flex-start;
   align-items:center;
+  z-index:101;
+  /* background:white;
+  border:solid ${theme.BorderColor} 1px; */
   cursor: pointer;
   :hover{
     background:rgba(255,255,255, 0.2);
@@ -88,7 +94,7 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, retweetSameUser}) => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, retweetSameUser, bookmarkTimeline, update, changeUpdate}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
@@ -177,7 +183,6 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               </>
               :""
               }
-              
               {!currentUserInfo[0].bookmarks.includes(id)?
               <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
                 notification:"bookmark", 
@@ -192,6 +197,8 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               <p>Bookmark Message</p>
               </Option>
               :
+              <>
+              {!bookmarkTimeline === true ?
               <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
                 notification:"alreadyBookmark",
                 changeAlert, 
@@ -200,6 +207,25 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                 <IconBookmark/>
               </IconContainer>
               <p>Bookmark Message</p>
+              </Option>
+              :
+              ""
+              }
+              </>
+              }
+              {bookmarkTimeline &&
+               <Option onClick={(e)=>{e.preventDefault(); RemoveFromBookMark({
+                changeShowPopUp, 
+                changePopUpAlert,
+                update,
+                changeUpdate,
+                userId:currentUserInfo[0].id,
+                bookmarks:currentUserInfo[0].bookmarks,
+                id})}}>
+              <IconContainer>
+                <IconBookmark/>
+              </IconContainer>
+              <p>Remove from Bookmark</p>
               </Option>
               }
             </OptionsCard>

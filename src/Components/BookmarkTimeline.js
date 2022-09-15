@@ -70,7 +70,7 @@ const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, cu
       obtainBookmarkTimeline()
 
     /* By not calling changeLoadingBookmarkData in useEffect it keeps loading each time we update*/
-    },[changeUserInfoForBookmark, uidUser])
+    },[changeUserInfoForBookmark, uidUser, update])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -96,6 +96,9 @@ return (
           </NameContainer>
           <AliasContainer>@{userInfoForBookmark[0].alias}</AliasContainer>
           <ShowMoreMenu 
+                        bookmarkTimeline={true}
+                        update={update}
+                        changeUpdate={changeUpdate}
                         changeAlert={changeAlert}
                         changeStateAlert={changeStateAlert}
                         messageUidUser={userInfoForBookmark[0].uidUser} 

@@ -114,7 +114,7 @@ return (
                           changeStateAlert={changeStateAlert}
                           messageUidUser={messageForRetweet.data().uidUser} 
                           currentUserInfo={currentUserInfo}
-                          id={messageForRetweet.data().id}/>
+                          id={originalId}/>
                 </UserNameContainer>
                 <MessageContent>
                   {messageForRetweet.data().message}

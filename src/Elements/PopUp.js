@@ -18,7 +18,6 @@ const ContainerPopUp =styled.div`
     display:flex;
     flex-direction:column;
     gap:1rem;
-
 `
 const PopUpTitle=styled.p`
     font-size:1.5rem;

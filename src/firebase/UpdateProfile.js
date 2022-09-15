@@ -141,6 +141,19 @@ const AddBookmarkToUser = async({changeStateAlert,changeAlert,id,userId, message
             }
 
 }
+const RemoveFromBookMark = async({id,userId, messageId,changeShowPopUp,showPopUp, bookmarks, update, changeUpdate}) => {
+      
+      const removedBookmark = bookmarks.filter(function(item){
+            return item !== id
+      })
+      const document = doc(db, "userInfo" , userId); 
+      await updateDoc(document, {
+            bookmarks: removedBookmark
+      });
+      changeUpdate(update-1)    
+            console.log(update+" removing bookmark from user") 
+
+}
 
 const RemoveTweetFromPinned = async({changeStateAlert,changeAlert, id, userId, changeShowPopUp, showPopUp}) => {
       await changeShowPopUp(!showPopUp);
@@ -208,4 +221,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned};
+export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned, RemoveFromBookMark};

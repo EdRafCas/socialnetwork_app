@@ -89,7 +89,7 @@ const InteractionBar=styled.div`
   max-height:6rem;
   padding-top:0.5rem;
   padding-bottom:0.5rem;
-  z-index:100;
+  z-index:98;
 `
 const IconContainer=styled.div`
   border-radius:50%;
