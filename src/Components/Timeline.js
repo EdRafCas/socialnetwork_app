@@ -54,7 +54,9 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                 retweetUidUser={Message.uidUser}
                 changeShowPopUp={changeShowPopUp}
                 changePopUpAlert={changePopUpAlert}
-                user={user}/>
+                user={user}
+                changeAlert={changeAlert} 
+                changeStateAlert={changeStateAlert}/>
             </>
             :
             <>

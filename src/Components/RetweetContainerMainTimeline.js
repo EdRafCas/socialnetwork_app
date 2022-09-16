@@ -125,23 +125,12 @@ return (
                   <AliasContainer>
                     @{userInfoForRetweet[0].alias}
                   </AliasContainer>
-                  { messageForRetweet.data().uidUser ===currentUserInfo[0].uidUser ?
                     <ShowMoreMenu 
-                      retweetSameUser={true}
                       changeAlert={changeAlert}
                       changeStateAlert={changeStateAlert}
                       messageUidUser={messageForRetweet.data().uidUser} 
                       currentUserInfo={currentUserInfo}
                       id={originalId} />
-                    :
-                    <ShowMoreMenu 
-                      retweet={true}
-                      changeAlert={changeAlert}
-                      changeStateAlert={changeStateAlert}
-                      messageUidUser={messageForRetweet.data().uidUser} 
-                      currentUserInfo={currentUserInfo}
-                      id={originalId} />
-                  }
                 </UserNameContainer>
                 <MessageContent>
                   {messageForRetweet.data().message}

@@ -111,7 +111,7 @@ return (
                         changeStateAlert={changeStateAlert}
                         messageUidUser={messageForLike.data().uidUser} 
                         currentUserInfo={currentUserInfo}
-                        id={messageForLike.data().id}/>
+                        id={originalId}/>
               </UserNameContainer>
               <MessageContent>
                 {messageForLike.data().message}

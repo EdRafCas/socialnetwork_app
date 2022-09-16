@@ -19,11 +19,11 @@ const BackgroundImageUser =styled.div`
       display:flex;
       justify-content:center;
       img{
-      max-width:55rem;
-      width:100%;
-      height:auto;
-      overflow:hidden;
-      }
+            max-width:55rem;
+            width:100%;
+            height:auto;
+            overflow:hidden;
+            }
 `
 
 
@@ -50,7 +50,11 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
                   }
                 </BackgroundImageUser>
                 <ProfilePicContainer>
-                  <ProfilePic>
+                  <ProfilePic onClick={()=>receiveNotification({
+                        notification:"profilePicture",
+                        changeShowPopUp, 
+                        changePopUpAlert,
+                        profilePicture:currentUserInfo[0].photoURL})}>
                         {user.photoURL ?
                         <img alt="UserAvatar" src={user.photoURL} />
                         :

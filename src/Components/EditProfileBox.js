@@ -440,8 +440,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                     </label>
                               </IconContainerProfile>      
                         </ProfilePic>
-                  </ProfilePicContainer>
-                  
+                  </ProfilePicContainer>       
                   <Inputs>
                         <InputContainer>
                         <FormularyInput NameBox

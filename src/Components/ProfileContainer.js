@@ -48,6 +48,8 @@ const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, curr
                   currentUserInfo={currentUserInfo}
                   showEditProfile={showEditProfile}
                   changeShowEditProfile={changeShowEditProfile}
+                  changeAlert={changeAlert}
+                  changeStateAlert={changeStateAlert}
                   alias={alias}/>
             :
             <>
@@ -57,6 +59,8 @@ const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, curr
                   changeShowEditProfile={changeShowEditProfile}
                   showEditProfile={showEditProfile}
                   loadingUserData={loadingUserData}
+                  changeAlert={changeAlert}
+                  changeStateAlert={changeStateAlert}
                   alias={alias}/>
             </>
             }

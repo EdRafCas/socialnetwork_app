@@ -14,10 +14,15 @@ const HeaderUser =styled.div`
 const BackgroundImage =styled.div`
       /* border:solid red 1px; */
       overflow:hidden;
-      height:auto;
-            img{
-            max-width:50rem;
+      height:380px;
+      width:100%;
+      cursor:pointer;
+      display:flex;
+      justify-content:center;
+      img{
+            max-width:55rem;
             width:100%;
+            height:auto;
             overflow:hidden;
             }
 `
@@ -44,6 +49,7 @@ const ProfilePic =styled.div`
       flex-direction:column;
       overflow:hidden;
       background:#000;
+      cursor:pointer;
       img{
             width:100%;
       }

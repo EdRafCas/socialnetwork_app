@@ -136,6 +136,24 @@ const BackgroundBox=styled.div`
     justify-content:center;
   }
 `
+const ProfilePictureBox=styled.div`
+  position:absolute;
+  width:auto;
+  top:20%;
+  /* margin-top:-30rem;
+  margin-left:-30rem;
+  height:60rem;
+  width:60rem;*/
+  z-index:101;
+  display:grid;
+  place-items:center;
+  img{
+    border-radius:50%;
+    height:30rem;
+    width:30rem;
+    justify-content:center;
+  }
+`
 const CloseWindow=styled.div`
     position:fixed;
     top:2.5rem;
@@ -160,7 +178,7 @@ const CloseWindow=styled.div`
 `
 
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture}) => {
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture}) => {
         const {changeShowPopUp} =useContext(AuthContext);
         const {showPopUp} =useContext(AuthContext);
         const {update} =useContext(AuthContext);
@@ -321,6 +339,11 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
         <BackgroundBox>
             <img alt="userbackground" src={backgroundPicture}/>
         </BackgroundBox>
+        }
+        { type ==="profilePicture" &&
+        <ProfilePictureBox>
+            <img alt="userbackground" src={profilePicture}/>
+        </ProfilePictureBox>
         }
         </>
         :

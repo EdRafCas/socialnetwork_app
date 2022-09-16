@@ -188,6 +188,8 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                 notification:"bookmark", 
                 changeShowPopUp, 
                 changePopUpAlert,
+                changeAlert, 
+                changeStateAlert,
                 userId:currentUserInfo[0].id,
                 bookmarks:currentUserInfo[0].bookmarks,
                 id })}}>
@@ -199,24 +201,28 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               :
               <>
               {!bookmarkTimeline === true ?
-              <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
-                notification:"alreadyBookmark",
-                changeAlert, 
-                changeStateAlert})}}>
-              <IconContainer>
-                <IconBookmark/>
-              </IconContainer>
-              <p>Bookmark Message</p>
-              </Option>
-              :
-              ""
-              }
+                <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  notification:"alreadyBookmark",
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  changeAlert, 
+                  changeStateAlert})}}>
+                <IconContainer>
+                  <IconBookmark/>
+                </IconContainer>
+                <p>Bookmark Message</p>
+                </Option>
+                :
+                ""
+                }
               </>
               }
               {bookmarkTimeline &&
                <Option onClick={(e)=>{e.preventDefault(); RemoveFromBookMark({
                 changeShowPopUp, 
                 changePopUpAlert,
+                changeAlert, 
+                changeStateAlert,
                 update,
                 changeUpdate,
                 userId:currentUserInfo[0].id,

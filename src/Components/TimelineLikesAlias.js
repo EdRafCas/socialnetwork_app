@@ -34,6 +34,8 @@ const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, c
                 UidUser={Message.uidUser}
                 changeShowPopUp={changeShowPopUp}
                 changePopUpAlert={changePopUpAlert}
+                changeAlert={changeAlert}
+                changeStateAlert={changeStateAlert}
                 user={user}/>
 
                 {/* <MessageTimelineContainer
