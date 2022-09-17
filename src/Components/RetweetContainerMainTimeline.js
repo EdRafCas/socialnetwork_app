@@ -134,7 +134,6 @@ return (
                 </UserNameContainer>
                 <MessageContent>
                   {messageForRetweet.data().message}
-                  {originalId}
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForRetweet.data().date)}

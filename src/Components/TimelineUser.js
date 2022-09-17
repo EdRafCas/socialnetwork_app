@@ -132,9 +132,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                   <TimeBar>
                     {formatDate(MessageUser.date)}
                   </TimeBar>
-                  <TimeBar>
+                  {/* <TimeBar>
                     {MessageUser.id}
-                  </TimeBar>
+                  </TimeBar> */}
                 </CardColumns>
               </MessageLink>
               <InteractionBar>

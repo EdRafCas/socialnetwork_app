@@ -69,7 +69,7 @@ const FormularyBox =styled.form`
 `
 const BackgroundImageContainer =styled.div`
       position:relative;
-      border:solid red 1px;
+      /* border:solid red 1px; */
       overflow:hidden;
       width:100%;
       height:auto;
@@ -90,12 +90,9 @@ const BackgroundInner=styled.div`
       align-items:center;
       margin:auto;
       width:100%;
-      /* margin-left:-7rem;
-      margin-top:-2.5rem; */
-      border:solid red 1px;
+      /* border:solid red 1px; */
       img{
-            width:60%;
-
+            width:100%;
       }
 
 `
@@ -104,7 +101,7 @@ const ProfilePicContainer=styled.div`
       width:100%;
       height:5rem;    
       position: relative;
-      border: solid red 1px;
+      /* border: solid red 1px; */
 `
 const ProfilePic =styled.div`
       position:relative;
@@ -162,7 +159,7 @@ const IconContainerBackground=styled.div`
       height:3rem;
       width:3rem;
       border-radius:50%;     
-      border:1px solid white;
+      /* border:1px solid white; */
       fill:#000;
       background:${theme.BorderColor};
       opacity:0.7;
@@ -256,6 +253,12 @@ const BackgroundImage=styled.img`
       width:100%;
       overflow:hidden;
       max-width:50rem; */
+`
+const BackgroundImageBlank=styled.div`
+      height:10rem;
+      width:100%;
+      background:#000;
+      /* border:1px solid white; */
 
 `
 
@@ -404,7 +407,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                               <BackgroundImage alt="userbackground" src={URL.createObjectURL(selectedImageBackground)}/>
                               :
                               selectedImageBackground == null && currentUserInfo[0].backgroundURL == null ?
-                              <BackgroundImage alt="userbackground" src={Starboy}/>
+                              <BackgroundImageBlank/>
                               :
                               selectedImageBackground == null && currentUserInfo[0].backgroundURL ?
                               <BackgroundImage alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
@@ -413,7 +416,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                               <IconContainerBackground>
                               <label>
                                     <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>
-                                    <IconAddPhoto/>     
+                                    <IconAddPhoto/>   
                               </label>
                               </IconContainerBackground>
                               {/* <IconContainerBackground>

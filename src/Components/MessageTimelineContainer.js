@@ -106,10 +106,10 @@ return (
       </CardColumns>
     </MessageLink>
     <InteractionBar>
-      <IconContainer Reply onClick={()=>receiveNotification({
+      <IconContainer /* Reply onClick={()=>receiveNotification({
         notification:"delete",
         changeShowPopUp, 
-        changePopUpAlert})}>
+        changePopUpAlert})} */>
         <IconComment/>
       </IconContainer>
       <IconContainerCont Retweet>
