@@ -150,7 +150,7 @@ const MessageButton=styled.button`
     /* border:solid red 1px; */
   }
   :hover{
-    background:${theme.RedDark}};
+    background:${theme.BluePinned}};
   }
   :active{
     border:solid black 3px;

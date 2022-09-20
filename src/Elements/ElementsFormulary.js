@@ -78,7 +78,8 @@ const Button =styled.button`
     color:white;
   }
   :hover{
-    background:${theme.RedDark}};
+    background:${(props)=> props.Logout ? `${theme.RedDark}`
+                                        : `${theme.BluePinned}`};
   }
   :active{
     border:solid black 3px;

@@ -9,16 +9,16 @@ import {auth} from '../firebase/FirebaseConfig';
 import Alert from '../Elements/Alert';
 import LogoutButton from './LogoutButton';
 
-const AccountManagement = styled.div`
+const FormularyContainer = styled.div`
   width:auto;
-  min-width:40%;
+  min-width:50%;
   height:auto;
-  padding:1rem 1rem;
+  padding:1% 6%;
   display:flex;
   flex-direction:column;
   align-content:center;
   gap:1rem;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 const SignUpContainer=styled.div`
   display:flex;
@@ -61,7 +61,6 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
           })
           return;
     }
-
     if(email === "" || password === ""){
           changeStateAlert(true);
           changeAlert({
@@ -96,10 +95,8 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
 
 };
 
-  
-
       return ( 
-      <AccountManagement>
+      <FormularyContainer>
           <Formulary LoginUpFormulary onSubmit={handleSubmit}>
             <InputContainer>
               <FormularyInput
@@ -123,7 +120,7 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
             <ButtonContainer>
               <Button type="submit" ><p>Login</p></Button>
             </ButtonContainer>
-            <LogoutButton/>
+{/*             <LogoutButton/> */}
             <SignUpContainer><span>Don't own an account?</span><span><SignUp to="/SignUp">Sign up</SignUp></span>
             </SignUpContainer> 
           </Formulary>
@@ -132,7 +129,7 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
                 stateAlert={stateAlert}
                 changeStateAlert={changeStateAlert}
         />
-      </AccountManagement>
+      </FormularyContainer>
       );
 }
  

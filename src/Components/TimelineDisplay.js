@@ -9,11 +9,12 @@ import '../index.css'
 
 const TimelineContainer = styled.div`
   height:100%;
-  width:60%;
+  width:50%;
   display:flex;
   flex-direction:column;
   padding:0rem;
   border:solid ${theme.BorderColor} 1px;
+  border-bottom:none;
   gap:0rem;
   overflow:scroll;
   overflow-x:hidden;

@@ -20,7 +20,7 @@ const LogoutButton = () => {
 
       return (
             <ButtonContainer>
-                  <Button type="button" onClick={logOut}>
+                  <Button Logout type="button" onClick={logOut}>
                         <p>Logout</p>
                         </Button>
             </ButtonContainer>

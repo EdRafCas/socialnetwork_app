@@ -12,8 +12,8 @@ import '../index.css'
 import {CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
-import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
+import '../index.css'
 
 const RetweetButton=styled.button`
   background:none;
@@ -95,12 +95,6 @@ return (
           <AliasContainer>
             @{messageForTimeline[0].alias}
           </AliasContainer>
-          <ShowMoreMenu 
-                        changeAlert={changeAlert}
-                        changeStateAlert={changeStateAlert}
-                        messageUidUser={messageUidUser} 
-                        currentUserInfo={currentUserInfo}
-                        id={id} />
         </UserNameContainer>
         <MessageContent>
           {messageMessage}

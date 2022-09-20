@@ -249,6 +249,8 @@ const ImageHolder=styled.img`
       width:100%;
 `
 const BackgroundImage=styled.img`
+      max-height:20rem;
+      min-height:10rem;
       /* opacity:0.8;
       width:100%;
       overflow:hidden;
