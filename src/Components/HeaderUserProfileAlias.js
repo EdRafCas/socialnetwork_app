@@ -54,7 +54,7 @@ const HeaderUserProfileAlias = ({loadingUserData,userByAlias, currentUserInfo, s
 
       return ( 
             <>
-            {!loadingUserData &&
+            {!loadingUserData ?
                   <HeaderUser >
                         {userByAlias[0].backgroundURL ?
                         <BackgroundImage onClick={()=>receiveNotification({
@@ -98,6 +98,8 @@ const HeaderUserProfileAlias = ({loadingUserData,userByAlias, currentUserInfo, s
                         </Bio>
                         </UserCard>
                   </HeaderUser>
+            :
+            <p>Error loading Header</p>
             }
             </>
        );

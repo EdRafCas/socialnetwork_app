@@ -98,8 +98,8 @@ const ProfileUserAlias = ({changeAlert, stateAlert, changeStateAlert, user, curr
                               return {...userAlias.data(), id:userAlias.id}
                         }))
                   });
-                  changeLoadingUserData(false) 
-                  console.log(currentUserInfo)                
+                  changeLoadingUserData(false)
+                  console.log(userByAlias)           
             }
             ObtainUserByAlias();    
       },[currentUserInfo, alias])

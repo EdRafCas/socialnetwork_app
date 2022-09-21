@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUserAlias from '../Hooks/useObtainMessagesByUserAlias';
 import ProfileImage from '../img/profile_avatar.png'
@@ -19,20 +19,38 @@ import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import LoadingComponent from '../Elements/LoadingComponent';
 
 
 const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, changeStateAlert}) => {
     const [messagesSentByUserAlias] = useObtainMessagesByUserAlias(userByAlias[0].uidUser);
+    const [messagesByUserLoaded, changeMessagesByUserLoaded] =useState(true)
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
+
+    useEffect(()=>{
+      const ObtainMessagesByUserAlias = async() =>{
+        if(userByAlias[0].uidUser){
+          console.log("userByAlias[0].uidUser exist")
+          console.log(userByAlias[0].uidUser)    
+          changeMessagesByUserLoaded(false) 
+        } else{
+              console.log("userByAlias[0].uidUser not found")
+        }
+
+      }
+      ObtainMessagesByUserAlias();
+    },[update, userByAlias])
  
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
     
       return ( 
+        <>
+        {!messagesByUserLoaded?
         <> 
           {userByAlias[0].pinnedMessage &&
           <>
@@ -176,6 +194,11 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
             )
           })}          
         </>
+        :
+        <LoadingComponent/>
+        }
+        </>
+        
        );
 }
  

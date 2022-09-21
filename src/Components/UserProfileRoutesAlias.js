@@ -11,43 +11,48 @@ const UserProfileRoutesAlias = ({userByAlias, changeAlert, stateAlert, changeSta
 
       useEffect(()=>{
             const ObtainAliasRoutes = async() =>{
-
-                  changeLoadingAliasRoute(false) 
-                  console.log(currentUserInfo)
-                  console.log(userByAlias)    
+                  if(userByAlias[0].uidUser){
+                        console.log(userByAlias)    
+                        changeLoadingAliasRoute(false) 
+                  } else{
+                        console.log("user not found")
+                  }
+       
             }
             ObtainAliasRoutes();    
       },[currentUserInfo, alias, userByAlias])
 
       return ( 
             <>
-            {!loadingAliasRoute &&
+            {!loadingAliasRoute ?
             <Routes>
             <Route path="" exact={true}
                   element={
                   <PrivateRoute>
+                        <p>chek</p>
                         <TimelineUserAlias 
                                     currentUserInfo={currentUserInfo}
                                     user={user}
                                     changeAlert={changeAlert}
                                     stateAlert={stateAlert}
                                     changeStateAlert={changeStateAlert}
-                                    userByAlias={userByAlias}
-                                    />
+                                    userByAlias={userByAlias}/>
                   </PrivateRoute>}/>
             <Route path={`/likes`} exact={true}
                   element={
                   <PrivateRoute>
+                        <p>chek</p>
                         <TimelineLikesAlias currentUserInfo={currentUserInfo}
                                     user={user}
                                     changeAlert={changeAlert}
                                     stateAlert={stateAlert}
                                     changeStateAlert={changeStateAlert}
-                                    userByAlias={userByAlias}
-                                    />
+                                    userByAlias={userByAlias}/>
                   </PrivateRoute>}/>
             
             </Routes>
+            :
+            <p>Error loading routes</p>
             }
             </>
       );

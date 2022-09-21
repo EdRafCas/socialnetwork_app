@@ -27,12 +27,13 @@ overflow:hidden;
 
 const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       let {alias} =useParams();
-      const [loadingUserData, changeLoadingUserData] =useState(true)
+      const [loadingUser, changeLoadingUser] =useState(true)
       useEffect(()=>{
             const loadingProfiles = async() =>{
-                  changeLoadingUserData(false) 
-                  console.log(currentUserInfo)
-             
+                  console.log("loading Alias")
+
+                  changeLoadingUser(false) 
+                  console.log("Alias loaded= " + alias)
             }
             loadingProfiles();    
       },[currentUserInfo, alias])
@@ -40,7 +41,7 @@ const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, curr
       return ( 
 
             <TimelineUserContainer className='timeline-user'>
-            {!loadingUserData ?    
+            {!loadingUser ?    
             <> 
             {currentUserInfo[0].alias === alias ?
             <ProfileUser
@@ -54,11 +55,10 @@ const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, curr
             :
             <>
             <ProfileUserAlias
-                  user={user}
+                  user={user} 
                   currentUserInfo={currentUserInfo}
                   changeShowEditProfile={changeShowEditProfile}
                   showEditProfile={showEditProfile}
-                  loadingUserData={loadingUserData}
                   changeAlert={changeAlert}
                   changeStateAlert={changeStateAlert}
                   alias={alias}/>

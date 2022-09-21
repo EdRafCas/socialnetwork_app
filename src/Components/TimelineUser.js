@@ -50,24 +50,24 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
         <> 
           {currentUserInfo[0].pinnedMessage &&
           <Card>
-          <PinnedInfo>
-            <IconContainerRetweet  >
-              <IconPin/>
-            </IconContainerRetweet>
-              <NameContainerRetweet>
-              <p>Pinned Message </p> 
-              </NameContainerRetweet>
-          </PinnedInfo>
-          <PinnedMessageContainer
-            update={update}
-            changeUpdate={changeUpdate} 
-            user={user}
-            originalId={currentUserInfo[0].pinnedMessage}
-            currentUserInfo={currentUserInfo}
-            changeShowPopUp={changeShowPopUp}
-            changePopUpAlert={changePopUpAlert}
-            changeAlert={changeAlert}
-            changeStateAlert={changeStateAlert}/>          
+            <PinnedInfo>
+              <IconContainerRetweet  >
+                <IconPin/>
+              </IconContainerRetweet>
+                <NameContainerRetweet>
+                <p>Pinned Message </p> 
+                </NameContainerRetweet>
+            </PinnedInfo>
+            <PinnedMessageContainer
+              update={update}
+              changeUpdate={changeUpdate} 
+              user={user}
+              originalId={currentUserInfo[0].pinnedMessage}
+              currentUserInfo={currentUserInfo}
+              changeShowPopUp={changeShowPopUp}
+              changePopUpAlert={changePopUpAlert}
+              changeAlert={changeAlert}
+              changeStateAlert={changeStateAlert}/>          
           </Card>
           }
           {filtertype.map((MessageUser, index)=>{
