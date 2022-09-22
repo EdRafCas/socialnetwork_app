@@ -204,7 +204,7 @@ return (
                 </CounterContainer>
               </IconContainerCont>
             </InteractionBar>
-            </>
+          </>
           :
           <EmptyDiv/>
           }

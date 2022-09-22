@@ -131,10 +131,6 @@ return (
                 <TimeBar>
                   {formatDate(messageForLike.data().date)}
                 </TimeBar>
-                <TimeBar>
-                  {newId}
-                </TimeBar>
-
               </CardColumns> 
             </MessageLink>
             <InteractionBar>

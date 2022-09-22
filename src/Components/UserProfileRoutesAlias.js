@@ -29,7 +29,6 @@ const UserProfileRoutesAlias = ({userByAlias, changeAlert, stateAlert, changeSta
             <Route path="" exact={true}
                   element={
                   <PrivateRoute>
-                        <p>chek</p>
                         <TimelineUserAlias 
                                     currentUserInfo={currentUserInfo}
                                     user={user}
@@ -41,7 +40,6 @@ const UserProfileRoutesAlias = ({userByAlias, changeAlert, stateAlert, changeSta
             <Route path={`/likes`} exact={true}
                   element={
                   <PrivateRoute>
-                        <p>chek</p>
                         <TimelineLikesAlias currentUserInfo={currentUserInfo}
                                     user={user}
                                     changeAlert={changeAlert}

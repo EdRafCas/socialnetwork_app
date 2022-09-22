@@ -12,7 +12,7 @@ const useObtainMessagesLikesByUserAlias = (uidUserbyalias) => {
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", uidUserbyalias),
-                  where('Like', "==", true),
+                  where('type', "==", "like"),
                   /* where('uidUser', "!==", null), */ 
                   orderBy('date', 'desc'),
                   /* limit(30) */

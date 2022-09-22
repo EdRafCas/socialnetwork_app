@@ -1,4 +1,5 @@
 import React from 'react';
+import theme from '../Theme'
 import styled from 'styled-components';
 import loadingImage from '../img/loading.gif'
 
@@ -9,6 +10,7 @@ align-items:center;
 width:100%;
 max-height:10rem;
 overflow:hidden;
+border:solid ${theme.BorderColor} 1px;
 img{
   height:100%;
   width:auto;
