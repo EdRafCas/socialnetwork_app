@@ -20,8 +20,10 @@ const BackgroundImageUser =styled.div`
       justify-content:center;
       img{
             max-width:55rem;
-            width:100%;
+            width:auto;
+            min-width:60%;
             height:auto;
+            min-height:80%;
             overflow:hidden;
             }
 `

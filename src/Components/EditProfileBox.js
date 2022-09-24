@@ -92,7 +92,7 @@ const BackgroundInner=styled.div`
       width:100%;
       /* border:solid red 1px; */
       img{
-            width:100%;
+            width:auto;
       }
 
 `
@@ -305,6 +305,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                     id:currentUserInfo[0].id,
                                     newName:nameEdit,
                                     newBio:bioEdit})
+                                    changeShowEditProfile(!showEditProfile);
                         } catch(error){
                               console.log(error+"error UpdateProfileImageBackground")
                         }                                   
@@ -319,6 +320,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                     id:currentUserInfo[0].id,
                                     newName:nameEdit,
                                     newBio:bioEdit})
+                                    changeShowEditProfile(!showEditProfile);
                         } catch(error){
                               console.log(error+"error UpdateProfile")
                         }           
@@ -332,6 +334,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                     id:currentUserInfo[0].id,
                                     newName:nameEdit,
                                     newBio:bioEdit});
+                                    changeShowEditProfile(!showEditProfile);
                                     try{
                                           await UpdateProfileImageOnlyBackground({
                                                 file:selectedImageBackground,
@@ -349,11 +352,11 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                         await UpdateProfileNoImage({
                               id:currentUserInfo[0].id,
                               newName:nameEdit,
-                              newBio:bioEdit,
-                        })
+                              newBio:bioEdit})
+                              changeShowEditProfile(!showEditProfile);
                         console.log("none selected")
                   }
-            changeShowEditProfile(!showEditProfile);
+            /* changeShowEditProfile(!showEditProfile); */
             console.log("Finished changes, closing window")
       }
 
@@ -383,7 +386,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                   }           
             }
             changeShowEditProfile(!showEditProfile);
-            console.log("Finished changes Backgroun, closing window")
+            console.log("Finished changes Background, closing window")
       }
       
       return ( 
