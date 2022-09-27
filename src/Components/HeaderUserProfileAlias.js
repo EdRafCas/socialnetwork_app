@@ -8,6 +8,24 @@ import {HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic, UserCard, Na
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 
+const BackgroundImageUser =styled.div`
+      border:solid red 1px;
+      width:100%;
+      cursor:pointer;
+      display:flex;
+      justify-content:center;
+      max-width:55rem;
+      img{
+            border:solid red 1px;
+            width:100%;
+            overflow:hidden;
+            }
+`
+const BackgroundImageUserContainer =styled.div`
+      height:380px;
+      width:100%;
+      overflow:hidden;
+`
 const EmptyBackground =styled.div`
       /* border:solid red 1px; */
       overflow:hidden;
@@ -56,17 +74,19 @@ const HeaderUserProfileAlias = ({loadingUserData,userByAlias, currentUserInfo, s
             <>
             {!loadingUserData ?
                   <HeaderUser >
-                        {userByAlias[0].backgroundURL ?
-                        <BackgroundImage onClick={()=>receiveNotification({
-                              notification:"backgroundPicture",
-                              changeShowPopUp, 
-                              changePopUpAlert,
-                              backgroundPicture:userByAlias[0].backgroundURL})}>
-                        <img alt="userbackground" src={userByAlias[0].backgroundURL}/>
-                        </BackgroundImage>
-                        :
-                        <EmptyBackground/>
-                        }
+                        <BackgroundImageUserContainer>
+                              {userByAlias[0].backgroundURL ?
+                              <BackgroundImageUser onClick={()=>receiveNotification({
+                                    notification:"backgroundPicture",
+                                    changeShowPopUp, 
+                                    changePopUpAlert,
+                                    backgroundPicture:userByAlias[0].backgroundURL})}>
+                              <img alt="userbackground" src={userByAlias[0].backgroundURL}/>
+                              </BackgroundImageUser>
+                              :
+                              <EmptyBackground/>
+                              }
+                        </BackgroundImageUserContainer>
                         <ProfilePicContainer>
                               {userByAlias[0].photoURL ?
                               <ProfilePic onClick={()=>receiveNotification({

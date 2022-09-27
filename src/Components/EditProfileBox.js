@@ -69,8 +69,9 @@ const FormularyBox =styled.form`
 `
 const BackgroundImageContainer =styled.div`
       position:relative;
-      /* border:solid red 1px; */
+      /* border:solid blue 1px; */
       overflow:hidden;
+      justify-content:center;
       width:100%;
       height:auto;
       max-height:20rem;
@@ -83,7 +84,7 @@ const BackgroundImageContainer =styled.div`
             }
 `
 const BackgroundInner=styled.div`
-      position:relative;
+     /*  position:relative; */
       display:flex;
       flex-direction:column;
       justify-content:center;
@@ -91,11 +92,22 @@ const BackgroundInner=styled.div`
       margin:auto;
       width:100%;
       /* border:solid red 1px; */
+      overflow:hidden;
       img{
-            width:auto;
+            
+            width:100%;
       }
-
 `
+
+const BackgroundImage=styled.img`
+      min-height:10rem;
+      /* border:1px solid white; */
+      /* opacity:0.8;
+      width:100%;
+      overflow:hidden;
+      max-width:50rem; */
+`
+
 const ProfilePicContainer=styled.div`
       display:flex;
       width:100%;
@@ -150,6 +162,34 @@ const IconContainerProfile=styled.div`
       }
 `
 const IconContainerBackground=styled.div`
+      position: absolute;
+      top:40%;
+      display:flex;
+      flex-direction;
+      align-items:center;
+      justify-content:center;
+      height:3rem;
+      width:3rem;
+      border-radius:50%;     
+      /* border:1px solid white; */
+      fill:#000;
+      background:${theme.BorderColor};
+      opacity:0.7;
+      :hover{
+            opacity:1;
+               
+      }
+      svg{
+            max-height:3rem;
+            
+            fill:${theme.Text};     
+      }
+      :active{
+            opacity:0.5;
+            fill:black;
+      }
+`
+const IconContainerBackgroundRemove=styled.div`
       position: absolute;
       top:40%;
       display:flex;
@@ -248,19 +288,11 @@ const Inputest=styled.input`
 const ImageHolder=styled.img`
       width:100%;
 `
-const BackgroundImage=styled.img`
-      max-height:20rem;
-      min-height:10rem;
-      /* opacity:0.8;
-      width:100%;
-      overflow:hidden;
-      max-width:50rem; */
-`
 const BackgroundImageBlank=styled.div`
       height:10rem;
       width:100%;
       background:#000;
-      /* border:1px solid white; */
+      
 
 `
 
@@ -334,13 +366,13 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                     id:currentUserInfo[0].id,
                                     newName:nameEdit,
                                     newBio:bioEdit});
-                                    changeShowEditProfile(!showEditProfile);
                                     try{
                                           await UpdateProfileImageOnlyBackground({
                                                 file:selectedImageBackground,
                                                 user:user, 
                                                 changeLoading, 
                                                 id:currentUserInfo[0].id})
+                                                changeShowEditProfile(!showEditProfile);
                                     } catch(error){
                                           console.log(error)
                                     }
@@ -419,11 +451,15 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                               :""
                               }
                               <IconContainerBackground>
-                              <label>
-                                    <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>
-                                    <IconAddPhoto/>   
-                              </label>
+                                    <label>
+                                          <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>
+                                          <IconAddPhoto/>   
+                                    </label>
                               </IconContainerBackground>
+                              {/* <IconContainerBackgroundRemove onClick={()=>changeSelectedImageBackground(null)}>
+                                    X
+                              </IconContainerBackgroundRemove> */}
+                                    
                               {/* <IconContainerBackground>
                                     <IconAddPhoto/>
                               </IconContainerBackground> */}

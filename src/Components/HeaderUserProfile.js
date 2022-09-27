@@ -11,21 +11,22 @@ import { AuthContext } from '../Context/AuthContext';
 
 
 const BackgroundImageUser =styled.div`
-      /* border:solid red 1px; */
-      overflow:hidden;
-      height:380px;
+      border:solid red 1px;
       width:100%;
       cursor:pointer;
       display:flex;
       justify-content:center;
+      max-width:55rem;
       img{
-            max-width:55rem;
-            width:auto;
-            min-width:60%;
-            height:auto;
-            min-height:80%;
+            border:solid red 1px;
+            width:100%;
             overflow:hidden;
             }
+`
+const BackgroundImageUserContainer =styled.div`
+      height:380px;
+      width:100%;
+      overflow:hidden;
 `
 const EmptyProfilePic =styled.div`
       /* border: solid red 1px; */
@@ -75,17 +76,19 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
 
       return ( 
             <HeaderUser>
-                  {currentUserInfo[0].backgroundURL ?
-                  <BackgroundImageUser onClick={()=>receiveNotification({
-                                    notification:"backgroundPicture",
-                                    changeShowPopUp, 
-                                    changePopUpAlert,
-                                    backgroundPicture:currentUserInfo[0].backgroundURL})}>
-                        <img alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
-                  </BackgroundImageUser>
-                  :
-                  <EmptyBackground/>
-                  }
+                  <BackgroundImageUserContainer>
+                        {currentUserInfo[0].backgroundURL ?
+                        <BackgroundImageUser onClick={()=>receiveNotification({
+                                          notification:"backgroundPicture",
+                                          changeShowPopUp, 
+                                          changePopUpAlert,
+                                          backgroundPicture:currentUserInfo[0].backgroundURL})}>
+                              <img alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
+                        </BackgroundImageUser>
+                        :
+                        <EmptyBackground/>
+                        }
+                  </BackgroundImageUserContainer>
                 <ProfilePicContainer>
                 {user.photoURL ?
                   <ProfilePic onClick={()=>receiveNotification({
