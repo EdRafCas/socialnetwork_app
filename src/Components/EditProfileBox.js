@@ -5,7 +5,8 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
-import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground} from '../firebase/UpdateProfile';
+import {ReactComponent as IconDeleteImage} from '../img/x_icon.svg';
+import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground, UpdateProfileDeleteBackground} from '../firebase/UpdateProfile';
 
 
 const ContainerEditProfile=styled.div`
@@ -162,8 +163,6 @@ const IconContainerProfile=styled.div`
       }
 `
 const IconContainerBackground=styled.div`
-      position: absolute;
-      top:40%;
       display:flex;
       flex-direction;
       align-items:center;
@@ -189,11 +188,22 @@ const IconContainerBackground=styled.div`
             fill:black;
       }
 `
+
+const ContainerIcons=styled.div`
+      position: absolute;
+      top:40%;
+      gap:2rem;
+      display:flex;
+      flex-direction:row
+      align-items:center;
+      justify-content:center;
+      border:1px solid red;
+`
 const IconContainerBackgroundRemove=styled.div`
       position: absolute;
       top:40%;
       display:flex;
-      flex-direction;
+      flex-direction:row
       align-items:center;
       justify-content:center;
       height:3rem;
@@ -292,15 +302,17 @@ const BackgroundImageBlank=styled.div`
       height:10rem;
       width:100%;
       background:#000;
-      
-
 `
+
+
 
 const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditProfile}) => {
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
       const [selectedImage, changeSelectedImage] =useState(null);
       const [selectedImageBackground, changeSelectedImageBackground] =useState(null);
+      const [removingBackground, changeRemovingBackground] =useState(false);
+
       const [loading, changeLoading] =useState(false);      
 
       useEffect(()=>{
@@ -342,10 +354,25 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                               console.log(error+"error UpdateProfileImageBackground")
                         }                                   
                   } 
-                  if (selectedImage && selectedImageBackground == null){
+                  if (selectedImage && selectedImageBackground == null && removingBackground == false){
                         console.log("only profile")
                         try{
                               await UpdateProfileImage({
+                                    file:selectedImage,
+                                    user:user,
+                                    changeLoading, 
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit})
+                                    changeShowEditProfile(!showEditProfile);
+                        } catch(error){
+                              console.log(error+"error UpdateProfile")
+                        }           
+                  }
+                  if (selectedImage && removingBackground && selectedImageBackground == null ){
+                        console.log("only profile and deleting background")
+                        try{
+                              await UpdateProfileDeleteBackground({
                                     file:selectedImage,
                                     user:user,
                                     changeLoading, 
@@ -402,6 +429,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
             if (e.target.files && e.target.files.length > 0){
                   changeSelectedImageBackground(e.target.files[0])
                   console.log(e.target.files[0])
+                  changeRemovingBackground(false);
             }
       }
       const handleSubmitBackground =async(e)=>{
@@ -446,23 +474,26 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                               selectedImageBackground == null && currentUserInfo[0].backgroundURL == null ?
                               <BackgroundImageBlank/>
                               :
+                              removingBackground === true?
+                              <BackgroundImageBlank/>
+                              :
                               selectedImageBackground == null && currentUserInfo[0].backgroundURL ?
                               <BackgroundImage alt="userbackground" src={currentUserInfo[0].backgroundURL}/>
                               :""
                               }
-                              <IconContainerBackground>
-                                    <label>
-                                          <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>
-                                          <IconAddPhoto/>   
-                                    </label>
-                              </IconContainerBackground>
-                              {/* <IconContainerBackgroundRemove onClick={()=>changeSelectedImageBackground(null)}>
-                                    X
-                              </IconContainerBackgroundRemove> */}
-                                    
-                              {/* <IconContainerBackground>
-                                    <IconAddPhoto/>
-                              </IconContainerBackground> */}
+                              <ContainerIcons>
+                                    <IconContainerBackground>
+                                          <label>
+                                                <Inputest type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>
+                                                <IconAddPhoto/>   
+                                          </label>
+                                    </IconContainerBackground>
+                                    {!removingBackground &&
+                                    <IconContainerBackground onClick={()=>{changeRemovingBackground(true); changeSelectedImageBackground(null)}}>
+                                          <IconDeleteImage/> 
+                                    </IconContainerBackground>
+                                    }
+                              </ContainerIcons>
                         </BackgroundInner>
                   </BackgroundImageContainer>           
                   <ProfilePicContainer>

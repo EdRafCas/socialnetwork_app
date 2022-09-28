@@ -1,5 +1,5 @@
 import { db, storage } from "./FirebaseConfig";
-import { doc, updateDoc, collection, onSnapshot, orderBy, query, where, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteField, collection, onSnapshot, orderBy, query, where, deleteDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes} from "firebase/storage"
 import { updateProfile } from "firebase/auth";
 
@@ -46,6 +46,28 @@ const UpdateProfileImageBackground = async({file, user ,changeLoading, id, newNa
             name:newName,
             bio:newBio,
             backgroundURL:newPhotoBackgroundURL}); 
+
+            changeLoading(false);
+      console.log("upload done")
+}
+
+const UpdateProfileDeleteBackground = async({file, user ,changeLoading, id, newName, newBio}) => {
+      const fileRef= ref(storage, user.uid)
+      
+      changeLoading(true);
+      const snapshot = await uploadBytes(fileRef, file);
+
+      const newPhotoURL = await getDownloadURL(fileRef); 
+
+      updateProfile(user, {photoURL: newPhotoURL})
+
+      const document = doc(db, "userInfo" , id)
+      updateDoc(document, {
+            name:newName,
+            bio:newBio,
+            photoURL:newPhotoURL, 
+            backgroundURL:deleteField()
+      }); 
 
             changeLoading(false);
       console.log("upload done")
@@ -221,4 +243,4 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground, UpdateTimelineNoPicture, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned, RemoveFromBookMark};
+export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground,UpdateTimelineNoPicture, UpdateProfileDeleteBackground, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned, RemoveFromBookMark};
