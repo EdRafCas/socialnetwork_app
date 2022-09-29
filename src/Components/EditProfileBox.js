@@ -6,7 +6,7 @@ import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 import {ReactComponent as IconDeleteImage} from '../img/x_icon.svg';
-import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground, UpdateProfileDeleteBackground} from '../firebase/UpdateProfile';
+import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground, UpdateProfileImages, UpdateProfileDeleteBackground} from '../firebase/UpdateProfile';
 
 
 const ContainerEditProfile=styled.div`
@@ -386,7 +386,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                   }
                   if (selectedImage && selectedImageBackground){
                         try{
-                              await UpdateProfileImage({
+                             /*  await UpdateProfileImage({
                                     file:selectedImage,
                                     user:user,
                                     changeLoading, 
@@ -402,7 +402,16 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                                 changeShowEditProfile(!showEditProfile);
                                     } catch(error){
                                           console.log(error)
-                                    }
+                                    } */
+                              await UpdateProfileImages({
+                                    file:selectedImage,
+                                    fileBackground:selectedImageBackground,
+                                    user:user,
+                                    changeLoading, 
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit});
+                                    changeShowEditProfile(!showEditProfile);
                         } catch(error){
                               console.log("error uploading both images")
                         }

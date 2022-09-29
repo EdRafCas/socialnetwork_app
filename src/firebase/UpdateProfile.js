@@ -73,7 +73,7 @@ const UpdateProfileDeleteBackground = async({file, user ,changeLoading, id, newN
       console.log("upload done")
 }
 
-/* const UpdateProfileImages = async({file, fileBackground, user ,changeLoading, id, newName, newBio}) => {
+const UpdateProfileImages = async({file, fileBackground, user ,changeLoading, id, newName, newBio}) => {
 
       const fileRef= ref(storage, user.uid)
       const fileRefBackground= ref(storage, user.uid+"_Background")
@@ -96,7 +96,7 @@ const UpdateProfileDeleteBackground = async({file, user ,changeLoading, id, newN
 
             changeLoading(false);
       console.log("upload done")
-} */
+}
 
 const UpdateProfileImageOnlyBackground = async({file,user ,changeLoading, id, newName, newBio}) => {
       const fileRefBackground= ref(storage, user.uid+"_Background")
@@ -114,6 +114,25 @@ const UpdateProfileImageOnlyBackground = async({file,user ,changeLoading, id, ne
       console.log("upload done")
 }
 
+const UpdateTimelineNoPicture = async({user,newName})=>{
+
+      const consult = query(
+            collection(db, 'userTimeline'),
+            where('uidUser', "==", user.uid),
+            orderBy('date', 'desc')
+            /* limit(30) */
+      );
+
+      onSnapshot(consult, (snapshot)=>{
+            snapshot.docs.map((messageUser)=>{
+                  const documentref =doc(db, "userTimeline", messageUser.id);
+                  return updateDoc(documentref, {
+                        name:newName
+                  })
+            })
+      })
+     
+}
 
 const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp}) => {
       
@@ -223,24 +242,6 @@ const RemoveTweetFromPinned = async({changeStateAlert,changeAlert, id, userId, c
      
 } */
 
-const UpdateTimelineNoPicture = async({user,newName})=>{
 
-      const consult = query(
-            collection(db, 'userTimeline'),
-            where('uidUser', "==", user.uid),
-            orderBy('date', 'desc')
-            /* limit(30) */
-      );
 
-      onSnapshot(consult, (snapshot)=>{
-            snapshot.docs.map((messageUser)=>{
-                  const documentref =doc(db, "userTimeline", messageUser.id);
-                  return updateDoc(documentref, {
-                        name:newName
-                  })
-            })
-      })
-     
-}
-
-export  {UpdateProfileImage,UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground,UpdateTimelineNoPicture, UpdateProfileDeleteBackground, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned, RemoveFromBookMark};
+export  {UpdateProfileImage, UpdateProfileImages, UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground,UpdateTimelineNoPicture, UpdateProfileDeleteBackground, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned, RemoveFromBookMark};
