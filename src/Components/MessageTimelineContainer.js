@@ -106,10 +106,17 @@ return (
       </CardColumns>
     </MessageLink>
     <InteractionBar>
-      <IconContainer /* Reply onClick={()=>receiveNotification({
-        notification:"delete",
-        changeShowPopUp, 
-        changePopUpAlert})} */>
+      <IconContainer onClick={()=>receiveNotification({
+          notification:"comment",
+          id:id,
+          retweets:messageRetweets,
+          originalUidUser:messageUidUser,
+          user,
+          currentUserInfo,
+          changeShowPopUp:changeShowPopUp, 
+          changePopUpAlert:changePopUpAlert,
+          update,
+          changeUpdate})}>
         <IconComment/>
       </IconContainer>
       <IconContainerCont Retweet>

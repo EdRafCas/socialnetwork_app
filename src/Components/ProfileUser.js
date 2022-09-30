@@ -85,9 +85,10 @@ const ProfileUser = ({changeAlert, stateAlert, changeStateAlert, user, currentUs
       useEffect(()=>{
             const ObtainProfileUser = async() =>{
                   changeLoadingUserProfile(false)         
+                  console.log("loading profileUser")
             }
             ObtainProfileUser();    
-      },[currentUserInfo, alias])
+      },[currentUserInfo, showEditProfile, alias])
 
       return ( 
             <>

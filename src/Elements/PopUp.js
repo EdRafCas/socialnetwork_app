@@ -345,6 +345,14 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
             <img alt="userbackground" src={profilePicture}/>
         </ProfilePictureBox>
         }
+        { type ==="comment" &&
+        <ProfilePictureBox>
+            <div>{id}</div>
+            <div>{originalUidUser}</div>
+            <div>{id}</div>
+            <div>{id}</div>
+        </ProfilePictureBox>
+        }
         </>
         :
         ""}

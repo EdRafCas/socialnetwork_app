@@ -49,6 +49,14 @@ const receiveNotification = ({e, userId, notification, changeShowPopUp, changePo
     changeShowPopUp(true)
     changePopUpAlert({type: "backgroundPicture",
     backgroundPicture:backgroundPicture})
+  } if(notification==="comment"){
+    changeShowPopUp(true)
+    changePopUpAlert({type: "comment",
+      id:id,
+      originalUidUser:originalUidUser, 
+      retweets:retweets,
+      user:user, 
+      currentUserInfo:currentUserInfo})
   } if(notification==="alreadyBookmark"){
     changeStateAlert(true);
       changeAlert({

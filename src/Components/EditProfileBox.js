@@ -2,7 +2,6 @@ import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {FormularyInput}  from '../Elements/ElementsFormulary';
-import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 import {ReactComponent as IconDeleteImage} from '../img/x_icon.svg';
@@ -199,34 +198,7 @@ const ContainerIcons=styled.div`
       justify-content:center;
       border:1px solid red;
 `
-const IconContainerBackgroundRemove=styled.div`
-      position: absolute;
-      top:40%;
-      display:flex;
-      flex-direction:row
-      align-items:center;
-      justify-content:center;
-      height:3rem;
-      width:3rem;
-      border-radius:50%;     
-      /* border:1px solid white; */
-      fill:#000;
-      background:${theme.BorderColor};
-      opacity:0.7;
-      :hover{
-            opacity:1;
-               
-      }
-      svg{
-            max-height:3rem;
-            
-            fill:${theme.Text};     
-      }
-      :active{
-            opacity:0.5;
-            fill:black;
-      }
-`
+
 const Inputs=styled.div`
       display:flex;
       flex-direction:column;
@@ -339,32 +311,31 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
 
       const handlesubmitEdit =async(e)=>{
             e.preventDefault();
+            changeShowEditProfile(!showEditProfile);
                   if(selectedImageBackground && selectedImage == null){
                         console.log("Only Background")
                         try{
                               await UpdateProfileImageBackground({
-                                    file:selectedImageBackground,
-                                    user:user,
-                                    changeLoading, 
-                                    id:currentUserInfo[0].id,
-                                    newName:nameEdit,
-                                    newBio:bioEdit})
-                                    changeShowEditProfile(!showEditProfile);
+                                          file:selectedImageBackground,
+                                          user:user,
+                                          changeLoading, 
+                                          id:currentUserInfo[0].id,
+                                          newName:nameEdit,
+                                          newBio:bioEdit})
                         } catch(error){
                               console.log(error+"error UpdateProfileImageBackground")
                         }                                   
                   } 
-                  if (selectedImage && selectedImageBackground == null && removingBackground == false){
+                  if (selectedImage && selectedImageBackground == null && removingBackground === false){
                         console.log("only profile")
                         try{
                               await UpdateProfileImage({
-                                    file:selectedImage,
-                                    user:user,
-                                    changeLoading, 
-                                    id:currentUserInfo[0].id,
-                                    newName:nameEdit,
-                                    newBio:bioEdit})
-                                    changeShowEditProfile(!showEditProfile);
+                                          file:selectedImage,
+                                          user:user,
+                                          changeLoading, 
+                                          id:currentUserInfo[0].id,
+                                          newName:nameEdit,
+                                          newBio:bioEdit})
                         } catch(error){
                               console.log(error+"error UpdateProfile")
                         }           
@@ -379,49 +350,30 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                     id:currentUserInfo[0].id,
                                     newName:nameEdit,
                                     newBio:bioEdit})
-                                    changeShowEditProfile(!showEditProfile);
                         } catch(error){
                               console.log(error+"error UpdateProfile")
                         }           
                   }
                   if (selectedImage && selectedImageBackground){
+                        console.log("uploading both images")
                         try{
-                             /*  await UpdateProfileImage({
-                                    file:selectedImage,
-                                    user:user,
-                                    changeLoading, 
-                                    id:currentUserInfo[0].id,
-                                    newName:nameEdit,
-                                    newBio:bioEdit});
-                                    try{
-                                          await UpdateProfileImageOnlyBackground({
-                                                file:selectedImageBackground,
-                                                user:user, 
-                                                changeLoading, 
-                                                id:currentUserInfo[0].id})
-                                                changeShowEditProfile(!showEditProfile);
-                                    } catch(error){
-                                          console.log(error)
-                                    } */
                               await UpdateProfileImages({
-                                    file:selectedImage,
-                                    fileBackground:selectedImageBackground,
-                                    user:user,
-                                    changeLoading, 
-                                    id:currentUserInfo[0].id,
-                                    newName:nameEdit,
-                                    newBio:bioEdit});
-                                    changeShowEditProfile(!showEditProfile);
+                                          file:selectedImage,
+                                          fileBackground:selectedImageBackground,
+                                          user:user,
+                                          changeLoading, 
+                                          id:currentUserInfo[0].id,
+                                          newName:nameEdit,
+                                          newBio:bioEdit});
                         } catch(error){
                               console.log("error uploading both images")
                         }
                   } 
                   if (selectedImage==null && selectedImageBackground==null) { 
                         await UpdateProfileNoImage({
-                              id:currentUserInfo[0].id,
-                              newName:nameEdit,
-                              newBio:bioEdit})
-                              changeShowEditProfile(!showEditProfile);
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit})
                         console.log("none selected")
                   }
             /* changeShowEditProfile(!showEditProfile); */
@@ -440,22 +392,6 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                   console.log(e.target.files[0])
                   changeRemovingBackground(false);
             }
-      }
-      const handleSubmitBackground =async(e)=>{
-            e.preventDefault();
-            if (selectedImageBackground){
-                  try{
-                        await UpdateProfileImageBackground({
-                              file:selectedImageBackground,
-                              user:user,
-                              changeLoading, 
-                              id:currentUserInfo[0].id})
-                  } catch(error){
-                        console.log(error+"error UpdateProfileImageBackground")
-                  }           
-            }
-            changeShowEditProfile(!showEditProfile);
-            console.log("Finished changes Background, closing window")
       }
       
       return ( 
