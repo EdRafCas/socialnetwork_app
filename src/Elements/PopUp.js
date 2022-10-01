@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme'
 import { TranslucidBack, CenterBox } from './ElementsFormulary';
@@ -8,6 +8,8 @@ import {UpdateProfilePinnedMessage, RemoveTweetFromPinned, AddBookmarkToUser} fr
 import { addRetweetToTimeline } from '../firebase/AddRetweet';
 import getUnixTime from 'date-fns/getUnixTime';
 import { UpdateProfileRemovePinned } from '../firebase/UpdateProfile';
+import MessageBox from '../Components/MessageBox';
+import AddMessage from '../firebase/AddMessage';
 
 const ConfirmationBox =styled.div`
     height:auto;
@@ -179,12 +181,50 @@ const CloseWindow=styled.div`
 
 
 const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture}) => {
-        const {changeShowPopUp} =useContext(AuthContext);
-        const {showPopUp} =useContext(AuthContext);
-        const {update} =useContext(AuthContext);
-        const {changeUpdate} =useContext(AuthContext);
+    const [message, messageChange] = useState('');
+    const {changeShowPopUp} =useContext(AuthContext);
+    const {showPopUp} =useContext(AuthContext);
+    const {update} =useContext(AuthContext);
+    const {changeUpdate} =useContext(AuthContext);
 
-      return (
+    const handleChange = (e) =>{
+        if(e.target.name==="message"){
+          messageChange(e.target.value)
+        }
+    };
+
+    const addToTimeline = (e) =>{
+    e.preventDefault();
+    if(message !==""){
+        AddMessage({
+        message:message,
+        uidUser: currentUserInfo[0].uidUser,
+        name:currentUserInfo[0].name,
+        alias:currentUserInfo[0].alias,
+        date: getUnixTime(new Date())
+    })
+    .then(()=>{
+        messageChange("");
+        changeStateAlert(true);
+        changeAlert({
+            type:'success',
+            message: 'Your message was sent successfully'
+        })
+    })
+    .catch((error)=>{
+        changeStateAlert(true);
+        changeAlert({
+            type:'error',
+            message: 'An error ocurred while sending your message'
+        })
+    }) 
+    }
+
+    };
+
+
+
+    return (
         <>
         {showPopUp ===true ?
         <>
@@ -346,12 +386,15 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
         </ProfilePictureBox>
         }
         { type ==="comment" &&
-        <ProfilePictureBox>
+        <CenterBox>
             <div>{id}</div>
             <div>{originalUidUser}</div>
-            <div>{id}</div>
-            <div>{id}</div>
-        </ProfilePictureBox>
+            <MessageBox user={user}
+                    currentUserInfo={currentUserInfo}
+                    addToTimeline={addToTimeline}
+                    message={message}
+                    handleChange={handleChange} /> 
+        </CenterBox>
         }
         </>
         :

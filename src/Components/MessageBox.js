@@ -4,6 +4,7 @@ import theme from '../Theme';
 import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_avatar.png'
 
+
 const MessageContainer = styled.div`
   width:100%;
   /* height:500px; */
