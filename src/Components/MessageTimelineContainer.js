@@ -108,6 +108,7 @@ return (
     <InteractionBar>
       <IconContainer onClick={()=>receiveNotification({
           notification:"comment",
+          messageForTimeline:messageForTimeline,
           id:id,
           retweets:messageRetweets,
           originalUidUser:messageUidUser,

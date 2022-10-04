@@ -8,7 +8,7 @@ import {UpdateProfilePinnedMessage, RemoveTweetFromPinned, AddBookmarkToUser} fr
 import { addRetweetToTimeline } from '../firebase/AddRetweet';
 import getUnixTime from 'date-fns/getUnixTime';
 import { UpdateProfileRemovePinned } from '../firebase/UpdateProfile';
-import MessageBox from '../Components/MessageBox';
+import MessageBoxComment from '../Components/MessageBoxComment';
 import AddMessage from '../firebase/AddMessage';
 
 const ConfirmationBox =styled.div`
@@ -180,7 +180,7 @@ const CloseWindow=styled.div`
 `
 
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture}) => {
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline}) => {
     const [message, messageChange] = useState('');
     const {changeShowPopUp} =useContext(AuthContext);
     const {showPopUp} =useContext(AuthContext);
@@ -386,15 +386,15 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
         </ProfilePictureBox>
         }
         { type ==="comment" &&
-        <CenterBox>
-            <div>{id}</div>
-            <div>{originalUidUser}</div>
-            <MessageBox user={user}
-                    currentUserInfo={currentUserInfo}
-                    addToTimeline={addToTimeline}
-                    message={message}
-                    handleChange={handleChange} /> 
-        </CenterBox>
+        <MessageBoxComment 
+            id={id}
+            originalUidUser={originalUidUser}
+            messageForTimeline={messageForTimeline}
+            user={user}
+            currentUserInfo={currentUserInfo}
+            addToTimeline={addToTimeline}
+            message={message}
+            handleChange={handleChange} /> 
         }
         </>
         :

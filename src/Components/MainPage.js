@@ -114,6 +114,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   comment={popUpAlert.comment}
                   profilePicture={popUpAlert.profilePicture}
                   backgroundPicture={popUpAlert.backgroundPicture}
+                  messageForTimeline={popUpAlert.messageForTimeline}
                   changeStateAlert={changeStateAlert}
                   changeAlert={changeAlert}/>
           <ColumnContainer>

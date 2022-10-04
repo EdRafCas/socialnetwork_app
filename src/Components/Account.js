@@ -189,8 +189,7 @@ const Account = ({ user, currentUserInfo, showMessageBox, changeShowMessageBox})
                 <MessageButton onClick={()=>changeShowMessageBox(!showMessageBox)}>
                   <p>Message</p>
                 </MessageButton>
-              </MessageButtonContainer>
-              
+              </MessageButtonContainer>    
               <MiniProfile>
                 <PortraitContainer>
                   {user.photoURL ?
