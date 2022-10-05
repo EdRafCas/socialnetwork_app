@@ -180,7 +180,7 @@ const CloseWindow=styled.div`
 `
 
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline}) => {
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {
     const [message, messageChange] = useState('');
     const {changeShowPopUp} =useContext(AuthContext);
     const {showPopUp} =useContext(AuthContext);
@@ -387,6 +387,7 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
         }
         { type ==="comment" &&
         <MessageBoxComment 
+            messageMessage={messageMessage}
             id={id}
             originalUidUser={originalUidUser}
             messageForTimeline={messageForTimeline}

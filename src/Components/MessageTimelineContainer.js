@@ -98,7 +98,9 @@ return (
             id={id} />
         </UserNameContainer>
         <MessageContent>
+          <p>
           {messageMessage}
+          </p>
         </MessageContent>
         <TimeBar>
           {formatDate(messageDate)}
@@ -108,6 +110,7 @@ return (
     <InteractionBar>
       <IconContainer onClick={()=>receiveNotification({
           notification:"comment",
+          messageMessage,
           messageForTimeline:messageForTimeline,
           id:id,
           retweets:messageRetweets,

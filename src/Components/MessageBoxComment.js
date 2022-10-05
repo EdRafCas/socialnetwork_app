@@ -48,12 +48,7 @@ const MessageUser =styled.textarea`
   overflow:scroll;
   width:100%;
 `
-const UserNames =styled.div`
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:5px;
-`
+
 const ButtonContainer=styled.div`
       gap:5px;
       display:flex;
@@ -92,12 +87,85 @@ const ButtonExcess =styled.button`
             }
 `     
 
-const MessageBoxComment = ({id, originalUidUser, messageForTimeline, user, currentUserInfo, addToTimeline, message, handleChange}) => {
+const OriginalMessageContainer=styled.div`
+      display:flex;
+      flex-direction:row;
+      gap:1rem;
+`
+
+const LeftColumn=styled.div`
+      display:flex;
+      flex-direction:row;
+      min-height:9re;
+      gap:1rem;
+
+`
+const RightColumn=styled.div`
+      display:flex;
+      flex-direction:column;
+      min-height:9re;
+      gap:10px;
+      /* border:solid ${theme.BorderColor} 1px; */
+`
+
+const UserNames =styled.div`
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:5px;
+      border:solid ${theme.BorderColor} 1px;
+`
+const MessageContent = styled.div`
+      width:100%;
+      padding:0rem;
+      max-height:200px;
+      max-width:500px;
+      min-height:50px;
+      font-size:1rem;
+      font-weight:400;
+      color:white;
+      border:solid ${theme.BorderColor} 1px;
+      text-align:justify;
+      white-space:normal;
+      overflow:hidden;
+      p{
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;}
+`
+
+
+const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message, handleChange}) => {
 
       const LettersLeft = 20;
 
       return ( 
       <CenterBox>
+            <OriginalMessageContainer>
+                  <LeftColumn>
+                        <PortraitContainer>
+                        {messageForTimeline[0].photoURL ?
+                              <img alt="userportrait" src={messageForTimeline[0].photoURL}/>
+                              :
+                              <img alt="userportrait" src={ProfileImage}/>
+                        }
+                        </PortraitContainer>
+                  </LeftColumn>
+                  <RightColumn>
+                        <UserNames>
+                              <NameContainer>{messageForTimeline[0].name}</NameContainer>
+                              <AliasContainer>@{messageForTimeline[0].alias}</AliasContainer>
+                        </UserNames>
+                        <MessageContent>
+                              <p>
+
+                              {messageMessage}
+                              </p>
+                        </MessageContent>
+
+                  </RightColumn>
+                  
+            </OriginalMessageContainer>
             <MessageContainer>
                   <CreateMessageForm onSubmit={addToTimeline}>
                         <HeaderUser>

@@ -78,6 +78,10 @@ const MessageContent = styled.div`
   text-align:justify;
   white-space:normal;
   overflow:hidden;
+  p{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;}
 `
 const InteractionBar=styled.div`
   display:flex;
