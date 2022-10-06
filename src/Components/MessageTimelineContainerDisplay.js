@@ -97,7 +97,9 @@ return (
           </AliasContainer>
         </UserNameContainer>
         <MessageContent>
+          <p>
           {messageMessage}
+          </p>
         </MessageContent>
         <TimeBar>
           {formatDate(messageDate)}

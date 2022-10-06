@@ -127,7 +127,10 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                       id={MessageUser.id}/>
                   </UserNameContainer>
                   <MessageContent>
+                    <p>
+
                     {MessageUser.message}
+                    </p>
                   </MessageContent>
                   <TimeBar>
                     {formatDate(MessageUser.date)}

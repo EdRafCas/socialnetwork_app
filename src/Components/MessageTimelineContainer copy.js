@@ -100,7 +100,10 @@ return (
                         id={id} />
         </UserNameContainer>
         <MessageContent>
+          <p>
+
           {messageMessage}
+          </p>
         </MessageContent>
         <TimeBar>
           {formatDate(messageDate)}

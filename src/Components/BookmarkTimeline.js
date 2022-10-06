@@ -106,11 +106,13 @@ return (
                         id={id} />
         </UserNameContainer>
         <MessageContent>
-                {message}
-              </MessageContent>
-              <TimeBar>
-                {formatDate(date)}
-              </TimeBar>
+          <p>
+            {message}
+          </p>
+        </MessageContent>
+        <TimeBar>
+          {formatDate(date)}
+        </TimeBar>
       </CardColumns>
     </MessageLink>
     <InteractionBar>

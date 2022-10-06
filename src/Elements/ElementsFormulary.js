@@ -112,7 +112,7 @@ const Button2 =styled.div`
 
 //ELEMENTS FROM CARDS
 const PortraitContainer =styled.div`
-  /* border: solid red 1px; */
+  border: solid red 1px;
   padding:0;
   width:100%;
   border-radius:50%;
@@ -121,6 +121,7 @@ const PortraitContainer =styled.div`
   flex-direction:column;
   justify-content:center;
   width:3rem;
+  min-height:3rem;
   height:3rem;
   flex-direction:column;
   overflow:hidden;

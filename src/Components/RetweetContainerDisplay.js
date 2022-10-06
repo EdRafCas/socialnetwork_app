@@ -131,7 +131,9 @@ return (
                   </AliasContainer>
                 </UserNameContainer>
                 <MessageContent>
+                  <p>
                   {messageForRetweet.data().message}
+                  </p>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForRetweet.data().date)}

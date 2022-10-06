@@ -44,6 +44,11 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
       ObtainMessagesByUserAlias();
     },[update, userByAlias])
  
+    var filtertype= messagesSentByUserAlias.filter(function(items) {
+      return items.type.includes("retweet") ||
+              items.type.includes("message") 
+      });
+
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
  };
@@ -75,7 +80,7 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
             userByAlias={userByAlias}/>          
           </>
           }
-          {messagesSentByUserAlias.map((MessageUser, index)=>{
+          {filtertype.map((MessageUser, index)=>{
             return(
             <Card key={MessageUser.id}>
               {MessageUser.originalId?
@@ -120,10 +125,11 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                       messageUidUser={MessageUser.uidUser} 
                       currentUserInfo={currentUserInfo}
                       id={MessageUser.id}/>
-
                   </UserNameContainer>
                   <MessageContent>
+                    <p>
                     {MessageUser.message}
+                    </p>
                   </MessageContent>
                   <TimeBar>
                     {formatDate(MessageUser.date)}

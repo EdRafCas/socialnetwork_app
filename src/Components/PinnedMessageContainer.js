@@ -81,7 +81,6 @@ return (
                 :
                 <img alt="userportrait" src={ProfileImage}/>
                 }
-                
               </PortraitContainer>
             </CardColumns>
             <CardColumns rightColumn>
@@ -97,12 +96,13 @@ return (
                         id={originalId} />
               </UserNameContainer>
               <MessageContent>
+                <p>
                 {messagePinned.data().message}
+                </p>
               </MessageContent>
               <TimeBar>
                 {formatDate(messagePinned.data().date)}
               </TimeBar>
-              
             </CardColumns> 
           </MessageLink>
           <InteractionBarPinned>

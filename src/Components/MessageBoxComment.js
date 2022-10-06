@@ -5,34 +5,39 @@ import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer
 import ProfileImage from '../img/profile_avatar.png'
 
 const CenterBox=styled.div`
-  position:absolute;
-  top:5%;
-  left:40%;
-  /* margin-top:-30rem;
-  margin-left:-30rem;
-  height:60rem;
-  width:60rem;*/
-  background:black; 
-  border-radius:5%;
-  z-index:101;
+      width:700px;
+      padding:1rem 1.5rem;
+      position:absolute;
+      top:5%;
+      left:33%;
+      /* margin-top:-30rem;
+      margin-left:-30rem;
+      height:60rem;
+      width:60rem;*/
+      background:black; 
+      border-radius:5%;
+      z-index:101;
 `
 const MessageContainer = styled.div`
-  width:100%;
-  min-width: 700px;
-  height:500px;
-  border-radius:9999px;
-  padding:1rem 1rem;
-  display:flex;
-  flex-direction:column;
-  align-content:center;
-  gap:1rem;
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
-  background:#000;
+      display:flex;
+      flex-direction:row;
+      border:solid ${theme.RedAlert} 1px;
+      /* border-bottom:solid ${theme.BorderColor} 1px; */
+     /*  width:100%;
+      height:500px;
+      border-radius:9999px;
+      padding:1rem 1rem;
+      display:flex;
+      flex-direction:column;
+      align-content:center;
+      background:#000; */
 `
 const CreateMessageForm =styled.form`
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
+      display:flex;
+      flex-direction:row;
+      gap:1rem;
+      border:solid white 1px;
+      padding-top:3px;
 `
 const HeaderUser =styled.div`
   display:flex;
@@ -41,18 +46,20 @@ const HeaderUser =styled.div`
   gap:1rem;
 `
 const MessageUser =styled.textarea`
-  padding:1rem;
-  font-size:1rem;
-  text-align:justify;
-  white-space:normal;
-  overflow:scroll;
-  width:100%;
+      padding:0.5rem;
+      font-size:1rem;
+      text-align:justify;
+      white-space:normal;
+      overflow:scroll;
+      width:100%;
 `
 
 const ButtonContainer=styled.div`
+      padding-top:1rem;
       gap:5px;
       display:flex;
       flex-direction:row;
+      justify-content:flex-end;
 `
 const ButtonLeft =styled.button`
       display:flex;
@@ -91,21 +98,27 @@ const OriginalMessageContainer=styled.div`
       display:flex;
       flex-direction:row;
       gap:1rem;
+      border:solid ${theme.RedAlert} 1px;
 `
 
 const LeftColumn=styled.div`
       display:flex;
-      flex-direction:row;
-      min-height:9re;
-      gap:1rem;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      min-height:9rem;
+      border:solid ${theme.BluePinned} 1px;
+      gap:3px;
+
 
 `
 const RightColumn=styled.div`
       display:flex;
       flex-direction:column;
-      min-height:9re;
+      width:100%;
+      min-height:9rem;
       gap:10px;
-      /* border:solid ${theme.BorderColor} 1px; */
+      border:solid ${theme.BorderColor} 1px;
 `
 
 const UserNames =styled.div`
@@ -116,10 +129,10 @@ const UserNames =styled.div`
       border:solid ${theme.BorderColor} 1px;
 `
 const MessageContent = styled.div`
-      width:100%;
+      width:auto;
+      max-width:100%;
       padding:0rem;
       max-height:200px;
-      max-width:500px;
       min-height:50px;
       font-size:1rem;
       font-weight:400;
@@ -131,7 +144,15 @@ const MessageContent = styled.div`
       p{
             overflow-wrap: break-word;
             word-wrap: break-word;
-            word-break: break-word;}
+            word-break: break-word;
+            }
+`
+
+const StraightLine=styled.div`
+      height:90%;
+      width:2px;
+      border:solid ${theme.BorderColor} 1px;
+
 `
 
 
@@ -150,6 +171,8 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                               <img alt="userportrait" src={ProfileImage}/>
                         }
                         </PortraitContainer>
+                        <StraightLine/>
+
                   </LeftColumn>
                   <RightColumn>
                         <UserNames>
@@ -158,17 +181,16 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                         </UserNames>
                         <MessageContent>
                               <p>
-
                               {messageMessage}
                               </p>
                         </MessageContent>
-
                   </RightColumn>
                   
             </OriginalMessageContainer>
+            
             <MessageContainer>
                   <CreateMessageForm onSubmit={addToTimeline}>
-                        <HeaderUser>
+                        <LeftColumn>
                               <PortraitContainer>
                               {user.photoURL ?
                                     <img alt="user portrait" src={user.photoURL}/>
@@ -176,15 +198,16 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                                     <img alt="user portrait" src={ProfileImage}/>
                               }
                               </PortraitContainer>
-                              <UserNames>
-                                    <NameContainer>{currentUserInfo[0].name}</NameContainer>
-                                    <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                              </UserNames>
-                        </HeaderUser>
+                        </LeftColumn>
+                        <RightColumn>
+                        <UserNames>
+                              <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                              <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                        </UserNames>
                         <MessageUser 
                               name="message"
                               id="message"
-                              cols="50"
+                              cols="65"
                               rows="3"
                               maxlength="5"
                               type="text"
@@ -216,6 +239,8 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                               </>
                               }
                         </ButtonContainer>
+
+                        </RightColumn>
                   
                         
                   </CreateMessageForm>

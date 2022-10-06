@@ -126,7 +126,10 @@ return (
                           id={originalId}/>
                 </UserNameContainer>
                 <MessageContent>
+                  <p>
+
                   {messageForLike.data().message}
+                  </p>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForLike.data().date)}
