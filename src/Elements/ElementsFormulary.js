@@ -112,7 +112,7 @@ const Button2 =styled.div`
 
 //ELEMENTS FROM CARDS
 const PortraitContainer =styled.div`
-  border: solid red 1px;
+  /* border: solid red 1px; */
   padding:0;
   width:100%;
   border-radius:50%;

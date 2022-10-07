@@ -9,14 +9,14 @@ import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 
 const BackgroundImageUser =styled.div`
-      border:solid red 1px;
+      /* border:solid red 1px; */
       width:100%;
       cursor:pointer;
       display:flex;
       justify-content:center;
       max-width:55rem;
       img{
-            border:solid red 1px;
+            /* border:solid red 1px; */
             width:100%;
             overflow:hidden;
             }

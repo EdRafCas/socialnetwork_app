@@ -1,7 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
+import '../index.css'
+
 import ProfileImage from '../img/profile_avatar.png'
 
 const CenterBox=styled.div`
@@ -21,7 +23,7 @@ const CenterBox=styled.div`
 const MessageContainer = styled.div`
       display:flex;
       flex-direction:row;
-      border:solid ${theme.RedAlert} 1px;
+      /* border:solid ${theme.RedAlert} 1px; */
       /* border-bottom:solid ${theme.BorderColor} 1px; */
      /*  width:100%;
       height:500px;
@@ -36,14 +38,14 @@ const CreateMessageForm =styled.form`
       display:flex;
       flex-direction:row;
       gap:1rem;
-      border:solid white 1px;
+      /* border:solid white 1px; */
       padding-top:3px;
 `
 const HeaderUser =styled.div`
-  display:flex;
-  flex-direction:row;
-   border:solid ${theme.BorderColor} 1px;
-  gap:1rem;
+      display:flex;
+      flex-direction:row;
+      border:solid ${theme.BorderColor} 1px;
+      gap:1rem;
 `
 const MessageUser =styled.textarea`
       padding:0.5rem;
@@ -52,6 +54,15 @@ const MessageUser =styled.textarea`
       white-space:normal;
       overflow:scroll;
       width:100%;
+      background-color:#000;
+      color: #fff;
+      border:solid ${theme.BorderColor} 0px;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      outline:none;
+     
+      
 `
 
 const ButtonContainer=styled.div`
@@ -98,7 +109,7 @@ const OriginalMessageContainer=styled.div`
       display:flex;
       flex-direction:row;
       gap:1rem;
-      border:solid ${theme.RedAlert} 1px;
+      /* border:solid ${theme.RedAlert} 1px; */
 `
 
 const LeftColumn=styled.div`
@@ -107,7 +118,7 @@ const LeftColumn=styled.div`
       align-items:center;
       justify-content:flex-start;
       min-height:9rem;
-      border:solid ${theme.BluePinned} 1px;
+      /* border:solid ${theme.BluePinned} 1px; */
       gap:3px;
 
 
@@ -116,9 +127,11 @@ const RightColumn=styled.div`
       display:flex;
       flex-direction:column;
       width:100%;
+      padding-top:${(props)=> props.reply ? "1rem"
+                                          : "0rem"};
       min-height:9rem;
       gap:10px;
-      border:solid ${theme.BorderColor} 1px;
+      /* border:solid ${theme.BorderColor} 1px; */
 `
 
 const UserNames =styled.div`
@@ -126,20 +139,20 @@ const UserNames =styled.div`
       flex-direction:row;
       align-items:center;
       gap:5px;
-      border:solid ${theme.BorderColor} 1px;
+      /* border:solid ${theme.BorderColor} 1px; */
 `
 const MessageContent = styled.div`
       width:auto;
       max-width:100%;
-      padding:0rem;
+      padding:0.5rem 0rem;
       max-height:200px;
       min-height:50px;
       font-size:1rem;
       font-weight:400;
       color:white;
-      border:solid ${theme.BorderColor} 1px;
       text-align:justify;
       white-space:normal;
+      /* border:solid ${theme.BorderColor} 1px; */
       overflow:hidden;
       p{
             overflow-wrap: break-word;
@@ -154,10 +167,26 @@ const StraightLine=styled.div`
       border:solid ${theme.BorderColor} 1px;
 
 `
+const ReplyingTo =styled.div`
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:5px;
+      padding:0.5rem 0rem 0rem 0rem;
+      /* border:solid ${theme.BorderColor} 1px; */
+`
 
 
-const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message, handleChange}) => {
+const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message}) => {
 
+      const [messageReply, changeMesssageReply] =useState("")
+
+      const handleChange = (e) =>{
+            if(e.target.name==="message"){
+                  changeMesssageReply(e.target.value)
+            }
+      };
+      
       const LettersLeft = 20;
 
       return ( 
@@ -172,7 +201,6 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                         }
                         </PortraitContainer>
                         <StraightLine/>
-
                   </LeftColumn>
                   <RightColumn>
                         <UserNames>
@@ -184,6 +212,9 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                               {messageMessage}
                               </p>
                         </MessageContent>
+                        <ReplyingTo>
+                              <p>Replying to @{messageForTimeline[0].alias}</p>
+                        </ReplyingTo>
                   </RightColumn>
                   
             </OriginalMessageContainer>
@@ -199,41 +230,41 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                               }
                               </PortraitContainer>
                         </LeftColumn>
-                        <RightColumn>
-                        <UserNames>
+                        <RightColumn reply>
+                        {/* <UserNames>
                               <NameContainer>{currentUserInfo[0].name}</NameContainer>
                               <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                        </UserNames>
-                        <MessageUser 
+                        </UserNames> */}
+                        <MessageUser className='timeline-user'
                               name="message"
                               id="message"
                               cols="65"
-                              rows="3"
+                              rows="5"
                               maxlength="5"
                               type="text"
-                              placeholder="Leave us your message here"
-                              value={message}
+                              placeholder="Send your Reply"
+                              value={messageReply}
                               onChange={handleChange}/>
                         <ButtonContainer>
-                              {message === "" || message.length >160 ?
+                              {messageReply === "" || messageReply.length >160 ?
                               <>
                               <ButtonDisabled disabled={true}>
-                                    <p>Submit</p>
+                                    <p>Reply</p>
                               </ButtonDisabled> 
-                              {message.length >= 160 ?
+                              {messageReply.length >= 160 ?
                               <ButtonExcess>
-                                    <p>-{message.length -160}</p>
+                                    <p>-{messageReply.length -160}</p>
                               </ButtonExcess>
                               :""}
                               </>
                               :
                               <>
-                              <Button disabled={!message} type="submit" name="sendMesssage">
-                                    <p>Submit</p>
+                              <Button disabled={!messageReply} type="submit" name="sendMesssage">
+                                    <p>Reply</p>
                               </Button>
-                              {message.length >=140 ?
+                              {messageReply.length >=140 ?
                               <ButtonLeft>
-                                    <p>{ LettersLeft +140 - message.length }</p>
+                                    <p>{ LettersLeft +140 - messageReply.length }</p>
                               </ButtonLeft>
                               :""}
                               </>

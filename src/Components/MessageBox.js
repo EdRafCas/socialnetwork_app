@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_avatar.png'
+import '../index.css'
 
 
 const MessageContainer = styled.div`
@@ -27,12 +28,19 @@ const HeaderUser =styled.div`
   gap:1rem;
 `
 const MessageUser =styled.textarea`
-  padding:1rem;
-  font-size:1rem;
-  text-align:justify;
-  white-space:normal;
-  overflow:scroll;
-  width:100%;
+      padding:1rem;
+      font-size:1rem;
+      text-align:justify;
+      white-space:normal;
+      overflow:scroll;
+      width:100%;
+      background:#000;
+      color: #fff;
+      border:solid ${theme.BorderColor} 0px;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      outline:none;
 `
 const UserNames =styled.div`
   display:flex;
@@ -98,7 +106,7 @@ const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange
                               <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
                         </UserNames>
                   </HeaderUser>
-                  <MessageUser 
+                  <MessageUser className='timeline-user'
                         name="message"
                         id="message"
                         cols="50"

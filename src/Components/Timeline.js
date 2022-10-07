@@ -34,7 +34,8 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
 
       return ( 
       <TimelineContainer className='timeline-user'>
-        <MessageBox user={user}
+        <MessageBox 
+                    user={user}
                     currentUserInfo={currentUserInfo}
                     addToTimeline={addToTimeline}
                     message={message}
