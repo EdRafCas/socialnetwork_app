@@ -86,7 +86,7 @@ const ButtonExcess =styled.button`
             }
 `     
 
-const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange}) => {
+const MessageBox = ({messageFloating, floating, user, currentUserInfo, addToTimeline, message, handleChange}) => {
 
       const LettersLeft = 20;
 
@@ -106,6 +106,46 @@ const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange
                               <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
                         </UserNames>
                   </HeaderUser>
+                  {floating ? 
+                  <>
+                  <MessageUser className='timeline-user'
+                        name="messageFloating"
+                        id="messageFloating"
+                        cols="50"
+                        rows="3"
+                        maxlength="5"
+                        type="text"
+                        placeholder="Leave us your message here"
+                        value={messageFloating}
+                        onChange={handleChange}/>
+                   <ButtonContainer>
+                        {messageFloating === "" || messageFloating.length >160 ?
+                        <>
+                        <ButtonDisabled disabled={true}>
+                              <p>Submit</p>
+                        </ButtonDisabled> 
+                        {messageFloating.length >= 160 ?
+                        <ButtonExcess>
+                              <p>-{messageFloating.length -160}</p>
+                        </ButtonExcess>
+                        :""}
+                        </>
+                        :
+                        <>
+                        <Button disabled={!messageFloating} type="submit" name="sendMesssage">
+                              <p>Submit</p>
+                        </Button>
+                        {message.length >=140 ?
+                        <ButtonLeft>
+                              <p>{ LettersLeft +140 - message.length }</p>
+                        </ButtonLeft>
+                        :""}
+                        </>
+                        }
+                  </ButtonContainer>
+                  </>
+                  :
+                  <>
                   <MessageUser className='timeline-user'
                         name="message"
                         id="message"
@@ -116,7 +156,7 @@ const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange
                         placeholder="Leave us your message here"
                         value={message}
                         onChange={handleChange}/>
-                  <ButtonContainer>
+                   <ButtonContainer>
                         {message === "" || message.length >160 ?
                         <>
                         <ButtonDisabled disabled={true}>
@@ -141,8 +181,8 @@ const MessageBox = ({user, currentUserInfo, addToTimeline, message, handleChange
                         </>
                         }
                   </ButtonContainer>
-                 
-                  
+                  </>
+                  }
             </CreateMessageForm>
       </MessageContainer>     
        );

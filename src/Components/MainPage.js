@@ -40,6 +40,7 @@ const ColumnContainer2=styled.div`
 const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const {user} =useAuth();
   const [message, messageChange] = useState('');
+  const [messageFloating, messageChangeFloating] = useState('');
   const [currentUserInfo, changeCurrentUserInfo] =useState([{}])
   const [loadingUserData, changeLoadingUserData] =useState(true);
   const [showMessageBox, changeShowMessageBox] =useState(false);
@@ -70,6 +71,10 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
         if(e.target.name==="message"){
           messageChange(e.target.value)
         }
+        if(e.target.name==="messageFloating"){
+          messageChangeFloating(e.target.value)
+        }
+
   };
 
   const addToTimeline = (e) =>{
@@ -89,6 +94,32 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
             type:'success',
             message: 'Your message was sent successfully'
       })
+    })
+    .catch((error)=>{
+      changeStateAlert(true);
+      changeAlert({
+            type:'error',
+            message: 'An error ocurred while sending your message'
+      })
+    }) 
+    }
+    
+    if(messageFloating !==""){
+     AddMessage({
+      message:messageFloating,
+      uidUser: currentUserInfo[0].uidUser,
+      name:currentUserInfo[0].name,
+      alias:currentUserInfo[0].alias,
+      date: getUnixTime(new Date())
+    })
+    .then(()=>{
+      messageChange("");
+      changeStateAlert(true);
+      changeAlert({
+            type:'success',
+            message: 'Your message was sent successfully'
+      })
+      changeShowMessageBox(false)
     })
     .catch((error)=>{
       changeStateAlert(true);
@@ -152,7 +183,10 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           <>
           <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
           <CenterBox>
-          <MessageBox user={user}
+          <MessageBox floating
+                      messageFloating={messageFloating}
+                      messageChangeFloating={messageChangeFloating}
+                      user={user}
                       currentUserInfo={currentUserInfo}
                       addToTimeline={addToTimeline}
                       message={message}
