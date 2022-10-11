@@ -7,31 +7,31 @@ import '../index.css'
 
 
 const MessageContainer = styled.div`
-  width:100%;
-  /* height:500px; */
-  padding:1rem 1rem;
-  display:flex;
-  flex-direction:column;
-  align-content:center;
-  gap:1rem;
-  border-bottom:solid ${theme.BorderColor} 1px;
-  background:#000;
+      width:100%;
+      /* height:500px; */
+      padding:1rem 1rem;
+      display:flex;
+      flex-direction:column;
+      align-content:center;
+      gap:1rem;
+      border-bottom:solid ${theme.BorderColor} 1px;
+      background:#000;
 `
 const CreateMessageForm =styled.form`
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
 `
 const HeaderUser =styled.div`
-  display:flex;
-  flex-direction:row;
-  gap:1rem;
+      display:flex;
+      flex-direction:row;
+      gap:1rem;
 `
 const MessageUser =styled.textarea`
       padding:1rem;
       font-size:1rem;
-      text-align:justify;
-      white-space:normal;
+      text-align:left;
+      white-space:pre-wrap;
       overflow:scroll;
       width:100%;
       background:#000;
@@ -43,10 +43,10 @@ const MessageUser =styled.textarea`
       outline:none;
 `
 const UserNames =styled.div`
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:5px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:5px;
 `
 const ButtonContainer=styled.div`
       gap:5px;

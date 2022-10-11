@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import '../index.css'
-
 import ProfileImage from '../img/profile_avatar.png'
 
 const CenterBox=styled.div`
@@ -60,11 +59,8 @@ const MessageUser =styled.textarea`
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none;
-      outline:none;
-     
-      
+      outline:none;   
 `
-
 const ButtonContainer=styled.div`
       padding-top:1rem;
       gap:5px;
@@ -87,7 +83,7 @@ const ButtonLeft =styled.button`
             font-weight:1000;
             color:#fff;
       }
-      `
+`
 const ButtonExcess =styled.button`
       display:flex;
       height:3rem;
@@ -104,14 +100,12 @@ const ButtonExcess =styled.button`
                   color:${theme.RedAlert};
             }
 `     
-
 const OriginalMessageContainer=styled.div`
       display:flex;
       flex-direction:row;
       gap:1rem;
       /* border:solid ${theme.RedAlert} 1px; */
 `
-
 const LeftColumn=styled.div`
       display:flex;
       flex-direction:column;
@@ -120,8 +114,6 @@ const LeftColumn=styled.div`
       min-height:9rem;
       /* border:solid ${theme.BluePinned} 1px; */
       gap:3px;
-
-
 `
 const RightColumn=styled.div`
       display:flex;
@@ -133,7 +125,6 @@ const RightColumn=styled.div`
       gap:10px;
       /* border:solid ${theme.BorderColor} 1px; */
 `
-
 const UserNames =styled.div`
       display:flex;
       flex-direction:row;
@@ -142,30 +133,27 @@ const UserNames =styled.div`
       /* border:solid ${theme.BorderColor} 1px; */
 `
 const MessageContent = styled.div`
-      width:auto;
-      max-width:100%;
-      padding:0.5rem 0rem;
+      width:100%;
+      padding:0rem;
       max-height:200px;
-      min-height:50px;
+      min-height:100px;
       font-size:1rem;
       font-weight:400;
       color:white;
+      /* border:solid ${theme.BorderColor} 1px; */
       text-align:justify;
       white-space:normal;
-      /* border:solid ${theme.BorderColor} 1px; */
       overflow:hidden;
       p{
             overflow-wrap: break-word;
             word-wrap: break-word;
             word-break: break-word;
-            }
+            white-space:pre-wrap;}
 `
-
 const StraightLine=styled.div`
       height:90%;
       width:2px;
       border:solid ${theme.BorderColor} 1px;
-
 `
 const ReplyingTo =styled.div`
       display:flex;
@@ -272,8 +260,6 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                         </ButtonContainer>
 
                         </RightColumn>
-                  
-                        
                   </CreateMessageForm>
             </MessageContainer>     
       </CenterBox>
