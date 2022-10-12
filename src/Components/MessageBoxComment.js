@@ -4,6 +4,7 @@ import theme from '../Theme';
 import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import '../index.css'
 import ProfileImage from '../img/profile_avatar.png'
+import {AddCommentToTimeline} from '../firebase/AddComment'
 
 const CenterBox=styled.div`
       width:700px;
@@ -208,7 +209,7 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
             </OriginalMessageContainer>
             
             <MessageContainer>
-                  <CreateMessageForm onSubmit={addToTimeline}>
+                  <CreateMessageForm onSubmit={AddCommentToTimeline}>
                         <LeftColumn>
                               <PortraitContainer>
                               {user.photoURL ?

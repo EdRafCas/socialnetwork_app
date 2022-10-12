@@ -2,7 +2,7 @@ import { db } from "./FirebaseConfig";
 import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
-const addCommentToTimeline = ({update, changeUpdate, changeShowPopUp, showPopUp, originalUidUser, changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
+const AddCommentToTimeline = ({update, changeUpdate, changeShowPopUp, showPopUp, originalUidUser, changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
       if(currentUserInfo){
        AddComment({
         id: id,
@@ -61,4 +61,4 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, retwe
 }
 
  
-export {AddComment, addCommentToTimeline};
+export {AddComment, AddCommentToTimeline};
