@@ -11,7 +11,7 @@ const useObtainMessages = () => {
       useEffect(()=>{
             const consult = query(
                   collection(db, 'userTimeline'),
-                  where('type', 'in', ['message', "retweet"]),
+                  where('type', 'in', ['message', "retweet", "comment"]),
                   orderBy('date', 'desc'),
                   /* limit(30) */
             );

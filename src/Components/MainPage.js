@@ -12,7 +12,7 @@ import MessageBox from './MessageBox';
 import {TranslucidBack,CenterBox } from '../Elements/ElementsFormulary';
 import EditProfileBox from './EditProfileBox';
 import PopUp from '.././Elements/PopUp'
-
+import { AddComment } from '../firebase/AddComment';
 
 const MainPageContainer = styled.div`
   display:flex;
@@ -104,7 +104,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
     }) 
     }
     
-    if(messageFloating !==""){
+    /* if(messageFloating !==""){
      AddMessage({
       message:messageFloating,
       uidUser: currentUserInfo[0].uidUser,
@@ -128,7 +128,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
             message: 'An error ocurred while sending your message'
       })
     }) 
-    }
+    } */
     
   };
 

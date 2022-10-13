@@ -4,7 +4,7 @@ import theme from '../Theme';
 import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import '../index.css'
 import ProfileImage from '../img/profile_avatar.png'
-import {AddCommentToTimeline} from '../firebase/AddComment'
+import AddComment from '../firebase/AddComment'
 
 const CenterBox=styled.div`
       width:700px;
@@ -166,17 +166,50 @@ const ReplyingTo =styled.div`
 `
 
 
-const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message}) => {
+const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message,changeStateAlert, changeAlert, changeShowPopUp}) => {
 
-      const [messageReply, changeMesssageReply] =useState("")
+      const [messageReply, changeMessageReply] =useState("")
+      const LettersLeft = 20;
 
       const handleChange = (e) =>{
-            if(e.target.name==="message"){
-                  changeMesssageReply(e.target.value)
+            if(e.target.name==="messageReply"){
+                  changeMessageReply(e.target.value)
             }
       };
+
+      const AddCommentToTimeline = (e) =>{
+      e.preventDefault();
+      console.log(messageReply)
+      changeShowPopUp(false)
+
+      /* if(messageReply !==""){
+            AddComment({
+             message:messageFloating,
+             uidUser: currentUserInfo[0].uidUser,
+             name:currentUserInfo[0].name,
+             alias:currentUserInfo[0].alias,
+             date: getUnixTime(new Date())
+           })
+           .then(()=>{
+                  changeMessageReply("");
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'success',
+                        message: 'Your message was sent successfully'
+                  })
+                  changeShowPopUp(false)
+           })
+           .catch((error)=>{
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: 'An error ocurred while sending your message'
+                  })
+           }) 
+           } */
       
-      const LettersLeft = 20;
+    };
+      
 
       return ( 
       <CenterBox>
@@ -225,8 +258,8 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                               <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
                         </UserNames> */}
                         <MessageUser className='timeline-user'
-                              name="message"
-                              id="message"
+                              name="messageReply"
+                              id="messageReply"
                               cols="65"
                               rows="5"
                               maxlength="5"

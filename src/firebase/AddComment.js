@@ -2,36 +2,6 @@ import { db } from "./FirebaseConfig";
 import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
-const AddCommentToTimeline = ({update, changeUpdate, changeShowPopUp, showPopUp, originalUidUser, changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
-      if(currentUserInfo){
-       AddComment({
-        id: id,
-        uidUser: currentUserInfo[0].uidUser,
-        name:currentUserInfo[0].name,
-        alias:currentUserInfo[0].alias,
-        date: date,
-        retweets:retweets, 
-        originalUidUser:originalUidUser
-      })
-      .then(()=>{
-        changeStateAlert(true);
-        changeAlert({
-              type:'success',
-              message: 'Your Retweet was added successfully'
-        })
-        changeShowPopUp(false)
-        changeUpdate(update+1)
-      })
-      .catch((error)=>{
-        changeStateAlert(true);
-        changeAlert({
-              type:'error',
-              message: 'An error ocurred while sending your message'
-        })
-      }) 
-      }
-      
-    };
 
 const AddComment = async({originalUidUser, id, uidUser, name, alias, date, retweets}) => {
       console.log(id,uidUser)
@@ -42,7 +12,7 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, retwe
                   retweets: [...retweets, uidUser]})
                   try{
                         await addDoc(collection(db, "userTimeline"), {
-                              type:"retweet",
+                              type:"comment",
                               originalId: id,
                               originalUidUser:originalUidUser,
                               uidUser:uidUser,
@@ -61,4 +31,4 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, retwe
 }
 
  
-export {AddComment, AddCommentToTimeline};
+export default AddComment;

@@ -120,7 +120,7 @@ return (
               <CardColumns rightColumn>
                 <UserNameContainer>
                   <UserNameContainerLink to={`/user/${userInfoForRetweet[0].alias}`}>
-                    {userInfoForRetweet[0].alias}
+                    {userInfoForRetweet[0].name}
                   </UserNameContainerLink >
                   <AliasContainer>
                     @{userInfoForRetweet[0].alias}
