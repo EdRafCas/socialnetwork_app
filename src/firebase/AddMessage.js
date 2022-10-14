@@ -10,6 +10,7 @@ const AddMessage = ({message, uidUser, name, alias, date}) => {
             name: name,
             alias: alias,
             date: date,
+            comments:[],
             likes: [],
             retweets: []
       })

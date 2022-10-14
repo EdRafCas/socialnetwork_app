@@ -72,6 +72,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
               messageMessage={Message.message}
               messageRetweets={Message.retweets}
               messageLikes={Message.likes}
+              messageComments={Message.comments}
               messageOriginalId={Message.originalId}
               changeShowPopUp={changeShowPopUp}
               changePopUpAlert={changePopUpAlert}

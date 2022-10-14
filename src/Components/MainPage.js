@@ -12,7 +12,6 @@ import MessageBox from './MessageBox';
 import {TranslucidBack,CenterBox } from '../Elements/ElementsFormulary';
 import EditProfileBox from './EditProfileBox';
 import PopUp from '.././Elements/PopUp'
-import { AddComment } from '../firebase/AddComment';
 
 const MainPageContainer = styled.div`
   display:flex;

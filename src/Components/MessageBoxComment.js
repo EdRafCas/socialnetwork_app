@@ -5,6 +5,7 @@ import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer
 import '../index.css'
 import ProfileImage from '../img/profile_avatar.png'
 import AddComment from '../firebase/AddComment'
+import getUnixTime from 'date-fns/getUnixTime';
 
 const CenterBox=styled.div`
       width:700px;
@@ -182,13 +183,15 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
       console.log(messageReply)
       changeShowPopUp(false)
 
-      /* if(messageReply !==""){
+      if(messageReply !==""){
             AddComment({
-             message:messageFloating,
-             uidUser: currentUserInfo[0].uidUser,
-             name:currentUserInfo[0].name,
-             alias:currentUserInfo[0].alias,
-             date: getUnixTime(new Date())
+                  id:id,
+                  message:messageReply,
+                  originalUidUser:originalUidUser,
+                  uidUser: currentUserInfo[0].uidUser,
+                  name:currentUserInfo[0].name,
+                  alias:currentUserInfo[0].alias,
+                  date: getUnixTime(new Date()),
            })
            .then(()=>{
                   changeMessageReply("");
@@ -206,7 +209,7 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                         message: 'An error ocurred while sending your message'
                   })
            }) 
-           } */
+           }
       
     };
       

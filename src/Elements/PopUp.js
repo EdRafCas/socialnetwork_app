@@ -393,7 +393,6 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
             messageForTimeline={messageForTimeline}
             user={user}
             currentUserInfo={currentUserInfo}
-            addToTimeline={addToTimeline}
             message={message}
             handleChange={handleChange}
             changeStateAlert={changeStateAlert} 

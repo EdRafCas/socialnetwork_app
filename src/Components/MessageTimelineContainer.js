@@ -37,7 +37,7 @@ const RetweetButton=styled.button`
 `
 
 
-const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
+const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage,messageComments, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForTimeline, changeMessageForTimeline] = useState([{}])
 
