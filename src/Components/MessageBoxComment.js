@@ -167,7 +167,7 @@ const ReplyingTo =styled.div`
 `
 
 
-const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message,changeStateAlert, changeAlert, changeShowPopUp}) => {
+const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message,comments, changeStateAlert, changeAlert, changeShowPopUp}) => {
 
       const [messageReply, changeMessageReply] =useState("")
       const LettersLeft = 20;
@@ -192,6 +192,7 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                   name:currentUserInfo[0].name,
                   alias:currentUserInfo[0].alias,
                   date: getUnixTime(new Date()),
+                  comments:comments
            })
            .then(()=>{
                   changeMessageReply("");

@@ -1,6 +1,6 @@
 
 
-const receiveNotification = ({e, messageMessage, messageForTimeline, userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser, retweets, user, bookmarks, profilePicture, backgroundPicture,currentUserInfo, changeAlert, changeStateAlert}) => {
+const receiveNotification = ({e, messageMessage, messageForTimeline, userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser,comments, retweets, user, bookmarks, profilePicture, backgroundPicture,currentUserInfo, changeAlert, changeStateAlert}) => {
   if(notification==="retweet"){
     changeShowPopUp(true)
     changePopUpAlert({type: "retweet",
@@ -56,6 +56,7 @@ const receiveNotification = ({e, messageMessage, messageForTimeline, userId, not
       messageMessage:messageMessage,
       id:id,
       originalUidUser:originalUidUser, 
+      comments:comments,
       retweets:retweets,
       user:user, 
       currentUserInfo:currentUserInfo

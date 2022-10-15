@@ -3,13 +3,13 @@ import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
 
-const AddComment = async({originalUidUser, id, uidUser, name, alias, date, retweets}) => {
+const AddComment = async({originalUidUser, id, uidUser, name, alias, date, message, comments,retweets}) => {
       console.log(id,uidUser)
       const document = doc(db, "userTimeline" , id); 
 
       try{
             await updateDoc(document, {
-                  retweets: [...retweets, uidUser]})
+                  comments: [...comments, uidUser]})
                   try{
                         await addDoc(collection(db, "userTimeline"), {
                               type:"comment",
@@ -19,7 +19,10 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, retwe
                               name: name,
                               alias: alias,
                               date: date,
-                              likes:[]
+                              message:message,
+                              comments:[],
+                              likes:[], 
+                              retweets:[]
                         })
                   } catch(error){
                         console.log("Error adding new tweet")

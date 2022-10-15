@@ -45,19 +45,25 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
           <Card key={Message.id}>
             {Message.originalId?
             <>
-              <RetweetContainerMainTimeline
-                update={update}
-                changeUpdate={changeUpdate} 
-                currentUserInfo={currentUserInfo} 
-                originalId={Message.originalId} 
-                originalUidUser={Message.originalUidUser}
-                newRetweetId={Message.id} 
-                retweetUidUser={Message.uidUser}
-                changeShowPopUp={changeShowPopUp}
-                changePopUpAlert={changePopUpAlert}
-                user={user}
-                changeAlert={changeAlert} 
-                changeStateAlert={changeStateAlert}/>
+              {Message.type === "retweet" ?
+                <RetweetContainerMainTimeline
+                  update={update}
+                  changeUpdate={changeUpdate} 
+                  currentUserInfo={currentUserInfo} 
+                  originalId={Message.originalId} 
+                  originalUidUser={Message.originalUidUser}
+                  newRetweetId={Message.id} 
+                  retweetUidUser={Message.uidUser}
+                  changeShowPopUp={changeShowPopUp}
+                  changePopUpAlert={changePopUpAlert}
+                  user={user}
+                  changeAlert={changeAlert} 
+                  changeStateAlert={changeStateAlert}/>
+              :Message.type === "comment" ?
+                <div>
+                  hello
+                </div>
+              :""}
             </>
             :
             <>

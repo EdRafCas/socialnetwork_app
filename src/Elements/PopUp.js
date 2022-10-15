@@ -180,7 +180,7 @@ const CloseWindow=styled.div`
 `
 
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, comments, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {
     const [message, messageChange] = useState('');
     const {changeShowPopUp} =useContext(AuthContext);
     const {showPopUp} =useContext(AuthContext);
@@ -193,34 +193,6 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
         }
     };
 
-    const addToTimeline = (e) =>{
-    e.preventDefault();
-    if(message !==""){
-        AddMessage({
-        message:message,
-        uidUser: currentUserInfo[0].uidUser,
-        name:currentUserInfo[0].name,
-        alias:currentUserInfo[0].alias,
-        date: getUnixTime(new Date())
-    })
-    .then(()=>{
-        messageChange("");
-        changeStateAlert(true);
-        changeAlert({
-            type:'success',
-            message: 'Your message was sent successfully'
-        })
-    })
-    .catch((error)=>{
-        changeStateAlert(true);
-        changeAlert({
-            type:'error',
-            message: 'An error ocurred while sending your message'
-        })
-    }) 
-    }
-
-    };
 
 
 
@@ -393,6 +365,7 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
             messageForTimeline={messageForTimeline}
             user={user}
             currentUserInfo={currentUserInfo}
+            comments={comments}
             message={message}
             handleChange={handleChange}
             changeStateAlert={changeStateAlert} 

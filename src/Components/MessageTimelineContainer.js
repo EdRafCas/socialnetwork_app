@@ -113,6 +113,7 @@ return (
           messageMessage,
           messageForTimeline:messageForTimeline,
           id:id,
+          comments:messageComments,
           retweets:messageRetweets,
           originalUidUser:messageUidUser,
           user,

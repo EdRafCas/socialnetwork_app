@@ -139,9 +139,9 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   user={popUpAlert.user}
                   currentUserInfo={popUpAlert.currentUserInfo}
                   originalUidUser={popUpAlert.originalUidUser}
+                  comments={popUpAlert.comments}
                   retweets={popUpAlert.retweets}
                   bookmarks={popUpAlert.bookmarks}
-                  comment={popUpAlert.comment}
                   profilePicture={popUpAlert.profilePicture}
                   backgroundPicture={popUpAlert.backgroundPicture}
                   messageForTimeline={popUpAlert.messageForTimeline}
