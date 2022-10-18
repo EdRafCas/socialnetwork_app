@@ -8,7 +8,8 @@ import {Card} from '.././Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import RetweetContainerMainTimeline from './RetweetContainerMainTimeline';
 import MessageTimelineContainer from './MessageTimelineContainer';
- 
+import CommentContainerMainTimeline from './CommentContainerMainTimeline';
+
 const TimelineContainer = styled.div`
   height:100%;
   display:flex;
@@ -60,9 +61,20 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                   changeAlert={changeAlert} 
                   changeStateAlert={changeStateAlert}/>
               :Message.type === "comment" ?
-                <div>
-                  hello
-                </div>
+                <CommentContainerMainTimeline
+                  update={update}
+                  changeUpdate={changeUpdate} 
+                  currentUserInfo={currentUserInfo} 
+                  originalId={Message.originalId} 
+                  originalUidUser={Message.originalUidUser}
+                  newRetweetId={Message.id} 
+                  retweetUidUser={Message.uidUser}
+                  commentContent={Message.message}
+                  changeShowPopUp={changeShowPopUp}
+                  changePopUpAlert={changePopUpAlert}
+                  user={user}
+                  changeAlert={changeAlert} 
+                  changeStateAlert={changeStateAlert}/>
               :""}
             </>
             :
