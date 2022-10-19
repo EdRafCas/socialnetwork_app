@@ -138,6 +138,11 @@ const MessageContentBig = styled.div`
   text-align:justify;
   white-space:normal;
   overflow:hidden;
+  p{
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space:pre-wrap;}
 `
 /* const CounterContainerBig=styled.div`
   display:flex;
