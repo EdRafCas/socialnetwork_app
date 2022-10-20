@@ -5,15 +5,17 @@ import theme from '../Theme'
 const Card =styled.div`
   display:flex;
   flex-direction:column;
-  /* border:solid ${theme.BorderColor} 1px; */
+  /* border-left:none;
+  border-right:none */;
+  border:solid ${theme.BorderColor} 1px;
   /* border-radius:15px; */
   /* border-top:solid ${theme.BorderColor} 1px; */
   gap:0rem;
   padding-top:0rem;
   z-index:100;
-  :hover{
+  /* :hover{
     background:rgba(255,255,255, 0.03);
-    }
+    } */
 `
 const PinnedInfo=styled.div`
   height:1.5rem;
@@ -53,7 +55,7 @@ const CardColumns = styled.div`
   justify-content:flex-start;
   align-items:center;
   /* border:solid ${theme.BorderColor} 1px; */
-  border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`};
+  /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0.5rem;
 `
 const UserNameContainer =styled.div`
@@ -89,7 +91,7 @@ const InteractionBar=styled.div`
   flex-direction:row;
   justify-content:space-around;
   border:none;
-  border-bottom:solid ${theme.BorderColor} 1px;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
   width:100%;
   max-height:6rem;
   padding-top:0.5rem;
@@ -277,6 +279,10 @@ const MessageLink=styled(Link)`
   /* background:black; */
   text-decoration:none;
   z-index:99;
+  :hover{
+    pointer-events: auto;
+    background:rgba(255,255,255, 0.03);
+  }
 `
 const InteractionBarPinned=styled.div`
   display:flex;

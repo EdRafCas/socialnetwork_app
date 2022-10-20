@@ -16,6 +16,7 @@ const TimelineContainer = styled.div`
   flex-direction:column;
   padding:0rem;
   border:solid ${theme.BorderColor} 1px;
+  /* border-collapse: collapse; */
   gap:0rem;
   overflow:scroll;
   overflow-x:hidden;
@@ -46,36 +47,36 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
           <Card key={Message.id}>
             {Message.originalId?
             <>
-              {Message.type === "retweet" ?
-                <RetweetContainerMainTimeline
-                  update={update}
-                  changeUpdate={changeUpdate} 
-                  currentUserInfo={currentUserInfo} 
-                  originalId={Message.originalId} 
-                  originalUidUser={Message.originalUidUser}
-                  newRetweetId={Message.id} 
-                  retweetUidUser={Message.uidUser}
-                  changeShowPopUp={changeShowPopUp}
-                  changePopUpAlert={changePopUpAlert}
-                  user={user}
-                  changeAlert={changeAlert} 
-                  changeStateAlert={changeStateAlert}/>
-              :Message.type === "comment" ?
-                <CommentContainerMainTimeline
-                  update={update}
-                  changeUpdate={changeUpdate} 
-                  currentUserInfo={currentUserInfo} 
-                  originalId={Message.originalId} 
-                  originalUidUser={Message.originalUidUser}
-                  commentId={Message.id} 
-                  commentUidUser={Message.uidUser}
-                  commentContent={Message.message}
-                  changeShowPopUp={changeShowPopUp}
-                  changePopUpAlert={changePopUpAlert}
-                  user={user}
-                  changeAlert={changeAlert} 
-                  changeStateAlert={changeStateAlert}/>
-              :""}
+            {Message.type === "retweet" ?
+              <RetweetContainerMainTimeline
+                update={update}
+                changeUpdate={changeUpdate} 
+                currentUserInfo={currentUserInfo} 
+                originalId={Message.originalId} 
+                originalUidUser={Message.originalUidUser}
+                newRetweetId={Message.id} 
+                retweetUidUser={Message.uidUser}
+                changeShowPopUp={changeShowPopUp}
+                changePopUpAlert={changePopUpAlert}
+                user={user}
+                changeAlert={changeAlert} 
+                changeStateAlert={changeStateAlert}/>
+            :Message.type === "comment" ?
+              <CommentContainerMainTimeline
+                update={update}
+                changeUpdate={changeUpdate} 
+                currentUserInfo={currentUserInfo} 
+                originalId={Message.originalId} 
+                originalUidUser={Message.originalUidUser}
+                commentId={Message.id} 
+                commentUidUser={Message.uidUser}
+                commentContent={Message.message}
+                changeShowPopUp={changeShowPopUp}
+                changePopUpAlert={changePopUpAlert}
+                user={user}
+                changeAlert={changeAlert} 
+                changeStateAlert={changeStateAlert}/>
+            :""}
             </>
             :
             <>
@@ -95,8 +96,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
               changeShowPopUp={changeShowPopUp}
               changePopUpAlert={changePopUpAlert}
               changeAlert={changeAlert}
-              changeStateAlert={changeStateAlert}
-            />
+              changeStateAlert={changeStateAlert}/>
             </>
             }
           </Card>  

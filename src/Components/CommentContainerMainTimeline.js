@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
+import {AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -46,12 +46,13 @@ const MessageLink=styled(Link)`
   grid-template-columns: repeat(1, 1fr 12fr);
  /*  border:red ${theme.BorderColor} 1px; */
   gap:0rem;
-  padding-top:0.5rem;
+  padding-top:${(props) => props.originalComment ? "0.5rem": "0"};
   /* background:black; */
   text-decoration:none;
   z-index:80;
   :hover{
     pointer-events: auto;
+    background:rgba(255,255,255, 0.03);
   }
 `
 const EmptyDiv =styled.div`
@@ -83,17 +84,56 @@ const StraightLine=styled.div`
   width:2px;
   border:solid ${theme.BorderColor} 1px;
 `
+const StraightLine2=styled.div`
+  height:0.5rem;
+  width:2px;
+  border:solid ${theme.BorderColor} 1px;
+`
 
 const InteractionBar=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:space-around;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   width:100%;
   max-height:6rem;
   padding-top:0.5rem;
   padding-bottom:0.5rem;
   z-index:98;
+`
+const CardColumns = styled.div`
+  padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
+  padding-top:${(props) => props.originalComment ? "0.5rem":
+                           props.rightColumn ? "0.5rem": "0"};
+  /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
+  padding-bottom: 0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  /* border:solid ${theme.BorderColor} 1px; */
+  /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
+  gap:0.5rem;
+`
+
+const PortraitContainer =styled.div`
+  border: solid red 1px;
+  padding:0;
+  width:100%;
+  border-radius:50%;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:3rem;
+  min-height:3rem;
+  height:3rem;
+  flex-direction:column;
+  overflow:hidden;
+  img{
+    width:100%;
+  }
 `
 
 const CommentContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
@@ -141,11 +181,8 @@ return (
         <>
           {messageForComment.exists() ?
           <>
-          {/* <RetweetInfo commentUidUser={commentUidUser}
-                        currentUidUser={currentUserInfo[0].uidUser}/> */}
-          <>
-          <MessageLink to={`/user/${userInfoForComment[0].alias}/status/${originalId}`}>
-            <CardColumns>
+          <MessageLink  to={`/user/${userInfoForComment[0].alias}/status/${originalId}`}>
+            <CardColumns originalComment>
               <PortraitContainer>
                 {userInfoForComment[0].photoURL ?
                 <img alt="userportrait" src={userInfoForComment[0].photoURL}/>
@@ -171,33 +208,31 @@ return (
                     id={originalId} />
               </UserNameContainer>
               <MessageContent>
-                <p>
-                {messageForComment.data().message}
-                </p>
+                <p>{messageForComment.data().message}</p>
               </MessageContent>
               <TimeBar>
                 {formatDate(messageForComment.data().date)}
               </TimeBar>
               <InteractionBar>
-              <IconContainer onClick={(e)=>{
-                  e.preventDefault();
-                  e.stopPropagation();
-                  receiveNotification({
-                  notification:"comment",
-                  messageMessage:messageForComment.data().message,
-                  messageForTimeline:userInfoForComment,
-                  id:originalId,
-                  comments:messageForComment.data().comments,
-                  retweets:messageForComment.data().retweets,
-                  originalUidUser:messageForComment.data().uidUser,
-                  user,
-                  currentUserInfo,
-                  changeShowPopUp:changeShowPopUp, 
-                  changePopUpAlert:changePopUpAlert,
-                  update,
-                  changeUpdate})}}>
-                <IconComment/>
-              </IconContainer>
+                <IconContainer Reply onClick={(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    receiveNotification({
+                    notification:"comment",
+                    messageMessage:messageForComment.data().message,
+                    messageForTimeline:userInfoForComment,
+                    id:originalId,
+                    comments:messageForComment.data().comments,
+                    retweets:messageForComment.data().retweets,
+                    originalUidUser:messageForComment.data().uidUser,
+                    user,
+                    currentUserInfo,
+                    changeShowPopUp:changeShowPopUp, 
+                    changePopUpAlert:changePopUpAlert,
+                    update,
+                    changeUpdate})}}>
+                  <IconComment/>
+                </IconContainer>
                 <IconContainerCont Retweet>
                   {!messageForComment.data().retweets.includes(currentUserInfo[0].uidUser)?
                     <RetweetButton onClick={(e)=>{
@@ -303,10 +338,9 @@ return (
               </InteractionBar>
             </CardColumns> 
           </MessageLink>
-          </>
-          <>
           <MessageLink to={`/user/${currentUserInfo[0].alias}/status/${commentId}`}>
             <CardColumns>
+              <StraightLine2/>
               <PortraitContainer>
                 {currentUserInfo[0].photoURL ?
                 <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
@@ -331,9 +365,7 @@ return (
                     id={originalId} />
               </UserNameContainer>
               <MessageContent>
-                <p>
-                {commentContent}
-                </p>
+                <p>{commentContent}</p>
               </MessageContent>
               <TimeBar>
                 {formatDate(messageForComment.data().date)}
@@ -342,7 +374,10 @@ return (
               <IconContainer Reply ><IconComment/></IconContainer>
               <IconContainerCont Retweet>
                 {!messageForComment.data().retweets.includes(currentUserInfo[0].uidUser)?
-                  <RetweetButton onClick={()=>receiveNotification({
+                  <RetweetButton onClick={(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    receiveNotification({
                     notification:"retweet",
                     id:originalId,
                     retweets:messageForComment.data().retweets, 
@@ -350,14 +385,12 @@ return (
                     user, 
                     currentUserInfo, 
                     changeShowPopUp, 
-                    changePopUpAlert
-                  })}>
+                    changePopUpAlert})}}>
                     <IconRetweet/>
                   </RetweetButton>
                   :
                   <>
-                  {
-                  messageForComment.data().uidUser ===currentUserInfo[0].uidUser ?
+                  {messageForComment.data().uidUser ===currentUserInfo[0].uidUser ?
                   <RetweetButton onClick={()=>RemoveRetweetSameUser({
                     currentUidUser:currentUserInfo[0].uidUser,
                     originalRetweets:messageForComment.data().retweets,
@@ -429,7 +462,6 @@ return (
             </CardColumns> 
             
           </MessageLink>
-          </>
           </>
           :
           <EmptyDiv/>
