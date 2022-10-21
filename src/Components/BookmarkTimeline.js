@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {MessageLink, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, MessageLink, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -79,7 +79,7 @@ const BookmarkTimeline = ({date, likes, retweets, message, uidUser, id, user, cu
 return ( 
   <>
   {!loadingBookmarkData ?
-    <>
+    <CardInner>
     <MessageLink to={`/user/${userInfoForBookmark[0].alias}/status/${id}`}>
       <CardColumns>
         <PortraitContainer>
@@ -116,16 +116,22 @@ return (
       </CardColumns>
     </MessageLink>
     <InteractionBar>
-      <IconContainer Reply onClick={()=>receiveNotification({
+      <IconContainer Reply onClick={(e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        receiveNotification({
         notification:"delete",
         changeShowPopUp, 
-        changePopUpAlert})}>
+        changePopUpAlert})}}>
         <IconComment/>
       </IconContainer>
       <IconContainerCont Retweet>
       {
         !retweets.includes(currentUserInfo[0].uidUser)?
-        <RetweetButton onClick={()=>receiveNotification({
+        <RetweetButton onClick={(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          receiveNotification({
           notification:"retweet",
           id:id,
           retweets:retweets, 
@@ -133,29 +139,35 @@ return (
           user,
           currentUserInfo,
           changeShowPopUp,
-          changePopUpAlert})}>
+          changePopUpAlert})}}>
           <IconRetweet/>
         </RetweetButton>
       :
       <>
         {
         uidUser === currentUserInfo[0].uidUser ?
-        <RetweetButton onClick={()=>RemoveRetweetSameUser({
+        <RetweetButton onClick={(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          RemoveRetweetSameUser({
           currentUidUser:currentUserInfo[0].uidUser,
           originalRetweets:retweets, 
           currentMessageId:id,
           update,
-          changeUpdate})}>
+          changeUpdate})}}>
           <IconRetweetColor/>
         </RetweetButton>
         :
-        <RetweetButton onClick={()=>RemoveRetweet({
+        <RetweetButton onClick={(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          RemoveRetweet({
           currentUidUser:currentUserInfo[0].uidUser,
           originalRetweets:retweets,
           currentMessageId:id, 
           retweetUidUser:uidUser,
           update,
-          changeUpdate})}>
+          changeUpdate})}}>
           <IconRetweetColor/>
         </RetweetButton>
         }
@@ -167,24 +179,30 @@ return (
       </IconContainerCont>
       <IconContainerCont Like>
         {!likes.includes(currentUserInfo[0].uidUser)?
-          <LikeButton  onClick={()=>AddLike({
-          update,
-          changeUpdate,
-          originalUidUser:uidUser,
-          id:id,
-          uidUser:currentUserInfo[0].uidUser,
-          likes:likes}) }> 
+          <LikeButton  onClick={(e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            AddLike({
+            update,
+            changeUpdate,
+            originalUidUser:uidUser,
+            id:id,
+            uidUser:currentUserInfo[0].uidUser,
+            likes:likes})} }> 
             <IconLike />                               
           </LikeButton>
           :
-          <LikeButton  onClick={()=>RemoveLike({
+          <LikeButton  onClick={(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          RemoveLike({
           update,
           changeUpdate,
           originalMessageId:id,
           likeUidUser:uidUser,
           currentUidUser:currentUserInfo[0].uidUser,
           uidUser:currentUserInfo[0].uidUser,
-          originalLikes:likes})}> 
+          originalLikes:likes})}}> 
             <IconLikeColor />                               
           </LikeButton>
         }
@@ -193,7 +211,7 @@ return (
         </CounterContainer>
       </IconContainerCont>
     </InteractionBar>
-    </>
+    </CardInner>
   :
   <LoadingComponent/>
   }

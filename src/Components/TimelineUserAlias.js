@@ -11,10 +11,10 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card, PinnedInfo, MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '../Elements/ElementsTimeline'
+import {Card,CardInner,MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainerAlias from './PinnedMessageContainerAlias';
-import {ReactComponent as IconPin} from '../img/pin_icon.svg';
+
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -59,14 +59,6 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
         <> 
           {userByAlias[0].pinnedMessage &&
           <>
-          <PinnedInfo>
-            <IconContainerRetweet  >
-              <IconPin/>
-            </IconContainerRetweet>
-              <NameContainerRetweet>
-              <p>Pinned Message </p> 
-              </NameContainerRetweet>
-          </PinnedInfo>
           <PinnedMessageContainerAlias
             update={update}
             changeUpdate={changeUpdate} 
@@ -99,7 +91,7 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                 />
               </>
               :
-              <>
+              <CardInner>
               <MessageLink to={`/user/${userByAlias[0].alias}/status/${MessageUser.id}`}>
                 <CardColumns>
                   <PortraitContainer>
@@ -108,7 +100,6 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                     :
                     <img alt="userportrait" src={ProfileImage}/>
                     }
-                    
                   </PortraitContainer>
                 </CardColumns>
                 <CardColumns rightColumn>
@@ -127,21 +118,19 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                       id={MessageUser.id}/>
                   </UserNameContainer>
                   <MessageContent>
-                    <p>
-                    {MessageUser.message}
-                    </p>
+                    <p>{MessageUser.message}</p>
                   </MessageContent>
                   <TimeBar>
                     {formatDate(MessageUser.date)}
                   </TimeBar>
-                </CardColumns>
-              </MessageLink>
-              <InteractionBar>
+                  <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
                 <IconContainerCont Retweet>
-                {
-                  !MessageUser.retweets.includes(currentUserInfo[0].uidUser)?
-                  <RetweetButton onClick={()=>receiveNotification({
+                {!MessageUser.retweets.includes(currentUserInfo[0].uidUser)?
+                  <RetweetButton onClick={(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    receiveNotification({
                     notification:"retweet",
                     id:MessageUser.id, 
                     retweets:MessageUser.retweets, 
@@ -149,14 +138,17 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                     user, 
                     currentUserInfo, 
                     changeShowPopUp:changeShowPopUp, 
-                    changePopUpAlert:changePopUpAlert})}>
+                    changePopUpAlert:changePopUpAlert})}}>
                     <IconRetweet/>
                   </RetweetButton>
                 :
-                  <RetweetButton onClick={()=>RemoveRetweetSameUser({
-                  currentUidUser:currentUserInfo[0].uidUser,
-                  originalRetweets:MessageUser.retweets, 
-                  currentMessageId:MessageUser.id})}>
+                  <RetweetButton onClick={(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    RemoveRetweetSameUser({
+                    currentUidUser:currentUserInfo[0].uidUser,
+                    originalRetweets:MessageUser.retweets, 
+                    currentMessageId:MessageUser.id})}}>
                     <IconRetweetColor/>
                   </RetweetButton>
                 }
@@ -165,27 +157,31 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                   </CounterContainer>
                 </IconContainerCont>
                 <IconContainerCont Like>
-                  {
-                    !MessageUser.likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike({
+                  {!MessageUser.likes.includes(currentUserInfo[0].uidUser)?
+                    <LikeButton  onClick={(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    AddLike({
                     id:MessageUser.id,
                     uidUser:currentUserInfo[0].uidUser,
                     originalUidUser:MessageUser.uidUser,
                     likes:MessageUser.likes,
                     update,
-                    changeUpdate})}
-                      > 
+                    changeUpdate})}}> 
                       <IconLike />                               
                     </LikeButton>
                     :
-                    <LikeButton  onClick={()=>RemoveLike({
+                    <LikeButton  onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveLike({
                       currentUidUser:currentUserInfo[0].uidUser,
                       originalLikes:MessageUser.likes,
                       originalMessageId:MessageUser.id,
                       likeUidUser:MessageUser.uidUser, 
                       newId:MessageUser.id,
                       update,
-                      changeUpdate})}> 
+                      changeUpdate})}}> 
                       <IconLikeColor />                               
                     </LikeButton>
                   }
@@ -193,8 +189,11 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                     <p>{MessageUser.likes.length}</p>
                   </CounterContainer>
                 </IconContainerCont>
-              </InteractionBar>
-              </>
+                  </InteractionBar>
+                </CardColumns>
+              </MessageLink>
+              
+              </CardInner>
               }
             </Card>  
             )

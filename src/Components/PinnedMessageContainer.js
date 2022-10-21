@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, InteractionBarPinned} from '../Elements/ElementsTimeline'
+import {CardInner,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, InteractionBarPinned} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -72,7 +72,7 @@ return (
         {!loadingPinned ?
         <>
           {messagePinned.exists() ?
-          <>
+          <CardInner>
           <MessageLink to={`/user/${currentUserInfo[0].alias}/status/${originalId}`}>
             <CardColumns>
               <PortraitContainer>
@@ -161,7 +161,7 @@ return (
               </CounterContainer>
             </IconContainerCont>
           </InteractionBarPinned>
-          </>
+          </CardInner>
           :
           <EmptyDiv/>
           }

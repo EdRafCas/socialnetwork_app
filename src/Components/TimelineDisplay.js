@@ -58,42 +58,6 @@ const TimelineDisplay = () => {
           />
           </>
           } 
-
-          {/* <CardColumns>
-            <PortraitContainer>
-            {Message.photoURL ?
-              <img alt="userportrait" src={Message.photoURL}/>
-              :
-              <img alt="userportrait" src={ProfileImage}/>
-              }
-            </PortraitContainer>
-            
-          </CardColumns>
-          <CardColumns rightColumn>
-            <UserNameContainer>
-              <NameContainer>{Message.name+" "+Message.lastname}</NameContainer><AliasContainer>@{Message.alias}</AliasContainer>
-            </UserNameContainer>
-            <MessageContent>
-              {Message.message}
-            </MessageContent>
-            <TimeBar>
-              {formatDate(Message.date)}
-            </TimeBar>
-            <InteractionBar>
-              <IconContainer Reply ><IconComment/></IconContainer>
-              <IconContainer Retweet ><IconRetweet/></IconContainer>
-              <IconContainerCont>
-                <IconContainer Retweet><IconRetweet/></IconContainer>
-                <CounterContainer>{Message.retweets > 0 ?  Message.retweets.length : "" }</CounterContainer>
-              </IconContainerCont>
-              <IconContainerCont>
-                <LikeButton Like> 
-                  <IconLike />                               
-                </LikeButton>
-                <CounterContainer><p>{Message.likes.length}</p></CounterContainer>
-              </IconContainerCont>
-            </InteractionBar>
-          </CardColumns> */}
           </Card>  
         )
       })}             

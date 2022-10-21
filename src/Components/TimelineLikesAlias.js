@@ -37,23 +37,6 @@ const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, c
                 changeAlert={changeAlert}
                 changeStateAlert={changeStateAlert}
                 user={user}/>
-
-                {/* <MessageTimelineContainer
-                  id={Message.id}
-                  user={user}
-                  currentUserInfo={currentUserInfo}
-                  messageUidUser={Message.uidUser}
-                  messageDate={Message.date}
-                  messageMessage={Message.message}
-                  messageRetweets={Message.retweets}
-                  messageLikes={Message.likes}
-                  messageOriginalId={Message.originalId}
-                  changeShowPopUp={changeShowPopUp}
-                  changePopUpAlert={changePopUpAlert}
-                  changeAlert={changeAlert}
-                  changeStateAlert={changeStateAlert}
-                  update={update}
-                  changeUpdate={changeUpdate} />*/}
               </Card>  
               )
             })}          

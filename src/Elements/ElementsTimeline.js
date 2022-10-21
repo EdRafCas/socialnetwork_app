@@ -7,7 +7,7 @@ const Card =styled.div`
   flex-direction:column;
   /* border-left:none;
   border-right:none */;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
   /* border-radius:15px; */
   /* border-top:solid ${theme.BorderColor} 1px; */
   gap:0rem;
@@ -16,6 +16,20 @@ const Card =styled.div`
   /* :hover{
     background:rgba(255,255,255, 0.03);
     } */
+`
+const CardInner =styled.div`
+  display:flex;
+  flex-direction:column;
+  border:none;
+  /* border-top:solid ${theme.BorderColor} 1px; */
+  border-bottom:solid ${theme.BorderColor} 1px;
+  gap:0rem;
+  padding-top:0rem;
+  z-index:100;
+  :hover{
+    pointer-events: auto;
+    background:rgba(255,255,255, 0.03);
+  }
 `
 const PinnedInfo=styled.div`
   height:1.5rem;
@@ -279,17 +293,17 @@ const MessageLink=styled(Link)`
   /* background:black; */
   text-decoration:none;
   z-index:99;
-  :hover{
+  /* :hover{
     pointer-events: auto;
     background:rgba(255,255,255, 0.03);
-  }
+  } */
 `
 const InteractionBarPinned=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:space-around;
   border:none;
-  border-bottom:solid ${theme.BorderColor} 2px;
+  /* border-bottom:solid ${theme.BorderColor} 2px; */
   width:100%;
   max-height:6rem;
   padding-top:0.5rem;
@@ -297,4 +311,4 @@ const InteractionBarPinned=styled.div`
   z-index:100;
 `
 
-export {Card, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink, MessageLink, InteractionBarPinned};
+export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink, MessageLink, InteractionBarPinned};
