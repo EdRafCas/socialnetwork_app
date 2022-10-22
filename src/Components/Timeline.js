@@ -8,7 +8,7 @@ import {Card} from '.././Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import RetweetContainerMainTimeline from './RetweetContainerMainTimeline';
 import MessageTimelineContainer from './MessageTimelineContainer';
-import CommentContainerMainTimeline from './CommentContainerMainTimeline';
+import CommentContainerMainTimeline from './CommentMainTimeline';
 
 const TimelineContainer = styled.div`
   height:100%;

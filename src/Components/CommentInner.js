@@ -89,7 +89,6 @@ const StraightLine2=styled.div`
   width:2px;
   border:solid ${theme.BorderColor} 1px;
 `
-
 const InteractionBar=styled.div`
   display:flex;
   flex-direction:row;
@@ -116,7 +115,6 @@ const CardColumns = styled.div`
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0.5rem;
 `
-
 const PortraitContainer =styled.div`
   border: solid red 1px;
   padding:0;
@@ -136,7 +134,7 @@ const PortraitContainer =styled.div`
   }
 `
 
-const CommentContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
+const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForComment, changeMessageForComment] = useState('')
     const [userInfoForComment, changeUserInfoForComment] =useState([{}])
@@ -474,4 +472,4 @@ return (
     )
 }
  
-export default CommentContainerMainTimeline;
+export default CommentMainTimeline;
