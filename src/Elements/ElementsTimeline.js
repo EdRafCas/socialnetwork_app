@@ -82,6 +82,19 @@ const UserNameContainer =styled.div`
   gap:5px;
   position:relative;
 `
+const UserNameContainerQuoted =styled.div`
+  width:100%;
+  padding:0rem;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+ /*  border:solid ${theme.BorderColor} 1px; */
+  display:flex;
+  flex-direction:row;
+  gap:5px;
+  position:relative;
+  p{
+    color:${theme.Text};
+  }
+`
 const MessageContent = styled.div`
   width:100%;
   padding:0rem;
@@ -282,6 +295,24 @@ const UserNameContainerLink =styled(Link)`
     text-decoration:underline;
   }
 `
+const UserNameContainerLinkQuoted =styled(Link)`
+  width:auto;
+  padding:0rem;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+ /*  border:solid ${theme.BorderColor} 1px; */
+  display:flex;
+  flex-direction:row;
+  gap:5px;
+  position:relative;
+  text-decoration:none;
+  font-size:1.1rem;
+  font-weight:1000;
+  color:${theme.BlueReply};
+  overflow:hidden;
+  :hover{
+    text-decoration:underline;
+  }
+`
 const MessageLink=styled(Link)`
   display:grid;
   width:100%;
@@ -311,4 +342,4 @@ const InteractionBarPinned=styled.div`
   z-index:100;
 `
 
-export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink, MessageLink, InteractionBarPinned};
+export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned};

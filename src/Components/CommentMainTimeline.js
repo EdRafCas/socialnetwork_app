@@ -23,6 +23,7 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import RetweetInfo from '../Elements/RetweetInfo';
+import CommentInner from './CommentInner';
 
 
 const RetweetButton=styled.button`
@@ -137,7 +138,7 @@ const PortraitContainer =styled.div`
 const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
     const [loadingQuoted, changeLoadingQuoted] =useState(true);
     const [quotedMessage, changeQuotedMessage] = useState('')
-    const [userInfoForComment, changeUserInfoForComment] =useState([{}])
+    const [userInfoForQuote, changeUserInfoForQuote] =useState([{}])
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -156,7 +157,7 @@ const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,ch
             );
 
             onSnapshot(consult, (snapshot)=>{
-              changeUserInfoForComment(snapshot.docs.map((originalUser)=>{
+              changeUserInfoForQuote(snapshot.docs.map((originalUser)=>{
                 return {...originalUser.data()}
               }))
             })
@@ -179,11 +180,11 @@ return (
         <>
           {quotedMessage.exists() ?
           <CardInner>
-            <MessageLink  to={`/user/${userInfoForComment[0].alias}/status/${originalId}`}>
+            <MessageLink  to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
               <CardColumns originalComment>
                 <PortraitContainer>
-                  {userInfoForComment[0].photoURL ?
-                  <img alt="userportrait" src={userInfoForComment[0].photoURL}/>
+                  {userInfoForQuote[0].photoURL ?
+                  <img alt="userportrait" src={userInfoForQuote[0].photoURL}/>
                   :
                   <img alt="userportrait" src={ProfileImage}/>
                   }
@@ -192,11 +193,11 @@ return (
               </CardColumns>
               <CardColumns rightColumn>
                 <UserNameContainer>
-                  <UserNameContainerLink to={`/user/${userInfoForComment[0].alias}`}>
-                    {userInfoForComment[0].name}
+                  <UserNameContainerLink to={`/user/${userInfoForQuote[0].alias}`}>
+                    {userInfoForQuote[0].name}
                   </UserNameContainerLink >
                   <AliasContainer>
-                    @{userInfoForComment[0].alias}
+                    @{userInfoForQuote[0].alias}
                   </AliasContainer>
                     <ShowMoreMenu 
                       changeAlert={changeAlert}
@@ -218,7 +219,7 @@ return (
                       receiveNotification({
                       notification:"comment",
                       messageMessage:quotedMessage.data().message,
-                      messageForTimeline:userInfoForComment,
+                      messageForTimeline:userInfoForQuote,
                       id:originalId,
                       comments:quotedMessage.data().comments,
                       retweets:quotedMessage.data().retweets,
@@ -336,133 +337,25 @@ return (
                 </InteractionBar>
               </CardColumns> 
             </MessageLink>
-            <MessageLink to={`/user/${currentUserInfo[0].alias}/status/${commentId}`}>
-              <CardColumns>
-                <StraightLine2/>
-                <PortraitContainer>
-                  {currentUserInfo[0].photoURL ?
-                  <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
-                  :
-                  <img alt="userportrait" src={ProfileImage}/>
-                  }
-                </PortraitContainer>
-              </CardColumns>
-              <CardColumns rightColumn>
-                <UserNameContainer>
-                  <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`}>
-                    {currentUserInfo[0].name}
-                  </UserNameContainerLink >
-                  <AliasContainer>
-                    @{currentUserInfo[0].alias}
-                  </AliasContainer>
-                    <ShowMoreMenu 
-                      changeAlert={changeAlert}
-                      changeStateAlert={changeStateAlert}
-                      messageUidUser={quotedMessage.data().uidUser} 
-                      currentUserInfo={currentUserInfo}
-                      id={originalId} />
-                </UserNameContainer>
-                <MessageContent>
-                  <p>{commentContent}</p>
-                </MessageContent>
-                <TimeBar>
-                  {formatDate(quotedMessage.data().date)}
-                </TimeBar>
-                <InteractionBar>
-                <IconContainer Reply ><IconComment/></IconContainer>
-                <IconContainerCont Retweet>
-                  {!quotedMessage.data().retweets.includes(currentUserInfo[0].uidUser)?
-                    <RetweetButton onClick={(e)=>{
-                      e.preventDefault();
-                      e.stopPropagation();
-                      receiveNotification({
-                      notification:"retweet",
-                      id:originalId,
-                      retweets:quotedMessage.data().retweets, 
-                      originalUidUser:quotedMessage.data().uidUser, 
-                      user, 
-                      currentUserInfo, 
-                      changeShowPopUp, 
-                      changePopUpAlert})}}>
-                      <IconRetweet/>
-                    </RetweetButton>
-                    :
-                    <>
-                    {quotedMessage.data().uidUser ===currentUserInfo[0].uidUser ?
-                    <RetweetButton onClick={()=>RemoveRetweetSameUser({
-                      currentUidUser:currentUserInfo[0].uidUser,
-                      originalRetweets:quotedMessage.data().retweets,
-                      currentMessageId:originalId,
-                      update,
-                      changeUpdate})}>
-                      <IconRetweetColor/>
-                    </RetweetButton>
-                      :
-                      <RetweetButton onClick={()=>RemoveRetweet({
-                        currentUidUser:currentUserInfo[0].uidUser,
-                        originalRetweets:quotedMessage.data().retweets,
-                        currentMessageId:originalId,
-                        commentUidUser:quotedMessage.data().uidUser,
-                        update,
-                        changeUpdate
-                      })}>
-                        <IconRetweetColor/>
-                      </RetweetButton>
-                      }
-                    </>
-                  }
-                  <CounterContainer>
-                    {quotedMessage.data().retweets.length}
-                  </CounterContainer>
-                </IconContainerCont>
-                <IconContainerCont Like>
-                  {!quotedMessage.data().likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike({
-                    update,
-                    changeUpdate,
-                    originalUidUser:quotedMessage.data().uidUser,
-                    id:originalId,
-                    uidUser:currentUserInfo[0].uidUser,
-                    likes:quotedMessage.data().likes})}> 
-                      <IconLike />                               
-                    </LikeButton>
-                    :
-                    <>
-                    {
-                      quotedMessage.data().uidUser ===currentUserInfo[0].uidUser ?
-                    <LikeButton  onClick={()=>RemoveLikeSameUser({
-                      currentUidUser:currentUserInfo[0].uidUser,
-                      originalLikes:quotedMessage.data().likes,
-                      originalMessageId:originalId,
-                      update,
-                      changeUpdate})}> 
-                      <IconLikeColor />                               
-                    </LikeButton>
-                      :
-                    <LikeButton  onClick={()=>RemoveLike({
-                      currentUidUser:currentUserInfo[0].uidUser,
-                      originalLikes:quotedMessage.data().likes,
-                      originalMessageId:originalId,
-                      likeUidUser:originalUidUser,
-                      newId:commentId,
-                      update,
-                      changeUpdate})}> 
-                      <IconLikeColor />                               
-                    </LikeButton>
-                  }
-                  </>
-                  }
-                  <CounterContainer>
-                    <p>{quotedMessage.data().likes.length}</p>
-                  </CounterContainer>
-                </IconContainerCont>
-              </InteractionBar>
-              </CardColumns> 
-              
-            </MessageLink>
+            <CommentInner
+              previousCommentAlias={userInfoForQuote[0].alias}
+              currentUserInfo={currentUserInfo}
+              commentId={commentId}
+              commentUidUser={commentUidUser}
+              commentContent={commentContent}
+              changeShowPopUp={changeShowPopUp}
+              changePopUpAlert={changePopUpAlert}
+              user={user}
+              update={update}
+              changeUpdate={changeUpdate}
+              changeAlert={changeAlert} 
+              changeStateAlert={changeStateAlert}
+            />
           </CardInner>
           :
-          <EmptyDiv/>
+          <EmptyDiv>
+            <p>This Message was deleted</p>
+          </EmptyDiv>
           }
         </>
         :

@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -134,40 +134,41 @@ const PortraitContainer =styled.div`
   }
 `
 
-const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
-    const [loadingRetweets, changeLoadingRetweets] =useState(true);
+
+const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
+    const [loadingComment, changeLoadingComment] =useState(true);
     const [messageForComment, changeMessageForComment] = useState('')
     const [userInfoForComment, changeUserInfoForComment] =useState([{}])
 
     useEffect(()=>{
       const obtainMessage = async() =>{
-            const document = await getDoc(doc(db, 'userTimeline', originalId));
+            const document = await getDoc(doc(db, 'userTimeline', commentId));
             changeMessageForComment(document) 
            /*  if(document.exists()){
-              console.log(originalId +" existe")
+              console.log(commentId +" existe")
             
             } else{
-              console.log(originalId +" no existe")
+              console.log(commentId +" no existe")
             } */
             const consult = query(
               collection(db, 'userInfo'),
-              where('uidUser', "==", originalUidUser),
+              where('uidUser', "==", commentUidUser),
               limit(10)
             );
 
             onSnapshot(consult, (snapshot)=>{
-              changeUserInfoForComment(snapshot.docs.map((originalUser)=>{
-                return {...originalUser.data()}
+              changeUserInfoForComment(snapshot.docs.map((commentUser)=>{
+                return {...commentUser.data()}
               }))
             })
             console.log("retweet reload")
 
-          changeLoadingRetweets(false)
+          changeLoadingComment(false)
       }
       obtainMessage();
 
-      /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
-      },[currentUserInfo, update, originalId, originalUidUser])
+      /* By not calling changeLoadingComment in useEffect it keeps loading each time we update*/
+      },[currentUserInfo, update, commentId, commentUidUser])
       
       const formatDate = (date) => {
         return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -175,12 +176,13 @@ const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,ch
     
 return ( 
       <>
-        {!loadingRetweets ?
+        {!loadingComment ?
         <>
           {messageForComment.exists() ?
-          <CardInner>
-            <MessageLink  to={`/user/${userInfoForComment[0].alias}/status/${originalId}`}>
-              <CardColumns originalComment>
+          <>
+            <MessageLink to={`/user/${userInfoForComment[0].alias}/status/${commentId}`}>
+              <CardColumns>
+                <StraightLine2/>
                 <PortraitContainer>
                   {userInfoForComment[0].photoURL ?
                   <img alt="userportrait" src={userInfoForComment[0].photoURL}/>
@@ -188,7 +190,6 @@ return (
                   <img alt="userportrait" src={ProfileImage}/>
                   }
                 </PortraitContainer>
-                <StraightLine/>
               </CardColumns>
               <CardColumns rightColumn>
                 <UserNameContainer>
@@ -203,165 +204,12 @@ return (
                       changeStateAlert={changeStateAlert}
                       messageUidUser={messageForComment.data().uidUser} 
                       currentUserInfo={currentUserInfo}
-                      id={originalId} />
+                      id={commentId} />
                 </UserNameContainer>
-                <MessageContent>
-                  <p>{messageForComment.data().message}</p>
-                </MessageContent>
-                <TimeBar>
-                  {formatDate(messageForComment.data().date)}
-                </TimeBar>
-                <InteractionBar>
-                  <IconContainer Reply onClick={(e)=>{
-                      e.preventDefault();
-                      e.stopPropagation();
-                      receiveNotification({
-                      notification:"comment",
-                      messageMessage:messageForComment.data().message,
-                      messageForTimeline:userInfoForComment,
-                      id:originalId,
-                      comments:messageForComment.data().comments,
-                      retweets:messageForComment.data().retweets,
-                      originalUidUser:messageForComment.data().uidUser,
-                      user,
-                      currentUserInfo,
-                      changeShowPopUp:changeShowPopUp, 
-                      changePopUpAlert:changePopUpAlert,
-                      update,
-                      changeUpdate})}}>
-                    <IconComment/>
-                  </IconContainer>
-                  <IconContainerCont Retweet>
-                    {!messageForComment.data().retweets.includes(currentUserInfo[0].uidUser)?
-                      <RetweetButton onClick={(e)=>{
-                        e.preventDefault();
-                        e.stopPropagation();
-                        receiveNotification({
-                        notification:"retweet",
-                        id:originalId,
-                        retweets:messageForComment.data().retweets, 
-                        originalUidUser:messageForComment.data().uidUser, 
-                        user, 
-                        currentUserInfo, 
-                        changeShowPopUp, 
-                        changePopUpAlert
-                      })}}>
-                        <IconRetweet/>
-                      </RetweetButton>
-                      :
-                      <>
-                      {
-                      messageForComment.data().uidUser ===currentUserInfo[0].uidUser ?
-                      <RetweetButton onClick={(e)=>{
-                        e.preventDefault();
-                        e.stopPropagation();
-                        RemoveRetweetSameUser({
-                        currentUidUser:currentUserInfo[0].uidUser,
-                        originalRetweets:messageForComment.data().retweets,
-                        currentMessageId:originalId,
-                        update,
-                        changeUpdate})}}>
-                        <IconRetweetColor/>
-                      </RetweetButton>
-                        :
-                        <RetweetButton onClick={(e)=>{
-                          e.preventDefault();
-                          e.stopPropagation();
-                          RemoveRetweet({
-                          currentUidUser:currentUserInfo[0].uidUser,
-                          originalRetweets:messageForComment.data().retweets,
-                          currentMessageId:originalId,
-                          commentUidUser:messageForComment.data().uidUser,
-                          update,
-                          changeUpdate})}}>
-                          <IconRetweetColor/>
-                        </RetweetButton>
-                        }
-                      </>
-                    }
-                    <CounterContainer>
-                      {messageForComment.data().retweets.length}
-                    </CounterContainer>
-                  </IconContainerCont>
-                  <IconContainerCont Like>
-                    {!messageForComment.data().likes.includes(currentUserInfo[0].uidUser)?
-                      <LikeButton  onClick={(e)=>{
-                      e.preventDefault();
-                      e.stopPropagation();
-                      AddLike({
-                      update,
-                      changeUpdate,
-                      originalUidUser:messageForComment.data().uidUser,
-                      id:originalId,
-                      uidUser:currentUserInfo[0].uidUser,
-                      likes:messageForComment.data().likes})}}> 
-                        <IconLike />                               
-                      </LikeButton>
-                      :
-                      <>
-                      {
-                        messageForComment.data().uidUser ===currentUserInfo[0].uidUser ?
-                      <LikeButton  onClick={(e)=>{
-                        e.preventDefault();
-                        e.stopPropagation();
-                        RemoveLikeSameUser({
-                        currentUidUser:currentUserInfo[0].uidUser,
-                        originalLikes:messageForComment.data().likes,
-                        originalMessageId:originalId,
-                        update,
-                        changeUpdate})}}> 
-                        <IconLikeColor />                               
-                      </LikeButton>
-                        :
-                      <LikeButton  onClick={(e)=>{
-                        e.preventDefault();
-                        e.stopPropagation();
-                        RemoveLike({
-                        currentUidUser:currentUserInfo[0].uidUser,
-                        originalLikes:messageForComment.data().likes,
-                        originalMessageId:originalId,
-                        likeUidUser:originalUidUser,
-                        newId:commentId,
-                        update,
-                        changeUpdate})}}> 
-                        <IconLikeColor />                               
-                      </LikeButton>
-                    }
-                    </>
-                    }
-                    <CounterContainer>
-                      <p>{messageForComment.data().likes.length}</p>
-                    </CounterContainer>
-                  </IconContainerCont>
-                </InteractionBar>
-              </CardColumns> 
-            </MessageLink>
-            <MessageLink to={`/user/${currentUserInfo[0].alias}/status/${commentId}`}>
-              <CardColumns>
-                <StraightLine2/>
-                <PortraitContainer>
-                  {currentUserInfo[0].photoURL ?
-                  <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
-                  :
-                  <img alt="userportrait" src={ProfileImage}/>
-                  }
-                </PortraitContainer>
-              </CardColumns>
-              <CardColumns rightColumn>
-                <UserNameContainer>
-                  <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`}>
-                    {currentUserInfo[0].name}
-                  </UserNameContainerLink >
-                  <AliasContainer>
-                    @{currentUserInfo[0].alias}
-                  </AliasContainer>
-                    <ShowMoreMenu 
-                      changeAlert={changeAlert}
-                      changeStateAlert={changeStateAlert}
-                      messageUidUser={messageForComment.data().uidUser} 
-                      currentUserInfo={currentUserInfo}
-                      id={originalId} />
-                </UserNameContainer>
+                <UserNameContainerQuoted>
+                  <p>Replying to</p>
+                  <UserNameContainerLinkQuoted to={`/user/${previousCommentAlias}`}>@{previousCommentAlias}</UserNameContainerLinkQuoted >
+                </UserNameContainerQuoted>
                 <MessageContent>
                   <p>{commentContent}</p>
                 </MessageContent>
@@ -377,7 +225,7 @@ return (
                       e.stopPropagation();
                       receiveNotification({
                       notification:"retweet",
-                      id:originalId,
+                      id:commentId,
                       retweets:messageForComment.data().retweets, 
                       originalUidUser:messageForComment.data().uidUser, 
                       user, 
@@ -389,23 +237,28 @@ return (
                     :
                     <>
                     {messageForComment.data().uidUser ===currentUserInfo[0].uidUser ?
-                    <RetweetButton onClick={()=>RemoveRetweetSameUser({
+                    <RetweetButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveRetweetSameUser({
                       currentUidUser:currentUserInfo[0].uidUser,
                       originalRetweets:messageForComment.data().retweets,
-                      currentMessageId:originalId,
+                      currentMessageId:commentId,
                       update,
-                      changeUpdate})}>
+                      changeUpdate})}}>
                       <IconRetweetColor/>
                     </RetweetButton>
                       :
-                      <RetweetButton onClick={()=>RemoveRetweet({
+                      <RetweetButton onClick={(e)=>{
+                        e.preventDefault();
+                        e.stopPropagation();
+                        RemoveRetweet({
                         currentUidUser:currentUserInfo[0].uidUser,
                         originalRetweets:messageForComment.data().retweets,
-                        currentMessageId:originalId,
+                        currentMessageId:commentId,
                         commentUidUser:messageForComment.data().uidUser,
                         update,
-                        changeUpdate
-                      })}>
+                        changeUpdate})}}>
                         <IconRetweetColor/>
                       </RetweetButton>
                       }
@@ -417,36 +270,45 @@ return (
                 </IconContainerCont>
                 <IconContainerCont Like>
                   {!messageForComment.data().likes.includes(currentUserInfo[0].uidUser)?
-                    <LikeButton  onClick={()=>AddLike({
+                    <LikeButton  onClick={(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    AddLike({
                     update,
                     changeUpdate,
                     originalUidUser:messageForComment.data().uidUser,
-                    id:originalId,
+                    id:commentId,
                     uidUser:currentUserInfo[0].uidUser,
-                    likes:messageForComment.data().likes})}> 
+                    likes:messageForComment.data().likes})}}> 
                       <IconLike />                               
                     </LikeButton>
                     :
                     <>
                     {
                       messageForComment.data().uidUser ===currentUserInfo[0].uidUser ?
-                    <LikeButton  onClick={()=>RemoveLikeSameUser({
+                    <LikeButton  onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveLikeSameUser({
                       currentUidUser:currentUserInfo[0].uidUser,
                       originalLikes:messageForComment.data().likes,
-                      originalMessageId:originalId,
+                      originalMessageId:commentId,
                       update,
-                      changeUpdate})}> 
+                      changeUpdate})}}> 
                       <IconLikeColor />                               
                     </LikeButton>
                       :
-                    <LikeButton  onClick={()=>RemoveLike({
+                    <LikeButton  onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveLike({
                       currentUidUser:currentUserInfo[0].uidUser,
                       originalLikes:messageForComment.data().likes,
-                      originalMessageId:originalId,
-                      likeUidUser:originalUidUser,
+                      originalMessageId:commentId,
+                      likeUidUser:commentUidUser,
                       newId:commentId,
                       update,
-                      changeUpdate})}> 
+                      changeUpdate})}}> 
                       <IconLikeColor />                               
                     </LikeButton>
                   }
@@ -458,9 +320,8 @@ return (
                 </IconContainerCont>
               </InteractionBar>
               </CardColumns> 
-              
             </MessageLink>
-          </CardInner>
+          </>
           :
           <EmptyDiv/>
           }
@@ -472,4 +333,4 @@ return (
     )
 }
  
-export default CommentMainTimeline;
+export default CommentInner;
