@@ -1,5 +1,5 @@
 import { db } from "./FirebaseConfig";
-import { collection, doc, setDoc, addDoc, updateDoc  } from "firebase/firestore";
+import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
 
@@ -7,11 +7,11 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, messa
       console.log(id,uidUser)
       const document = doc(db, "userTimeline" , id); 
 
-      try{  const docRef = doc(collection(db, "userTimeline"))
+      try{
             await updateDoc(document, {
-                  comments: [...comments, docRef.id]})
+                  comments: [...comments, {uidUser, date}]})
                   try{
-                        await setDoc(docRef, {
+                        await addDoc(collection(db, "userTimeline"), {
                               type:"comment",
                               originalId: id,
                               originalUidUser:originalUidUser,
@@ -22,10 +22,8 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, messa
                               message:message,
                               comments:[],
                               likes:[], 
-                              retweets:[],
-                              ownId:docRef.id
+                              retweets:[]
                         })
-                        
                   } catch(error){
                         console.log("Error adding new tweet")
                   }

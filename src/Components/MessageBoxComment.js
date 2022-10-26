@@ -234,9 +234,7 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                               <AliasContainer>@{messageForTimeline[0].alias}</AliasContainer>
                         </UserNames>
                         <MessageContent>
-                              <p>
-                              {messageMessage}
-                              </p>
+                              <p>{messageMessage}</p>
                         </MessageContent>
                         <ReplyingTo>
                               <p>Replying to @{messageForTimeline[0].alias}</p>
