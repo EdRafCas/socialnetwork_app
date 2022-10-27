@@ -26,7 +26,7 @@ import RetweetInfo from '../Elements/RetweetInfo';
 import CommentInner from './CommentInner';
 
 
-const RetweetButton=styled.button`
+const BarButton=styled.button`
   background:none;
   border-radius:50%;
   border:none;
@@ -41,13 +41,14 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
+
 const MessageLink=styled(Link)`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
  /*  border:red ${theme.BorderColor} 1px; */
   gap:0rem;
-  padding-top:${(props) => props.originalComment ? "0.5rem": "0"};
+  padding-top:${(props) => props.originalComment ? "0rem": "0"};
   /* background:black; */
   text-decoration:none;
   z-index:80;
@@ -61,34 +62,15 @@ visibility:hidden
 display:none;
 overflow:hidden;
 `
-const LeftColumn=styled.div`
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  min-height:9rem;
-  /* border:solid ${theme.BluePinned} 1px; */
-  gap:3px;
-`
-const RightColumn=styled.div`
-  display:flex;
-  flex-direction:column;
-  width:100%;
-  padding-top:${(props)=> props.reply ? "1rem"
-                                      : "0rem"};
-  min-height:9rem;
-  gap:10px;
-  /* border:solid ${theme.BorderColor} 1px; */
-`
 const StraightLine=styled.div`
   height:90%;
   width:2px;
   border:solid ${theme.BorderColor} 1px;
 `
-const StraightLine2=styled.div`
+const EmptyDivColumn=styled.div`
   height:0.5rem;
-  width:2px;
-  border:solid ${theme.BorderColor} 1px;
+  width:100%;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 const InteractionBar=styled.div`
   display:flex;
@@ -182,6 +164,7 @@ return (
           <CardInner>
             <MessageLink  to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
               <CardColumns originalComment>
+                <EmptyDivColumn/>
                 <PortraitContainer>
                   {userInfoForQuote[0].photoURL ?
                   <img alt="userportrait" src={userInfoForQuote[0].photoURL}/>
@@ -192,6 +175,7 @@ return (
                 <StraightLine/>
               </CardColumns>
               <CardColumns rightColumn>
+                <EmptyDivColumn/>
                 <UserNameContainer>
                   <UserNameContainerLink to={`/user/${userInfoForQuote[0].alias}`}>
                     {userInfoForQuote[0].name}
@@ -213,7 +197,8 @@ return (
                   {formatDate(quotedMessage.data().date)}
                 </TimeBar>
                 <InteractionBar>
-                  <IconContainer Reply onClick={(e)=>{
+                  <IconContainerCont Reply >
+                    <BarButton onClick={(e)=>{
                       e.preventDefault();
                       e.stopPropagation();
                       receiveNotification({
@@ -230,58 +215,61 @@ return (
                       changePopUpAlert:changePopUpAlert,
                       update,
                       changeUpdate})}}>
-                    <IconComment/>
-                  </IconContainer>
+                      <IconComment/>
+                    </BarButton>
+                    <CounterContainer Reply>
+                      <p>{quotedMessage.data().comments.length}</p>
+                    </CounterContainer>
+                  </IconContainerCont>
                   <IconContainerCont Retweet>
                     {!quotedMessage.data().retweets.includes(currentUserInfo[0].uidUser)?
-                      <RetweetButton onClick={(e)=>{
-                        e.preventDefault();
-                        e.stopPropagation();
-                        receiveNotification({
-                        notification:"retweet",
-                        id:originalId,
-                        retweets:quotedMessage.data().retweets, 
-                        originalUidUser:quotedMessage.data().uidUser, 
-                        user, 
-                        currentUserInfo, 
-                        changeShowPopUp, 
-                        changePopUpAlert
-                      })}}>
-                        <IconRetweet/>
-                      </RetweetButton>
+                    <BarButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      receiveNotification({
+                      notification:"retweet",
+                      id:originalId,
+                      retweets:quotedMessage.data().retweets, 
+                      originalUidUser:quotedMessage.data().uidUser, 
+                      user, 
+                      currentUserInfo, 
+                      changeShowPopUp, 
+                      changePopUpAlert
+                    })}}>
+                      <IconRetweet/>
+                    </BarButton>
+                    :
+                    <>
+                    {quotedMessage.data().uidUser ===currentUserInfo[0].uidUser ?
+                    <BarButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveRetweetSameUser({
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalRetweets:quotedMessage.data().retweets,
+                      currentMessageId:originalId,
+                      update,
+                      changeUpdate})}}>
+                      <IconRetweetColor/>
+                    </BarButton>
                       :
-                      <>
-                      {
-                      quotedMessage.data().uidUser ===currentUserInfo[0].uidUser ?
-                      <RetweetButton onClick={(e)=>{
-                        e.preventDefault();
-                        e.stopPropagation();
-                        RemoveRetweetSameUser({
-                        currentUidUser:currentUserInfo[0].uidUser,
-                        originalRetweets:quotedMessage.data().retweets,
-                        currentMessageId:originalId,
-                        update,
-                        changeUpdate})}}>
-                        <IconRetweetColor/>
-                      </RetweetButton>
-                        :
-                        <RetweetButton onClick={(e)=>{
-                          e.preventDefault();
-                          e.stopPropagation();
-                          RemoveRetweet({
-                          currentUidUser:currentUserInfo[0].uidUser,
-                          originalRetweets:quotedMessage.data().retweets,
-                          currentMessageId:originalId,
-                          commentUidUser:quotedMessage.data().uidUser,
-                          update,
-                          changeUpdate})}}>
-                          <IconRetweetColor/>
-                        </RetweetButton>
+                    <BarButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveRetweet({
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalRetweets:quotedMessage.data().retweets,
+                      currentMessageId:originalId,
+                      commentUidUser:quotedMessage.data().uidUser,
+                      update,
+                      changeUpdate})}}>
+                      <IconRetweetColor/>
+                    </BarButton>
                         }
-                      </>
+                    </>
                     }
                     <CounterContainer>
-                      {quotedMessage.data().retweets.length}
+                      <p>{quotedMessage.data().retweets.length}</p>
                     </CounterContainer>
                   </IconContainerCont>
                   <IconContainerCont Like>

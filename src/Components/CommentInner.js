@@ -79,10 +79,10 @@ const RightColumn=styled.div`
   gap:10px;
   /* border:solid ${theme.BorderColor} 1px; */
 `
-const StraightLine=styled.div`
-  height:90%;
-  width:2px;
-  border:solid ${theme.BorderColor} 1px;
+const EmptyDivColumn=styled.div`
+  height:0.5rem;
+  width:100%;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 const StraightLine2=styled.div`
   height:0.5rem;
@@ -180,7 +180,7 @@ return (
         <>
           {messageForComment.exists() ?
           <>
-            <MessageLink to={`/user/${userInfoForComment[0].alias}/status/${commentId}`}>
+            <MessageLink Comment to={`/user/${userInfoForComment[0].alias}/status/${commentId}`}>
               <CardColumns>
                 <StraightLine2/>
                 <PortraitContainer>
@@ -192,6 +192,7 @@ return (
                 </PortraitContainer>
               </CardColumns>
               <CardColumns rightColumn>
+                <EmptyDivColumn/>
                 <UserNameContainer>
                   <UserNameContainerLink to={`/user/${userInfoForComment[0].alias}`}>
                     {userInfoForComment[0].name}
@@ -200,11 +201,14 @@ return (
                     @{userInfoForComment[0].alias}
                   </AliasContainer>
                     <ShowMoreMenu 
+                      commentInnerMenu
                       changeAlert={changeAlert}
                       changeStateAlert={changeStateAlert}
                       messageUidUser={messageForComment.data().uidUser} 
                       currentUserInfo={currentUserInfo}
-                      id={commentId} />
+                      id={commentId}
+                      originalId={originalId}
+                      originalUidUser={originalUidUser} />
                 </UserNameContainer>
                 <UserNameContainerQuoted>
                   <p>Replying to</p>

@@ -103,32 +103,6 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
     }) 
     }
     
-    /* if(messageFloating !==""){
-     AddMessage({
-      message:messageFloating,
-      uidUser: currentUserInfo[0].uidUser,
-      name:currentUserInfo[0].name,
-      alias:currentUserInfo[0].alias,
-      date: getUnixTime(new Date())
-    })
-    .then(()=>{
-      messageChange("");
-      changeStateAlert(true);
-      changeAlert({
-            type:'success',
-            message: 'Your message was sent successfully'
-      })
-      changeShowMessageBox(false)
-    })
-    .catch((error)=>{
-      changeStateAlert(true);
-      changeAlert({
-            type:'error',
-            message: 'An error ocurred while sending your message'
-      })
-    }) 
-    } */
-    
   };
 
       return ( 
@@ -139,6 +113,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   user={popUpAlert.user}
                   currentUserInfo={popUpAlert.currentUserInfo}
                   originalUidUser={popUpAlert.originalUidUser}
+                  originalId={popUpAlert.originalId}
                   comments={popUpAlert.comments}
                   retweets={popUpAlert.retweets}
                   bookmarks={popUpAlert.bookmarks}

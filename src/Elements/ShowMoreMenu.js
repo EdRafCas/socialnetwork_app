@@ -94,7 +94,7 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, retweetSameUser, bookmarkTimeline, update, changeUpdate}) => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, retweetSameUser, bookmarkTimeline, commentInnerMenu,originalId, originalUidUser, update, changeUpdate}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
@@ -138,6 +138,21 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                     <p>Delete Pinned Message</p>
                   </Option>
                 : 
+                  <>
+                  {commentInnerMenu===true ?
+                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                    notification:"deleteComment",
+                    changeShowPopUp, 
+                    changePopUpAlert,
+                    id,
+                    originalId,
+                    originalUidUser})}}>
+                    <IconContainer >
+                      <IconDelete/>
+                    </IconContainer>
+                    <p>Delete Message</p>
+                  </Option>
+                  :
                   <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
                     notification:"delete",
                     changeShowPopUp, 
@@ -148,6 +163,8 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                     </IconContainer>
                     <p>Delete Message</p>
                   </Option>
+                  }
+                  </> 
                 }
               </>
               :

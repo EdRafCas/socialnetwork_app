@@ -1,6 +1,6 @@
 
 
-const receiveNotification = ({e, messageMessage, messageForTimeline, userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser,comments, retweets, user, bookmarks, profilePicture, backgroundPicture,currentUserInfo, changeAlert, changeStateAlert}) => {
+const receiveNotification = ({e, messageMessage, messageForTimeline, userId, notification, changeShowPopUp, changePopUpAlert, id, originalUidUser, originalId,comments, retweets, user, bookmarks, profilePicture, backgroundPicture, currentUserInfo, changeAlert, changeStateAlert}) => {
   if(notification==="retweet"){
     changeShowPopUp(true)
     changePopUpAlert({type: "retweet",
@@ -67,7 +67,15 @@ const receiveNotification = ({e, messageMessage, messageForTimeline, userId, not
             type:'success',
             message: 'This message is already in your bookmark list'
       })
-    }   
+    } 
+    if(notification==="deleteComment"){
+      changeShowPopUp(true)
+      changePopUpAlert({type: "deleteComment", 
+      id: id,
+      originalId:originalId,
+      originalUidUser:originalUidUser, 
+      })
+    }  
 
 }
  

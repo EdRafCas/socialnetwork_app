@@ -26,10 +26,10 @@ const CardInner =styled.div`
   gap:0rem;
   padding-top:0rem;
   z-index:100;
-  :hover{
+ /*  :hover{
     pointer-events: auto;
     background:rgba(255,255,255, 0.03);
-  }
+  } */
 `
 const PinnedInfo=styled.div`
   height:1.5rem;
@@ -168,6 +168,7 @@ const CounterContainer=styled.div`
   background:none;
   color:${theme.Text};
   :hover{
+   
   }
   :active{
     background:white;
@@ -202,7 +203,10 @@ const IconContainerCont=styled.div`
     }
     div{
       p{
-        color:${theme.PinkLike};
+        color: ${(props)=> props.Reply ? `${theme.BlueReply}`
+                      : props.Like ? `${theme.PinkLike}` 
+                      : props.Retweet ? `${theme.GreenRetweet}` 
+                      : "auto"};
       }
     }
   }

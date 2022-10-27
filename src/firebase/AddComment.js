@@ -9,7 +9,7 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, messa
 
       try{  const docRef = doc(collection(db, "userTimeline"))
             await updateDoc(document, {
-                  comments: [...comments, docRef.id]})
+                  comments: [...comments, {date: date, commentId:docRef.id}]})
                   try{
                         await setDoc(docRef, {
                               type:"comment",
@@ -22,8 +22,7 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, messa
                               message:message,
                               comments:[],
                               likes:[], 
-                              retweets:[],
-                              ownId:docRef.id
+                              retweets:[]
                         })
                         
                   } catch(error){

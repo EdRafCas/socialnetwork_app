@@ -180,7 +180,7 @@ const CloseWindow=styled.div`
 `
 
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, comments, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, originalId, comments, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {
     const [message, messageChange] = useState('');
     const {changeShowPopUp} =useContext(AuthContext);
     const {showPopUp} =useContext(AuthContext);
@@ -275,6 +275,29 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                             <p>Cancel</p>
                         </PopUpButtonDelete>
                     </PopUpButtonContainer>
+                </ContainerPopUp>
+                :type ==="deleteComment" ?
+                <ContainerPopUp>
+                    <p>test</p>
+                    {/* <PopUpTitle>Delete Message?</PopUpTitle>
+                    <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete Red onClick={()=>RemoveTweet({
+                            changeStateAlert, 
+                            changeAlert,
+                            id, 
+                            changeShowPopUp, 
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
+                            <p>Delete</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer> */}
                 </ContainerPopUp>
                 :type ==="deleteAndRemove" ?
                 <ContainerPopUp>
