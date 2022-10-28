@@ -94,7 +94,7 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, retweetSameUser, bookmarkTimeline, commentInnerMenu,originalId, originalUidUser, update, changeUpdate}) => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, retweetSameUser, bookmarkTimeline, commentInnerMenu, originalId, originalMessageComments,originalUidUser, update, changeUpdate}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
@@ -146,7 +146,8 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                     changePopUpAlert,
                     id,
                     originalId,
-                    originalUidUser})}}>
+                    originalUidUser, 
+                    originalMessageComments})}}>
                     <IconContainer >
                       <IconDelete/>
                     </IconContainer>

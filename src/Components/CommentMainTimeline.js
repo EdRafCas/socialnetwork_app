@@ -188,13 +188,17 @@ return (
                       changeStateAlert={changeStateAlert}
                       messageUidUser={quotedMessage.data().uidUser} 
                       currentUserInfo={currentUserInfo}
-                      id={originalId} />
+                      id={originalId}
+                      originalMessageComments={quotedMessage.data().comments} />
                 </UserNameContainer>
                 <MessageContent>
                   <p>{quotedMessage.data().message}</p>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(quotedMessage.data().date)}
+                </TimeBar>
+                <TimeBar>
+                  {quotedMessage.data().comments[0].commentId}
                 </TimeBar>
                 <InteractionBar>
                   <IconContainerCont Reply >
@@ -329,6 +333,8 @@ return (
               previousCommentAlias={userInfoForQuote[0].alias}
               currentUserInfo={currentUserInfo}
               commentId={commentId}
+              originalId={originalId}
+              originalMessageComments={quotedMessage.data().comments}
               commentUidUser={commentUidUser}
               commentContent={commentContent}
               changeShowPopUp={changeShowPopUp}

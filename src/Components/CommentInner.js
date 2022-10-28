@@ -135,7 +135,7 @@ const PortraitContainer =styled.div`
 `
 
 
-const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
+const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId, originalMessageComments}) => {
     const [loadingComment, changeLoadingComment] =useState(true);
     const [messageForComment, changeMessageForComment] = useState('')
     const [userInfoForComment, changeUserInfoForComment] =useState([{}])
@@ -208,6 +208,7 @@ return (
                       currentUserInfo={currentUserInfo}
                       id={commentId}
                       originalId={originalId}
+                      originalMessageComments={originalMessageComments}
                       originalUidUser={originalUidUser} />
                 </UserNameContainer>
                 <UserNameContainerQuoted>
@@ -219,6 +220,12 @@ return (
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForComment.data().date)}
+                </TimeBar>
+                <TimeBar>
+                  {commentId}
+                </TimeBar>
+                <TimeBar>
+                  {originalId}
                 </TimeBar>
                 <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>

@@ -114,6 +114,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                   currentUserInfo={popUpAlert.currentUserInfo}
                   originalUidUser={popUpAlert.originalUidUser}
                   originalId={popUpAlert.originalId}
+                  originalMessageComments={popUpAlert.originalMessageComments}
                   comments={popUpAlert.comments}
                   retweets={popUpAlert.retweets}
                   bookmarks={popUpAlert.bookmarks}

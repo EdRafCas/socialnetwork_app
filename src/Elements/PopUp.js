@@ -4,6 +4,7 @@ import theme from '../Theme'
 import { TranslucidBack, CenterBox } from './ElementsFormulary';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveTweet from '../firebase/RemoveTweet';
+import RemoveComment from '../firebase/RemoveComment';
 import {UpdateProfilePinnedMessage, RemoveTweetFromPinned, AddBookmarkToUser} from '../firebase/UpdateProfile';
 import { addRetweetToTimeline } from '../firebase/AddRetweet';
 import getUnixTime from 'date-fns/getUnixTime';
@@ -180,7 +181,7 @@ const CloseWindow=styled.div`
 `
 
 
-const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, originalId, comments, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {
+const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, originalId, originalMessageComments, comments, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {
     const [message, messageChange] = useState('');
     const {changeShowPopUp} =useContext(AuthContext);
     const {showPopUp} =useContext(AuthContext);
@@ -192,9 +193,6 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
           messageChange(e.target.value)
         }
     };
-
-
-
 
     return (
         <>
@@ -256,7 +254,7 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                 </ContainerPopUp>
                 :type ==="delete" ?
                 <ContainerPopUp>
-                    <PopUpTitle>Delete Message?</PopUpTitle>
+                    <PopUpTitle>Delete Comment?</PopUpTitle>
                     <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
                     <PopUpButtonContainer>
                         <PopUpButtonDelete Red onClick={()=>RemoveTweet({
@@ -278,14 +276,16 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                 </ContainerPopUp>
                 :type ==="deleteComment" ?
                 <ContainerPopUp>
-                    <p>test</p>
-                    {/* <PopUpTitle>Delete Message?</PopUpTitle>
+                    <PopUpTitle>Delete Comment?</PopUpTitle>
                     <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
                     <PopUpButtonContainer>
-                        <PopUpButtonDelete Red onClick={()=>RemoveTweet({
+                        <PopUpButtonDelete Red onClick={()=>RemoveComment({
                             changeStateAlert, 
                             changeAlert,
                             id, 
+                            originalId,
+                            originalUidUser,
+                            originalMessageComments,
                             changeShowPopUp, 
                             showPopUp,
                             update,
@@ -297,7 +297,7 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                         <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
                             <p>Cancel</p>
                         </PopUpButtonDelete>
-                    </PopUpButtonContainer> */}
+                    </PopUpButtonContainer>
                 </ContainerPopUp>
                 :type ==="deleteAndRemove" ?
                 <ContainerPopUp>
