@@ -25,133 +25,134 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import {useNavigate} from 'react-router-dom';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
+import CommentInner from './CommentInner';
 
 
 
 const CardMessage =styled.div`
-  display:flex;
-  flex-direction:column;
-  /* border:solid ${theme.BorderColor} 1px; */
-  /* border-radius:15px; */
-  gap:0rem;
-  padding-top:0rem;
-  z-index:100;
-  :hover{
-    background:rgba(255,255,255, 0.03);
-    }
+      display:flex;
+      flex-direction:column;
+      /* border:solid ${theme.BorderColor} 1px; */
+      /* border-radius:15px; */
+      gap:0rem;
+      padding-top:0rem;
+      z-index:100;
+      :hover{
+      background:rgba(255,255,255, 0.03);
+      }
 `
 const TimelineUserContainer = styled.div`
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  padding:0rem;
-  border:solid ${theme.BorderColor} 1px;
-  gap:0rem;
-  overflow:scroll;
-  overflow-x:hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      padding:0rem;
+      border:solid ${theme.BorderColor} 1px;
+      gap:0rem;
+      overflow:scroll;
+      overflow-x:hidden;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
 `
 const TimelineCommentContainer = styled.div`
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  padding:0rem;
-  /* border:solid ${theme.BorderColor} 1px; */
-  border:none;
-  gap:0rem;
-  overflow:scroll;
-  overflow-x:hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      padding:0rem;
+      /* border:solid ${theme.BorderColor} 1px; */
+      border:none;
+      gap:0rem;
+      overflow:scroll;
+      overflow-x:hidden;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
 `
 const RetweetButton=styled.button`
-  background:none;
-  border-radius:50%;
-  border:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:2.5rem;
-  width:2.5rem;
-  gap:5px;
-  :hover{
-   /*  border:solid ${theme.BorderColor} 1px; */
-  }
+      background:none;
+      border-radius:50%;
+      border:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:2.5rem;
+      width:2.5rem;
+      gap:5px;
+      :hover{
+      /*  border:solid ${theme.BorderColor} 1px; */
+      }
   `
 const PortraitContainerMessage =styled.div`
-  /* border: solid red 1px; */
-  padding:0;
-  border-radius:50%;
-  width:4rem;
-  height:4rem;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin:0;
-  overflow:hidden;
-  img{
-    width:100%;
-  }
+      /* border: solid red 1px; */
+      padding:0;
+      border-radius:50%;
+      width:4rem;
+      height:4rem;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin:0;
+      overflow:hidden;
+      img{
+      width:100%;
+      }
 `
 const CardRowsMessage = styled.div`
-  width:100%;
-  padding: 0.5rem;
-  padding-bottom:0rem;
-  margin:0;
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-  align-items:center;
-  /* border:solid ${theme.BorderColor} 1px; */
-  gap:1rem;
+      width:100%;
+      padding: 0.5rem;
+      padding-bottom:0rem;
+      margin:0;
+      display:flex;
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:center;
+      /* border:solid ${theme.BorderColor} 1px; */
+      gap:1rem;
 `
 const CardColumnMessage = styled.div`
-  padding: 1rem 0.5rem 0rem 0.5rem;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:center;
-  /* border:solid ${theme.BorderColor} 1px; */
-  gap:0.5rem;
+      padding: 1rem 0.5rem 0rem 0.5rem;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:center;
+      /* border:solid ${theme.BorderColor} 1px; */
+      gap:0.5rem;
 `
 const UserNameContainerMessage =styled.div`
-  width:90%;
-  height:4.5rem;
-  padding:0rem;
-  position:relative;
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
-  /* border:solid ${theme.BorderColor} 1px; */
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:5px;
+      width:90%;
+      height:4.5rem;
+      padding:0rem;
+      position:relative;
+      /* border-bottom:solid ${theme.BorderColor} 1px; */
+      /* border:solid ${theme.BorderColor} 1px; */
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:5px;
 `
 const InteractionBarMessage=styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content:space-around;
-  border-top:solid ${theme.BorderColor} 1px;
-  border-bottom:solid ${theme.BorderColor} 1px;
-  width:100%;
-  max-height:6rem;
-  padding-top:0.5rem;
-  padding-bottom:0.5rem;
+      display:flex;
+      flex-direction:row;
+      justify-content:space-around;
+      border-top:solid ${theme.BorderColor} 1px;
+      border-bottom:solid ${theme.BorderColor} 1px;
+      width:100%;
+      max-height:6rem;
+      padding-top:0.5rem;
+      padding-bottom:0.5rem;
 `
 const MessageContentBig = styled.div`
-  width:100%;
-  padding:0rem;
-  max-height:400px;
-  min-height:100px;
-  font-size:1.5rem;
-  font-weight:400;
-  color:white;
-  /* border:solid ${theme.BorderColor} 1px; */
-  text-align:justify;
-  white-space:normal;
-  overflow:hidden;
-  p{
+      width:100%;
+      padding:0rem;
+      max-height:400px;
+      min-height:100px;
+      font-size:1.5rem;
+      font-weight:400;
+      color:white;
+      /* border:solid ${theme.BorderColor} 1px; */
+      text-align:justify;
+      white-space:normal;
+      overflow:hidden;
+      p{
             overflow-wrap: break-word;
             word-wrap: break-word;
             word-break: break-word;
@@ -180,69 +181,69 @@ p{
 ` */
 
 const CounterBar=styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content:flex-start;
-  border-top:solid ${theme.BorderColor} 1px;
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
-  width:100%;
-  max-height:6rem;
-  padding-top:0.5rem;
-  padding-bottom:0.5rem;
-  gap:3rem;
+      display:flex;
+      flex-direction:row;
+      justify-content:flex-start;
+      border-top:solid ${theme.BorderColor} 1px;
+      /* border-bottom:solid ${theme.BorderColor} 1px; */
+      width:100%;
+      max-height:6rem;
+      padding-top:0.5rem;
+      padding-bottom:0.5rem;
+      gap:3rem;
 `
 const CounterBarContainer=styled.div`
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  /* border:1px solid white; */
-  fill:currentcolor;
-  width:auto;
-  height:auto;
-  padding-left:5px;
-  background:none;
-  color:${theme.Text};
-  :hover{
-  }
-  :active{
-    background:white;
-    fill:black;
-  }
-  p{
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      /* border:1px solid white; */
+      fill:currentcolor;
+      width:auto;
+      height:auto;
+      padding-left:5px;
+      background:none;
+      color:${theme.Text};
+      :hover{
+      }
+      :active{
+      background:white;
+      fill:black;
+      }
+      p{
       font-size:1.2rem
-  }
+      }
   `
 const IconContainerArrow=styled.div`
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-height:3rem;
-width:3rem;
-/* border:1px solid white; */
-fill:currentcolor;
-:hover{
-  background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
-                       : props.Like ? `${theme.PinkLikeBackground}` 
-                       : props.Retweet ? `${theme.GreenRetweetBackground}` 
-                       : "auto"};
-  svg{
-    /* max-height:3rem; */
-    stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
-                       : props.Like ? `${theme.PinkLike}` 
-                       : props.Retweet ? `${theme.GreenRetweet}` 
-                       : "auto"};
-  }
-}
-svg{
-  max-height:1.5rem;
-  stroke: ${theme.BorderColor};
-}
-:active{
-  background:white;;
-  fill:black;
-  stroke:#000;
-}
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:3rem;
+      width:3rem;
+      /* border:1px solid white; */
+      fill:currentcolor;
+      :hover{
+            background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
+                  : props.Like ? `${theme.PinkLikeBackground}` 
+                  : props.Retweet ? `${theme.GreenRetweetBackground}` 
+                  : "auto"};
+            svg{
+            /* max-height:3rem; */
+                  stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
+                        : props.Like ? `${theme.PinkLike}` 
+                        : props.Retweet ? `${theme.GreenRetweet}` 
+                        : "auto"};
+            }
+      }
+      svg{
+            max-height:1.5rem;
+            stroke: ${theme.BorderColor};
+      }
+      :active{
+            background:white;;
+            fill:black;
+            stroke:#000;
+      }
 `
 
 const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo}) => {
@@ -251,17 +252,24 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
       const [userByAliasId, changeUserByAliasId] = useState([{}])
-      const [infoForMessage, changeInfoForMessage] = useState({})
+      const [infoForMessage, changeInfoForMessage] = useState([{}])
       const [loadingMessage, changeLoadingMessage] =useState(true)
       const {update} =useContext(AuthContext);
       const {changeUpdate} =useContext(AuthContext);
       const navigate = useNavigate();
+      const [sortedArray, changeSortedArray] = useState([{}])
 
 
       useEffect(()=>{
             const ObtainMessageById = async() =>{
                   const document = await getDoc(doc(db, 'userTimeline', id));
                   changeInfoForMessage(document)
+                  
+                  changeSortedArray(document.data().comments.sort(function(a, b) {
+                        return parseFloat(b.date) - parseFloat(a.date);
+                    }))
+
+                  /* changeSortedArray(document.data().comments[0]) */
                   const consult = query(
                         collection(db, 'userInfo'),
                         where('alias', "==", alias),
@@ -281,13 +289,17 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
       const formatDate = (date) => {
             return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
           };
+     
+
 
       return ( 
-            <TimelineUserContainer className='timeline-user'>
-            <IconContainerArrow onClick={() => navigate(-1)} Reply >
-                  <IconReturnArrow/>
-            </IconContainerArrow>
+            <>
             {!loadingMessage ?  
+            <>
+            <TimelineUserContainer className='timeline-user'>
+                  <IconContainerArrow onClick={() => navigate(-1)} Reply >
+                        <IconReturnArrow/>
+                  </IconContainerArrow>
             <CardMessage >
                   <CardRowsMessage>
                         <PortraitContainerMessage>
@@ -422,16 +434,38 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                               </IconContainerCont>
                         </InteractionBarMessage>
                   </CardColumnMessage> 
-            </CardMessage>
+            </CardMessage>         
+            <TimelineCommentContainer className='timeline-user'>
+                 {sortedArray.map((Comments, index) =>{
+                  return(
+                        <>
+                  <CommentInner
+                        key={Comments.date}
+                        previousCommentAlias={userByAliasId[0].alias}
+                        currentUserInfo={currentUserInfo}
+                        commentId={Comments.commentId}
+                        originalId={id}
+                        originalMessageComments={infoForMessage.data().comments}
+                        commentUidUser={Comments.uidUser}
+                        changeShowPopUp={changeShowPopUp}
+                        changePopUpAlert={changePopUpAlert}
+                        user={user}
+                        update={update}
+                        changeUpdate={changeUpdate}
+                        changeAlert={changeAlert} 
+                        changeStateAlert={changeStateAlert}
+                  />
+                  <div>{infoForMessage.data().uidUser}</div>
+                  </>
+                  )})
+                  }
+            </TimelineCommentContainer>
+            </TimelineUserContainer>
+            </>
             :
             <LoadingComponent/>
             }
-            <TimelineCommentContainer className='timeline-user'>
-                  <div>hi</div>
-                  <div>hi</div>
-                  <div>hi</div>
-            </TimelineCommentContainer>
-            </TimelineUserContainer>
+            </>
             
       );
 }

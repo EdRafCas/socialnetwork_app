@@ -117,7 +117,7 @@ const PortraitContainer =styled.div`
   }
 `
 
-const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId}) => {
+const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser,commentId}) => {
     const [loadingQuoted, changeLoadingQuoted] =useState(true);
     const [quotedMessage, changeQuotedMessage] = useState('')
     const [userInfoForQuote, changeUserInfoForQuote] =useState([{}])
@@ -336,7 +336,6 @@ return (
               originalId={originalId}
               originalMessageComments={quotedMessage.data().comments}
               commentUidUser={commentUidUser}
-              commentContent={commentContent}
               changeShowPopUp={changeShowPopUp}
               changePopUpAlert={changePopUpAlert}
               user={user}

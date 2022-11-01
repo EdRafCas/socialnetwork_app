@@ -255,10 +255,6 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                               </PortraitContainer>
                         </LeftColumn>
                         <RightColumn reply>
-                        {/* <UserNames>
-                              <NameContainer>{currentUserInfo[0].name}</NameContainer>
-                              <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                        </UserNames> */}
                         <MessageUser className='timeline-user'
                               name="messageReply"
                               id="messageReply"

@@ -9,7 +9,7 @@ const AddComment = async({originalUidUser, id, uidUser, name, alias, date, messa
 
       try{  const docRef = doc(collection(db, "userTimeline"))
             await updateDoc(document, {
-                  comments: [...comments, {date: date, commentId:docRef.id}]})
+                  comments: [...comments, {date: date, commentId:docRef.id, uidUser:uidUser}]})
                   try{
                         await setDoc(docRef, {
                               type:"comment",

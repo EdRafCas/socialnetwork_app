@@ -9,11 +9,6 @@ const RemoveComment = async({update,changeUpdate,newRetweetId, originalId, id, o
                   const removedComment = originalMessageComments.filter(object => {
                         return object.commentId !== id
                   }) 
-
-                  /* console.log(originalMessageComments)
-                  console.log(removedComment)
-                  console.log(id)
-                  console.log("here comes the original id: " +originalId) */
                   const document = doc(db, "userTimeline" , originalId); 
                   await updateDoc(document, {
                         comments: removedComment 

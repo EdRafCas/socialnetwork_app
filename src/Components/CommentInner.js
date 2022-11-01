@@ -135,7 +135,7 @@ const PortraitContainer =styled.div`
 `
 
 
-const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentContent, commentId, originalMessageComments}) => {
+const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentId, originalMessageComments}) => {
     const [loadingComment, changeLoadingComment] =useState(true);
     const [messageForComment, changeMessageForComment] = useState('')
     const [userInfoForComment, changeUserInfoForComment] =useState([{}])
@@ -216,7 +216,7 @@ return (
                   <UserNameContainerLinkQuoted to={`/user/${previousCommentAlias}`}>@{previousCommentAlias}</UserNameContainerLinkQuoted >
                 </UserNameContainerQuoted>
                 <MessageContent>
-                  <p>{commentContent}</p>
+                  <p>{messageForComment.data().message}</p>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForComment.data().date)}
