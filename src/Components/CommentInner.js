@@ -135,7 +135,7 @@ const PortraitContainer =styled.div`
 `
 
 
-const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentId, originalMessageComments}) => {
+const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentId, originalMessageComments, TimelineComment}) => {
     const [loadingComment, changeLoadingComment] =useState(true);
     const [messageForComment, changeMessageForComment] = useState('')
     const [userInfoForComment, changeUserInfoForComment] =useState([{}])
@@ -182,7 +182,11 @@ return (
           <>
             <MessageLink Comment to={`/user/${userInfoForComment[0].alias}/status/${commentId}`}>
               <CardColumns>
+                {!TimelineComment ?
                 <StraightLine2/>
+                :
+                <EmptyDivColumn/>
+                }
                 <PortraitContainer>
                   {userInfoForComment[0].photoURL ?
                   <img alt="userportrait" src={userInfoForComment[0].photoURL}/>
@@ -192,7 +196,11 @@ return (
                 </PortraitContainer>
               </CardColumns>
               <CardColumns rightColumn>
+              {TimelineComment ?
                 <EmptyDivColumn/>
+                :
+                ""
+                }
                 <UserNameContainer>
                   <UserNameContainerLink to={`/user/${userInfoForComment[0].alias}`}>
                     {userInfoForComment[0].name}

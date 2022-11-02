@@ -11,6 +11,7 @@ const useObtainMessagesByUser = () => {
       useEffect(()=>{
             const consult = query(
                   collection(db, 'userTimeline'),
+                  where('type', 'in', ['message', "retweet", "comment"]),
                   where('uidUser', "==", user.uid),
                   orderBy('date', 'desc')
                   /* limit(30) */
