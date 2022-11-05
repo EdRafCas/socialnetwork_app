@@ -229,12 +229,12 @@ return (
                 <TimeBar>
                   {formatDate(messageForComment.data().date)}
                 </TimeBar>
-                <TimeBar>
+               {/*  <TimeBar>
                   {commentId}
                 </TimeBar>
                 <TimeBar>
                   {originalId}
-                </TimeBar>
+                </TimeBar> */}
                 <InteractionBar>
                 <IconContainer Reply ><IconComment/></IconContainer>
                 <IconContainerCont Retweet>
