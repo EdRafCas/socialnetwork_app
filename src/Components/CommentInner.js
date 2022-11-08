@@ -44,7 +44,7 @@ const MessageLink=styled(Link)`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
- /*  border:red ${theme.BorderColor} 1px; */
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
   gap:0rem;
   padding-top:${(props) => props.originalComment ? "0.5rem": "0"};
   /* background:black; */
@@ -180,7 +180,7 @@ return (
         <>
           {messageForComment.exists() ?
           <>
-            <MessageLink Comment to={`/user/${userInfoForComment[0].alias}/status/${commentId}`}>
+            <MessageLink  to={`/user/${userInfoForComment[0].alias}/status/${commentId}`}>
               <CardColumns>
                 {!TimelineComment ?
                 <StraightLine2/>

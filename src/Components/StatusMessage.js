@@ -6,7 +6,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import '../index.css'
 import { AuthContext } from '../Context/AuthContext';
-import {UserNameContainerLink,IconContainer,IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {Card, UserNameContainerLink,IconContainer,IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import {AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -299,8 +299,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
             <TimelineUserContainer className='timeline-user'>
                   <IconContainerArrow onClick={() => navigate(-1)} Reply >
                         <IconReturnArrow/>
-                  </IconContainerArrow>
-              
+                  </IconContainerArrow>  
             <TimelineCommentContainer className='timeline-user'>
                   <CardMessage >
                         <CardRowsMessage>
@@ -413,7 +412,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                                 originalMessageId:id, 
                                                 update,
                                                 changeUpdate})}> 
-                                                <IconLikeColor />                               
+                                                <IconLikeColor/>                               
                                           </LikeButton>
                                           :
                                           <LikeButton  onClick={()=>RemoveLike({
@@ -423,9 +422,9 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                                 likeUidUser:infoForMessage.data().uidUser,
                                                 newId:id,
                                                 update,
-                                                changeUpdate,
+                                                changeUpdate
                                                 })}> 
-                                                <IconLikeColor />                               
+                                                <IconLikeColor/>                               
                                           </LikeButton>
                                           }
                                           </>
@@ -436,26 +435,27 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     </IconContainerCont>
                               </InteractionBarMessage>
                         </CardColumnMessage> 
-                  </CardMessage>       
+                  </CardMessage>    
                  {sortedArray.map((Comments, index) =>{
                   return(
-                  <CommentInner
-                        TimelineComment
-                        key={Comments.date}
-                        previousCommentAlias={userByAliasId[0].alias}
-                        currentUserInfo={currentUserInfo}
-                        commentId={Comments.commentId}
-                        originalId={id}
-                        originalMessageComments={infoForMessage.data().comments}
-                        commentUidUser={Comments.uidUser}
-                        changeShowPopUp={changeShowPopUp}
-                        changePopUpAlert={changePopUpAlert}
-                        user={user}
-                        update={update}
-                        changeUpdate={changeUpdate}
-                        changeAlert={changeAlert} 
-                        changeStateAlert={changeStateAlert}
-                  />
+                        <Card TimelineComment
+                              key={Comments.date}>
+                              <CommentInner
+                                    TimelineComment
+                                    previousCommentAlias={userByAliasId[0].alias}
+                                    currentUserInfo={currentUserInfo}
+                                    commentId={Comments.commentId}
+                                    originalId={id}
+                                    originalMessageComments={infoForMessage.data().comments}
+                                    commentUidUser={Comments.uidUser}
+                                    changeShowPopUp={changeShowPopUp}
+                                    changePopUpAlert={changePopUpAlert}
+                                    user={user}
+                                    update={update}
+                                    changeUpdate={changeUpdate}
+                                    changeAlert={changeAlert} 
+                                    changeStateAlert={changeStateAlert}/>
+                        </Card>
                   )})
                   }
             </TimelineCommentContainer>

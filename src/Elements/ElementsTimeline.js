@@ -7,7 +7,7 @@ const Card =styled.div`
   flex-direction:column;
   /* border-left:none;
   border-right:none */;
-  /* border:solid ${theme.BorderColor} 1px; */
+  border-bottom: ${(props) => props.TimelineComment ? ` solid ${theme.BorderColor} 1px`: "none"};
   /* border-radius:15px; */
   /* border-top:solid ${theme.BorderColor} 1px; */
   gap:0rem;
@@ -209,8 +209,7 @@ const IconContainerCont=styled.div`
                       : "auto"};
       }
     }
-  }
-  
+  } 
 `
 const TimeBar =styled.div`
   display:flex;

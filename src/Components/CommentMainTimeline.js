@@ -46,7 +46,7 @@ const MessageLink=styled(Link)`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
- /*  border:red ${theme.BorderColor} 1px; */
+  /* border:solid ${theme.BorderColor} 1px; */
   gap:0rem;
   padding-top:${(props) => props.originalComment ? "0rem": "0"};
   /* background:black; */
