@@ -26,6 +26,7 @@ import LoadingComponent from '../Elements/LoadingComponent';
 import {useNavigate} from 'react-router-dom';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import CommentInner from './CommentInner';
+import CommentInfo from '../Elements/CommentInfo';
 
 
 
@@ -326,6 +327,12 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                               </UserNameContainerMessage>
                         </CardRowsMessage>
                         <CardColumnMessage rightColumn>
+                              {infoForMessage.data().type === "comment" ?
+                              <CommentInfo
+                                    originalUidUser={infoForMessage.data().originalUidUser}
+                                    currentUidUser={currentUserInfo[0].uidUser}/>
+                              :
+                              ""}
                               <MessageContentBig>
                                     <p>{infoForMessage.data().message}</p>
                               </MessageContentBig>
@@ -435,7 +442,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     </IconContainerCont>
                               </InteractionBarMessage>
                         </CardColumnMessage> 
-                  </CardMessage>    
+                  </CardMessage>      
                  {sortedArray.map((Comments, index) =>{
                   return(
                         <Card TimelineComment

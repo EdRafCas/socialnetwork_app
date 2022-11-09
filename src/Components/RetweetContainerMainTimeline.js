@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,  CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner,  CardColumns, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -133,11 +133,20 @@ return (
                       currentUserInfo={currentUserInfo}
                       id={originalId} />
                 </UserNameContainer>
+                {/* <UserNameContainerQuoted>
+                  <p>Replying to</p>
+                  <UserNameContainerLinkQuoted to={`/user/${userInfoForRetweet[0].alias}`}>
+                    @{messageForRetweet.data().date}
+                    </UserNameContainerLinkQuoted >
+                </UserNameContainerQuoted> */}
                 <MessageContent>
                   <p>{messageForRetweet.data().message}</p>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForRetweet.data().date)}
+                </TimeBar>
+                <TimeBar>
+                  {messageForRetweet.data().type}
                 </TimeBar>
                 <InteractionBar>
                   <IconContainer Reply >
