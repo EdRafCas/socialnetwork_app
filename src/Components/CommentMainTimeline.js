@@ -66,6 +66,7 @@ const StraightLine=styled.div`
   height:90%;
   width:2px;
   border:solid ${theme.BorderColor} 1px;
+  background-color: rgb(51, 54, 57);
 `
 const EmptyDivColumn=styled.div`
   height:0.5rem;

@@ -88,6 +88,7 @@ const StraightLine2=styled.div`
   height:0.5rem;
   width:2px;
   border:solid ${theme.BorderColor} 1px;
+  background-color: rgb(51, 54, 57);
 `
 const InteractionBar=styled.div`
   display:flex;
@@ -116,7 +117,7 @@ const CardColumns = styled.div`
   gap:0.5rem;
 `
 const PortraitContainer =styled.div`
-  border: solid red 1px;
+  /* border: solid red 1px; */
   padding:0;
   width:100%;
   border-radius:50%;

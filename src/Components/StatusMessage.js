@@ -6,7 +6,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import '../index.css'
 import { AuthContext } from '../Context/AuthContext';
-import {Card, UserNameContainerLink,IconContainer,IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {Card,UserNameContainer, UserNameContainerLink,IconContainer,IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import {AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -27,6 +27,7 @@ import {useNavigate} from 'react-router-dom';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import CommentInner from './CommentInner';
 import CommentInfo from '../Elements/CommentInfo';
+import CommentStatus from './CommentStatus';
 
 
 
@@ -82,7 +83,7 @@ const RetweetButton=styled.button`
       }
   `
 const PortraitContainerMessage =styled.div`
-      /* border: solid red 1px; */
+      border: solid red 1px;
       padding:0;
       border-radius:50%;
       width:4rem;
@@ -97,16 +98,11 @@ const PortraitContainerMessage =styled.div`
       }
 `
 const CardRowsMessage = styled.div`
+      display:grid;
       width:100%;
-      padding: 0.5rem;
-      padding-bottom:0rem;
-      margin:0;
-      display:flex;
-      flex-direction:row;
-      justify-content:space-between;
-      align-items:center;
-      /* border:solid ${theme.BorderColor} 1px; */
-      gap:1rem;
+      grid-template-columns: repeat(1, 1fr 12fr);
+      justify-content:center;
+      /* border:solid red 1px; */
 `
 const CardColumnMessage = styled.div`
       padding: 1rem 0.5rem 0rem 0.5rem;
@@ -119,12 +115,12 @@ const CardColumnMessage = styled.div`
       gap:0.5rem;
 `
 const UserNameContainerMessage =styled.div`
-      width:90%;
+      width:100%;
       height:4.5rem;
       padding:0rem;
       position:relative;
       /* border-bottom:solid ${theme.BorderColor} 1px; */
-      /* border:solid ${theme.BorderColor} 1px; */
+      /* border:solid red 1px; */
       display:flex;
       flex-direction:column;
       justify-content:center;
@@ -159,27 +155,6 @@ const MessageContentBig = styled.div`
             word-break: break-word;
             white-space:pre-wrap;}
 `
-/* const CounterContainerBig=styled.div`
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-border:1px solid white; 
-  fill:currentcolor;
-  width:40px;
-  height:40px;
-  padding-left:5px;
-  background:none;
-  color:${theme.Text};
-  :hover{
-}
-:active{
-      background:white;
-      fill:black;
-}
-p{
-      font-size:1.2rem
-}
-` */
 
 const CounterBar=styled.div`
       display:flex;
@@ -246,6 +221,49 @@ const IconContainerArrow=styled.div`
             stroke:#000;
       }
 `
+const StraightLine2=styled.div`
+  height:0.5rem;
+  width:2px;
+  border:solid ${theme.BorderColor} 1px;
+  background-color: rgb(51, 54, 57);
+`
+const EmptyDivColumn=styled.div`
+  height:0.5rem;
+  width:100%;
+  /* border:solid ${theme.BorderColor} 1px; */
+`
+const CardColumns = styled.div`
+  padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
+  padding-top:${(props) => props.originalComment ? "0.5rem":
+                           props.rightColumn ? "0": "0"};
+  /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
+  padding-bottom: 0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  /* border:solid blue 1px; */
+  /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
+`
+const PortraitContainer =styled.div`
+  /* border: solid red 1px; */
+  padding:0;
+  width:100%;
+  border-radius:50%;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:3rem;
+  min-height:3rem;
+  height:3rem;
+  flex-direction:column;
+  overflow:hidden;
+  img{
+    width:100%;
+  }
+`
 
 const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo}) => {
       const {alias} =useParams();
@@ -302,29 +320,59 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                         <IconReturnArrow/>
                   </IconContainerArrow>  
             <TimelineCommentContainer className='timeline-user'>
+                  {infoForMessage.data().type === "comment"?
+                  <CommentStatus
+                  update={update}
+                  changeUpdate={changeUpdate} 
+                  currentUserInfo={currentUserInfo} 
+                  originalId={infoForMessage.data().originalId} 
+                  originalUidUser={infoForMessage.data().originalUidUser}
+                  commentId={infoForMessage.data().id} 
+                  commentUidUser={userByAliasId[0].uidUser}
+                  changeShowPopUp={changeShowPopUp}
+                  changePopUpAlert={changePopUpAlert}
+                  user={user}
+                  changeAlert={changeAlert} 
+                  changeStateAlert={changeStateAlert}/>
+                  :
+                  ""}
                   <CardMessage >
                         <CardRowsMessage>
-                              <PortraitContainerMessage>
-                              {userByAliasId[0].photoURL ?
-                              <img alt="userportrait" src={userByAliasId[0].photoURL}/>
-                              :
-                              <img alt="userportrait" src={ProfileImage}/>
-                              }
-                              </PortraitContainerMessage>
-                              <UserNameContainerMessage>
-                                    <UserNameContainerLink to={`/user/${userByAliasId[0].alias}`}>
-                                    {userByAliasId[0].alias}
-                                    </UserNameContainerLink >
-                                    <AliasContainer>
-                                    @{userByAliasId[0].alias}
-                                    </AliasContainer>
-                                    <ShowMoreMenu 
-                                          changeAlert={changeAlert}
-                                          changeStateAlert={changeStateAlert}
-                                          messageUidUser={infoForMessage.data().uidUser} 
-                                          currentUserInfo={currentUserInfo}
-                                          id={id} />
-                              </UserNameContainerMessage>
+                              <CardColumns>
+                                    {infoForMessage.data().type === "comment"?
+                                    <StraightLine2/>
+                                    :
+                                    <EmptyDivColumn/>
+                                    }
+                                    <PortraitContainer>
+                                    {userByAliasId[0].photoURL ?
+                                    <img alt="userportrait" src={userByAliasId[0].photoURL}/>
+                                    :
+                                    <img alt="userportrait" src={ProfileImage}/>
+                                    }
+                                    </PortraitContainer>      
+                              </CardColumns>
+                              <CardColumns rightColumn>
+                                    {infoForMessage.data().type === "comment"?
+                                    <EmptyDivColumn/>
+                                    :
+                                    ""
+                                    }
+                                    <UserNameContainerMessage>
+                                          <UserNameContainerLink to={`/user/${userByAliasId[0].alias}`}>
+                                          {userByAliasId[0].name}
+                                          </UserNameContainerLink >
+                                          <AliasContainer>
+                                          @{userByAliasId[0].alias}
+                                          </AliasContainer> 
+                                          <ShowMoreMenu 
+                                                changeAlert={changeAlert}
+                                                changeStateAlert={changeStateAlert}
+                                                messageUidUser={infoForMessage.data().uidUser} 
+                                                currentUserInfo={currentUserInfo}
+                                                id={id} />  
+                                    </UserNameContainerMessage>   
+                              </CardColumns>
                         </CardRowsMessage>
                         <CardColumnMessage rightColumn>
                               {infoForMessage.data().type === "comment" ?

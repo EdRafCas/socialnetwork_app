@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -65,7 +65,10 @@ overflow:hidden;
 const StraightLine=styled.div`
   height:90%;
   width:2px;
+  border-top:none;
+  border-bottom:none;
   border:solid ${theme.BorderColor} 1px;
+  background-color: rgb(51, 54, 57);
 `
 const EmptyDivColumn=styled.div`
   height:0.5rem;
@@ -99,7 +102,7 @@ const CardColumns = styled.div`
   gap:0.5rem;
 `
 const PortraitContainer =styled.div`
-  border: solid red 1px;
+  /* border: solid red 1px; */
   padding:0;
   width:100%;
   border-radius:50%;
@@ -115,6 +118,20 @@ const PortraitContainer =styled.div`
   img{
     width:100%;
   }
+`
+const CardInner =styled.div`
+  display:flex;
+  flex-direction:column;
+  border:none;
+  /* border-top:solid ${theme.BorderColor} 1px; */
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+  gap:0rem;
+  padding-top:0rem;
+  z-index:100;
+ /*  :hover{
+    pointer-events: auto;
+    background:rgba(255,255,255, 0.03);
+  } */
 `
 
 const CommentStatus = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser,commentId}) => {
