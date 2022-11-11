@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -26,21 +26,7 @@ import RetweetInfo from '../Elements/RetweetInfo';
 import CommentInner from './CommentInner';
 
 
-const BarButton=styled.button`
-  background:none;
-  border-radius:50%;
-  border:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:2.5rem;
-  width:2.5rem;
-  gap:5px;
-  z-index:100;
-  :hover{
-   /*  border:solid ${theme.BorderColor} 1px; */
-  }
-`
+
 
 const MessageLink=styled(Link)`
   display:grid;
@@ -144,7 +130,7 @@ const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,ch
                 return {...originalUser.data()}
               }))
             })
-            console.log("retweet reload")
+            console.log("Original Comment Load")
 
           changeLoadingQuoted(false)
       }

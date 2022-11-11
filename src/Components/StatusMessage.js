@@ -142,7 +142,7 @@ const MessageContentBig = styled.div`
       padding:0rem;
       max-height:400px;
       min-height:100px;
-      font-size:1.5rem;
+
       font-weight:400;
       color:white;
       /* border:solid ${theme.BorderColor} 1px; */
@@ -150,6 +150,7 @@ const MessageContentBig = styled.div`
       white-space:normal;
       overflow:hidden;
       p{
+            font-size:1.5rem;
             overflow-wrap: break-word;
             word-wrap: break-word;
             word-break: break-word;

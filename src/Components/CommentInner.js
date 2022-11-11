@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -162,7 +162,7 @@ const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStat
                 return {...commentUser.data()}
               }))
             })
-            console.log("retweet reload")
+            console.log("Comment Inner load")
 
           changeLoadingComment(false)
       }
@@ -230,6 +230,9 @@ return (
                 <TimeBar>
                   {formatDate(messageForComment.data().date)}
                 </TimeBar>
+                <TimeBar>
+                  <p>{commentId}</p>
+                </TimeBar>
                {/*  <TimeBar>
                   {commentId}
                 </TimeBar>
@@ -237,7 +240,30 @@ return (
                   {originalId}
                 </TimeBar> */}
                 <InteractionBar>
-                <IconContainer Reply ><IconComment/></IconContainer>
+                <IconContainerCont Reply >
+                    <BarButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      receiveNotification({
+                      notification:"comment",
+                      messageMessage:messageForComment.data().message,
+                      messageForTimeline:userInfoForComment,
+                      id:commentId,
+                      comments:messageForComment.data().comments,
+                      retweets:messageForComment.data().retweets,
+                      originalUidUser:messageForComment.data().uidUser,
+                      user,
+                      currentUserInfo,
+                      changeShowPopUp:changeShowPopUp, 
+                      changePopUpAlert:changePopUpAlert,
+                      update,
+                      changeUpdate})}}>
+                      <IconComment/>
+                    </BarButton>
+                    <CounterContainer Reply>
+                      <p>{messageForComment.data().comments.length}</p>
+                    </CounterContainer>
+                  </IconContainerCont>
                 <IconContainerCont Retweet>
                   {!messageForComment.data().retweets.includes(currentUserInfo[0].uidUser)?
                     <RetweetButton onClick={(e)=>{
