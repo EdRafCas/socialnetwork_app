@@ -28,7 +28,7 @@ import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import CommentInner from './CommentInner';
 import CommentInfo from '../Elements/CommentInfo';
 import CommentStatus from './CommentStatus';
-
+import MessageBoxStatus from './MessageBoxStatus';
 
 
 const CardMessage =styled.div`
@@ -156,7 +156,6 @@ const MessageContentBig = styled.div`
             word-break: break-word;
             white-space:pre-wrap;}
 `
-
 const CounterBar=styled.div`
       display:flex;
       flex-direction:row;
@@ -328,13 +327,13 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                   currentUserInfo={currentUserInfo} 
                   originalId={infoForMessage.data().originalId} 
                   originalUidUser={infoForMessage.data().originalUidUser}
-                  commentId={infoForMessage.data().id} 
+                  commentId={id} 
                   commentUidUser={userByAliasId[0].uidUser}
                   changeShowPopUp={changeShowPopUp}
                   changePopUpAlert={changePopUpAlert}
                   user={user}
                   changeAlert={changeAlert} 
-                  changeStateAlert={changeStateAlert}/>
+                  changeStateAlert={changeStateAlert}/> 
                   :
                   ""}
                   <CardMessage >
@@ -381,9 +380,13 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     originalUidUser={infoForMessage.data().originalUidUser}
                                     currentUidUser={currentUserInfo[0].uidUser}/>
                               :
-                              ""}
+                              ""
+                              }
                               <MessageContentBig>
                                     <p>{infoForMessage.data().message}</p>
+                              </MessageContentBig>
+                              <MessageContentBig>
+                                    <p>{id}</p>
                               </MessageContentBig>
                               <TimeBar>
                               {formatDate(infoForMessage.data().date)}
@@ -491,7 +494,16 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     </IconContainerCont>
                               </InteractionBarMessage>
                         </CardColumnMessage> 
-                  </CardMessage>      
+                  </CardMessage>
+                  <MessageBoxStatus
+                        id={id}
+                        originalUidUser={infoForMessage.data().uidUser}
+                        user={user}
+                        currentUserInfo={currentUserInfo}
+                        comments={infoForMessage.data().comments}
+                        changeStateAlert={changeStateAlert} 
+                        changeAlert={changeAlert}
+                        changeShowPopUp={changeShowPopUp}  /> 
                  {sortedArray.map((Comments, index) =>{
                   return(
                         <Card TimelineComment

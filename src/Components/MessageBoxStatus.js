@@ -167,7 +167,7 @@ const ReplyingTo =styled.div`
 `
 
 
-const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message,comments, changeStateAlert, changeAlert, changeShowPopUp}) => {
+const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, addToTimeline, message,comments, changeStateAlert, changeAlert, changeShowPopUp}) => {
 
       const [messageReply, changeMessageReply] =useState("")
       const LettersLeft = 20;
@@ -216,31 +216,6 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
       
 
       return ( 
-      <CenterBox>
-            <OriginalMessageContainer>
-                  <LeftColumn>
-                        <PortraitContainer>
-                        {messageForTimeline[0].photoURL ?
-                              <img alt="userportrait" src={messageForTimeline[0].photoURL}/>
-                              :
-                              <img alt="userportrait" src={ProfileImage}/>
-                        }
-                        </PortraitContainer>
-                        <StraightLine/>
-                  </LeftColumn>
-                  <RightColumn>
-                        <UserNames>
-                              <NameContainer>{messageForTimeline[0].name}</NameContainer>
-                              <AliasContainer>@{messageForTimeline[0].alias}</AliasContainer>
-                        </UserNames>
-                        <MessageContent>
-                              <p>{messageMessage}</p>
-                        </MessageContent>
-                        <ReplyingTo>
-                              <p>Replying to @{messageForTimeline[0].alias}</p>
-                        </ReplyingTo>
-                  </RightColumn>  
-            </OriginalMessageContainer>
             <MessageContainer>
                   <CreateMessageForm onSubmit={AddCommentToTimeline}>
                         <LeftColumn>
@@ -292,8 +267,7 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                         </RightColumn>
                   </CreateMessageForm>
             </MessageContainer>     
-      </CenterBox>
        );
 }
  
-export default MessageBoxComment;
+export default MessageBoxStatus;
