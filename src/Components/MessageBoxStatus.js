@@ -24,23 +24,32 @@ const CenterBox=styled.div`
 const MessageContainer = styled.div`
       display:flex;
       flex-direction:row;
-      /* border:solid ${theme.RedAlert} 1px; */
+      border:solid ${theme.RedAlert} 1px;
+      /* padding:1rem 1rem; */
       /* border-bottom:solid ${theme.BorderColor} 1px; */
      /*  width:100%;
       height:500px;
       border-radius:9999px;
-      padding:1rem 1rem;
       display:flex;
       flex-direction:column;
       align-content:center;
       background:#000; */
 `
 const CreateMessageForm =styled.form`
-      display:flex;
+      /* display:flex;
       flex-direction:row;
+      width:100%;
       gap:1rem;
-      /* border:solid white 1px; */
-      padding-top:3px;
+      border:solid white 1px;
+      padding-top:3px; */
+      display:grid;
+      width:100%;
+      grid-template-columns: repeat(1, 1fr 12fr);
+      /* border:solid ${theme.BorderColor} 1px; */
+      gap:0rem;
+      padding-top:${(props) => props.originalComment ? "0rem": "0"};
+      /* background:black; */
+      text-decoration:none;
 `
 const HeaderUser =styled.div`
       display:flex;
@@ -57,14 +66,22 @@ const MessageUser =styled.textarea`
       width:100%;
       background-color:#000;
       color: #fff;
-      border:solid ${theme.BorderColor} 0px;
+      border:solid ${theme.BorderColor} 1px;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none;
       outline:none;   
 `
 const ButtonContainer=styled.div`
-      padding-top:1rem;
+      width:100%;
+      height:3rem;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+`
+const Buttons=styled.div`
+      border:solid ${theme.BorderColor} 1px;
+      padding-top:0rem;
       gap:5px;
       display:flex;
       flex-direction:row;
@@ -114,7 +131,7 @@ const LeftColumn=styled.div`
       align-items:center;
       justify-content:flex-start;
       min-height:9rem;
-      /* border:solid ${theme.BluePinned} 1px; */
+      border:solid ${theme.BluePinned} 1px;
       gap:3px;
 `
 const RightColumn=styled.div`
@@ -125,7 +142,7 @@ const RightColumn=styled.div`
                                           : "0rem"};
       min-height:9rem;
       gap:10px;
-      /* border:solid ${theme.BorderColor} 1px; */
+      border:solid ${theme.BorderColor} 1px;
 `
 const UserNames =styled.div`
       display:flex;
@@ -164,6 +181,41 @@ const ReplyingTo =styled.div`
       gap:5px;
       padding:0.5rem 0rem 0rem 0rem;
       /* border:solid ${theme.BorderColor} 1px; */
+`
+
+const CardColumns = styled.div`
+      position:relative;
+      padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
+      padding-top:0;              
+      /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
+      padding-bottom: 0;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:center;
+      border:solid ${theme.BorderColor} 1px;
+      /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
+      gap:0;
+`
+const EmptyDivColumn=styled.div`
+      height:0.5rem;
+      width:100%;
+      border:solid ${theme.BorderColor} 1px;
+`
+const CardInner =styled.div`
+      display:flex;
+      flex-direction:column;
+      border:none;
+      /* border-top:solid ${theme.BorderColor} 1px; */
+      /* border-bottom:solid ${theme.BorderColor} 1px; */
+      gap:0rem;
+      padding-top:0rem;
+      z-index:100;
+      /*  :hover{
+      pointer-events: auto;
+      background:rgba(255,255,255, 0.03);
+      } */
 `
 
 
@@ -218,7 +270,8 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
       return ( 
             <MessageContainer>
                   <CreateMessageForm onSubmit={AddCommentToTimeline}>
-                        <LeftColumn>
+                        <CardColumns originalComment>
+                              <EmptyDivColumn/>
                               <PortraitContainer>
                               {user.photoURL ?
                                     <img alt="user portrait" src={user.photoURL}/>
@@ -226,45 +279,49 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
                                     <img alt="user portrait" src={ProfileImage}/>
                               }
                               </PortraitContainer>
-                        </LeftColumn>
-                        <RightColumn reply>
-                        <MessageUser className='timeline-user'
-                              name="messageReply"
-                              id="messageReply"
-                              cols="65"
-                              rows="5"
-                              maxlength="5"
-                              type="text"
-                              placeholder="Send your Reply"
-                              value={messageReply}
-                              onChange={handleChange}/>
-                        <ButtonContainer>
-                              {messageReply === "" || messageReply.length >160 ?
-                              <>
-                              <ButtonDisabled disabled={true}>
-                                    <p>Reply</p>
-                              </ButtonDisabled> 
-                              {messageReply.length >= 160 ?
-                              <ButtonExcess>
-                                    <p>-{messageReply.length -160}</p>
-                              </ButtonExcess>
-                              :""}
-                              </>
-                              :
-                              <>
-                              <Button disabled={!messageReply} type="submit" name="sendMesssage">
-                                    <p>Reply</p>
-                              </Button>
-                              {messageReply.length >=140 ?
-                              <ButtonLeft>
-                                    <p>{ LettersLeft +140 - messageReply.length }</p>
-                              </ButtonLeft>
-                              :""}
-                              </>
-                              }
-                        </ButtonContainer>
+                        </CardColumns>
+                        <CardColumns reply rightColumn>
+                              <EmptyDivColumn/>
+                              <MessageUser className='timeline-user'
+                                    name="messageReply"
+                                    id="messageReply"
+                                    cols="65"
+                                    rows="5"
+                                    maxlength="5"
+                                    type="text"
+                                    placeholder="Send your Reply"
+                                    value={messageReply}
+                                    onChange={handleChange}/>
+                              <ButtonContainer>
+                               <Buttons>
+                                    {messageReply === "" || messageReply.length >160 ?
+                                    <>
+                                    <ButtonDisabled disabled={true}>
+                                          <p>Reply</p>
+                                    </ButtonDisabled> 
+                                    {messageReply.length >= 160 ?
+                                    <ButtonExcess>
+                                          <p>-{messageReply.length -160}</p>
+                                    </ButtonExcess>
+                                    :""}
+                                    </>
+                                    :
+                                    <>
+                                    <Button disabled={!messageReply} type="submit" name="sendMesssage">
+                                          <p>Reply</p>
+                                    </Button>
+                                    {messageReply.length >=140 ?
+                                    <ButtonLeft>
+                                          <p>{ LettersLeft +140 - messageReply.length }</p>
+                                    </ButtonLeft>
+                                    :""}
+                                    </>
+                                    }
+                              </Buttons>     
+                              </ButtonContainer>
+                              
 
-                        </RightColumn>
+                        </CardColumns>
                   </CreateMessageForm>
             </MessageContainer>     
        );
