@@ -52,6 +52,10 @@ const MessageLink=styled(Link)`
   /* background:black; */
   text-decoration:none;
   z-index:80;
+  -webkit-user-select: text;
+  -moz-select: text;
+  -ms-select: text;
+  user-select: text;
   :hover{
     pointer-events: auto;
     background:rgba(255,255,255, 0.03);
@@ -128,6 +132,7 @@ const CardInner =styled.div`
   gap:0rem;
   padding-top:0rem;
   z-index:100;
+  
  /*  :hover{
     pointer-events: auto;
     background:rgba(255,255,255, 0.03);
@@ -179,7 +184,7 @@ return (
         <>
           {quotedMessage.exists() ?
           <CardInner>
-            <MessageLink  to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
+            <MessageLink  draggable={false} to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
               <CardColumns originalComment>
                 <EmptyDivColumn/>
                 <PortraitContainer>

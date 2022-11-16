@@ -108,6 +108,7 @@ const MessageContent = styled.div`
   white-space:normal;
   overflow:hidden;
   p{
+    user-select: text;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;

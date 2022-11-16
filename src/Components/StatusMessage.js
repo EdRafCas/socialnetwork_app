@@ -498,6 +498,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                   <MessageBoxStatus
                         id={id}
                         originalUidUser={infoForMessage.data().uidUser}
+                        previousCommentAlias={userByAliasId[0].alias}
                         user={user}
                         currentUserInfo={currentUserInfo}
                         comments={infoForMessage.data().comments}
