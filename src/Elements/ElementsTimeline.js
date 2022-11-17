@@ -103,10 +103,11 @@ const MessageContent = styled.div`
   font-size:1rem;
   font-weight:400;
   color:white;
-  /* border:solid ${theme.BorderColor} 1px; */
+/*   border:solid ${theme.BorderColor} 1px; */
   text-align:justify;
   white-space:normal;
   overflow:hidden;
+  z-index:101;
   p{
     user-select: text;
     overflow-wrap: break-word;
