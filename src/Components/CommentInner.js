@@ -233,12 +233,6 @@ return (
                 <TimeBar>
                   <p>{commentId}</p>
                 </TimeBar>
-               {/*  <TimeBar>
-                  {commentId}
-                </TimeBar>
-                <TimeBar>
-                  {originalId}
-                </TimeBar> */}
                 <InteractionBar>
                 <IconContainerCont Reply >
                     <BarButton onClick={(e)=>{

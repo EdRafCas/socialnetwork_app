@@ -185,7 +185,10 @@ return (
                   {formatDate(quotedMessage.data().date)}
                 </TimeBar>
                 <TimeBar>
-                  {quotedMessage.data().comments[0].commentId}
+                  first commentId: {quotedMessage.data().comments[0].commentId}
+                </TimeBar>
+                <TimeBar>
+                  originalID {originalId}
                 </TimeBar>
                 <InteractionBar>
                   <IconContainerCont Reply >

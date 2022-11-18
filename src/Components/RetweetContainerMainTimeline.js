@@ -23,6 +23,7 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import RetweetInfo from '../Elements/RetweetInfo';
+import CommentInfo from '../Elements/CommentInfo';
 
 
 const RetweetButton=styled.button`
@@ -89,6 +90,7 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
             })
             console.log("retweet reload")
 
+
           changeLoadingRetweets(false)
       }
       obtainMessage();
@@ -133,12 +135,11 @@ return (
                       currentUserInfo={currentUserInfo}
                       id={originalId} />
                 </UserNameContainer>
-                {/* <UserNameContainerQuoted>
-                  <p>Replying to</p>
-                  <UserNameContainerLinkQuoted to={`/user/${userInfoForRetweet[0].alias}`}>
-                    @{messageForRetweet.data().date}
-                    </UserNameContainerLinkQuoted >
-                </UserNameContainerQuoted> */}
+                {messageForRetweet.data().type === "comment"?
+                <CommentInfo  currentUserInfo={currentUserInfo}
+                              originalUidUser={originalUidUser} />
+                :
+                ""}
                 <MessageContent>
                   <p>{messageForRetweet.data().message}</p>
                 </MessageContent>
@@ -148,10 +149,34 @@ return (
                 <TimeBar>
                   {messageForRetweet.data().type}
                 </TimeBar>
+                <TimeBar>
+                  {originalId}
+                </TimeBar>
                 <InteractionBar>
-                  <IconContainer Reply >
-                    <IconComment/>
+                  <IconContainerCont>
+                    <IconContainer Reply onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      receiveNotification({
+                      notification:"comment",
+                      messageMessage:messageForRetweet.data().message,
+                      messageForTimeline:userInfoForRetweet,
+                      id:originalId,
+                      comments:messageForRetweet.data().comments,
+                      retweets:messageForRetweet.data().retweets,
+                      originalUidUser:userInfoForRetweet[0].uidUser,
+                      user,
+                      currentUserInfo,
+                      changeShowPopUp:changeShowPopUp, 
+                      changePopUpAlert:changePopUpAlert,
+                      update,
+                      changeUpdate})}}>
+                      <IconComment/>
                     </IconContainer>
+                    <CounterContainer>
+                      <p>{messageForRetweet.data().comments.length}</p>
+                    </CounterContainer>
+                  </IconContainerCont>
                   <IconContainerCont Retweet>
                     {!messageForRetweet.data().retweets.includes(currentUserInfo[0].uidUser)?
                       <RetweetButton onClick={(e)=>{
