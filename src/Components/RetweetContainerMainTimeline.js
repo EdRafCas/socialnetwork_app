@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
@@ -40,7 +40,7 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-const MessageLink=styled(Link)`
+const MessageLink=styled.div`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
@@ -66,6 +66,7 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
     const [userInfoForRetweet, changeUserInfoForRetweet] =useState([{}])
+    const navigate = useNavigate();
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -110,7 +111,7 @@ return (
           <CardInner>
             <RetweetInfo retweetUidUser={retweetUidUser}
                         currentUidUser={currentUserInfo[0].uidUser}/>
-            <MessageLink to={`/user/${userInfoForRetweet[0].alias}/status/${originalId}`}>
+            <MessageLink onClick={()=> navigate(`/user/${userInfoForRetweet[0].alias}/status/${originalId}`)}>
               <CardColumns>
                 <PortraitContainer>
                   {userInfoForRetweet[0].photoURL ?
@@ -141,7 +142,9 @@ return (
                 :
                 ""}
                 <MessageContent>
-                  <p>{messageForRetweet.data().message}</p>
+                <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
+                {messageForRetweet.data().message}
+                </span>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForRetweet.data().date)}
@@ -174,7 +177,9 @@ return (
                       <IconComment/>
                     </IconContainer>
                     <CounterContainer>
-                      <p>{messageForRetweet.data().comments.length}</p>
+                      <p>{messageForRetweet.data().comments?
+                      messageForRetweet.data().comments.length
+                      :""}</p>
                     </CounterContainer>
                   </IconContainerCont>
                   <IconContainerCont Retweet>

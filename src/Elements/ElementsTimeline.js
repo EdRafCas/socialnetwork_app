@@ -26,10 +26,11 @@ const CardInner =styled.div`
   gap:0rem;
   padding-top:0rem;
   z-index:100;
- /*  :hover{
+  :hover{
     pointer-events: auto;
+    cursor:pointer;
     background:rgba(255,255,255, 0.03);
-  } */
+  }
 `
 const PinnedInfo=styled.div`
   height:1.5rem;
@@ -108,7 +109,7 @@ const MessageContent = styled.div`
   white-space:normal;
   overflow:hidden;
   z-index:101;
-  p{
+  span{
     user-select: text;
     overflow-wrap: break-word;
     word-wrap: break-word;

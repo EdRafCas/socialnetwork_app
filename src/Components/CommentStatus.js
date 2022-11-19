@@ -42,25 +42,7 @@ const BarButton=styled.button`
   }
 `
 
-/* const MessageLink=styled(Link)`
-  height:auto;
-  z-index:100;
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  gap:0rem;
-  padding-top:${(props) => props.originalComment ? "0rem": "0"};
 
-  text-decoration:none;
-  -webkit-user-select: text;
-  -moz-select: text;
-  -ms-select: text;
-  user-select: text;
-  :hover{
-    pointer-events: auto;
-    background:rgba(255,255,255, 0.03);
-  }
-` */
 const MessageLink=styled.div`
   height:auto;
   z-index:100;
