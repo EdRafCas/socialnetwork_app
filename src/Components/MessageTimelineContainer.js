@@ -10,7 +10,7 @@ import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg'
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -109,7 +109,8 @@ return (
           {formatDate(messageDate)}
         </TimeBar>
         <InteractionBar>
-          <IconContainer Reply onClick={(e)=>{
+          <IconContainerCont Reply>
+          <BarButton onClick={(e)=>{
               e.preventDefault();
               e.stopPropagation();
               receiveNotification({
@@ -127,7 +128,13 @@ return (
               update,
               changeUpdate})}}>
             <IconComment/>
-          </IconContainer>
+          </BarButton>
+          <CounterContainer>
+            <p>{messageComments?
+            messageComments.length
+            :""}</p>
+          </CounterContainer>
+          </IconContainerCont>
           <IconContainerCont Retweet>
           {!messageRetweets.includes(currentUserInfo[0].uidUser)?
             <RetweetButton onClick={(e)=>{

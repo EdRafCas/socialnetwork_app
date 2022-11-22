@@ -285,7 +285,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                   changeInfoForMessage(document)
                   
                   changeSortedArray(document.data().comments.sort(function(a, b) {
-                        return parseFloat(b.date) - parseFloat(a.date);
+                        return parseFloat(a.date) - parseFloat(b.date);
                     }))
 
                   /* changeSortedArray(document.data().comments[0]) */
@@ -322,18 +322,18 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
             <TimelineCommentContainer className='timeline-user'>
                   {infoForMessage.data().type === "comment"?
                   <CommentStatus
-                  update={update}
-                  changeUpdate={changeUpdate} 
-                  currentUserInfo={currentUserInfo} 
-                  originalId={infoForMessage.data().originalId} 
-                  originalUidUser={infoForMessage.data().originalUidUser}
-                  commentId={id} 
-                  commentUidUser={userByAliasId[0].uidUser}
-                  changeShowPopUp={changeShowPopUp}
-                  changePopUpAlert={changePopUpAlert}
-                  user={user}
-                  changeAlert={changeAlert} 
-                  changeStateAlert={changeStateAlert}/> 
+                        update={update}
+                        changeUpdate={changeUpdate} 
+                        currentUserInfo={currentUserInfo} 
+                        originalId={infoForMessage.data().originalId} 
+                        originalUidUser={infoForMessage.data().originalUidUser}
+                        commentId={id} 
+                        commentUidUser={userByAliasId[0].uidUser}
+                        changeShowPopUp={changeShowPopUp}
+                        changePopUpAlert={changePopUpAlert}
+                        user={user}
+                        changeAlert={changeAlert} 
+                        changeStateAlert={changeStateAlert}/> 
                   :
                   ""}
                   <CardMessage >

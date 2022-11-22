@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,  CardColumns, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner,  CardColumns, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -156,8 +156,8 @@ return (
                   {originalId}
                 </TimeBar>
                 <InteractionBar>
-                  <IconContainerCont>
-                    <IconContainer Reply onClick={(e)=>{
+                  <IconContainerCont Reply>
+                    <BarButton  onClick={(e)=>{
                       e.preventDefault();
                       e.stopPropagation();
                       receiveNotification({
@@ -175,7 +175,7 @@ return (
                       update,
                       changeUpdate})}}>
                       <IconComment/>
-                    </IconContainer>
+                    </BarButton>
                     <CounterContainer>
                       <p>{messageForRetweet.data().comments?
                       messageForRetweet.data().comments.length

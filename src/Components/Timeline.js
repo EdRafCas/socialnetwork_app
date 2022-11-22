@@ -62,20 +62,23 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
                 changeAlert={changeAlert} 
                 changeStateAlert={changeStateAlert}/>
             :Message.type === "comment" ?
-              <CommentMainTimeline
-                update={update}
-                changeUpdate={changeUpdate} 
-                currentUserInfo={currentUserInfo} 
-                originalId={Message.originalId} 
-                originalUidUser={Message.originalUidUser}
-                commentId={Message.id} 
-                commentUidUser={Message.uidUser}
-                commentContent={Message.message}
-                changeShowPopUp={changeShowPopUp}
-                changePopUpAlert={changePopUpAlert}
-                user={user}
-                changeAlert={changeAlert} 
-                changeStateAlert={changeStateAlert}/>
+            <>
+            {/* <div>{Message.id + " " +Message.originalId}</div> */}
+            <CommentMainTimeline
+              update={update}
+              changeUpdate={changeUpdate} 
+              currentUserInfo={currentUserInfo} 
+              originalId={Message.originalId} 
+              originalUidUser={Message.originalUidUser}
+              commentId={Message.id} 
+              commentUidUser={Message.uidUser}
+              commentContent={Message.message}
+              changeShowPopUp={changeShowPopUp}
+              changePopUpAlert={changePopUpAlert}
+              user={user}
+              changeAlert={changeAlert} 
+              changeStateAlert={changeStateAlert}/>
+            </>
             :""}
             </>
             :
