@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer} from '../Elements/ElementsFormulary';
@@ -40,18 +40,36 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-const MessageLink=styled(Link)`
+/* const MessageLink=styled(Link)`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
+  border-bottom:solid ${theme.BorderColor} 1px;
   gap:0rem;
   padding-top:${(props) => props.originalComment ? "0.5rem": "0"};
-  /* background:black; */
+  background:black;
   text-decoration:none;
   z-index:80;
   :hover{
     pointer-events: auto;
+    background:rgba(255,255,255, 0.03);
+  }
+` */
+const MessageLink=styled.div`
+  height:auto;
+  z-index:100;
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  gap:0rem;
+  padding-top:${(props) => props.originalComment ? "0rem": "0"};
+  /* text-decoration:none;
+  -webkit-user-select: text;
+  -moz-select: text;
+  -ms-select: text;
+  user-select: text; */
+  :hover{
+    cursor:pointer;
     background:rgba(255,255,255, 0.03);
   }
 `
@@ -97,8 +115,9 @@ const InteractionBar=styled.div`
   /* border:solid ${theme.BorderColor} 1px; */
   width:100%;
   max-height:6rem;
-  padding-top:0.5rem;
-  padding-bottom:0.5rem;
+  padding-top:0rem;
+  padding-bottom:0rem;
+  margin-top:0.5rem;
   z-index:98;
 `
 const CardColumns = styled.div`
@@ -114,7 +133,7 @@ const CardColumns = styled.div`
   align-items:center;
   /* border:solid ${theme.BorderColor} 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
-  gap:0.5rem;
+  gap:0rem;
 `
 const PortraitContainer =styled.div`
   /* border: solid red 1px; */
@@ -140,6 +159,7 @@ const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStat
     const [loadingComment, changeLoadingComment] =useState(true);
     const [messageForComment, changeMessageForComment] = useState('')
     const [userInfoForComment, changeUserInfoForComment] =useState([{}])
+    const navigate = useNavigate();
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -181,7 +201,7 @@ return (
         <>
           {messageForComment.exists() ?
           <>
-            <MessageLink  to={`/user/${userInfoForComment[0].alias}/status/${commentId}`}>
+            <MessageLink  onClick={()=> navigate(`/user/${userInfoForComment[0].alias}/status/${commentId}`)}>
               <CardColumns>
                 {!TimelineComment ?
                 <StraightLine2/>
@@ -225,14 +245,14 @@ return (
                   <UserNameContainerLinkQuoted to={`/user/${previousCommentAlias}`}>@{previousCommentAlias}</UserNameContainerLinkQuoted >
                 </UserNameContainerQuoted>
                 <MessageContent>
-                  <p>{messageForComment.data().message}</p>
+                <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{messageForComment.data().message}</span>
                 </MessageContent>
-                <TimeBar>
+                {/* <TimeBar>
                   {formatDate(messageForComment.data().date)}
                 </TimeBar>
                 <TimeBar>
                   <p>{commentId}</p>
-                </TimeBar>
+                </TimeBar> */}
                 <InteractionBar>
                 <IconContainerCont Reply >
                     <BarButton onClick={(e)=>{

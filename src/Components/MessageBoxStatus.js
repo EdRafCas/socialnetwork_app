@@ -6,42 +6,19 @@ import '../index.css'
 import ProfileImage from '../img/profile_avatar.png'
 import AddComment from '../firebase/AddComment'
 import getUnixTime from 'date-fns/getUnixTime';
-import {UserNameContainerLinkQuoted,} from '../Elements/ElementsTimeline'
+import {UserNameContainerLinkQuoted} from '../Elements/ElementsTimeline'
 
-const CenterBox=styled.div`
-      width:700px;
-      padding:1rem 1.5rem;
-      position:absolute;
-      top:5%;
-      left:33%;
-      /* margin-top:-30rem;
-      margin-left:-30rem;
-      height:60rem;
-      width:60rem;*/
-      background:black; 
-      border-radius:5%;
-      z-index:101;
-`
+
 const MessageContainer = styled.div`
       display:flex;
       flex-direction:column;
       /* border:solid ${theme.RedAlert} 1px; */
+      border-bottom:solid ${theme.BorderColor} 1px;
       /* padding:1rem 1rem; */
       /* border-bottom:solid ${theme.BorderColor} 1px; */
-     /*  width:100%;
-      height:500px;
-      border-radius:9999px;
-      display:flex;
-      flex-direction:column;
-      align-content:center;
-      background:#000; */
 `
 const CreateMessageForm =styled.form`
-      /* display:flex;
-      flex-direction:row;
-      width:100%;
-      gap:1rem;
-      border:solid white 1px;*/
+
       padding-top:1rem; 
       display:grid;
       width:100%;
@@ -53,18 +30,11 @@ const CreateMessageForm =styled.form`
       text-decoration:none;
 `
 const TopBar =styled.form`
-      /* display:flex;
-      flex-direction:row;
-      width:100%;
-      gap:1rem;
-      border:solid white 1px;*/
-
       display:grid;
       width:100%;
       grid-template-columns: repeat(1, 1fr 12fr);
       /* border:solid ${theme.BorderColor} 1px; */
-      gap:0rem;
-      padding-top:1rem; 
+      gap:0rem; 
       /* background:black; */
       text-decoration:none;
 `
@@ -76,7 +46,6 @@ const HeaderUser =styled.div`
 `
 const MessageUser =styled.textarea`
       padding:0.5rem;
-
       font-size:1.5rem;
       text-align:justify;
       white-space:normal;
@@ -92,15 +61,18 @@ const MessageUser =styled.textarea`
 `
 const ButtonContainer=styled.div`
       width:100%;
-      height:3rem;
+      height:auto;
       display:flex;
       flex-direction:column;
       justify-content:flex-end;
+      /* border:solid ${theme.BorderColor} 1px; */
 `
 const Buttons=styled.div`
-      /* border:solid ${theme.BorderColor} 1px; */
-      padding-top:0rem;
-      gap:5px;
+     /*  border:solid ${theme.BorderColor} 1px; */
+      padding-right:1rem;
+      padding-bottom:1rem;
+      padding-top:1rem;
+      gap:0.5rem;
       display:flex;
       flex-direction:row;
       justify-content:flex-end;
@@ -137,74 +109,11 @@ const ButtonExcess =styled.button`
                   color:${theme.RedAlert};
             }
 `     
-const OriginalMessageContainer=styled.div`
-      display:flex;
-      flex-direction:row;
-      gap:1rem;
-      /* border:solid ${theme.RedAlert} 1px; */
-`
-const LeftColumn=styled.div`
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      min-height:9rem;
-      border:solid ${theme.BluePinned} 1px;
-      gap:3px;
-`
-const RightColumn=styled.div`
-      display:flex;
-      flex-direction:column;
-      width:100%;
-      padding-top:${(props)=> props.reply ? "1rem"
-                                          : "0rem"};
-      min-height:9rem;
-      gap:10px;
-      border:solid ${theme.BorderColor} 1px;
-`
-const UserNames =styled.div`
-      display:flex;
-      flex-direction:row;
-      align-items:center;
-      gap:5px;
-      /* border:solid ${theme.BorderColor} 1px; */
-`
-const MessageContent = styled.div`
-      width:100%;
-      padding:0rem;
-      max-height:200px;
-      min-height:100px;
-      font-size:1rem;
-      font-weight:400;
-      color:white;
-      /* border:solid ${theme.BorderColor} 1px; */
-      text-align:justify;
-      white-space:normal;
-      overflow:hidden;
-      p{
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            word-break: break-word;
-            white-space:pre-wrap;}
-`
-const StraightLine=styled.div`
-      height:90%;
-      width:2px;
-      border:solid ${theme.BorderColor} 1px;
-`
-const ReplyingTo =styled.div`
-      display:flex;
-      flex-direction:row;
-      align-items:center;
-      gap:5px;
-      padding:0.5rem 0rem 0rem 0rem;
-      /* border:solid ${theme.BorderColor} 1px; */
-`
 
 const CardColumns = styled.div`
       position:relative;
       padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
-      padding-top:0;              
+      padding-top:0.5rem;              
       /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
       padding-bottom: 0;
       margin:0;
@@ -237,12 +146,14 @@ const CardInner =styled.div`
 `
 const UserNameContainerQuoted =styled.div`
   width:100%;
-  height:1.2rem;
-  padding:0rem;
+  height:2rem;
+  padding:0;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
  /*  border:solid ${theme.BorderColor} 1px; */
   display:flex;
   flex-direction:row;
+  justify-content:flex-start;
+  align-items:end;
   gap:5px;
   position:relative;
   p{
@@ -308,7 +219,7 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
                                     <UserNameContainerLinkQuoted to={`/user/${previousCommentAlias}`}>
                                           @{previousCommentAlias}
                                     </UserNameContainerLinkQuoted >
-                              </UserNameContainerQuoted>
+                        </UserNameContainerQuoted>
                   </TopBar>
                   <CreateMessageForm onSubmit={AddCommentToTimeline}>
                         <CardColumns originalComment>
@@ -326,7 +237,7 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
                                     name="messageReply"
                                     id="messageReply"
                                     cols="65"
-                                    rows="3"
+                                    rows="2"
                                     maxlength="5"
                                     type="text"
                                     placeholder="Send your Reply"
@@ -336,25 +247,25 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
                                     <Buttons>
                                           {messageReply === "" || messageReply.length >160 ?
                                           <>
-                                          <ButtonDisabled disabled={true}>
-                                                <p>Reply</p>
-                                          </ButtonDisabled> 
                                           {messageReply.length >= 160 ?
                                           <ButtonExcess>
                                                 <p>-{messageReply.length -160}</p>
                                           </ButtonExcess>
                                           :""}
+                                          <ButtonDisabled disabled={true}>
+                                                <p>Reply</p>
+                                          </ButtonDisabled> 
                                           </>
                                           :
                                           <>
-                                          <Button disabled={!messageReply} type="submit" name="sendMesssage">
-                                                <p>Reply</p>
-                                          </Button>
                                           {messageReply.length >=140 ?
                                           <ButtonLeft>
                                                 <p>{ LettersLeft +140 - messageReply.length }</p>
                                           </ButtonLeft>
                                           :""}
+                                          <Button disabled={!messageReply} type="submit" name="sendMesssage">
+                                                <p>Reply</p>
+                                          </Button>
                                           </>
                                           }
                                     </Buttons>     

@@ -29,7 +29,7 @@ const CardInner =styled.div`
   :hover{
     pointer-events: auto;
     cursor:pointer;
-    background:rgba(255,255,255, 0.03);
+   /*  background:rgba(255,255,255, 0.03); */
   }
 `
 const PinnedInfo=styled.div`
@@ -41,12 +41,12 @@ const PinnedInfo=styled.div`
 
 `
 const RetweetInfoContainer=styled.div`
-  height:1.5rem;
+  height:2rem;
   width:100%;
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
-  border:none;
+  /* border:solid ${theme.BorderColor} 1px; */
+  padding: 2.5px 0rem;
 
 `
 const UserColumns=styled.div`
@@ -61,7 +61,7 @@ const UserColumns=styled.div`
 `
 const CardColumns = styled.div`
   padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
-  padding-top: ${(props) => props.rightColumn && "0.5rem"};
+  padding-top: 0rem;
   padding-right: ${(props) => props.rightColumn && "0.5rem"};
   padding-bottom: ${(props) => props.rightColumn && "0.5rem"};
   margin:0;
@@ -71,7 +71,7 @@ const CardColumns = styled.div`
   align-items:center;
   /* border:solid ${theme.BorderColor} 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
-  gap:0.5rem;
+  gap:0;
 `
 const UserNameContainer =styled.div`
   width:100%;
@@ -85,7 +85,7 @@ const UserNameContainer =styled.div`
 `
 const UserNameContainerQuoted =styled.div`
   width:100%;
-  padding:0rem;
+  padding:2.5px 0rem;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
  /*  border:solid ${theme.BorderColor} 1px; */
   display:flex;
@@ -98,9 +98,8 @@ const UserNameContainerQuoted =styled.div`
 `
 const MessageContent = styled.div`
   width:100%;
-  padding:0rem;
+  padding:2px 0rem;
   max-height:200px;
-  min-height:100px;
   font-size:1rem;
   font-weight:400;
   color:white;
@@ -124,8 +123,9 @@ const InteractionBar=styled.div`
   /* border-bottom:solid ${theme.BorderColor} 1px; */
   width:100%;
   max-height:6rem;
-  padding-top:0.5rem;
-  padding-bottom:0.5rem;
+  padding-top:0rem;
+  padding-bottom:0rem;
+  margin-top:0.5rem;
   z-index:98;
 `
 const IconContainer=styled.div`

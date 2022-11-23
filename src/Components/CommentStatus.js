@@ -176,7 +176,7 @@ const MessageContent = styled.div`
   z-index:101;
   span{
     display: inline-block;
-    border:solid ${theme.BorderColor} 1px;
+    /* border:solid ${theme.BorderColor} 1px; */
     user-select: text;
     overflow-wrap: break-word;
     word-wrap: break-word;

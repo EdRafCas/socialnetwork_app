@@ -14,7 +14,7 @@ const RetweetLink = styled(Link)`
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
-  align-items:end;
+  align-items:center;
   color: ${theme.Text};
   font-size:1rem;
   font-weight:800;

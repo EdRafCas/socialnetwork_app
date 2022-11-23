@@ -40,7 +40,7 @@ const CardMessage =styled.div`
       padding-top:0rem;
       z-index:100;
       :hover{
-      background:rgba(255,255,255, 0.03);
+      /* background:rgba(255,255,255, 0.03); */
       }
 `
 const TimelineUserContainer = styled.div`

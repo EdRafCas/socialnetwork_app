@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
+import {useNavigate } from 'react-router-dom';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -10,7 +11,7 @@ import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg'
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -21,6 +22,21 @@ import LoadingComponent from '../Elements/LoadingComponent';
 import AddRemove from '../firebase/AddRemove';
 
 
+const MessageLink=styled.div`
+  display:grid;
+  z-index:100;
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  gap:0rem;
+  padding-top:0.5rem;
+  text-decoration:none;
+  z-index:99;
+  :hover{
+    cursor:pointer;
+    background:rgba(255,255,255, 0.03);
+  }
+`
 const RetweetButton=styled.button`
   background:none;
   border-radius:50%;
@@ -45,6 +61,7 @@ overflow:hidden;
 const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage,messageComments, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForTimeline, changeMessageForTimeline] = useState([{}])
+    const navigate = useNavigate();
 
     useEffect(()=>{
       const obtainMessageTimeline = async() =>{
@@ -77,7 +94,7 @@ return (
   <>
   {!loadingMessageData ?
   <CardInner>
-    <MessageLink to={`/user/${messageForTimeline[0].alias}/status/${id}`}>
+    <MessageLink onClick={()=> navigate(`/user/${messageForTimeline[0].alias}/status/${id}`)}>
       <CardColumns>
         <PortraitContainer>
           {messageForTimeline[0].photoURL ?
@@ -103,11 +120,11 @@ return (
             id={id} />
         </UserNameContainer>
         <MessageContent>
-          <p>{messageMessage}</p>
+          <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{messageMessage}</span>
         </MessageContent>
-        <TimeBar>
+       {/*  <TimeBar>
           {formatDate(messageDate)}
-        </TimeBar>
+        </TimeBar> */}
         <InteractionBar>
           <IconContainerCont Reply>
           <BarButton onClick={(e)=>{

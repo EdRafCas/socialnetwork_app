@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer} from '../Elements/ElementsFormulary';
@@ -28,7 +28,7 @@ import CommentInner from './CommentInner';
 
 
 
-const MessageLink=styled(Link)`
+const MessageLink=styled.div`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
@@ -66,8 +66,9 @@ const InteractionBar=styled.div`
   /* border:solid ${theme.BorderColor} 1px; */
   width:100%;
   max-height:6rem;
-  padding-top:0.5rem;
-  padding-bottom:0.5rem;
+  padding-top:0rem;
+  padding-bottom:0rem;
+  margin-top:0.5rem;
   z-index:98;
 `
 const CardColumns = styled.div`
@@ -83,10 +84,10 @@ const CardColumns = styled.div`
   align-items:center;
   /* border:solid ${theme.BorderColor} 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
-  gap:0.5rem;
+  gap:0rem;
 `
 const PortraitContainer =styled.div`
-  border: solid red 1px;
+  /* border: solid red 1px; */
   padding:0;
   width:100%;
   border-radius:50%;
@@ -108,6 +109,7 @@ const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,ch
     const [loadingQuoted, changeLoadingQuoted] =useState(true);
     const [quotedMessage, changeQuotedMessage] = useState('')
     const [userInfoForQuote, changeUserInfoForQuote] =useState([{}])
+    const navigate = useNavigate();
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -149,7 +151,7 @@ return (
         <>
           {quotedMessage.exists() ?
           <CardInner>
-            <MessageLink  to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
+            <MessageLink onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
               <CardColumns originalComment>
                 <EmptyDivColumn/>
                 <PortraitContainer>
@@ -179,9 +181,9 @@ return (
                       originalMessageComments={quotedMessage.data().comments} />
                 </UserNameContainer>
                 <MessageContent>
-                  <p>{quotedMessage.data().message}</p>
+                <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>
                 </MessageContent>
-                <TimeBar>
+                {/* <TimeBar>
                   {formatDate(quotedMessage.data().date)}
                 </TimeBar>
                 <TimeBar>
@@ -189,7 +191,7 @@ return (
                 </TimeBar>
                 <TimeBar>
                   originalID {originalId}
-                </TimeBar>
+                </TimeBar> */}
                 <InteractionBar>
                   <IconContainerCont Reply >
                     <BarButton onClick={(e)=>{

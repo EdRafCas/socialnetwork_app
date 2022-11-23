@@ -47,7 +47,7 @@ const MessageLink=styled.div`
  /*  border-bottom:solid ${theme.BorderColor} 1px; */
   /* border-radius:15px; */
   gap:0rem;
-  padding-top:0.5rem;
+  padding-top:0rem;
   /* background:black; */
   text-decoration:none;
   z-index:80;
@@ -146,7 +146,7 @@ return (
                 {messageForRetweet.data().message}
                 </span>
                 </MessageContent>
-                <TimeBar>
+                {/* <TimeBar>
                   {formatDate(messageForRetweet.data().date)}
                 </TimeBar>
                 <TimeBar>
@@ -154,7 +154,7 @@ return (
                 </TimeBar>
                 <TimeBar>
                   {originalId}
-                </TimeBar>
+                </TimeBar> */}
                 <InteractionBar>
                   <IconContainerCont Reply>
                     <BarButton  onClick={(e)=>{
