@@ -11,7 +11,7 @@ import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg'
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, MessageLink, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -22,21 +22,6 @@ import LoadingComponent from '../Elements/LoadingComponent';
 import AddRemove from '../firebase/AddRemove';
 
 
-const MessageLink=styled.div`
-  display:grid;
-  z-index:100;
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  gap:0rem;
-  padding-top:0.5rem;
-  text-decoration:none;
-  z-index:99;
-  :hover{
-    cursor:pointer;
-    background:rgba(255,255,255, 0.03);
-  }
-`
 const RetweetButton=styled.button`
   background:none;
   border-radius:50%;
@@ -120,7 +105,9 @@ return (
             id={id} />
         </UserNameContainer>
         <MessageContent>
-          <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{messageMessage}</span>
+          <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
+          {messageMessage}
+          </span>
         </MessageContent>
        {/*  <TimeBar>
           {formatDate(messageDate)}

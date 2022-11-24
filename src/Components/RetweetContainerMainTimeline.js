@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,  CardColumns, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner,  CardColumns, UserNameContainer,MessageLink, UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -40,22 +40,7 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-const MessageLink=styled.div`
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
- /*  border-bottom:solid ${theme.BorderColor} 1px; */
-  /* border-radius:15px; */
-  gap:0rem;
-  padding-top:0rem;
-  /* background:black; */
-  text-decoration:none;
-  z-index:80;
-  /* :hover{
-    pointer-events: auto;
-    background:rgba(255,255,255, 0.03);
-  } */
-`
+
 const EmptyDiv =styled.div`
 visibility:hidden
 display:none;

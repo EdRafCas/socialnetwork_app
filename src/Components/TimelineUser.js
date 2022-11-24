@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
+import theme from '../Theme';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
 import ProfileImage from '../img/profile_avatar.png'
@@ -24,6 +25,11 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 
 const EmptyDiv=styled.div`
+`
+const EmptyDivColumn=styled.div`
+  height:0.5rem;
+  width:100%;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 
 const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => {
@@ -95,7 +101,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               :
               <CardInner>
                 <MessageLink to={`/user/${currentUserInfo[0].alias}/status/${MessageUser.id}`}>
-                  <CardColumns>
+                  <CardColumns >
                     <PortraitContainer>
                       {currentUserInfo[0].photoURL ?
                       <img alt="userportrait" src={currentUserInfo[0].photoURL}/>
@@ -120,11 +126,13 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                         id={MessageUser.id}/>
                     </UserNameContainer>
                     <MessageContent>
-                      <p>{MessageUser.message}</p>
+                    <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
+                    {MessageUser.message}
+                    </span>
                     </MessageContent>
-                    <TimeBar>
+                   {/*  <TimeBar>
                       {formatDate(MessageUser.date)}
-                    </TimeBar>
+                    </TimeBar> */}
                     <InteractionBar>
                       <IconContainer Reply >
                         <IconComment/>

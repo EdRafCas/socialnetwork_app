@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
@@ -47,6 +48,7 @@ const RetweetContainer = ({ currentUidUser, currentUserInfo, newRetweetId, origi
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
     const [userInfoForRetweet, changeUserInfoForRetweet] =useState([{}])
+    const navigate = useNavigate();
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -91,7 +93,7 @@ return (
             <RetweetInfo
                     currentUidUser={currentUidUser}
                     retweetUidUser={retweetUidUser}/>
-            <MessageLink to={`/user/${userInfoForRetweet[0].alias}/status/${originalId}`}>
+            <MessageLink tonClick={()=> navigate(`/user/${userInfoForRetweet[0].alias}/status/${originalId}`)}>
               <CardColumns>
                 <PortraitContainer>
                   {userInfoForRetweet[0].photoURL ?
@@ -117,11 +119,12 @@ return (
                     id={originalId}/>
                 </UserNameContainer>
                 <MessageContent>
-                  <p>{messageForRetweet.data().message}</p>
+                <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{messageForRetweet.data().message}
+                </span>
                 </MessageContent>
-                <TimeBar>
+                {/* <TimeBar>
                   {formatDate(messageForRetweet.data().date)}
-                </TimeBar>
+                </TimeBar> */}
                 <InteractionBar>
                   <IconContainer Reply ><IconComment/></IconContainer>
                   <IconContainerCont Retweet>

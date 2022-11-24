@@ -319,22 +319,38 @@ const UserNameContainerLinkQuoted =styled(Link)`
     text-decoration:underline;
   }
 `
-const MessageLink=styled(Link)`
+/* const MessageLink=styled(Link)`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
- /*  border-bottom:solid ${theme.BorderColor} 1px; */
-  /* border-radius:15px; */
+  border-bottom:solid ${theme.BorderColor} 1px;
+  border-radius:15px;
   gap:0rem;
   padding-top:0.5rem;
-  /* background:black; */
+  background:black;
   text-decoration:none;
   z-index:99;
-  /* :hover{
+  :hover{
     pointer-events: auto;
     background:rgba(255,255,255, 0.03);
-  } */
+  }
+` */
+
+const MessageLink=styled.div`
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  gap:0rem;
+  padding-top:12px;
+  /* background:black; */
+  text-decoration:none;
+  z-index:80;
+  :hover{
+    cursor:pointer;
+    background:rgba(255,255,255, 0.03);
+  }
 `
+
 const InteractionBarPinned=styled.div`
   display:flex;
   flex-direction:row;

@@ -339,7 +339,7 @@ return (
           </CardInner>
           :
           <EmptyDiv>
-            <p>This Message was deleted</p>
+
           </EmptyDiv>
           }
         </>
