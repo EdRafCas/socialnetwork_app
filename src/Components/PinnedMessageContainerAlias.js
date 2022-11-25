@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
+import {useNavigate } from 'react-router-dom';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
@@ -38,9 +39,9 @@ const RetweetButton=styled.button`
 
 const PinnedMessageContainerAlias = ({ userByAlias, originalId, user, changeShowPopUp, changePopUpAlert, currentUserInfo, update, changeUpdate}) => {
     const [loadingPinned, changeLoadingPinned] =useState(true);
-    const [messagePinned, ChangeMessagePinned] = useState('')
-    console.log(userByAlias[0].alias)
-    console.log(currentUserInfo[0].name)
+    const [messagePinned, ChangeMessagePinned] = useState('');
+    const navigate = useNavigate();
+
     useEffect(()=>{
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId ));
@@ -59,7 +60,7 @@ const PinnedMessageContainerAlias = ({ userByAlias, originalId, user, changeShow
 return ( 
         <>
         {!loadingPinned ?
-        <CardInner>
+        <CardInner Reply>
           <PinnedInfo>
             <IconContainerRetweet  >
               <IconPin/>
@@ -68,7 +69,7 @@ return (
               <p>Pinned Message </p> 
               </NameContainerRetweet>
           </PinnedInfo>
-          <MessageLink to={`/user/${userByAlias[0].alias}/status/${originalId}`}>
+          <MessageLink Reply onClick={()=> navigate(`/user/${userByAlias[0].alias}/status/${originalId}`)}>
             <CardColumns>
               <PortraitContainer>
                 {userByAlias[0].photoURL ?
@@ -89,11 +90,13 @@ return (
                         id={originalId} />
               </UserNameContainer>
               <MessageContent>
-                <p>{messagePinned.data().message}</p>
+              <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
+                {messagePinned.data().message}
+              </span>
               </MessageContent>
-              <TimeBar>
+             {/*  <TimeBar>
                 {formatDate(messagePinned.data().date)}
-              </TimeBar>
+              </TimeBar> */}
               <InteractionBarPinned>
             <IconContainer Reply ><IconComment/></IconContainer>
             <IconContainerCont Retweet>

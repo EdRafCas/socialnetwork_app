@@ -24,9 +24,9 @@ const CardInner =styled.div`
   /* border-top:solid ${theme.BorderColor} 1px; */
   border-bottom:solid ${theme.BorderColor} 1px;
   gap:0rem;
-  padding-top:${(props)=> props.Reply ? `12px`
-                        : props.Like ? `12px`
-                        : props.Retweet ? `12px` 
+  padding-top:${(props)=> props.Reply ? `0.5rem`
+                        : props.Like ? `0.5rem`
+                        : props.Retweet ? `0.5rem` 
                         : "0rem"};
   z-index:100;
   :hover{
@@ -70,10 +70,11 @@ const MessageLink=styled.div`
   }
 `
 const PinnedInfo=styled.div`
-  height:1.5rem;
+  height:auto;;
   width:100%;
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
+  padding-bottom: 3px;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
 
 `
@@ -83,7 +84,7 @@ const RetweetInfoContainer=styled.div`
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
   /* border:solid ${theme.BorderColor} 1px; */
-  padding: 0;
+  padding-bottom: 3px;
 
 `
 const UserColumns=styled.div`
@@ -317,7 +318,7 @@ const NameContainerRetweet = styled.div`
   font-weight:800;
   /* border:solid ${theme.BorderColor} 1px; */
   overflow:hidden;
-  padding-left:5px;
+  padding-left:0;
   gap:5px;
 `
 
