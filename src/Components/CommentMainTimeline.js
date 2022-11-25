@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner,MessageLink, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -27,22 +27,6 @@ import CommentInner from './CommentInner';
 
 
 
-
-const MessageLink=styled.div`
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  /* border:solid ${theme.BorderColor} 1px; */
-  gap:0rem;
-  padding-top:${(props) => props.originalComment ? "0rem": "0"};
-  /* background:black; */
-  text-decoration:none;
-  z-index:80;
-  :hover{
-    pointer-events: auto;
-    background:rgba(255,255,255, 0.03);
-  }
-`
 const EmptyDiv =styled.div`
 visibility:hidden
 display:none;
@@ -150,10 +134,9 @@ return (
         {!loadingQuoted ?
         <>
           {quotedMessage.exists() ?
-          <CardInner>
-            <MessageLink onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
+          <CardInner Reply>
+            <MessageLink Reply onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
               <CardColumns originalComment>
-                <EmptyDivColumn/>
                 <PortraitContainer>
                   {userInfoForQuote[0].photoURL ?
                   <img alt="userportrait" src={userInfoForQuote[0].photoURL}/>
@@ -164,7 +147,6 @@ return (
                 <StraightLine/>
               </CardColumns>
               <CardColumns rightColumn>
-                <EmptyDivColumn/>
                 <UserNameContainer>
                   <UserNameContainerLink to={`/user/${userInfoForQuote[0].alias}`}>
                     {userInfoForQuote[0].name}

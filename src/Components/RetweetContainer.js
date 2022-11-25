@@ -89,11 +89,11 @@ return (
         {!loadingRetweets ?
         <>
           {messageForRetweet.exists() ?
-          <CardInner>
+          <CardInner Retweet>
             <RetweetInfo
                     currentUidUser={currentUidUser}
                     retweetUidUser={retweetUidUser}/>
-            <MessageLink tonClick={()=> navigate(`/user/${userInfoForRetweet[0].alias}/status/${originalId}`)}>
+            <MessageLink  Retweet onClick={()=> navigate(`/user/${userInfoForRetweet[0].alias}/status/${originalId}`)}>
               <CardColumns>
                 <PortraitContainer>
                   {userInfoForRetweet[0].photoURL ?

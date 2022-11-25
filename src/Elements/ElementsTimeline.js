@@ -24,12 +24,49 @@ const CardInner =styled.div`
   /* border-top:solid ${theme.BorderColor} 1px; */
   border-bottom:solid ${theme.BorderColor} 1px;
   gap:0rem;
-  padding-top:0rem;
+  padding-top:${(props)=> props.Reply ? `12px`
+                        : props.Like ? `12px`
+                        : props.Retweet ? `12px` 
+                        : "0rem"};
   z-index:100;
   :hover{
     pointer-events: auto;
     cursor:pointer;
-   /*  background:rgba(255,255,255, 0.03); */
+    background:rgba(255,255,255, 0.03);
+  }
+`
+/* const MessageLink=styled(Link)`
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  border-bottom:solid ${theme.BorderColor} 1px;
+  border-radius:15px;
+  gap:0rem;
+  padding-top:0.5rem;
+  background:black;
+  text-decoration:none;
+  z-index:99;
+  :hover{
+    pointer-events: auto;
+    background:rgba(255,255,255, 0.03);
+  }
+` */
+
+const MessageLink=styled.div`
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  gap:0rem;
+  padding-top:${(props)=> props.Reply ? `0rem`
+                        : props.Like ? `0rem`
+                        : props.Retweet ? `0rem` 
+                        : "12px"};
+  /* background:black; */
+  text-decoration:none;
+  z-index:80;
+  :hover{
+    cursor:pointer;
+  /*   background:rgba(255,255,255, 0.03); */
   }
 `
 const PinnedInfo=styled.div`
@@ -41,12 +78,12 @@ const PinnedInfo=styled.div`
 
 `
 const RetweetInfoContainer=styled.div`
-  height:2rem;
+  height:auto;
   width:100%;
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
   /* border:solid ${theme.BorderColor} 1px; */
-  padding: 2.5px 0rem;
+  padding: 0;
 
 `
 const UserColumns=styled.div`
@@ -257,13 +294,14 @@ const IconContainerRetweet=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:flex-end;
-  align-items:center;
+  align-items:end;
   height:1.5rem;
   width:100%;
   min-width:64px;
   /* border:1px solid white; */
   fill:currentcolor;
-
+  padding-left:0.5rem;
+  padding-right:0.5rem;
   svg{
     max-height:1.2rem;
     stroke: ${theme.BorderColor};
@@ -319,37 +357,7 @@ const UserNameContainerLinkQuoted =styled(Link)`
     text-decoration:underline;
   }
 `
-/* const MessageLink=styled(Link)`
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  border-bottom:solid ${theme.BorderColor} 1px;
-  border-radius:15px;
-  gap:0rem;
-  padding-top:0.5rem;
-  background:black;
-  text-decoration:none;
-  z-index:99;
-  :hover{
-    pointer-events: auto;
-    background:rgba(255,255,255, 0.03);
-  }
-` */
 
-const MessageLink=styled.div`
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  gap:0rem;
-  padding-top:12px;
-  /* background:black; */
-  text-decoration:none;
-  z-index:80;
-  :hover{
-    cursor:pointer;
-    background:rgba(255,255,255, 0.03);
-  }
-`
 
 const InteractionBarPinned=styled.div`
   display:flex;

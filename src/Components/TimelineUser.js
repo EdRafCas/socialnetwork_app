@@ -24,7 +24,10 @@ import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 
-const EmptyDiv=styled.div`
+const EmptyDiv =styled.div`
+  visibility:hidden
+  display:none;
+  overflow:hidden;
 `
 const EmptyDivColumn=styled.div`
   height:0.5rem;

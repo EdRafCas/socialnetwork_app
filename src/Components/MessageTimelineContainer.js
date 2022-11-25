@@ -77,157 +77,157 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
     
 return ( 
   <>
-  {!loadingMessageData ?
-  <CardInner>
-    <MessageLink onClick={()=> navigate(`/user/${messageForTimeline[0].alias}/status/${id}`)}>
-      <CardColumns>
-        <PortraitContainer>
-          {messageForTimeline[0].photoURL ?
-            <img alt="userportrait" src={messageForTimeline[0].photoURL}/>
-            :
-            <img alt="userportrait" src={ProfileImage}/>
-          }
-        </PortraitContainer>
-      </CardColumns>
-      <CardColumns rightColumn>
-        <UserNameContainer>
-          <UserNameContainerLink to={`/user/${messageForTimeline[0].alias}`}>
-            {messageForTimeline[0].name}
-          </UserNameContainerLink >
-          <AliasContainer>
-            @{messageForTimeline[0].alias}
-          </AliasContainer>
-          <ShowMoreMenu 
-            changeAlert={changeAlert}
-            changeStateAlert={changeStateAlert}
-            messageUidUser={messageUidUser} 
-            currentUserInfo={currentUserInfo}
-            id={id} />
-        </UserNameContainer>
-        <MessageContent>
-          <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
-          {messageMessage}
-          </span>
-        </MessageContent>
-       {/*  <TimeBar>
-          {formatDate(messageDate)}
-        </TimeBar> */}
-        <InteractionBar>
-          <IconContainerCont Reply>
-          <BarButton onClick={(e)=>{
-              e.preventDefault();
-              e.stopPropagation();
-              receiveNotification({
-              notification:"comment",
-              messageMessage,
-              messageForTimeline:messageForTimeline,
-              id:id,
-              comments:messageComments,
-              retweets:messageRetweets,
-              originalUidUser:messageUidUser,
-              user,
-              currentUserInfo,
-              changeShowPopUp:changeShowPopUp, 
-              changePopUpAlert:changePopUpAlert,
-              update,
-              changeUpdate})}}>
-            <IconComment/>
-          </BarButton>
-          <CounterContainer>
-            <p>{messageComments?
-            messageComments.length
-            :""}</p>
-          </CounterContainer>
-          </IconContainerCont>
-          <IconContainerCont Retweet>
-          {!messageRetweets.includes(currentUserInfo[0].uidUser)?
-            <RetweetButton onClick={(e)=>{
-              e.preventDefault();
-              e.stopPropagation();
-              receiveNotification({
-              notification:"retweet",
-              id:id,
-              retweets:messageRetweets,
-              originalUidUser:messageUidUser,
-              user,
-              currentUserInfo,
-              changeShowPopUp:changeShowPopUp, 
-              changePopUpAlert:changePopUpAlert,
-              update,
-              changeUpdate})}}>
-              <IconRetweet/>
-            </RetweetButton>
-          :
-          <>
-            {messageUidUser === currentUserInfo[0].uidUser ?
-            <RetweetButton onClick={(e)=>{
-              e.preventDefault();
-              e.stopPropagation();
-              RemoveRetweetSameUser({
-              currentUidUser:currentUserInfo[0].uidUser,
-              originalRetweets:messageRetweets, 
-              currentMessageId:id, 
-              update,
-              changeUpdate})}}>
-              <IconRetweetColor/>
-            </RetweetButton>
-            :
-            <RetweetButton onClick={(e)=>{
-              e.preventDefault();
-              e.stopPropagation();
-              RemoveRetweet({
-              currentUidUser:currentUserInfo[0].uidUser,
-              originalRetweets:messageRetweets, 
-              originalId:messageOriginalId, 
-              currentMessageId:id, 
-              retweetUidUser:messageUidUser, 
-              update,
-              changeUpdate})}}>
-              <IconRetweetColor/>
-            </RetweetButton>
-            }
-          </>
-          }
-            <CounterContainer>
-              <p>{messageRetweets.length}</p>
-            </CounterContainer>
-          </IconContainerCont>
-          <IconContainerCont Like>
-              <LikeButton  onClick={(e)=>{
-              e.preventDefault();
-              e.stopPropagation();
-              AddRemove({
-              messageLikes,
-              currentUserInfo, 
-              id:id,
-              messageUidUser, 
-              uidUser:currentUserInfo[0].uidUser,
-              originalUidUser:messageUidUser,
-              likes:messageLikes,
-              originalLikes:messageLikes,
-              originalMessageId:id,
-              currentUidUser:currentUserInfo[0].uidUser,
-              likeUidUser:messageUidUser,
-              newId:id,
-              update,
-              changeUpdate})}}> 
-              {!messageLikes.includes(currentUserInfo[0].uidUser)?
-                <IconLike />
+    {!loadingMessageData ?
+      <CardInner>
+        <MessageLink onClick={()=> navigate(`/user/${messageForTimeline[0].alias}/status/${id}`)}>
+          <CardColumns>
+            <PortraitContainer>
+              {messageForTimeline[0].photoURL ?
+                <img alt="userportrait" src={messageForTimeline[0].photoURL}/>
                 :
-                <IconLikeColor />
-              }                              
-              </LikeButton>
-            <CounterContainer>
-              <p>{messageLikes.length}</p>
-            </CounterContainer>
-          </IconContainerCont>
-        </InteractionBar>
-      </CardColumns>
-    </MessageLink>
-  </CardInner>
-  :
-  <LoadingComponent/>
-  }
+                <img alt="userportrait" src={ProfileImage}/>
+              }
+            </PortraitContainer>
+          </CardColumns>
+          <CardColumns rightColumn>
+            <UserNameContainer>
+              <UserNameContainerLink to={`/user/${messageForTimeline[0].alias}`}>
+                {messageForTimeline[0].name}
+              </UserNameContainerLink >
+              <AliasContainer>
+                @{messageForTimeline[0].alias}
+              </AliasContainer>
+              <ShowMoreMenu 
+                changeAlert={changeAlert}
+                changeStateAlert={changeStateAlert}
+                messageUidUser={messageUidUser} 
+                currentUserInfo={currentUserInfo}
+                id={id} />
+            </UserNameContainer>
+            <MessageContent>
+              <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
+              {messageMessage}
+              </span>
+            </MessageContent>
+          {/*  <TimeBar>
+              {formatDate(messageDate)}
+            </TimeBar> */}
+            <InteractionBar>
+              <IconContainerCont Reply>
+              <BarButton onClick={(e)=>{
+                  e.preventDefault();
+                  e.stopPropagation();
+                  receiveNotification({
+                  notification:"comment",
+                  messageMessage,
+                  messageForTimeline:messageForTimeline,
+                  id:id,
+                  comments:messageComments,
+                  retweets:messageRetweets,
+                  originalUidUser:messageUidUser,
+                  user,
+                  currentUserInfo,
+                  changeShowPopUp:changeShowPopUp, 
+                  changePopUpAlert:changePopUpAlert,
+                  update,
+                  changeUpdate})}}>
+                <IconComment/>
+              </BarButton>
+              <CounterContainer>
+                <p>{messageComments?
+                messageComments.length
+                :""}</p>
+              </CounterContainer>
+              </IconContainerCont>
+              <IconContainerCont Retweet>
+              {!messageRetweets.includes(currentUserInfo[0].uidUser)?
+                <RetweetButton onClick={(e)=>{
+                  e.preventDefault();
+                  e.stopPropagation();
+                  receiveNotification({
+                  notification:"retweet",
+                  id:id,
+                  retweets:messageRetweets,
+                  originalUidUser:messageUidUser,
+                  user,
+                  currentUserInfo,
+                  changeShowPopUp:changeShowPopUp, 
+                  changePopUpAlert:changePopUpAlert,
+                  update,
+                  changeUpdate})}}>
+                  <IconRetweet/>
+                </RetweetButton>
+              :
+              <>
+                {messageUidUser === currentUserInfo[0].uidUser ?
+                <RetweetButton onClick={(e)=>{
+                  e.preventDefault();
+                  e.stopPropagation();
+                  RemoveRetweetSameUser({
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  originalRetweets:messageRetweets, 
+                  currentMessageId:id, 
+                  update,
+                  changeUpdate})}}>
+                  <IconRetweetColor/>
+                </RetweetButton>
+                :
+                <RetweetButton onClick={(e)=>{
+                  e.preventDefault();
+                  e.stopPropagation();
+                  RemoveRetweet({
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  originalRetweets:messageRetweets, 
+                  originalId:messageOriginalId, 
+                  currentMessageId:id, 
+                  retweetUidUser:messageUidUser, 
+                  update,
+                  changeUpdate})}}>
+                  <IconRetweetColor/>
+                </RetweetButton>
+                }
+              </>
+              }
+                <CounterContainer>
+                  <p>{messageRetweets.length}</p>
+                </CounterContainer>
+              </IconContainerCont>
+              <IconContainerCont Like>
+                  <LikeButton  onClick={(e)=>{
+                  e.preventDefault();
+                  e.stopPropagation();
+                  AddRemove({
+                  messageLikes,
+                  currentUserInfo, 
+                  id:id,
+                  messageUidUser, 
+                  uidUser:currentUserInfo[0].uidUser,
+                  originalUidUser:messageUidUser,
+                  likes:messageLikes,
+                  originalLikes:messageLikes,
+                  originalMessageId:id,
+                  currentUidUser:currentUserInfo[0].uidUser,
+                  likeUidUser:messageUidUser,
+                  newId:id,
+                  update,
+                  changeUpdate})}}> 
+                  {!messageLikes.includes(currentUserInfo[0].uidUser)?
+                    <IconLike />
+                    :
+                    <IconLikeColor />
+                  }                              
+                  </LikeButton>
+                <CounterContainer>
+                  <p>{messageLikes.length}</p>
+                </CounterContainer>
+              </IconContainerCont>
+            </InteractionBar>
+          </CardColumns>
+        </MessageLink>
+      </CardInner>
+    :
+    <LoadingComponent/>
+    }
   </>
     )
 }

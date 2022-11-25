@@ -20,7 +20,7 @@ const RetweetLink = styled(Link)`
   font-weight:800;
   /* border:solid ${theme.BorderColor} 1px; */
   overflow:hidden;
-  padding-left:5px;
+  padding-left:0px;
   gap:5px;
   text-decoration:none;
   :hover{

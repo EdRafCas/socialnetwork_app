@@ -40,21 +40,7 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-/* const MessageLink=styled(Link)`
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  border-bottom:solid ${theme.BorderColor} 1px;
-  gap:0rem;
-  padding-top:${(props) => props.originalComment ? "0.5rem": "0"};
-  background:black;
-  text-decoration:none;
-  z-index:80;
-  :hover{
-    pointer-events: auto;
-    background:rgba(255,255,255, 0.03);
-  }
-` */
+
 const MessageLink=styled.div`
   height:auto;
   z-index:100;
