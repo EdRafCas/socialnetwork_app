@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -38,18 +38,18 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-const MessageLink=styled(Link)`
+/* const MessageLink=styled(Link)`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
- /*  border-bottom:solid ${theme.BorderColor} 1px; */
-  /* border-radius:15px; */
+  border-bottom:solid ${theme.BorderColor} 1px;
+  border-radius:15px;
   gap:0rem;
   padding-top:0.5rem;
-  /* background:black; */
+  background:black;
   text-decoration:none;
   z-index:99;
-`
+` */
 const EmptyDiv =styled.div`
   visibility:hidden
   display:none;
@@ -60,6 +60,7 @@ const LikeContainer = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeSt
     const [loadingLikes, changeLoadingLikes] =useState(true);
     const [messageForLike, changeMessageForLike] = useState('')
     const [userInfoForLike, changeUserInfoForLike] =useState([{}])
+    const navigate = useNavigate();
 
     useEffect(()=>{
       const obtainMessage = async() =>{
@@ -100,7 +101,7 @@ return (
         <>
           {messageForLike.exists()?
           <CardInner>
-            <MessageLink to={`/user/${userInfoForLike[0].alias}/status/${originalId}`}>
+            <MessageLink onClick={()=> navigate(`/user/${userInfoForLike[0].alias}/status/${originalId}`)}>
               <CardColumns>
                 <PortraitContainer>
                   {userInfoForLike[0].photoURL ?
@@ -126,7 +127,9 @@ return (
                           id={originalId}/>
                 </UserNameContainer>
                 <MessageContent>
-                  <p>{messageForLike.data().message}</p>
+                  <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}}>
+                    {messageForLike.data().message}
+                  </span>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForLike.data().date)}

@@ -90,79 +90,79 @@ return (
                         id={originalId} />
               </UserNameContainer>
               <MessageContent>
-              <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
-                {messagePinned.data().message}
-              </span>
+                <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
+                  {messagePinned.data().message}
+                </span>
               </MessageContent>
              {/*  <TimeBar>
                 {formatDate(messagePinned.data().date)}
               </TimeBar> */}
               <InteractionBarPinned>
-            <IconContainer Reply ><IconComment/></IconContainer>
-            <IconContainerCont Retweet>
-              {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
-                <RetweetButton onClick={(e)=>{
-                    e.preventDefault();
-                    e.stopPropagation();
-                    receiveNotification({
-                    notification:"retweet",
-                    id:originalId, 
-                    retweets:messagePinned.data().retweets, 
-                    originalUidUser:userByAlias[0].uidUser, 
-                    user, 
-                    currentUserInfo, 
-                    changeShowPopUp:changeShowPopUp, 
-                    changePopUpAlert:changePopUpAlert})}}>
-                  <IconRetweet/>
-                </RetweetButton>
-                :
-                <RetweetButton onClick={(e)=>{
-                  e.preventDefault();
-                  e.stopPropagation();
-                  RemoveRetweetSameUser({
-                  update,
-                  changeUpdate,
-                  currentUidUser:currentUserInfo[0].uidUser,
-                  originalRetweets:messagePinned.data().retweets, 
-                  currentMessageId:originalId})}}>
-                  <IconRetweetColor/>
-                </RetweetButton>
-              }
-              <CounterContainer>
-                {messagePinned.data().retweets.length}
-              </CounterContainer>
-            </IconContainerCont>
-            <IconContainerCont Like>
-              {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
-                <LikeButton  onClick={(e)=>{
-                  e.preventDefault();
-                  e.stopPropagation();
-                  AddLike({
-                  id:originalId,
-                  uidUser:currentUserInfo[0].uidUser,
-                  likes:messagePinned.data().likes,
-                  update,
-                  changeUpdate})}}> 
-                  <IconLike />                               
-                </LikeButton>
-                :
-                <LikeButton  onClick={(e)=>{
-                  e.preventDefault();
-                  e.stopPropagation();
-                  RemoveLike({
-                  id:originalId,
-                  uidUser:currentUserInfo[0].uidUser,
-                  likes:messagePinned.data().likes,
-                  update,
-                  changeUpdate})}}> 
-                  <IconLikeColor />                               
-                </LikeButton>
-              }
-              <CounterContainer>
-                <p>{messagePinned.data().likes.length}</p>
-              </CounterContainer>
-            </IconContainerCont>
-          </InteractionBarPinned>
+                <IconContainer Reply ><IconComment/></IconContainer>
+                <IconContainerCont Retweet>
+                  {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
+                    <RetweetButton onClick={(e)=>{
+                        e.preventDefault();
+                        e.stopPropagation();
+                        receiveNotification({
+                        notification:"retweet",
+                        id:originalId, 
+                        retweets:messagePinned.data().retweets, 
+                        originalUidUser:userByAlias[0].uidUser, 
+                        user, 
+                        currentUserInfo, 
+                        changeShowPopUp:changeShowPopUp, 
+                        changePopUpAlert:changePopUpAlert})}}>
+                      <IconRetweet/>
+                    </RetweetButton>
+                    :
+                    <RetweetButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveRetweetSameUser({
+                      update,
+                      changeUpdate,
+                      currentUidUser:currentUserInfo[0].uidUser,
+                      originalRetweets:messagePinned.data().retweets, 
+                      currentMessageId:originalId})}}>
+                      <IconRetweetColor/>
+                    </RetweetButton>
+                  }
+                  <CounterContainer>
+                    {messagePinned.data().retweets.length}
+                  </CounterContainer>
+                </IconContainerCont>
+                <IconContainerCont Like>
+                  {!messagePinned.data().likes.includes(currentUserInfo[0].uidUser)?
+                    <LikeButton  onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      AddLike({
+                      id:originalId,
+                      uidUser:currentUserInfo[0].uidUser,
+                      likes:messagePinned.data().likes,
+                      update,
+                      changeUpdate})}}> 
+                      <IconLike />                               
+                    </LikeButton>
+                    :
+                    <LikeButton  onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      RemoveLike({
+                      id:originalId,
+                      uidUser:currentUserInfo[0].uidUser,
+                      likes:messagePinned.data().likes,
+                      update,
+                      changeUpdate})}}> 
+                      <IconLikeColor />                               
+                    </LikeButton>
+                  }
+                  <CounterContainer>
+                    <p>{messagePinned.data().likes.length}</p>
+                  </CounterContainer>
+                </IconContainerCont>
+              </InteractionBarPinned>
             </CardColumns> 
           </MessageLink>
         </CardInner>

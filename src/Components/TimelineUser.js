@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
+import {useNavigate } from 'react-router-dom';
 import theme from '../Theme';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
@@ -14,7 +15,7 @@ import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
-import {Card,CardInner, PinnedInfo,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet, MessageLink} from '.././Elements/ElementsTimeline'
+import {Card,CardInner, PinnedInfo,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet, MessageLink, BarButton} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
 import {ReactComponent as IconPin} from '../img/pin_icon.svg';
@@ -41,6 +42,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
+    const navigate = useNavigate();
     console.log("TimelineUser")
  
     const formatDate = (date) => {
@@ -59,14 +61,6 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
         <> 
           {currentUserInfo[0].pinnedMessage &&
           <Card>
-            <PinnedInfo>
-              <IconContainerRetweet  >
-                <IconPin/>
-              </IconContainerRetweet>
-                <NameContainerRetweet>
-                <p>Pinned Message </p> 
-                </NameContainerRetweet>
-            </PinnedInfo>
             <PinnedMessageContainer
               update={update}
               changeUpdate={changeUpdate} 
@@ -103,7 +97,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               </>
               :
               <CardInner>
-                <MessageLink to={`/user/${currentUserInfo[0].alias}/status/${MessageUser.id}`}>
+                <MessageLink onClick={()=> navigate(`/user/${currentUserInfo[0].alias}/status/${MessageUser.id}`)}>
                   <CardColumns >
                     <PortraitContainer>
                       {currentUserInfo[0].photoURL ?
@@ -129,17 +123,22 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                         id={MessageUser.id}/>
                     </UserNameContainer>
                     <MessageContent>
-                    <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
-                    {MessageUser.message}
-                    </span>
+                      <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
+                      {MessageUser.message}
+                      </span>
                     </MessageContent>
                    {/*  <TimeBar>
                       {formatDate(MessageUser.date)}
                     </TimeBar> */}
                     <InteractionBar>
-                      <IconContainer Reply >
-                        <IconComment/>
-                      </IconContainer>
+                      <IconContainerCont>
+                        <BarButton>
+                          <IconComment/>
+                        </BarButton>
+                        <CounterContainer>
+                          <p>lol</p>
+                        </CounterContainer>
+                      </IconContainerCont>
                       <IconContainerCont Retweet>
                         {!MessageUser.retweets.includes(currentUserInfo[0].uidUser)?
                         <RetweetButton onClick={(e)=>{
