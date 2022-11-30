@@ -49,11 +49,11 @@ const MessageLink=styled.div`
   grid-template-columns: repeat(1, 1fr 12fr);
   gap:0rem;
   padding-top:${(props) => props.originalComment ? "0rem": "0"};
-  /* text-decoration:none;
+  text-decoration:none;
   -webkit-user-select: text;
   -moz-select: text;
   -ms-select: text;
-  user-select: text; */
+  user-select: text;
   :hover{
     cursor:pointer;
     background:rgba(255,255,255, 0.03);
@@ -209,7 +209,9 @@ return (
                 ""
                 }
                 <UserNameContainer>
-                  <UserNameContainerLink to={`/user/${userInfoForComment[0].alias}`}>
+                  <UserNameContainerLink 
+                    onClick={(e)=>{e.stopPropagation();}}
+                    to={`/user/${userInfoForComment[0].alias}`}>
                     {userInfoForComment[0].name}
                   </UserNameContainerLink >
                   <AliasContainer>

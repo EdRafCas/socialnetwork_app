@@ -109,7 +109,9 @@ return (
               </CardColumns>
               <CardColumns rightColumn>
                 <UserNameContainer>
-                  <UserNameContainerLink to={`/user/${userInfoForRetweet[0].alias}`}>
+                  <UserNameContainerLink 
+                  onClick={(e)=>{e.stopPropagation();}}
+                  to={`/user/${userInfoForRetweet[0].alias}`}>
                     {userInfoForRetweet[0].name}
                   </UserNameContainerLink >
                   <AliasContainer>

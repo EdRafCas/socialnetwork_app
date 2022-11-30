@@ -91,7 +91,10 @@ return (
           </CardColumns>
           <CardColumns rightColumn>
             <UserNameContainer>
-              <UserNameContainerLink to={`/user/${messageForTimeline[0].alias}`}>
+              <UserNameContainerLink 
+                onClick={(e)=>{
+                e.stopPropagation();}}
+                to={`/user/${messageForTimeline[0].alias}`}>
                 {messageForTimeline[0].name}
               </UserNameContainerLink >
               <AliasContainer>
@@ -114,30 +117,30 @@ return (
             </TimeBar> */}
             <InteractionBar>
               <IconContainerCont Reply>
-              <BarButton onClick={(e)=>{
-                  e.preventDefault();
-                  e.stopPropagation();
-                  receiveNotification({
-                  notification:"comment",
-                  messageMessage,
-                  messageForTimeline:messageForTimeline,
-                  id:id,
-                  comments:messageComments,
-                  retweets:messageRetweets,
-                  originalUidUser:messageUidUser,
-                  user,
-                  currentUserInfo,
-                  changeShowPopUp:changeShowPopUp, 
-                  changePopUpAlert:changePopUpAlert,
-                  update,
-                  changeUpdate})}}>
-                <IconComment/>
-              </BarButton>
-              <CounterContainer>
-                <p>{messageComments?
-                messageComments.length
-                :""}</p>
-              </CounterContainer>
+                <BarButton onClick={(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    receiveNotification({
+                    notification:"comment",
+                    messageMessage,
+                    messageForTimeline:messageForTimeline,
+                    id:id,
+                    comments:messageComments,
+                    retweets:messageRetweets,
+                    originalUidUser:messageUidUser,
+                    user,
+                    currentUserInfo,
+                    changeShowPopUp:changeShowPopUp, 
+                    changePopUpAlert:changePopUpAlert,
+                    update,
+                    changeUpdate})}}>
+                  <IconComment/>
+                </BarButton>
+                <CounterContainer>
+                  <p>{messageComments?
+                  messageComments.length
+                  :""}</p>
+                </CounterContainer>
               </IconContainerCont>
               <IconContainerCont Retweet>
               {!messageRetweets.includes(currentUserInfo[0].uidUser)?

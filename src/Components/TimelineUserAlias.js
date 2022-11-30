@@ -105,7 +105,9 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                   </CardColumns>
                   <CardColumns rightColumn>
                     <UserNameContainer>
-                      <UserNameContainerLink to={`/user/${userByAlias[0].alias}`}>
+                      <UserNameContainerLink 
+                      onClick={(e)=>{e.stopPropagation();}}
+                      to={`/user/${userByAlias[0].alias}`}>
                         {userByAlias[0].name}
                       </UserNameContainerLink>
                       <AliasContainer>

@@ -14,7 +14,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, InteractionBarPinned, PinnedInfo, NameContainerRetweet,IconContainerRetweet} from '../Elements/ElementsTimeline'
+import {CardInner,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, InteractionBarPinned, PinnedInfo, NameContainerRetweet,IconContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -96,7 +96,9 @@ return (
               </CardColumns>
               <CardColumns rightColumn>
                 <UserNameContainer>
-                <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`}>
+                  <UserNameContainerLink 
+                  onClick={(e)=>{e.stopPropagation();}}
+                  to={`/user/${currentUserInfo[0].alias}`}>
                     {currentUserInfo[0].alias}
                   </UserNameContainerLink >
                   <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
@@ -115,9 +117,27 @@ return (
                   {formatDate(messagePinned.data().date)}
                 </TimeBar> */}
               <InteractionBarPinned>
-                <IconContainer Reply >
-                  <IconComment/>
-                </IconContainer>
+                <IconContainerCont Reply>
+                  <BarButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      receiveNotification({
+                      notification:"comment",
+                      messageMessage:messagePinned.data().message,
+                      messageForTimeline:currentUserInfo,
+                      id:originalId,
+                      comments:messagePinned.data().comments,
+                      retweets:messagePinned.data().retweets,
+                      originalUidUser:currentUserInfo[0].uidUser,
+                      user,
+                      currentUserInfo,
+                      changeShowPopUp:changeShowPopUp, 
+                      changePopUpAlert:changePopUpAlert,
+                      update,
+                      changeUpdate})}}>
+                    <IconComment/>
+                  </BarButton>
+                </IconContainerCont>
                 <IconContainerCont Retweet>
                   {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?
                       <RetweetButton onClick={()=>receiveNotification({

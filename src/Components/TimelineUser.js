@@ -109,7 +109,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                   </CardColumns>
                   <CardColumns rightColumn>
                     <UserNameContainer>
-                      <UserNameContainerLink to={`/user/${currentUserInfo[0].alias}`} >
+                      <UserNameContainerLink 
+                        onClick={(e)=>{e.stopPropagation();}}
+                        to={`/user/${currentUserInfo[0].alias}`}>
                         {currentUserInfo[0].name}
                       </UserNameContainerLink>
                       <AliasContainer>
@@ -131,12 +133,30 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                       {formatDate(MessageUser.date)}
                     </TimeBar> */}
                     <InteractionBar>
-                      <IconContainerCont>
-                        <BarButton>
+                      <IconContainerCont Reply>
+                        <BarButton onClick={(e)=>{
+                          e.preventDefault();
+                          e.stopPropagation();
+                          receiveNotification({
+                            notification:"comment",
+                            messageMessage:MessageUser.message,
+                            messageForTimeline:currentUserInfo,
+                            id:MessageUser.id,
+                            retweets:MessageUser.retweets,
+                            comments:MessageUser.comments,
+                            originalUidUser:MessageUser.uidUser,
+                            user,
+                            currentUserInfo,
+                            changeShowPopUp:changeShowPopUp, 
+                            changePopUpAlert:changePopUpAlert,
+                            update,
+                            changeUpdate})}}>
                           <IconComment/>
                         </BarButton>
                         <CounterContainer>
-                          <p>lol</p>
+                        <p>{MessageUser.comments?
+                            MessageUser.comments.length
+                            :""}</p>
                         </CounterContainer>
                       </IconContainerCont>
                       <IconContainerCont Retweet>

@@ -148,7 +148,10 @@ return (
               </CardColumns>
               <CardColumns rightColumn>
                 <UserNameContainer>
-                  <UserNameContainerLink to={`/user/${userInfoForQuote[0].alias}`}>
+                  <UserNameContainerLink 
+                    onClick={(e)=>{
+                    e.stopPropagation();}}
+                    to={`/user/${userInfoForQuote[0].alias}`}>
                     {userInfoForQuote[0].name}
                   </UserNameContainerLink >
                   <AliasContainer>

@@ -231,6 +231,7 @@ const IconContainerCont=styled.div`
   }
   :hover{
     button{
+      cursor:pointer;
       background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
                          : props.Like ? `${theme.PinkLikeBackground}` 
                          : props.Retweet ? `${theme.GreenRetweetBackground}` 
@@ -336,6 +337,7 @@ const UserNameContainerLink =styled(Link)`
   font-weight:1000;
   color:white;
   overflow:hidden;
+  z-index:81;
   :hover{
     text-decoration:underline;
   }
