@@ -18,18 +18,15 @@ const MessageContainer = styled.div`
       /* border-bottom:solid ${theme.BorderColor} 1px; */
 `
 const CreateMessageForm =styled.form`
-
-      padding-top:1rem; 
       display:grid;
       width:100%;
       grid-template-columns: repeat(1, 1fr 12fr);
       /* border:solid ${theme.BorderColor} 1px; */
       gap:0rem;
-      padding-top:${(props) => props.originalComment ? "0rem": "0"};
       /* background:black; */
       text-decoration:none;
 `
-const TopBar =styled.form`
+const TopBar =styled.div`
       display:grid;
       width:100%;
       grid-template-columns: repeat(1, 1fr 12fr);
@@ -45,7 +42,7 @@ const HeaderUser =styled.div`
       gap:1rem;
 `
 const MessageUser =styled.textarea`
-      padding:0.5rem;
+      padding:0.5rem 0rem;
       font-size:1.5rem;
       text-align:justify;
       white-space:normal;
@@ -69,9 +66,8 @@ const ButtonContainer=styled.div`
 `
 const Buttons=styled.div`
      /*  border:solid ${theme.BorderColor} 1px; */
-      padding-right:1rem;
-      padding-bottom:1rem;
-      padding-top:1rem;
+      padding:0rem;
+      padding-bottom:0.5rem;
       gap:0.5rem;
       display:flex;
       flex-direction:row;
@@ -113,6 +109,7 @@ const ButtonExcess =styled.button`
 const CardColumns = styled.div`
       position:relative;
       padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
+      padding-right: 0.5rem;
       padding-top:0.5rem;              
       /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
       padding-bottom: 0;
@@ -126,30 +123,19 @@ const CardColumns = styled.div`
       gap:0;
 `
 const EmptyDivColumn=styled.div`
+
+      min-width:4rem;
       height:1.2rem;
       width:100%;
       /* border:solid ${theme.BorderColor} 1px; */
 `
-const CardInner =styled.div`
-      display:flex;
-      flex-direction:column;
-      border:none;
-      /* border-top:solid ${theme.BorderColor} 1px; */
-      /* border-bottom:solid ${theme.BorderColor} 1px; */
-      gap:0rem;
-      padding-top:0rem;
-      z-index:100;
-      /*  :hover{
-      pointer-events: auto;
-      background:rgba(255,255,255, 0.03);
-      } */
-`
+
 const UserNameContainerQuoted =styled.div`
   width:100%;
   height:2rem;
   padding:0;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
- /*  border:solid ${theme.BorderColor} 1px; */
+  /* border:solid ${theme.BorderColor} 1px; */
   display:flex;
   flex-direction:row;
   justify-content:flex-start;

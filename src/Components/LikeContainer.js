@@ -38,18 +38,6 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-/* const MessageLink=styled(Link)`
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  border-bottom:solid ${theme.BorderColor} 1px;
-  border-radius:15px;
-  gap:0rem;
-  padding-top:0.5rem;
-  background:black;
-  text-decoration:none;
-  z-index:99;
-` */
 const EmptyDiv =styled.div`
   visibility:hidden
   display:none;
@@ -113,7 +101,9 @@ return (
               </CardColumns>
               <CardColumns rightColumn>
                 <UserNameContainer>
-                  <UserNameContainerLink to={`/user/${userInfoForLike[0].alias}`}>
+                  <UserNameContainerLink 
+                    onClick={(e)=>{e.stopPropagation();}}
+                    to={`/user/${userInfoForLike[0].alias}`}>
                     {userInfoForLike[0].alias}
                   </UserNameContainerLink >
                   <AliasContainer>

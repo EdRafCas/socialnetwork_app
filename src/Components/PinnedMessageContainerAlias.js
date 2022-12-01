@@ -14,7 +14,7 @@ import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {MessageLink,CardInner, CardColumns, UserNameContainer,UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, InteractionBarPinned,PinnedInfo, IconContainerRetweet, NameContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
+import {MessageLink,CardInner, CardColumns, UserNameContainer,UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, InteractionBar,PinnedInfo, IconContainerRetweet, NameContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -103,7 +103,7 @@ return (
              {/*  <TimeBar>
                 {formatDate(messagePinned.data().date)}
               </TimeBar> */}
-              <InteractionBarPinned>
+              <InteractionBar>
               <IconContainerCont Reply>
                   <BarButton onClick={(e)=>{
                       e.preventDefault();
@@ -188,7 +188,7 @@ return (
                     <p>{messagePinned.data().likes.length}</p>
                   </CounterContainer>
                 </IconContainerCont>
-              </InteractionBarPinned>
+              </InteractionBar>
             </CardColumns> 
           </MessageLink>
         </CardInner>

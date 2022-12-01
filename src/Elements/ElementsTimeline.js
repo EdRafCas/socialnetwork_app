@@ -35,23 +35,6 @@ const CardInner =styled.div`
     background:rgba(255,255,255, 0.03);
   }
 `
-/* const MessageLink=styled(Link)`
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  border-bottom:solid ${theme.BorderColor} 1px;
-  border-radius:15px;
-  gap:0rem;
-  padding-top:0.5rem;
-  background:black;
-  text-decoration:none;
-  z-index:99;
-  :hover{
-    pointer-events: auto;
-    background:rgba(255,255,255, 0.03);
-  }
-` */
-
 const MessageLink=styled.div`
   display:grid;
   width:100%;
@@ -61,6 +44,7 @@ const MessageLink=styled.div`
                         : props.Like ? `0rem`
                         : props.Retweet ? `0rem` 
                         : "12px"};
+  padding-bottom:0;
   /* background:black; */
   text-decoration:none;
   z-index:80;

@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {AliasContainer} from '../Elements/ElementsFormulary';
+import {AliasContainer,PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner, UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar,InteractionBar, LikeButton, BarButton,MessageLink} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -41,48 +41,12 @@ const RetweetButton=styled.button`
   }
 `
 
-const MessageLink=styled.div`
-  height:auto;
-  z-index:100;
-  display:grid;
-  width:100%;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  gap:0rem;
-  padding-top:${(props) => props.originalComment ? "0rem": "0"};
-  text-decoration:none;
-  -webkit-user-select: text;
-  -moz-select: text;
-  -ms-select: text;
-  user-select: text;
-  :hover{
-    cursor:pointer;
-    background:rgba(255,255,255, 0.03);
-  }
-`
 const EmptyDiv =styled.div`
 visibility:hidden
 display:none;
 overflow:hidden;
 `
-const LeftColumn=styled.div`
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  min-height:9rem;
-  /* border:solid ${theme.BluePinned} 1px; */
-  gap:3px;
-`
-const RightColumn=styled.div`
-  display:flex;
-  flex-direction:column;
-  width:100%;
-  padding-top:${(props)=> props.reply ? "1rem"
-                                      : "0rem"};
-  min-height:9rem;
-  gap:10px;
-  /* border:solid ${theme.BorderColor} 1px; */
-`
+
 const EmptyDivColumn=styled.div`
   height:0.5rem;
   width:100%;
@@ -94,24 +58,12 @@ const StraightLine2=styled.div`
   border:solid ${theme.BorderColor} 1px;
   background-color: rgb(51, 54, 57);
 `
-const InteractionBar=styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content:space-around;
-  /* border:solid ${theme.BorderColor} 1px; */
-  width:100%;
-  max-height:6rem;
-  padding-top:0rem;
-  padding-bottom:0rem;
-  margin-top:0.5rem;
-  z-index:98;
-`
 const CardColumns = styled.div`
   padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
   padding-top:${(props) => props.originalComment ? "0.5rem":
                            props.rightColumn ? "0.5rem": "0"};
   /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
-  padding-bottom: 0;
+  padding-bottom: ${(props) => props.rightColumn && "0.5rem"};
   margin:0;
   display:flex;
   flex-direction:column;
@@ -121,24 +73,7 @@ const CardColumns = styled.div`
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0rem;
 `
-const PortraitContainer =styled.div`
-  /* border: solid red 1px; */
-  padding:0;
-  width:100%;
-  border-radius:50%;
-  height:auto;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  width:3rem;
-  min-height:3rem;
-  height:3rem;
-  flex-direction:column;
-  overflow:hidden;
-  img{
-    width:100%;
-  }
-`
+
 
 
 const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentId, originalMessageComments, TimelineComment}) => {
@@ -187,7 +122,7 @@ return (
         <>
           {messageForComment.exists() ?
           <>
-            <MessageLink  onClick={()=> navigate(`/user/${userInfoForComment[0].alias}/status/${commentId}`)}>
+            <MessageLink  Reply onClick={()=> navigate(`/user/${userInfoForComment[0].alias}/status/${commentId}`)}>
               <CardColumns>
                 {!TimelineComment ?
                 <StraightLine2/>

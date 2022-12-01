@@ -14,7 +14,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, InteractionBarPinned, PinnedInfo, NameContainerRetweet,IconContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner,CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, InteractionBar, PinnedInfo, NameContainerRetweet,IconContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -116,7 +116,7 @@ return (
                {/*  <TimeBar>
                   {formatDate(messagePinned.data().date)}
                 </TimeBar> */}
-              <InteractionBarPinned>
+              <InteractionBar>
                 <IconContainerCont Reply>
                   <BarButton onClick={(e)=>{
                       e.preventDefault();
@@ -189,7 +189,7 @@ return (
                     <p>{messagePinned.data().likes.length}</p>
                   </CounterContainer>
                 </IconContainerCont>
-              </InteractionBarPinned>
+              </InteractionBar>
               </CardColumns>
             </MessageLink>
           </CardInner>
