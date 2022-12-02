@@ -45,8 +45,9 @@ return (
         {messageForBookMark.exists()?
         <BookmarkTimeline 
           date={messageForBookMark.data().date}
-          likes={messageForBookMark.data().likes}
+          comments={messageForBookMark.data().comments}
           retweets={messageForBookMark.data().retweets}
+          likes={messageForBookMark.data().likes}
           message={messageForBookMark.data().message}
           uidUser={messageForBookMark.data().uidUser}
           id={id}

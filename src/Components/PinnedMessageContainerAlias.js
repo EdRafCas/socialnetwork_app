@@ -60,7 +60,7 @@ const PinnedMessageContainerAlias = ({ userByAlias, originalId, user, changeShow
 return ( 
         <>
         {!loadingPinned ?
-        <CardInner Reply>
+        <CardInner Pinned>
           <PinnedInfo>
             <IconContainerRetweet  >
               <IconPin/>

@@ -57,8 +57,7 @@ const InteractionBar=styled.div`
 `
 const CardColumns = styled.div`
   padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
-  padding-top:${(props) => props.originalComment ? "0.5rem":
-                           props.rightColumn ? "0.5rem": "0"};
+  padding-top:0;
   /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
   padding-bottom: 0;
   margin:0;
@@ -134,8 +133,8 @@ return (
         {!loadingQuoted ?
         <>
           {quotedMessage.exists() ?
-          <CardInner Reply>
-            <MessageLink Reply onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
+          <CardInner >
+            <MessageLink  onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
               <CardColumns originalComment>
                 <PortraitContainer>
                   {userInfoForQuote[0].photoURL ?

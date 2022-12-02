@@ -92,8 +92,8 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
                 />
               </>
               :
-              <CardInner Reply>
-                <MessageLink Reply onClick={()=> navigate(`/user/${userByAlias[0].alias}/status/${MessageUser.id}`)}>
+              <CardInner >
+                <MessageLink  onClick={()=> navigate(`/user/${userByAlias[0].alias}/status/${MessageUser.id}`)}>
                   <CardColumns>
                     <PortraitContainer>
                       {userByAlias[0].photoURL ?

@@ -25,10 +25,11 @@ const CardInner =styled.div`
   border-bottom:solid ${theme.BorderColor} 1px;
   gap:0rem;
   padding-top:${(props)=> props.Reply ? `0.5rem`
-                        : props.Like ? `0.5rem`
-                        : props.Retweet ? `0.5rem` 
+                        : props.Like ? `12px`
+                        : props.Retweet ? `12px` 
+                        : props.Pinned ? `12px` 
                         : "0rem"};
-  z-index:100;
+  z-index:80;
   :hover{
     pointer-events: auto;
     cursor:pointer;
@@ -84,7 +85,7 @@ const UserColumns=styled.div`
 const CardColumns = styled.div`
   padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
   padding-top: 0rem;
-  padding-right: ${(props) => props.rightColumn && "0.5rem"};
+  padding-right: ${(props) => props.rightColumn && "0"};
   padding-bottom: ${(props) => props.rightColumn && "0.5rem"};
   margin:0;
   display:flex;

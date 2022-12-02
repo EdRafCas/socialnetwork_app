@@ -75,7 +75,7 @@ return (
         {!loadingPinned ?
         <>
           {messagePinned.exists() ?
-          <CardInner Reply>
+          <CardInner Pinned>
             <PinnedInfo>
               <IconContainerRetweet  >
                 <IconPin/>

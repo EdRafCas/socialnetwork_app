@@ -101,6 +101,7 @@ return (
                 @{messageForTimeline[0].alias}
               </AliasContainer>
               <ShowMoreMenu 
+                onClick={(e)=>{e.preventDefault();e.stopPropagation()}}
                 changeAlert={changeAlert}
                 changeStateAlert={changeStateAlert}
                 messageUidUser={messageUidUser} 
