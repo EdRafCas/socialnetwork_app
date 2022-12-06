@@ -24,6 +24,7 @@ const IconMore=styled.div`
   width:2.5rem;
   /* border:1px solid white; */
   fill:currentcolor;
+  z-index:80;
   :hover{
     background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
                          : props.Like ? `${theme.PinkLikeBackground}` 
@@ -50,27 +51,29 @@ const OptionsCard =styled.div`
   right:5px;
   top:2rem;
   position:absolute;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
+  border-radius:12px;
   background:black;
   width:auto;
   height:auto;
-  padding:5px;
-  padding-right:15px;
-  background:black;
+  padding:0px;
+  background:#000;
   opacity:1;
   color:${theme.Text};
   z-index:100;
 `
+
 const Option =styled.div`
   width:auto;
   gap:10px;
+  padding-right:5px;
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
   align-items:center;
   z-index:101;
-  /* background:white;
-  border:solid ${theme.BorderColor} 1px; */
+   background:white;
+  /*border:solid ${theme.BorderColor} 1px; */
   cursor: pointer;
   :hover{
     background:rgba(255,255,255, 0.2);
@@ -88,6 +91,7 @@ const IconContainer=styled.div`
   width:2.5rem;
   /* border:1px solid white; */
   fill:currentcolor;
+  z-index:100;
   svg{
     max-height:1.2rem;
     stroke: ${theme.BorderColor};
@@ -102,6 +106,7 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
       
       const handleClick = (e) => {
         e.preventDefault();
+        e.stopPropagation();
         setOpen((prev) => !prev);
       };
 
@@ -126,7 +131,9 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               {messageUidUser===currentUserInfo[0].uidUser ?
               <>
                 {pinnedMenu===true ?
-                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  <Option onClick={(e)=>{e.stopPropagation();
+                    e.preventDefault(); 
+                    receiveNotification({
                     notification:"deleteAndRemove",
                     changeShowPopUp, 
                     changePopUpAlert,
@@ -140,7 +147,10 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                 : 
                   <>
                   {commentInnerMenu===true ?
-                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  <Option onClick={(e)=>{
+                    e.stopPropagation();
+                    e.preventDefault(); 
+                    receiveNotification({
                     notification:"deleteComment",
                     changeShowPopUp, 
                     changePopUpAlert,
@@ -154,7 +164,9 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                     <p>Delete Message</p>
                   </Option>
                   :
-                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  <Option onClick={(e)=>{e.stopPropagation();
+                    e.preventDefault(); 
+                    receiveNotification({
                     notification:"delete",
                     changeShowPopUp, 
                     changePopUpAlert,
@@ -174,7 +186,9 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               {messageUidUser===currentUserInfo[0].uidUser ?
               <>
                 {pinnedMenu===true ?
-                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  <Option onClick={(e)=>{e.stopPropagation();
+                    e.preventDefault(); 
+                    receiveNotification({
                     notification:"unPin", 
                     changeShowPopUp, 
                     changePopUpAlert,
@@ -186,7 +200,9 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
                     <p>UnPin Message</p>
                   </Option>
                   :
-                  <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                  <Option onClick={(e)=>{e.stopPropagation();
+                    e.preventDefault(); 
+                    receiveNotification({
                     notification:"pinned", 
                     changeShowPopUp, 
                     changePopUpAlert,
@@ -202,7 +218,9 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               :""
               }
               {!currentUserInfo[0].bookmarks.includes(id)?
-              <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+              <Option onClick={(e)=>{e.stopPropagation();
+                e.preventDefault(); 
+                receiveNotification({
                 notification:"bookmark", 
                 changeShowPopUp, 
                 changePopUpAlert,
@@ -219,7 +237,9 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               :
               <>
               {!bookmarkTimeline === true ?
-                <Option onClick={(e)=>{e.preventDefault(); receiveNotification({
+                <Option onClick={(e)=>{e.stopPropagation();
+                  e.preventDefault(); 
+                  receiveNotification({
                   notification:"alreadyBookmark",
                   changeShowPopUp, 
                   changePopUpAlert,
@@ -236,7 +256,9 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
               </>
               }
               {bookmarkTimeline &&
-               <Option onClick={(e)=>{e.preventDefault(); RemoveFromBookMark({
+               <Option onClick={(e)=>{e.stopPropagation();
+                e.preventDefault(); 
+                RemoveFromBookMark({
                 changeShowPopUp, 
                 changePopUpAlert,
                 changeAlert, 

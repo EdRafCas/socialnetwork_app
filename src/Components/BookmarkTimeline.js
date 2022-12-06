@@ -136,7 +136,8 @@ return (
               <IconComment/>
             </BarButton>
             <CounterContainer>
-              <p>lol</p>
+              <p>{comments.length? comments.length
+              :""}</p>
             </CounterContainer>
           </IconContainerCont>
           <IconContainerCont Retweet>

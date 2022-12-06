@@ -41,6 +41,9 @@ visibility:hidden
 display:none;
 overflow:hidden;
 `
+const Container=styled.div`
+z-index:100;
+`
 
 
 const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage,messageComments, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
@@ -100,13 +103,14 @@ return (
               <AliasContainer>
                 @{messageForTimeline[0].alias}
               </AliasContainer>
+              <Container >
               <ShowMoreMenu 
-                onClick={(e)=>{e.preventDefault();e.stopPropagation()}}
                 changeAlert={changeAlert}
                 changeStateAlert={changeStateAlert}
                 messageUidUser={messageUidUser} 
                 currentUserInfo={currentUserInfo}
                 id={id} />
+              </Container>
             </UserNameContainer>
             <MessageContent>
               <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >
