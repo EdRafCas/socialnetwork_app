@@ -103,14 +103,12 @@ return (
               <AliasContainer>
                 @{messageForTimeline[0].alias}
               </AliasContainer>
-              <Container >
               <ShowMoreMenu 
                 changeAlert={changeAlert}
                 changeStateAlert={changeStateAlert}
                 messageUidUser={messageUidUser} 
                 currentUserInfo={currentUserInfo}
                 id={id} />
-              </Container>
             </UserNameContainer>
             <MessageContent>
               <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >

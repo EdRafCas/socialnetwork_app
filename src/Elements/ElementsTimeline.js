@@ -29,11 +29,11 @@ const CardInner =styled.div`
                         : props.Retweet ? `12px` 
                         : props.Pinned ? `12px` 
                         : "0rem"};
-  z-index:80;
+  z-index:1;                   
   :hover{
-    pointer-events: auto;
-    cursor:pointer;
-    background:rgba(255,255,255, 0.03);
+    /* pointer-events: auto; */
+    /* cursor:pointer; */
+    /* background:rgba(255,255,255, 0.03); */
   }
 `
 const MessageLink=styled.div`
@@ -48,9 +48,9 @@ const MessageLink=styled.div`
   padding-bottom:0;
   /* background:black; */
   text-decoration:none;
-  z-index:80;
+  z-index:2;
   :hover{
-    cursor:pointer;
+    /* cursor:pointer; */
   /*   background:rgba(255,255,255, 0.03); */
   }
 `
@@ -309,14 +309,10 @@ const NameContainerRetweet = styled.div`
 `
 
 const UserNameContainerLink =styled(Link)`
-  width:auto;
-  padding:0rem;
+  width: fit-content;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
- /*  border:solid ${theme.BorderColor} 1px; */
-  display:flex;
-  flex-direction:row;
+  /* border:solid ${theme.BorderColor} 1px; */
   gap:5px;
-  position:relative;
   text-decoration:none;
   font-size:1.1rem;
   font-weight:1000;
@@ -328,7 +324,7 @@ const UserNameContainerLink =styled(Link)`
   }
 `
 const UserNameContainerLinkQuoted =styled(Link)`
-  width:auto;
+  width:fit-content;
   padding:0rem;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
  /*  border:solid ${theme.BorderColor} 1px; */

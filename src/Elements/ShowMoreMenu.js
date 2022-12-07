@@ -15,21 +15,21 @@ import { RemoveFromBookMark } from '../firebase/UpdateProfile';
 const IconMore=styled.div`
   position: absolute;
   right: 5px;
-  top:-10px;
+  top:0px;
   border-radius:50%;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:2.5rem;
-  width:2.5rem;
-  /* border:1px solid white; */
+  height:4.5rem;
+  width:4.5rem;
+  border:1px solid white;
   fill:currentcolor;
-  z-index:80;
+  z-index:100;
   :hover{
     background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
                          : props.Like ? `${theme.PinkLikeBackground}` 
                          : props.Retweet ? `${theme.GreenRetweetBackground}` 
-                         : "auto"};
+                         : ""};
     svg{
       /* max-height:3rem; */
       stroke: ${(props)=> props.Reply ? `${theme.BlueReply}`
@@ -39,18 +39,21 @@ const IconMore=styled.div`
     }
   }
   svg{
-    max-height:1.2rem;
+    border:1px solid white;
+    max-height:2.5rem;
     stroke: ${theme.BorderColor};
   }
   :active{
     background:rgb(29,155,240, 0.2);
     fill:black;
+    stroke:#000
   }
 `
 const OptionsCard =styled.div`
   right:5px;
-  top:2rem;
+  top:1rem;
   position:absolute;
+  overflow:hidden;
   /* border:solid ${theme.BorderColor} 1px; */
   border-radius:12px;
   background:black;
@@ -60,7 +63,7 @@ const OptionsCard =styled.div`
   background:#000;
   opacity:1;
   color:${theme.Text};
-  z-index:100;
+  z-index:101;
 `
 
 const Option =styled.div`
@@ -127,154 +130,154 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
             <IconMoreOptions type="button" onClick={handleClick}/>
           </IconMore>
           {open ? (
-            <OptionsCard >
-              {messageUidUser===currentUserInfo[0].uidUser ?
-              <>
-                {pinnedMenu===true ?
-                  <Option onClick={(e)=>{e.stopPropagation();
-                    e.preventDefault(); 
-                    receiveNotification({
-                    notification:"deleteAndRemove",
-                    changeShowPopUp, 
-                    changePopUpAlert,
-                    userId:currentUserInfo[0].id,
-                    id})}}>
-                    <IconContainer >
-                      <IconDelete/>
-                    </IconContainer>
-                    <p>Delete Pinned Message</p>
-                  </Option>
-                : 
-                  <>
-                  {commentInnerMenu===true ?
-                  <Option onClick={(e)=>{
-                    e.stopPropagation();
-                    e.preventDefault(); 
-                    receiveNotification({
-                    notification:"deleteComment",
-                    changeShowPopUp, 
-                    changePopUpAlert,
-                    id,
-                    originalId,
-                    originalUidUser, 
-                    originalMessageComments})}}>
-                    <IconContainer >
-                      <IconDelete/>
-                    </IconContainer>
-                    <p>Delete Message</p>
-                  </Option>
-                  :
-                  <Option onClick={(e)=>{e.stopPropagation();
-                    e.preventDefault(); 
-                    receiveNotification({
-                    notification:"delete",
-                    changeShowPopUp, 
-                    changePopUpAlert,
-                    id})}}>
-                    <IconContainer >
-                      <IconDelete/>
-                    </IconContainer>
-                    <p>Delete Message</p>
-                  </Option>
-                  }
-                  </> 
+          <OptionsCard >
+            {messageUidUser===currentUserInfo[0].uidUser ?
+            <>
+              {pinnedMenu===true ?
+                <Option onClick={(e)=>{e.stopPropagation();
+                  e.preventDefault(); 
+                  receiveNotification({
+                  notification:"deleteAndRemove",
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  userId:currentUserInfo[0].id,
+                  id})}}>
+                  <IconContainer >
+                    <IconDelete/>
+                  </IconContainer>
+                  <p>Delete Pinned Message</p>
+                </Option>
+              : 
+                <>
+                {commentInnerMenu===true ?
+                <Option onClick={(e)=>{
+                  e.stopPropagation();
+                  e.preventDefault(); 
+                  receiveNotification({
+                  notification:"deleteComment",
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  id,
+                  originalId,
+                  originalUidUser, 
+                  originalMessageComments})}}>
+                  <IconContainer >
+                    <IconDelete/>
+                  </IconContainer>
+                  <p>Delete Message</p>
+                </Option>
+                :
+                <Option onClick={(e)=>{e.stopPropagation();
+                  e.preventDefault(); 
+                  receiveNotification({
+                  notification:"delete",
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  id})}}>
+                  <IconContainer >
+                    <IconDelete/>
+                  </IconContainer>
+                  <p>Delete Message</p>
+                </Option>
                 }
-              </>
-              :
-                ""
+                </> 
               }
-              {messageUidUser===currentUserInfo[0].uidUser ?
-              <>
-                {pinnedMenu===true ?
-                  <Option onClick={(e)=>{e.stopPropagation();
-                    e.preventDefault(); 
-                    receiveNotification({
-                    notification:"unPin", 
-                    changeShowPopUp, 
-                    changePopUpAlert,
-                    userId:currentUserInfo[0].id, 
-                    id })}}>
-                    <IconContainer>
-                      <IconPin/>
-                    </IconContainer>
-                    <p>UnPin Message</p>
-                  </Option>
-                  :
-                  <Option onClick={(e)=>{e.stopPropagation();
-                    e.preventDefault(); 
-                    receiveNotification({
-                    notification:"pinned", 
-                    changeShowPopUp, 
-                    changePopUpAlert,
-                    userId:currentUserInfo[0].id, 
-                    id })}}>
-                    <IconContainer>
-                      <IconPin/>
-                    </IconContainer>
-                    <p>Pin Message</p>
-                  </Option>
-                }
-              </>
-              :""
+            </>
+            :
+              ""
+            }
+            {messageUidUser===currentUserInfo[0].uidUser ?
+            <>
+              {pinnedMenu===true ?
+                <Option onClick={(e)=>{e.stopPropagation();
+                  e.preventDefault(); 
+                  receiveNotification({
+                  notification:"unPin", 
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  userId:currentUserInfo[0].id, 
+                  id })}}>
+                  <IconContainer>
+                    <IconPin/>
+                  </IconContainer>
+                  <p>UnPin Message</p>
+                </Option>
+                :
+                <Option onClick={(e)=>{e.stopPropagation();
+                  e.preventDefault(); 
+                  receiveNotification({
+                  notification:"pinned", 
+                  changeShowPopUp, 
+                  changePopUpAlert,
+                  userId:currentUserInfo[0].id, 
+                  id })}}>
+                  <IconContainer>
+                    <IconPin/>
+                  </IconContainer>
+                  <p>Pin Message</p>
+                </Option>
               }
-              {!currentUserInfo[0].bookmarks.includes(id)?
+            </>
+            :""
+            }
+            {!currentUserInfo[0].bookmarks.includes(id)?
+            <Option onClick={(e)=>{e.stopPropagation();
+              e.preventDefault(); 
+              receiveNotification({
+              notification:"bookmark", 
+              changeShowPopUp, 
+              changePopUpAlert,
+              changeAlert, 
+              changeStateAlert,
+              userId:currentUserInfo[0].id,
+              bookmarks:currentUserInfo[0].bookmarks,
+              id })}}>
+            <IconContainer>
+              <IconBookmark/>
+            </IconContainer>
+            <p>Bookmark Message</p>
+            </Option>
+            :
+            <>
+            {!bookmarkTimeline === true ?
               <Option onClick={(e)=>{e.stopPropagation();
                 e.preventDefault(); 
                 receiveNotification({
-                notification:"bookmark", 
+                notification:"alreadyBookmark",
                 changeShowPopUp, 
                 changePopUpAlert,
                 changeAlert, 
-                changeStateAlert,
-                userId:currentUserInfo[0].id,
-                bookmarks:currentUserInfo[0].bookmarks,
-                id })}}>
+                changeStateAlert})}}>
               <IconContainer>
                 <IconBookmark/>
               </IconContainer>
               <p>Bookmark Message</p>
               </Option>
               :
-              <>
-              {!bookmarkTimeline === true ?
-                <Option onClick={(e)=>{e.stopPropagation();
-                  e.preventDefault(); 
-                  receiveNotification({
-                  notification:"alreadyBookmark",
-                  changeShowPopUp, 
-                  changePopUpAlert,
-                  changeAlert, 
-                  changeStateAlert})}}>
-                <IconContainer>
-                  <IconBookmark/>
-                </IconContainer>
-                <p>Bookmark Message</p>
-                </Option>
-                :
-                ""
-                }
-              </>
+              ""
               }
-              {bookmarkTimeline &&
-               <Option onClick={(e)=>{e.stopPropagation();
-                e.preventDefault(); 
-                RemoveFromBookMark({
-                changeShowPopUp, 
-                changePopUpAlert,
-                changeAlert, 
-                changeStateAlert,
-                update,
-                changeUpdate,
-                userId:currentUserInfo[0].id,
-                bookmarks:currentUserInfo[0].bookmarks,
-                id})}}>
-              <IconContainer>
-                <IconBookmark/>
-              </IconContainer>
-              <p>Remove from Bookmark</p>
-              </Option>
-              }
-            </OptionsCard>
+            </>
+            }
+            {bookmarkTimeline &&
+              <Option onClick={(e)=>{e.stopPropagation();
+              e.preventDefault(); 
+              RemoveFromBookMark({
+              changeShowPopUp, 
+              changePopUpAlert,
+              changeAlert, 
+              changeStateAlert,
+              update,
+              changeUpdate,
+              userId:currentUserInfo[0].id,
+              bookmarks:currentUserInfo[0].bookmarks,
+              id})}}>
+            <IconContainer>
+              <IconBookmark/>
+            </IconContainer>
+            <p>Remove from Bookmark</p>
+            </Option>
+            }
+          </OptionsCard>
           ) : null}
         </div> 
       </ClickAwayListener>  

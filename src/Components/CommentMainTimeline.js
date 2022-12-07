@@ -148,21 +148,20 @@ return (
               <CardColumns rightColumn>
                 <UserNameContainer>
                   <UserNameContainerLink 
-                    onClick={(e)=>{
-                    e.stopPropagation();}}
+                    onClick={(e)=>{e.stopPropagation();}}
                     to={`/user/${userInfoForQuote[0].alias}`}>
                     {userInfoForQuote[0].name}
                   </UserNameContainerLink >
                   <AliasContainer>
                     @{userInfoForQuote[0].alias}
                   </AliasContainer>
-                    <ShowMoreMenu 
-                      changeAlert={changeAlert}
-                      changeStateAlert={changeStateAlert}
-                      messageUidUser={quotedMessage.data().uidUser} 
-                      currentUserInfo={currentUserInfo}
-                      id={originalId}
-                      originalMessageComments={quotedMessage.data().comments} />
+                  <ShowMoreMenu 
+                    changeAlert={changeAlert}
+                    changeStateAlert={changeStateAlert}
+                    messageUidUser={quotedMessage.data().uidUser} 
+                    currentUserInfo={currentUserInfo}
+                    id={originalId}
+                    originalMessageComments={quotedMessage.data().comments} />
                 </UserNameContainer>
                 <MessageContent>
                 <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>

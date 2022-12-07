@@ -121,7 +121,6 @@ return (
         {!loadingComment ?
         <>
           {messageForComment.exists() ?
-          <>
             <MessageLink  Reply onClick={()=> navigate(`/user/${userInfoForComment[0].alias}/status/${commentId}`)}>
               <CardColumns>
                 {!TimelineComment ?
@@ -152,16 +151,16 @@ return (
                   <AliasContainer>
                     @{userInfoForComment[0].alias}
                   </AliasContainer>
-                    <ShowMoreMenu 
-                      commentInnerMenu
-                      changeAlert={changeAlert}
-                      changeStateAlert={changeStateAlert}
-                      messageUidUser={messageForComment.data().uidUser} 
-                      currentUserInfo={currentUserInfo}
-                      id={commentId}
-                      originalId={originalId}
-                      originalMessageComments={originalMessageComments}
-                      originalUidUser={originalUidUser} />
+                  <ShowMoreMenu 
+                    commentInnerMenu
+                    changeAlert={changeAlert}
+                    changeStateAlert={changeStateAlert}
+                    messageUidUser={messageForComment.data().uidUser} 
+                    currentUserInfo={currentUserInfo}
+                    id={commentId}
+                    originalId={originalId}
+                    originalMessageComments={originalMessageComments}
+                    originalUidUser={originalUidUser} />
                 </UserNameContainer>
                 <UserNameContainerQuoted>
                   <p>Replying to</p>
@@ -304,7 +303,6 @@ return (
               </InteractionBar>
               </CardColumns> 
             </MessageLink>
-          </>
           :
           <EmptyDiv/>
           }

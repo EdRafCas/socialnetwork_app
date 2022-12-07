@@ -123,7 +123,8 @@ const UserNameContainerMessage =styled.div`
       /* border:solid red 1px; */
       display:flex;
       flex-direction:column;
-      justify-content:center;
+      justify-content:flex-start;
+      align-content:left;
       gap:5px;
 `
 const InteractionBarMessage=styled.div`

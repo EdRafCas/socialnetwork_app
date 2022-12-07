@@ -44,10 +44,9 @@ const BarButton=styled.button`
 
 
 const MessageLink=styled.div`
-  height:auto;
-  z-index:100;
-  display:grid;
+  z-index:2;
   width:100%;
+  display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
   gap:0rem;
   padding-top:${(props) => props.originalComment ? "0rem": "0"};
@@ -57,8 +56,8 @@ const MessageLink=styled.div`
   -ms-select: text;
   user-select: text; */
   :hover{
-    cursor:pointer;
-    background:rgba(255,255,255, 0.03);
+    /* cursor:pointer;
+    background:rgba(255,255,255, 0.03); */
   }
 `
 
@@ -133,7 +132,7 @@ const CardInner =styled.div`
   /* border-bottom:solid ${theme.BorderColor} 1px; */
   gap:0rem;
   padding-top:0rem;
-  z-index:100;
+  z-index:1;
  /*  :hover{
     pointer-events: auto;
     background:rgba(255,255,255, 0.03);
