@@ -11,6 +11,7 @@ import { doc, getDoc, query, collection, where, limit, onSnapshot } from "fireba
 
 
 const RetweetLink = styled(Link)`
+  width:fit-content;
   display:flex;
   flex-direction:row;
   justify-content:flex-start;

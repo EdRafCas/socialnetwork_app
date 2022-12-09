@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {AliasContainer} from '../Elements/ElementsFormulary';
+import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,MessageLink, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner,MessageLink, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -43,18 +43,7 @@ const EmptyDivColumn=styled.div`
   width:100%;
   /* border:solid ${theme.BorderColor} 1px; */
 `
-const InteractionBar=styled.div`
-  display:flex;
-  flex-direction:row;
-  justify-content:space-around;
-  /* border:solid ${theme.BorderColor} 1px; */
-  width:100%;
-  max-height:6rem;
-  padding-top:0rem;
-  padding-bottom:0rem;
-  margin-top:0.5rem;
-  z-index:98;
-`
+
 const CardColumns = styled.div`
   padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
   padding-top:0;
@@ -69,24 +58,7 @@ const CardColumns = styled.div`
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0rem;
 `
-const PortraitContainer =styled.div`
-  /* border: solid red 1px; */
-  padding:0;
-  width:100%;
-  border-radius:50%;
-  height:auto;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  width:3rem;
-  min-height:3rem;
-  height:3rem;
-  flex-direction:column;
-  overflow:hidden;
-  img{
-    width:100%;
-  }
-`
+
 
 const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser,commentId}) => {
     const [loadingQuoted, changeLoadingQuoted] =useState(true);

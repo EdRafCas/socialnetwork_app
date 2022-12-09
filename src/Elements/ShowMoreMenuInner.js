@@ -20,8 +20,8 @@ const IconMore=styled.div`
   display:flex;
   justify-content:center;
   align-items:center;
-  height:3rem;
-  width:3rem;
+  height:4rem;
+  width:4rem;
   /* border:1px solid white; */
   fill:currentcolor;
   z-index:200;
@@ -39,8 +39,9 @@ const IconMore=styled.div`
     }
   }
   svg{
-    /* max-height:1.2rem; */
+    max-height:1.2rem;
     stroke: ${theme.BorderColor};
+    border:solid ${theme.BorderColor} 1px;
   }
   :active{
     background:rgb(29,155,240, 0.2);
@@ -49,11 +50,11 @@ const IconMore=styled.div`
 `
 const OptionsCard =styled.div`
   right:5px;
-  top:-0.5rem;
+  top:1rem;
   position:absolute;
   overflow:hidden;
-  border:solid ${theme.BorderColor} 1px;
-  border-radius:8px;
+  /* border:solid ${theme.BorderColor} 1px; */
+  border-radius:12px;
   background:black;
   width:auto;
   height:auto;
@@ -61,21 +62,19 @@ const OptionsCard =styled.div`
   background:#000;
   opacity:1;
   color:${theme.Text};
-  z-index:300;
+  z-index:200;
 `
 
 const Option =styled.div`
-  height:fit-content;
   width:auto;
-  gap:2px;
-  padding:2px;
+  gap:10px;
   padding-right:5px;
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
   align-items:center;
-  z-index:400;
-   background:#000;
+  z-index:300;
+   background:white;
   /*border:solid ${theme.BorderColor} 1px; */
   cursor: pointer;
   :hover{
@@ -90,11 +89,11 @@ const IconContainer=styled.div`
   display:flex;
   justify-content:center;
   align-items:center;
-  height:1.8rem;
-  width:1.8rem;
+  height:2.5rem;
+  width:2.5rem;
   /* border:1px solid white; */
   fill:currentcolor;
-  z-index:500;
+  z-index:100;
   svg{
     max-height:1.2rem;
     stroke: ${theme.BorderColor};

@@ -80,7 +80,7 @@ return (
   <>
   {!loadingBookmarkData ?
     <CardInner>
-    <MessageLink to={`/user/${userInfoForBookmark[0].alias}/status/${id}`}>
+    <MessageLink onClick={()=> navigate(`/user/${userInfoForBookmark[0].alias}/status/${id}`)}>
       <CardColumns>
         <PortraitContainer>
           {userInfoForBookmark[0].photoURL ?

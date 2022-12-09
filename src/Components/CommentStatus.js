@@ -44,12 +44,12 @@ const BarButton=styled.button`
 
 
 const MessageLink=styled.div`
-  z-index:2;
   width:100%;
   display:grid;
   grid-template-columns: repeat(1, 1fr 12fr);
   gap:0rem;
   padding-top:${(props) => props.originalComment ? "0rem": "0"};
+  z-index:2;
   /* text-decoration:none;
   -webkit-user-select: text;
   -moz-select: text;
@@ -133,10 +133,10 @@ const CardInner =styled.div`
   gap:0rem;
   padding-top:0rem;
   z-index:1;
- /*  :hover{
+  :hover{
     pointer-events: auto;
     background:rgba(255,255,255, 0.03);
-  } */
+  }
 `
 
 const BoxTest=styled.div`
@@ -229,7 +229,7 @@ return (
         <>
           {quotedMessage.exists() ?
           <CardInner>
-            <MessageLink  onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
+            <MessageLink onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
               <CardColumns originalComment>
                 <EmptyDivColumn/>
                 <PortraitContainer>

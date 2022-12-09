@@ -73,7 +73,9 @@ const CardColumns = styled.div`
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0rem;
 `
-
+const Zindex=styled.div`
+  z-index:0;
+`
 
 
 const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentId, originalMessageComments, TimelineComment}) => {
@@ -164,7 +166,9 @@ return (
                 </UserNameContainer>
                 <UserNameContainerQuoted>
                   <p>Replying to</p>
-                  <UserNameContainerLinkQuoted to={`/user/${previousCommentAlias}`}>@{previousCommentAlias}</UserNameContainerLinkQuoted >
+                  <UserNameContainerLinkQuoted to={`/user/${previousCommentAlias}`}>@{previousCommentAlias}
+                  </UserNameContainerLinkQuoted >
+                  
                 </UserNameContainerQuoted>
                 <MessageContent>
                 <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{messageForComment.data().message}</span>

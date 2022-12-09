@@ -97,7 +97,6 @@ return (
             <RetweetInfo retweetUidUser={retweetUidUser}
                         currentUidUser={currentUserInfo[0].uidUser}/>
             <MessageLink Retweet onClick={()=> navigate(`/user/${userInfoForRetweet[0].alias}/status/${originalId}`)}>
-              
               <CardColumns>
                 <PortraitContainer>
                   {userInfoForRetweet[0].photoURL ?
@@ -117,12 +116,12 @@ return (
                   <AliasContainer>
                     @{userInfoForRetweet[0].alias}
                   </AliasContainer>
-                    <ShowMoreMenu 
-                      changeAlert={changeAlert}
-                      changeStateAlert={changeStateAlert}
-                      messageUidUser={messageForRetweet.data().uidUser} 
-                      currentUserInfo={currentUserInfo}
-                      id={originalId} />
+                  <ShowMoreMenu 
+                    changeAlert={changeAlert}
+                    changeStateAlert={changeStateAlert}
+                    messageUidUser={messageForRetweet.data().uidUser} 
+                    currentUserInfo={currentUserInfo}
+                    id={originalId} />
                 </UserNameContainer>
                 {messageForRetweet.data().type === "comment"?
                 <CommentInfo  currentUserInfo={currentUserInfo}

@@ -90,7 +90,9 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                   retweetUidUser={MessageUser.uidUser}
                   user={user}
                   changeAlert={changeAlert}
-                  changeStateAlert={changeStateAlert}/>
+                  changeStateAlert={changeStateAlert}
+                  changeShowPopUp={changeShowPopUp}
+                  changePopUpAlert={changePopUpAlert}/>
               :
                 <EmptyDiv/>
               }

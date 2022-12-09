@@ -31,9 +31,9 @@ const CardInner =styled.div`
                         : "0rem"};
   z-index:1;                   
   :hover{
-    /* pointer-events: auto; */
-    /* cursor:pointer; */
-    /* background:rgba(255,255,255, 0.03); */
+    pointer-events: auto;
+    cursor:pointer;
+    background:rgba(255,255,255, 0.03);
   }
 `
 const MessageLink=styled.div`
@@ -46,12 +46,11 @@ const MessageLink=styled.div`
                         : props.Retweet ? `0rem` 
                         : "12px"};
   padding-bottom:0;
-  /* background:black; */
   text-decoration:none;
-  z-index:2;
+  /* background:black; */
   :hover{
-    /* cursor:pointer; */
-  /*   background:rgba(255,255,255, 0.03); */
+    cursor:pointer;
+ /*  background:rgba(255,255,255, 0.03); */
   }
 `
 const PinnedInfo=styled.div`
