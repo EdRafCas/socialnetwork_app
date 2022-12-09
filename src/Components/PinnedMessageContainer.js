@@ -137,6 +137,13 @@ return (
                       changeUpdate})}}>
                     <IconComment/>
                   </BarButton>
+                  <CounterContainer>
+                    <p>
+                      {messagePinned.data().comments?
+                        messagePinned.data().comments.length
+                      :""}
+                    </p>
+                    </CounterContainer>
                 </IconContainerCont>
                 <IconContainerCont Retweet>
                   {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?

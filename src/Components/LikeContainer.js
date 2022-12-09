@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -125,9 +125,34 @@ return (
                   {formatDate(messageForLike.data().date)}
                 </TimeBar>
                 <InteractionBar>
-                  <IconContainer Reply >
-                    <IconComment/>
-                  </IconContainer>
+                  <IconContainerCont Reply>
+                    <BarButton onClick={(e)=>{
+                      e.preventDefault();
+                      e.stopPropagation();
+                      receiveNotification({
+                        notification:"comment",
+                        messageMessage:messageForLike.data().message,
+                        messageForTimeline:userInfoForLike,
+                        id:originalId,
+                        retweets:messageForLike.data().retweets,
+                        comments:messageForLike.data().comments,
+                        originalUidUser:messageForLike.data().uidUser,
+                        user,
+                        currentUserInfo,
+                        changeShowPopUp:changeShowPopUp, 
+                        changePopUpAlert:changePopUpAlert,
+                        update,
+                        changeUpdate})}}>
+                      <IconComment/>
+                    </BarButton>
+                    <CounterContainer>
+                    <p>
+                      {messageForLike.data().comments?
+                        messageForLike.data().comments.length
+                      :""}
+                    </p>
+                    </CounterContainer>
+                  </IconContainerCont>
                   <IconContainerCont Retweet>
                     {!messageForLike.data().retweets.includes(currentUserInfo[0].uidUser)?
                       <RetweetButton onClick={(e)=>{

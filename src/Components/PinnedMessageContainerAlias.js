@@ -111,7 +111,7 @@ return (
                       receiveNotification({
                       notification:"comment",
                       messageMessage:messagePinned.data().message,
-                      messageForTimeline:userByAlias[0].alias,
+                      messageForTimeline:userByAlias,
                       id:originalId,
                       comments:messagePinned.data().comments,
                       retweets:messagePinned.data().retweets,
@@ -124,6 +124,11 @@ return (
                       changeUpdate})}}>
                     <IconComment/>
                   </BarButton>
+                  <CounterContainer>
+                    <p>{messagePinned.data().comments?
+                        messagePinned.data().comments.length
+                        :""}</p>
+                  </CounterContainer>
                 </IconContainerCont>
                 <IconContainerCont Retweet>
                   {!messagePinned.data().retweets.includes(currentUserInfo[0].uidUser)?

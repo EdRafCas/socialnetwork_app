@@ -149,7 +149,9 @@ return (
                     <IconComment/>
                   </BarButton>
                   <CounterContainer>
-                    <p></p>
+                  <p>{messageForRetweet.data().comments?
+                      messageForRetweet.data().comments.length
+                      :""}</p>
                   </CounterContainer>
                 </IconContainerCont>
                 <IconContainerCont Retweet>
