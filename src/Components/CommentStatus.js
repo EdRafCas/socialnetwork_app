@@ -135,6 +135,7 @@ const CardInner =styled.div`
   z-index:1;
   :hover{
     pointer-events: auto;
+    cursor:pointer;
     background:rgba(255,255,255, 0.03);
   }
 `
@@ -163,8 +164,8 @@ const BoxTest=styled.div`
 const MessageContent = styled.div`
   width:100%;
   padding:0rem;
-  max-height:200px;
-  min-height:100px;
+  max-height:150px;
+  min-height:80px;
   font-size:1rem;
   font-weight:400;
   color:white;
@@ -232,13 +233,13 @@ return (
             <MessageLink onClick={()=> navigate(`/user/${userInfoForQuote[0].alias}/status/${originalId}`)}>
               <CardColumns originalComment>
                 <EmptyDivColumn/>
-                <PortraitContainer>
-                  {userInfoForQuote[0].photoURL ?
-                  <img alt="userportrait" src={userInfoForQuote[0].photoURL}/>
-                  :
-                  <img alt="userportrait" src={ProfileImage}/>
-                  }
-                </PortraitContainer>
+                  <PortraitContainer>
+                    {userInfoForQuote[0].photoURL ?
+                    <img alt="userportrait" src={userInfoForQuote[0].photoURL}/>
+                    :
+                    <img alt="userportrait" src={ProfileImage}/>
+                    }
+                  </PortraitContainer>
                 <StraightLine/>
               </CardColumns>
               <CardColumns rightColumn>
@@ -261,12 +262,12 @@ return (
                 <MessageContent >
                   <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>
                 </MessageContent>
-                <TimeBar>
+                {/* <TimeBar>
                   {formatDate(quotedMessage.data().date)}
                 </TimeBar>
                 <TimeBar>
                   {originalId}
-                </TimeBar>
+                </TimeBar> */}
                 <InteractionBar>
                   <IconContainerCont Reply >
                     <BarButton onClick={(e)=>{

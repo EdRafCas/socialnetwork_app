@@ -6,7 +6,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import '../index.css'
 import { AuthContext } from '../Context/AuthContext';
-import {Card,UserNameContainer, UserNameContainerLink,IconContainer,IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {Card,UserNameContainer, UserNameContainerLink,IconContainer,IconContainerCont, BarButton, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -105,18 +105,18 @@ const CardRowsMessage = styled.div`
       /* border:solid red 1px; */
 `
 const CardColumnMessage = styled.div`
-      padding: 1rem 0.5rem 0rem 0.5rem;
+      padding: 0rem 0.5rem 0rem 0.5rem;
       margin:0;
       display:flex;
       flex-direction:column;
       justify-content:flex-start;
       align-items:center;
       /* border:solid ${theme.BorderColor} 1px; */
-      gap:0.5rem;
+      gap:5px;
 `
 const UserNameContainerMessage =styled.div`
       width:100%;
-      height:4.5rem;
+      height:3.5rem;
       padding:0rem;
       position:relative;
       /* border-bottom:solid ${theme.BorderColor} 1px; */
@@ -369,12 +369,12 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     <MessageContentBig>
                                           <p>{infoForMessage.data().message}</p>
                                     </MessageContentBig>
-                                    <MessageContentBig>
+                                    {/*<MessageContentBig>
                                           <p>{id}</p>
                                     </MessageContentBig>
-                                    <TimeBar>
+                                     <TimeBar>
                                     {formatDate(infoForMessage.data().date)}
-                                    </TimeBar>
+                                    </TimeBar> */}
                                     {infoForMessage.data().retweets.length > 0 || infoForMessage.data().likes.length > 0 ?
                                     <CounterBar>
                                           <CounterBarContainer>
@@ -388,9 +388,27 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     ""
                                     }
                                     <InteractionBarMessage>
-                                          <IconContainer Reply >
-                                                <IconComment/>
-                                          </IconContainer>
+                                          <IconContainerCont Reply >
+                                                <BarButton onClick={(e)=>{
+                                                      e.preventDefault();
+                                                      e.stopPropagation();
+                                                      receiveNotification({
+                                                      notification:"comment",
+                                                      messageMessage:infoForMessage.data().message,
+                                                      messageForTimeline:userByAliasId,
+                                                      id:id,
+                                                      comments:infoForMessage.data().comments,
+                                                      retweets:infoForMessage.data().retweets,
+                                                      originalUidUser:infoForMessage.data().uidUser,
+                                                      user,
+                                                      currentUserInfo,
+                                                      changeShowPopUp:changeShowPopUp, 
+                                                      changePopUpAlert:changePopUpAlert,
+                                                      update,
+                                                      changeUpdate})}}>
+                                                      <IconComment/>
+                                                </BarButton>
+                                          </IconContainerCont>
                                           <IconContainerCont Retweet>
                                           {!infoForMessage.data().retweets.includes(currentUserInfo[0].uidUser)?
                                           <RetweetButton onClick={()=>receiveNotification({

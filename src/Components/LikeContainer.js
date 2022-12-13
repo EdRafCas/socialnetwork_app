@@ -121,9 +121,9 @@ return (
                     {messageForLike.data().message}
                   </span>
                 </MessageContent>
-                <TimeBar>
+                {/* <TimeBar>
                   {formatDate(messageForLike.data().date)}
-                </TimeBar>
+                </TimeBar> */}
                 <InteractionBar>
                   <IconContainerCont Reply>
                     <BarButton onClick={(e)=>{

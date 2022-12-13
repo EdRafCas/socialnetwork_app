@@ -111,9 +111,9 @@ return (
             {message}
           </span>
         </MessageContent>
-        <TimeBar>
+       {/*  <TimeBar>
           {formatDate(date)}
-        </TimeBar>
+        </TimeBar> */}
         <InteractionBar>
           <IconContainerCont Reply>
             <BarButton onClick={(e)=>{

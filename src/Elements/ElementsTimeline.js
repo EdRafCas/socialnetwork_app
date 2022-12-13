@@ -120,12 +120,15 @@ const UserNameContainerQuoted =styled.div`
 `
 const MessageContent = styled.div`
   width:100%;
-  padding:2px 0rem;
+  padding-left:0rem;
+  padding-right:1rem;
+  padding-top:0.5rem;
+  padding-bottom:0.5rem;
   max-height:200px;
   font-size:1rem;
   font-weight:400;
   color:white;
-/*   border:solid ${theme.BorderColor} 1px; */
+  /* border:solid ${theme.BorderColor} 1px; */
   text-align:justify;
   white-space:normal;
   overflow:hidden;

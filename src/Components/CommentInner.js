@@ -168,7 +168,6 @@ return (
                   <p>Replying to</p>
                   <UserNameContainerLinkQuoted to={`/user/${previousCommentAlias}`}>@{previousCommentAlias}
                   </UserNameContainerLinkQuoted >
-                  
                 </UserNameContainerQuoted>
                 <MessageContent>
                 <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{messageForComment.data().message}</span>

@@ -14,14 +14,14 @@ import { RemoveFromBookMark } from '../firebase/UpdateProfile';
 
 const IconMore=styled.div`
   position: absolute;
-  right: 5px;
-  top:0px;
+  right: 1rem;
+  top:-0.5rem;
   border-radius:50%;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:3rem;
-  width:3rem;
+  height:2.2rem;
+  width:2.2rem;
   /* border:1px solid white; */
   fill:currentcolor;
   z-index:200;
@@ -39,7 +39,7 @@ const IconMore=styled.div`
     }
   }
   svg{
-    /* max-height:1.2rem; */
+    max-height:1.5rem;
     stroke: ${theme.BorderColor};
   }
   :active{
