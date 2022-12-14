@@ -111,14 +111,14 @@ return (
                     @{userInfoForLike[0].alias}
                   </AliasContainer>
                   <ShowMoreMenu 
-                          changeAlert={changeAlert}
-                          changeStateAlert={changeStateAlert}
-                          messageUidUser={messageForLike.data().uidUser} 
-                          currentUserInfo={currentUserInfo}
-                          id={originalId}/>
+                    changeAlert={changeAlert}
+                    changeStateAlert={changeStateAlert}
+                    messageUidUser={messageForLike.data().uidUser} 
+                    currentUserInfo={currentUserInfo}
+                    id={originalId}/>
                 </UserNameContainer>
                 <CommentInfoTimeline 
-                originalUidUser={originalUidUser}
+                originalUidUser={messageForLike.data().originalUidUser}
                 currentUserInfo={currentUserInfo}
                 originalId={originalId}/>
                 <MessageContent>
