@@ -371,10 +371,10 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                     </MessageContentBig>
                                     {/*<MessageContentBig>
                                           <p>{id}</p>
-                                    </MessageContentBig>
+                                    </MessageContentBig>*/}
                                      <TimeBar>
                                     {formatDate(infoForMessage.data().date)}
-                                    </TimeBar> */}
+                                    </TimeBar> 
                                     {infoForMessage.data().retweets.length > 0 || infoForMessage.data().likes.length > 0 ?
                                     <CounterBar>
                                           <CounterBarContainer>

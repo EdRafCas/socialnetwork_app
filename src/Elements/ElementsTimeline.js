@@ -373,5 +373,10 @@ const BarButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
+const EmptyDiv =styled.div`
+  visibility:hidden
+  display:none;
+  overflow:hidden;
+`
 
-export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton};
+export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv};

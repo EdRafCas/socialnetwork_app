@@ -20,7 +20,7 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import AddRemove from '../firebase/AddRemove';
-
+import CommentInfo from '../Elements/CommentInfo';
 
 const RetweetButton=styled.button`
   background:none;

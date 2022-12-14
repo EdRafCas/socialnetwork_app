@@ -4,18 +4,27 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import '../index.css'
-import {RetweetInfoContainer, IconContainerRetweet, NameContainerRetweet, UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted,} from './ElementsTimeline'
+import {RetweetInfoContainer, IconContainerRetweet, NameContainerRetweet, UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted,EmptyDiv} from './ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 
 
 
-const CommentInfo = ({originalUidUser, currentUidUser}) => {
+const CommentInfoTimeline = ({originalUidUser, currentUidUser, originalId}) => {
     const [loadingInfo, changeLoadinInfo] =useState(true);
+    const [messageForComment, changeMessageForComment] = useState('')
     const [originalMessageUserInfo, changeOriginalMessageUserInfo] =useState([{}])
+    
 
     useEffect(()=>{
       const obtainOriginalMessageInfo = async() =>{
+        const document = await getDoc(doc(db, 'userTimeline', originalId));
+        changeMessageForComment(document) 
+        /* if(document.exists()){
+          console.log(originalId +" existe")
+        } else{
+          console.log(originalId +" no existe")
+        } */
             const consult = query(
               collection(db, 'userInfo'),
               where('uidUser', "==", originalUidUser),
@@ -39,15 +48,21 @@ const CommentInfo = ({originalUidUser, currentUidUser}) => {
 return ( 
   <>
     {!loadingInfo &&
-      <UserNameContainerQuoted>
-        <p>Replying to</p>
-        <UserNameContainerLinkQuoted to={`/user/${originalMessageUserInfo[0].alias}`}>
-          @{originalMessageUserInfo[0].alias}
-          </UserNameContainerLinkQuoted >
-      </UserNameContainerQuoted>
+    <>
+      {messageForComment.data().type === "comment" ?
+        <UserNameContainerQuoted>
+          <p>Replying to</p>
+          <UserNameContainerLinkQuoted to={`/user/${originalMessageUserInfo[0].alias}`}>
+            @{originalMessageUserInfo[0].alias}
+            </UserNameContainerLinkQuoted >
+        </UserNameContainerQuoted>
+      :
+      <EmptyDiv/>  
+      }
+    </>
     }
   </>
     )
 }
  
-export default CommentInfo;
+export default CommentInfoTimeline;

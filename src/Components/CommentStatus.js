@@ -262,10 +262,10 @@ return (
                 <MessageContent >
                   <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>
                 </MessageContent>
-                {/* <TimeBar>
+                <TimeBar>
                   {formatDate(quotedMessage.data().date)}
                 </TimeBar>
-                <TimeBar>
+                 {/*<TimeBar>
                   {originalId}
                 </TimeBar> */}
                 <InteractionBar>

@@ -22,6 +22,7 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
+import CommentInfoTimeline from '../Elements/CommentInfoTimeline';
 
 
 const RetweetButton=styled.button`
@@ -116,6 +117,10 @@ return (
                           currentUserInfo={currentUserInfo}
                           id={originalId}/>
                 </UserNameContainer>
+                <CommentInfoTimeline 
+                originalUidUser={originalUidUser}
+                currentUserInfo={currentUserInfo}
+                originalId={originalId}/>
                 <MessageContent>
                   <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}}>
                     {messageForLike.data().message}
