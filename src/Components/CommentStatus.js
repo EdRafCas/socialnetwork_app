@@ -24,7 +24,7 @@ import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import RetweetInfo from '../Elements/RetweetInfo';
 import CommentInner from './CommentInner';
-
+import CommentInfoTimeline from '../Elements/CommentInfoTimeline';
 
 const BarButton=styled.button`
   background:none;
@@ -259,6 +259,10 @@ return (
                       id={originalId}
                       originalMessageComments={quotedMessage.data().comments} />
                 </UserNameContainer>
+                <CommentInfoTimeline
+                originalUidUser={quotedMessage.data().originalUidUser}
+                currentUserInfo={currentUserInfo}
+                originalId={originalId}/>
                 <MessageContent >
                   <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>
                 </MessageContent>

@@ -25,7 +25,7 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import {useNavigate} from 'react-router-dom';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
-import CommentInner from './CommentInner';
+import CommentInnerStatus from './CommentInnerStatus';
 import CommentInfo from '../Elements/CommentInfo';
 import CommentStatus from './CommentStatus';
 import MessageBoxStatus from './MessageBoxStatus';
@@ -511,7 +511,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                               return(
                                     <Card TimelineComment
                                           key={Comments.date}>
-                                          <CommentInner
+                                          <CommentInnerStatus
                                                 TimelineComment
                                                 previousCommentAlias={userByAliasId[0].alias}
                                                 currentUserInfo={currentUserInfo}

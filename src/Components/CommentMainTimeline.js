@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,MessageLink, UserNameContainer, UserNameContainerLink, MessageContent, IconContainer, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner,MessageLink, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, CounterContainer, IconContainerCont,  LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -22,8 +22,8 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
-import RetweetInfo from '../Elements/RetweetInfo';
 import CommentInner from './CommentInner';
+import CommentInfoTimeline from '../Elements/CommentInfoTimeline';
 
 
 
@@ -135,6 +135,10 @@ return (
                     id={originalId}
                     originalMessageComments={quotedMessage.data().comments} />
                 </UserNameContainer>
+                <CommentInfoTimeline
+                originalUidUser={quotedMessage.data().originalUidUser}
+                currentUserInfo={currentUserInfo}
+                originalId={originalId}/>
                 <MessageContent>
                 <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>
                 </MessageContent>

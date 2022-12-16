@@ -273,11 +273,12 @@ const RetweetButton=styled.button`
   height:2.5rem;
   width:2.5rem;
   gap:5px;
-  
+  z-index:100;
   :hover{
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
+
 const IconContainerRetweet=styled.div`
   background:none;
   display:flex;
@@ -378,5 +379,16 @@ const EmptyDiv =styled.div`
   display:none;
   overflow:hidden;
 `
+const EmptyDivColumn=styled.div`
+  height:0.5rem;
+  width:100%;
+  /* border:solid ${theme.BorderColor} 1px; */
+`
+const StraightLine2=styled.div`
+  height:0.5rem;
+  width:2px;
+  border:solid ${theme.BorderColor} 1px;
+  background-color: rgb(51, 54, 57);
+`
 
-export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv};
+export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2};

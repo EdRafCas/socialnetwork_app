@@ -41,7 +41,8 @@ return (
     {!loadingInfo &&
       <UserNameContainerQuoted>
         <p>Replying to</p>
-        <UserNameContainerLinkQuoted to={`/user/${originalMessageUserInfo[0].alias}`}>
+        <UserNameContainerLinkQuoted onClick={(e)=>{e.stopPropagation();}} 
+        to={`/user/${originalMessageUserInfo[0].alias}`}>
           @{originalMessageUserInfo[0].alias}
           </UserNameContainerLinkQuoted >
       </UserNameContainerQuoted>

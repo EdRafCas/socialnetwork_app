@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent,CounterContainer, IconContainerCont, TimeBar,InteractionBar, LikeButton, BarButton, CardInner, EmptyDiv, EmptyDivColumn, StraightLine2, RetweetButton, MessageLink} from '../Elements/ElementsTimeline'
+import {UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent,CounterContainer, IconContainerCont, TimeBar,InteractionBar, LikeButton, BarButton, CardInner, EmptyDiv, EmptyDivColumn, StraightLine2, RetweetButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -40,9 +40,25 @@ const CardColumns = styled.div`
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0rem;
 `
+const MessageLink=styled.div`
+  display:grid;
+  width:100%;
+  grid-template-columns: repeat(1, 1fr 12fr);
+  gap:0rem;
+  padding-top:${(props)=> props.Reply ? `0rem`
+                        : props.Like ? `0rem`
+                        : props.Retweet ? `0rem` 
+                        : "12px"};
+  padding-bottom:0;
+  text-decoration:none;
+  /* background:black; */
+  :hover{
+    cursor:pointer;
+    background:rgba(255,255,255, 0.03);
+  }
+`
 
-
-const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentId, originalMessageComments, TimelineComment}) => {
+const CommentInnerStatus = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user,previousCommentAlias, originalId,originalUidUser, update, changeUpdate, commentUidUser, commentId, originalMessageComments, TimelineComment}) => {
     const [loadingComment, changeLoadingComment] =useState(true);
     const [messageForComment, changeMessageForComment] = useState('')
     const [userInfoForComment, changeUserInfoForComment] =useState([{}])
@@ -284,4 +300,4 @@ return (
     )
 }
  
-export default CommentInner;
+export default CommentInnerStatus;

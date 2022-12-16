@@ -1,10 +1,6 @@
 import React,{useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../Theme';
-import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import '../index.css'
-import {RetweetInfoContainer, IconContainerRetweet, NameContainerRetweet, UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted,EmptyDiv} from './ElementsTimeline'
+import {UserNameContainerQuoted, UserNameContainerLinkQuoted,EmptyDiv} from './ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 
@@ -52,7 +48,8 @@ return (
       {messageForComment.data().type === "comment" ?
         <UserNameContainerQuoted>
           <p>Replying to</p>
-          <UserNameContainerLinkQuoted to={`/user/${originalMessageUserInfo[0].alias}`}>
+          <UserNameContainerLinkQuoted 
+           onClick={(e)=>{e.stopPropagation();}} to={`/user/${originalMessageUserInfo[0].alias}`}>
             @{originalMessageUserInfo[0].alias}
             </UserNameContainerLinkQuoted >
         </UserNameContainerQuoted>
