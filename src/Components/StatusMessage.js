@@ -6,7 +6,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import '../index.css'
 import { AuthContext } from '../Context/AuthContext';
-import {Card,UserNameContainer, UserNameContainerLink,IconContainer,IconContainerCont, BarButton, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {Card,UserNameContainerLink,IconContainerCont, BarButton, TimeBar, LikeButton,EmptyDivColumn,StraightLine2, RetweetButton} from '../Elements/ElementsTimeline'
 import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -30,14 +30,13 @@ import CommentInfo from '../Elements/CommentInfo';
 import CommentStatus from './CommentStatus';
 import MessageBoxStatus from './MessageBoxStatus';
 
-
 const CardMessage =styled.div`
       display:flex;
       flex-direction:column;
-      /* border:solid ${theme.BorderColor} 1px; */
+     /*  border:solid ${theme.BorderColor} 1px; */
       /* border-radius:15px; */
       gap:0rem;
-      padding-top:0rem;
+      padding-top:1rem;
       z-index:100;
       :hover{
       /* background:rgba(255,255,255, 0.03); */
@@ -67,35 +66,6 @@ const TimelineCommentContainer = styled.div`
       overflow-x:hidden;
       -ms-overflow-style: none;
       scrollbar-width: none;
-`
-const RetweetButton=styled.button`
-      background:none;
-      border-radius:50%;
-      border:none;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:2.5rem;
-      width:2.5rem;
-      gap:5px;
-      :hover{
-      /*  border:solid ${theme.BorderColor} 1px; */
-      }
-  `
-const PortraitContainerMessage =styled.div`
-      border: solid red 1px;
-      padding:0;
-      border-radius:50%;
-      width:4rem;
-      height:4rem;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      margin:0;
-      overflow:hidden;
-      img{
-      width:100%;
-      }
 `
 const CardRowsMessage = styled.div`
       display:grid;
@@ -222,17 +192,6 @@ const IconContainerArrow=styled.div`
             stroke:#000;
       }
 `
-const StraightLine2=styled.div`
-  height:0.5rem;
-  width:2px;
-  border:solid ${theme.BorderColor} 1px;
-  background-color: rgb(51, 54, 57);
-`
-const EmptyDivColumn=styled.div`
-  height:0.5rem;
-  width:100%;
-  /* border:solid ${theme.BorderColor} 1px; */
-`
 const CardColumns = styled.div`
   padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
   padding-top:${(props) => props.originalComment ? "0.5rem":
@@ -247,7 +206,6 @@ const CardColumns = styled.div`
   /* border:solid blue 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
 `
-
 
 const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo}) => {
       const {alias} =useParams();
@@ -375,8 +333,11 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                      <TimeBar>
                                     {formatDate(infoForMessage.data().date)}
                                     </TimeBar> 
-                                    {infoForMessage.data().retweets.length > 0 || infoForMessage.data().likes.length > 0 ?
+                                    {infoForMessage.data().comments.length > 0 || infoForMessage.data().retweets.length > 0 || infoForMessage.data().likes.length > 0 ?
                                     <CounterBar>
+                                          <CounterBarContainer>
+                                                <p>{infoForMessage.data().comments.length}  Comments </p> 
+                                          </CounterBarContainer>
                                           <CounterBarContainer>
                                                 <p>{infoForMessage.data().retweets.length}  Retweets </p> 
                                           </CounterBarContainer>
@@ -449,9 +410,6 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                           }
                                           </>
                                           }
-                                          {/* <CounterContainerBig>
-                                          <p>{infoForMessage.data().retweets.length}</p>
-                                          </CounterContainerBig> */}
                                           </IconContainerCont>
                                           <IconContainerCont Like>
                                                 {!infoForMessage.data().likes.includes(currentUserInfo[0].uidUser)?

@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer} from '../Elements/ElementsFormulary';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserNameContainer, UserNameContainerLink, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserNameContainer, UserNameContainerLink, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -22,8 +22,6 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
-import RetweetInfo from '../Elements/RetweetInfo';
-import CommentInner from './CommentInner';
 import CommentInfoTimeline from '../Elements/CommentInfoTimeline';
 
 const BarButton=styled.button`
@@ -140,27 +138,6 @@ const CardInner =styled.div`
   }
 `
 
-const BoxTest=styled.div`
-  height:30rem;
-  display:grid;
-  width:100%;
-  z-index:99;
-  grid-template-columns: repeat(1, 1fr 12fr);
-  /* border:solid ${theme.BorderColor} 1px; */
-  gap:0rem;
-  padding-top:${(props) => props.originalComment ? "0rem": "0"};
-  /* background:black; */
-  text-decoration:none;
-  z-index:80;
-  -webkit-user-select: text;
-  -moz-select: text;
-  -ms-select: text;
-  user-select: text;
-  :hover{
-    pointer-events: auto;
-    background:rgba(255,255,255, 0.03);
-  }
-`
 const MessageContent = styled.div`
   width:100%;
   padding:0rem;

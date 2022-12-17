@@ -6,11 +6,9 @@ import {ReactComponent as IconDelete} from '../img/delete_icon.svg';
 import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-/* import { IconContainer } from './ElementsTimeline'; */
 import receiveNotification from '../Components/ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import { RemoveFromBookMark } from '../firebase/UpdateProfile';
-
 
 const IconMore=styled.div`
   position: absolute;
@@ -26,6 +24,7 @@ const IconMore=styled.div`
   fill:currentcolor;
   z-index:200;
   :hover{
+    cursor:pointer;
     background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
                          : props.Like ? `${theme.PinkLikeBackground}` 
                          : props.Retweet ? `${theme.GreenRetweetBackground}` 
@@ -281,8 +280,6 @@ const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAl
           ) : null}
         </div> 
       </ClickAwayListener>  
-        
-        
        );
 }
  

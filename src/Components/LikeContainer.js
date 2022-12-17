@@ -1,10 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import {useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../Theme';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -13,7 +10,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, MessageLink, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, CounterContainer, IconContainerCont,LikeButton, MessageLink, BarButton, RetweetButton, EmptyDiv} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -24,26 +21,6 @@ import LoadingComponent from '../Elements/LoadingComponent';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import CommentInfoTimeline from '../Elements/CommentInfoTimeline';
 
-
-const RetweetButton=styled.button`
-  background:none;
-  border-radius:50%;
-  border:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:2.5rem;
-  width:2.5rem;
-  gap:5px;
-  :hover{
-   /*  border:solid ${theme.BorderColor} 1px; */
-  }
-`
-const EmptyDiv =styled.div`
-  visibility:hidden
-  display:none;
-  overflow:hidden;
-`
 
 const LikeContainer = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, newId}) => {
     const [loadingLikes, changeLoadingLikes] =useState(true);
@@ -80,10 +57,6 @@ const LikeContainer = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeSt
       /* By not calling changeLoadingLikes in useEffect it keeps loading each time we update*/
       },[currentUserInfo, update, originalId, originalUidUser])
       
-      const formatDate = (date) => {
-        return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-      };
-    
 return ( 
         <>
         {!loadingLikes ?
@@ -126,9 +99,6 @@ return (
                     {messageForLike.data().message}
                   </span>
                 </MessageContent>
-                {/* <TimeBar>
-                  {formatDate(messageForLike.data().date)}
-                </TimeBar> */}
                 <InteractionBar>
                   <IconContainerCont Reply>
                     <BarButton onClick={(e)=>{

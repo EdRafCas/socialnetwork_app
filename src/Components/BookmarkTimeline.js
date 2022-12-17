@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, MessageLink, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner, MessageLink, CardColumns, UserNameContainer, MessageContent, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton, RetweetButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -22,20 +22,6 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import {useNavigate} from 'react-router-dom';
 
-const RetweetButton=styled.button`
-  background:none;
-  border-radius:50%;
-  border:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:2.5rem;
-  width:2.5rem;
-  gap:5px;
-  :hover{
-   /*  border:solid ${theme.BorderColor} 1px; */
-  }
-`
 const NameContainer =styled.h1`
   /* border:solid ${theme.BorderColor} 1px; */
   font-size:1.1rem;
@@ -111,9 +97,9 @@ return (
             {message}
           </span>
         </MessageContent>
-       {/*  <TimeBar>
+        <TimeBar>
           {formatDate(date)}
-        </TimeBar> */}
+        </TimeBar>
         <InteractionBar>
           <IconContainerCont Reply>
             <BarButton onClick={(e)=>{
