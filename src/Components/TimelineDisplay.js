@@ -52,8 +52,9 @@ const TimelineDisplay = () => {
             messageUidUser={Message.uidUser}
             messageDate={Message.date}
             messageMessage={Message.message}
-            messageRetweets={Message.retweets}
+            messageComments={Message.comments}
             messageLikes={Message.likes}
+            messageRetweets={Message.retweets}
             messageOriginalId={Message.originalId}
           />
           </>

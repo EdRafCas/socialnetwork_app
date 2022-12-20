@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import TimelineUserAlias from './TimelineUserAlias';
+import TimelineUserAliasMessage from './TimelineUserAliasMessage';
 import TimelineLikesAlias from './TimelineLikesAlias';
 import PrivateRoute from './PrivateRoute';
 
@@ -30,6 +31,17 @@ const UserProfileRoutesAlias = ({userByAlias, changeAlert, stateAlert, changeSta
                   element={
                   <PrivateRoute>
                         <TimelineUserAlias 
+                                    currentUserInfo={currentUserInfo}
+                                    user={user}
+                                    changeAlert={changeAlert}
+                                    stateAlert={stateAlert}
+                                    changeStateAlert={changeStateAlert}
+                                    userByAlias={userByAlias}/>
+                  </PrivateRoute>}/>
+            <Route path={`/messages&comments`} exact={true}
+                  element={
+                  <PrivateRoute>
+                        <TimelineUserAliasMessage 
                                     currentUserInfo={currentUserInfo}
                                     user={user}
                                     changeAlert={changeAlert}

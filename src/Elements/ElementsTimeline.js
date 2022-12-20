@@ -199,7 +199,7 @@ const CounterContainer=styled.div`
    
   }
   :active{
-    background:white;
+ /*    background:white; */
     fill:black;
   }
 `

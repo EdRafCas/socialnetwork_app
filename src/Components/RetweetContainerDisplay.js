@@ -8,7 +8,7 @@ import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, BarButton, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import LoadingComponent from '../Elements/LoadingComponent';
@@ -131,9 +131,9 @@ return (
                   </AliasContainer>
                 </UserNameContainer>
                 <MessageContent>
-                  <p>
+                  <span>
                   {messageForRetweet.data().message}
-                  </p>
+                  </span>
                 </MessageContent>
                 <TimeBar>
                   {formatDate(messageForRetweet.data().date)}
@@ -141,7 +141,15 @@ return (
               </CardColumns> 
             </MessageContainer>
             <InteractionBar>
-              <IconContainer Reply ><IconComment/></IconContainer>
+
+              <IconContainerCont Reply >
+                <BarButton>
+                  <IconComment/>
+                </BarButton>
+                <CounterContainer>
+                  {messageForRetweet.data().comments? messageForRetweet.data().comments.length:"0"}
+                </CounterContainer>
+              </IconContainerCont>
               <IconContainerCont Retweet>
                 <RetweetButton >
                   <IconRetweet/>

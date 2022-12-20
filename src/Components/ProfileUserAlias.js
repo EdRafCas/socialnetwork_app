@@ -118,6 +118,9 @@ const ProfileUserAlias = ({changeAlert, stateAlert, changeStateAlert, user, curr
                   <RedirectLink to =""> 
                         Messages
                   </RedirectLink>
+                  <RedirectLink to ={`/user/${alias}/messages&comments`}> 
+                  Messages & Comments 
+                  </RedirectLink>
                   <RedirectLink to ={`/user/${alias}/likes`}> 
                         Likes
                   </RedirectLink>

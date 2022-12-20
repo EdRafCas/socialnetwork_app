@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 import {useNavigate } from 'react-router-dom';
+import theme from '../Theme';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
 import ProfileImage from '../img/profile_avatar.png'
@@ -14,22 +15,20 @@ import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
-import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton,MessageLink, BarButton} from '.././Elements/ElementsTimeline'
+import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, MessageLink, BarButton, EmptyDiv} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
+import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
+import CommentMainTimeline from './CommentMainTimeline';
 
 
-const EmptyDiv =styled.div`
-  visibility:hidden
-  display:none;
-  overflow:hidden;
-`
 
-const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => {
+
+const TimelineUserMessages = ({user,currentUserInfo, changeAlert, changeStateAlert}) => {
     const [messagesSentByUser] = useObtainMessagesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
@@ -44,7 +43,8 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
     
     var filtertype= messagesSentByUser.filter(function(items) {
       return items.type.includes("retweet") ||
-              items.type.includes("message") 
+              items.type.includes("message") ||
+              items.type.includes("comment") 
       });
 
 
@@ -71,7 +71,7 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
             <Card key={MessageUser.id}>
               {MessageUser.originalId?
               <>
-              {MessageUser.uidUser===currentUserInfo[0].uidUser ?
+              {MessageUser.type=== "retweet" ?
                 <RetweetContainer 
                   update={update}
                   changeUpdate={changeUpdate}
@@ -86,7 +86,22 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
                   changeStateAlert={changeStateAlert}
                   changeShowPopUp={changeShowPopUp}
                   changePopUpAlert={changePopUpAlert}/>
-              :
+              : MessageUser.type=== "comment" ?
+                <CommentMainTimeline
+                  update={update}
+                  changeUpdate={changeUpdate} 
+                  currentUserInfo={currentUserInfo} 
+                  originalId={MessageUser.originalId} 
+                  originalUidUser={MessageUser.originalUidUser}
+                  commentId={MessageUser.id} 
+                  commentUidUser={MessageUser.uidUser}
+                  commentContent={MessageUser.message}
+                  changeShowPopUp={changeShowPopUp}
+                  changePopUpAlert={changePopUpAlert}
+                  user={user}
+                  changeAlert={changeAlert} 
+                  changeStateAlert={changeStateAlert}/>
+                  :
                 <EmptyDiv/>
               }
               </>
@@ -248,4 +263,4 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
        );
 }
  
-export default TimelineUser;
+export default TimelineUserMessages;

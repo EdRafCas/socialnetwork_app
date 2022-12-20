@@ -73,11 +73,6 @@ const RedirectLink =styled(Link)`
       }
     }
 `
-const EmptyDiv =styled.div`
-visibility:hidden
-display:none;
-overflow:hidden;
-`
 
 const ProfileUser = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile, alias}) => {
 
@@ -101,6 +96,9 @@ const ProfileUser = ({changeAlert, stateAlert, changeStateAlert, user, currentUs
             <LinksContainer>
                   <RedirectLink to =""> 
                   Messages
+                  </RedirectLink>
+                  <RedirectLink to ={`/user/${alias}/messages&comments`}> 
+                  Messages & Comments 
                   </RedirectLink>
                   <RedirectLink to ={`/user/${alias}/likes`}> 
                   Likes

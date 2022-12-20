@@ -9,7 +9,7 @@ import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import LoadingComponent from '../Elements/LoadingComponent';
@@ -42,7 +42,7 @@ const MessageLink=styled(Link)`
   z-index:99;
 `
 
-const MessageTimelineContainer = ({ id,currentUserInfo, messageUidUser,messageDate, messageMessage, messageRetweets,messageLikes,changeAlert,changeStateAlert, update}) => {
+const MessageTimelineContainer = ({ id,currentUserInfo, messageUidUser,messageDate, messageMessage, messageComments, messageRetweets,messageLikes,changeAlert,changeStateAlert, update}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForTimeline, changeMessageForTimeline] = useState([{}])
 
@@ -97,9 +97,9 @@ return (
           </AliasContainer>
         </UserNameContainer>
         <MessageContent>
-          <p>
+          <span>
           {messageMessage}
-          </p>
+          </span>
         </MessageContent>
         <TimeBar>
           {formatDate(messageDate)}
@@ -107,9 +107,14 @@ return (
       </CardColumns>
     </MessageLink>
     <InteractionBar>
-      <IconContainer Reply >
-        <IconComment/>
-      </IconContainer>
+      <IconContainerCont Reply >
+        <BarButton>
+          <IconComment/>
+        </BarButton>
+        <CounterContainer>
+          <p>{messageComments? messageComments.length :"0"}</p>
+        </CounterContainer>
+      </IconContainerCont>
       <IconContainerCont Retweet>
         <RetweetButton >
           <IconRetweet/>
