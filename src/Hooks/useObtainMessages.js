@@ -15,10 +15,10 @@ const useObtainMessages = () => {
                   collection(db, 'userTimeline'),
                   where('type', 'in', ['message', "retweet", "comment"]),
                   orderBy('date', 'desc'),
-                  limit(10 ),
+                  limit(30),
                   startAfter(lastMessage)
             );
-            
+
             onSnapshot(consult, (snapshot)=>{
                   if(snapshot.docs.length > 0) {
                         changeLastMessage(snapshot.docs[snapshot.docs.length -1])
@@ -37,7 +37,7 @@ const useObtainMessages = () => {
                   collection(db, 'userTimeline'),
                   where('type', 'in', ['message', "retweet", "comment"]),
                   orderBy('date', 'desc'),
-                  limit(10 )
+                  limit(30)
             );
             const unsuscribe = onSnapshot(consult, (snapshot)=>{
                   if(snapshot.docs.length > 0) {

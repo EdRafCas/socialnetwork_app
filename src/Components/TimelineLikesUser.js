@@ -1,23 +1,19 @@
 import React, {useContext} from 'react';
 import useObtainMessagesLikesByUser from '../Hooks/useObtainMessagesLikesByUser';
-import {Card} from '../Elements/ElementsTimeline'
+import {Card, LoadMoreButton,LoadMoreContainer} from '../Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import LikeContainer from './LikeContainer';
 
 
-const TimelineLikesUser = ({user, currentUserInfo}) => {
 
-    const [messagesLikedByUser] = useObtainMessagesLikesByUser();
+const TimelineLikesUser = ({user, currentUserInfo, changeAlert, changeStateAlert}) => {
+
+    const [messagesLikedByUser, ObtainMoreMessagesLikedByUser, thereAreMoreMessagesLikedByUser] = useObtainMessagesLikesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
-    console.log(messagesLikedByUser)
     
-    /* var filterLikes= messagesLikedByUser.filter(function(items) {
-      return items.likes.includes(currentUserInfo[0].uidUser)
-      }); */
-
 
       return ( 
             <>
@@ -34,10 +30,17 @@ const TimelineLikesUser = ({user, currentUserInfo}) => {
                 uidUser={Message.uidUser}
                 changeShowPopUp={changeShowPopUp}
                 changePopUpAlert={changePopUpAlert}
+                changeAlert={changeAlert}
+                changeStateAlert={changeStateAlert}
                 user={user}/>
               </Card>  
               )
-            })}          
+            })}
+            {thereAreMoreMessagesLikedByUser &&
+            <LoadMoreContainer>
+              <LoadMoreButton onClick= {() => ObtainMoreMessagesLikedByUser()}> <p>Load More</p></LoadMoreButton>
+            </LoadMoreContainer>
+            }          
             </>
        );
 }

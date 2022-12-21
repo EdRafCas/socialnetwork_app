@@ -390,5 +390,43 @@ const StraightLine2=styled.div`
   border:solid ${theme.BorderColor} 1px;
   background-color: rgb(51, 54, 57);
 `
+const LoadMoreButton=styled.button`
+  display:flex;
+  height:4rem;
+  width:15rem;
+  border-radius:15px;
+  padding:2rem;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  /* border:solid red 1px; */
+  background:${theme.GradientBackround};
+  p{
+    font-size:1.2rem;
+    font-weight:1000;
+    color:white;
+    /* border:solid red 1px; */
+  }
+  :hover{
+    background:${theme.BluePinned}};
+  }
+  :active{
+    border:solid black 3px;
+    p{
+      color:black;
+      
+    }
+  }
+`
+const LoadMoreContainer=styled.div`
+  display:flex;
+  height:100%;
+  width:100%;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  /* border:solid red 1px; */
+  padding:0.5rem 0.5rem;
+`
 
-export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2};
+export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2, LoadMoreButton,LoadMoreContainer};

@@ -14,7 +14,7 @@ import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
-import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton,MessageLink, BarButton} from '.././Elements/ElementsTimeline'
+import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton,MessageLink, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer} from '.././Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
 import receiveNotification from './ReceiveNotification';
@@ -23,20 +23,16 @@ import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 
-const EmptyDiv =styled.div`
-  visibility:hidden
-  display:none;
-  overflow:hidden;
-`
+
+
 
 const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => {
-    const [messagesSentByUser] = useObtainMessagesByUser();
+    const [messagesSentByUser,ObtainMoreMessagesByUser,thereAreMoreMessagesByUser] = useObtainMessagesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
     const navigate = useNavigate();
-    console.log("TimelineUser")
  
     const formatDate = (date) => {
       return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
@@ -243,7 +239,13 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
               }
             </Card>  
             )
-          })}          
+          })
+          }  
+          {thereAreMoreMessagesByUser &&
+          <LoadMoreContainer>
+          <LoadMoreButton onClick= {() => ObtainMoreMessagesByUser()}> <p>Load More</p></LoadMoreButton>
+          </LoadMoreContainer>
+          }
         </>
        );
 }

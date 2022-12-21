@@ -1,7 +1,5 @@
 import React, {useContext} from 'react';
-import styled from 'styled-components';
 import {useNavigate } from 'react-router-dom';
-import theme from '../Theme';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
 import ProfileImage from '../img/profile_avatar.png'
@@ -15,10 +13,9 @@ import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
-import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, MessageLink, BarButton, EmptyDiv} from '../Elements/ElementsTimeline'
+import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,  CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, MessageLink, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
-import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -29,7 +26,7 @@ import CommentMainTimeline from './CommentMainTimeline';
 
 
 const TimelineUserMessages = ({user,currentUserInfo, changeAlert, changeStateAlert}) => {
-    const [messagesSentByUser] = useObtainMessagesByUser();
+    const [messagesSentByUser, ObtainMoreMessagesByUser, thereAreMoreMessagesByUser] = useObtainMessagesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
     const {update} =useContext(AuthContext);
@@ -258,7 +255,12 @@ const TimelineUserMessages = ({user,currentUserInfo, changeAlert, changeStateAle
               }
             </Card>  
             )
-          })}          
+          })}
+          {thereAreMoreMessagesByUser &&
+          <LoadMoreContainer>
+          <LoadMoreButton onClick= {() => ObtainMoreMessagesByUser()}> <p>Load More</p></LoadMoreButton>
+          </LoadMoreContainer>
+          }          
         </>
        );
 }
