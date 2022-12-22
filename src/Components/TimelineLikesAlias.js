@@ -1,7 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import useObtainMessagesLikesByUserAlias from '../Hooks/useObtainMessagesLikesByUserAlias';
-import {Card} from '../Elements/ElementsTimeline'
-import MessageTimelineContainer from './MessageTimelineContainer';
+import {Card, LoadMoreButton, LoadMoreContainer} from '../Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import LikeContainer from './LikeContainer';
 import LoadingComponent from '../Elements/LoadingComponent'
@@ -9,12 +8,11 @@ import LoadingComponent from '../Elements/LoadingComponent'
 
 const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, currentUserInfo}) => {
 
-  const [messagesLikedByUser] = useObtainMessagesLikesByUserAlias(userByAlias[0].uidUser);
+  const [messagesLikedByUserAlias, ObtainMoreMessagesLikedByUserAlias,thereAreMoreMessagesLikedByUserAlias] = useObtainMessagesLikesByUserAlias(userByAlias[0].uidUser);
   const {changeShowPopUp} =useContext(AuthContext);
   const {changePopUpAlert} =useContext(AuthContext);
   const {update} =useContext(AuthContext);
   const {changeUpdate} =useContext(AuthContext);
-
   const [messagesLikesByUserAliasLoaded, changeMessagesLikesByUserAliasLoaded] =useState(true)
 
   useEffect(()=>{
@@ -30,13 +28,13 @@ const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, c
   /* var filterLikes= messagesLikedByUser.filter(function(items) {
     return items.likes.includes(userByAlias[0].uidUser)
     }); */
-  console.log(messagesLikedByUser)
+  /* console.log(messagesLikedByUser) */
 
     return ( 
       <>
       {!messagesLikesByUserAliasLoaded?
           <>
-          {messagesLikedByUser.map((Message, index)=>{
+          {messagesLikedByUserAlias.map((Message, index)=>{
             return(
             <Card key={Message.id}>
               <LikeContainer
@@ -58,6 +56,11 @@ const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, c
           </>
       :
       <LoadingComponent/>
+      }
+      {thereAreMoreMessagesLikedByUserAlias &&
+      <LoadMoreContainer>
+      <LoadMoreButton onClick= {() => ObtainMoreMessagesLikedByUserAlias()}> <p>Load More</p></LoadMoreButton>
+      </LoadMoreContainer>
       }
       </>
       );

@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card,CardInner,MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, IconContainerRetweet, NameContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
+import {Card,CardInner,MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, BarButton, LoadMoreButton, LoadMoreContainer} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainerAlias from './PinnedMessageContainerAlias';
 import receiveNotification from './ReceiveNotification';
@@ -23,7 +23,7 @@ import LoadingComponent from '../Elements/LoadingComponent';
 
 
 const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, changeStateAlert}) => {
-    const [messagesSentByUserAlias] = useObtainMessagesByUserAlias(userByAlias[0].uidUser);
+    const [messagesSentByUserAlias, ObtainMoreMessagesByUserAlias, thereAreMoreMessagesByUserAlias] = useObtainMessagesByUserAlias(userByAlias[0].uidUser);
     const [messagesByUserLoaded, changeMessagesByUserLoaded] =useState(true)
     const {changeShowPopUp} =useContext(AuthContext);
     const {changePopUpAlert} =useContext(AuthContext);
@@ -34,11 +34,11 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
     useEffect(()=>{
       const ObtainMessagesByUserAlias = async() =>{
         if(userByAlias[0].uidUser){
-          console.log("userByAlias[0].uidUser exist")
-          console.log(userByAlias[0].uidUser)    
+          /* console.log("userByAlias[0].uidUser exist")
+          console.log(userByAlias[0].uidUser)    */ 
           changeMessagesByUserLoaded(false) 
         } else{
-              console.log("userByAlias[0].uidUser not found")
+              /* console.log("userByAlias[0].uidUser not found") */
         }
 
       }
@@ -233,6 +233,11 @@ const TimelineUserAlias = ({userByAlias,user,currentUserInfo, changeAlert, chang
         :
         <LoadingComponent/>
         }
+        {thereAreMoreMessagesByUserAlias &&
+          <LoadMoreContainer>
+          <LoadMoreButton onClick= {() => ObtainMoreMessagesByUserAlias()}> <p>Load More</p></LoadMoreButton>
+          </LoadMoreContainer>
+          }
         </>
         
        );

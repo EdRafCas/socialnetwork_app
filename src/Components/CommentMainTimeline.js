@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {useNavigate } from 'react-router-dom';
+import {useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
@@ -57,6 +57,28 @@ const CardColumns = styled.div`
   /* border:solid ${theme.BorderColor} 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0rem;
+`
+
+const DeletedMessage = styled.div`
+padding: 1rem 0.5rem;
+margin: 0.5rem 0.5rem;
+border-radius:15px;
+background-color: rgb(22, 24, 28);
+`
+const DeletedCommentLink =styled(Link)`
+  padding:0.5rem 1rem;
+  width: fit-content;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+  /* border:solid ${theme.BorderColor} 1px; */
+  gap:5px;
+  color:${theme.BlueReply};
+  text-decoration:none;
+  font-weight:1000;
+  overflow:hidden;
+  z-index:81;
+  :hover{
+    text-decoration:underline;
+  }
 `
 
 
@@ -297,9 +319,31 @@ return (
             />
           </CardInner>
           :
-          <EmptyDiv>
-
-          </EmptyDiv>
+          <CardInner>
+            <DeletedCommentLink 
+                    onClick={(e)=>{e.stopPropagation();}}
+                    to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
+                    socialnetwork-app-aca27.web.app/user/{userInfoForQuote[0].alias}...
+            </DeletedCommentLink>
+            <DeletedMessage>
+               This message was deleted by his author
+            </DeletedMessage>
+            <CommentInner
+                previousCommentAlias={userInfoForQuote[0].alias}
+                currentUserInfo={currentUserInfo}
+                commentId={commentId}
+                originalId={originalId}
+                originalMessageComments={[]}
+                commentUidUser={commentUidUser}
+                changeShowPopUp={changeShowPopUp}
+                changePopUpAlert={changePopUpAlert}
+                user={user}
+                update={update}
+                changeUpdate={changeUpdate}
+                changeAlert={changeAlert} 
+                changeStateAlert={changeStateAlert}
+              />
+          </CardInner>
           }
         </>
         :

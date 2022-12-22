@@ -62,7 +62,7 @@ const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, current
                         @{currentUserInfo[0].alias}
                         </AliasContainer>
                   </UserNameContainerMessage>
-              {currentUserInfo[0].bookmarks.map((Bookmarks, index)=>{
+                  {currentUserInfo[0].bookmarks.map((Bookmarks, index)=>{
                   return(
                         <Card key={index}>
                               <BookmarkTimelineContainer 
@@ -76,7 +76,7 @@ const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, current
                               />
                         </Card>
                   )
-              })}
+                        })}
             </TimelineUserContainer>
       );
 }

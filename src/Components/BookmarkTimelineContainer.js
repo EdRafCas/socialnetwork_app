@@ -29,7 +29,7 @@ const BookmarkTimelineContainer = ({ id, user, currentUserInfo, changeShowPopUp,
           console.log(id +" no existe")
         } */
         changeMessageForBookMark(document)
-       console.log("reload bookmark")
+       /* console.log("reload bookmark") */
         changeLoadingMessageData(false)
       }
     obtainBookmarkTimeline();
