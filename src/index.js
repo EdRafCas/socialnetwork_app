@@ -19,8 +19,8 @@ WebFont.load({
 
 const Container = styled.div`
   height: 100vh;
- 
   border:solid black 15px;
+  border-top:none;
   z-index: 100;
   min-height:750px;
   min-width:375px;

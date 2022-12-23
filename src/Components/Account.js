@@ -135,7 +135,8 @@ const MessageButtonContainer=styled.div`
 const MessageButton=styled.button`
   display:flex;
   height:4rem;
-  width:100%;
+  width:auto;
+  max-width:20rem;
   border-radius:9999px;
   padding:2rem;
   flex-direction:column;

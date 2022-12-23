@@ -5,8 +5,9 @@ import theme from '../Theme'
 const Card =styled.div`
   display:flex;
   flex-direction:column;
-  /* border-left:none;
-  border-right:none */;
+  max-width:700px;
+ /*  border-left:solid ${theme.BorderColor} 1px ;
+  border-right:solid ${theme.BorderColor} 1px ; */
   border-bottom: ${(props) => props.TimelineComment ? ` solid ${theme.BorderColor} 1px`: "none"};
   /* border-radius:15px; */
   /* border-top:solid ${theme.BorderColor} 1px; */
@@ -421,12 +422,35 @@ const LoadMoreButton=styled.button`
 const LoadMoreContainer=styled.div`
   display:flex;
   height:100%;
-  width:100%;
+  max-width:700px;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  /* border:solid red 1px; */
+ /*  border-bottom:solid ${theme.BorderColor} 1px;
+  border-right:solid ${theme.BorderColor} 1px;
+  border-left:solid ${theme.BorderColor} 1px; */
   padding:0.5rem 0.5rem;
 `
 
-export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2, LoadMoreButton,LoadMoreContainer};
+const DeletedMessage = styled.div`
+  padding: 1rem 0.5rem;
+  margin: 0.5rem 0.5rem;
+  border-radius:15px;
+  background-color: rgb(22, 24, 28);
+`
+const DeletedCommentLink =styled(Link)`
+  padding:0.5rem 1rem;
+  width: fit-content;
+  /* border-bottom:solid ${theme.BorderColor} 1px; */
+  /* border:solid ${theme.BorderColor} 1px; */
+  gap:5px;
+  color:${theme.BlueReply};
+  text-decoration:none;
+  font-weight:1000;
+  overflow:hidden;
+  z-index:81;
+  :hover{
+    text-decoration:underline;
+  }
+`
+export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2, LoadMoreButton,LoadMoreContainer, DeletedMessage, DeletedCommentLink};

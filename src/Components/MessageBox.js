@@ -8,6 +8,7 @@ import '../index.css'
 
 const MessageContainer = styled.div`
       width:100%;
+      max-width:700px;
       /* height:500px; */
       padding:1rem 1rem;
       display:flex;

@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {useNavigate, Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,MessageLink, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, CounterContainer, IconContainerCont,  LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner,MessageLink, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, CounterContainer, IconContainerCont,  LikeButton, BarButton, DeletedMessage, DeletedCommentLink} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -59,27 +59,7 @@ const CardColumns = styled.div`
   gap:0rem;
 `
 
-const DeletedMessage = styled.div`
-padding: 1rem 0.5rem;
-margin: 0.5rem 0.5rem;
-border-radius:15px;
-background-color: rgb(22, 24, 28);
-`
-const DeletedCommentLink =styled(Link)`
-  padding:0.5rem 1rem;
-  width: fit-content;
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
-  /* border:solid ${theme.BorderColor} 1px; */
-  gap:5px;
-  color:${theme.BlueReply};
-  text-decoration:none;
-  font-weight:1000;
-  overflow:hidden;
-  z-index:81;
-  :hover{
-    text-decoration:underline;
-  }
-`
+
 
 
 const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, commentUidUser,commentId}) => {
@@ -326,7 +306,7 @@ return (
                     socialnetwork-app-aca27.web.app/user/{userInfoForQuote[0].alias}...
             </DeletedCommentLink>
             <DeletedMessage>
-               This message was deleted by his author
+               This message was deleted by his Creator
             </DeletedMessage>
             <CommentInner
                 previousCommentAlias={userInfoForQuote[0].alias}

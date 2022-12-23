@@ -13,15 +13,19 @@ import LoadMore from '../Elements/LoadMore';
 
 const TimelineContainer = styled.div`
   height:100%;
+  max-width:700px;
   display:flex;
   flex-direction:column;
   padding:0rem;
   border:solid ${theme.BorderColor} 1px;
-  /* border-collapse: collapse; */
   gap:0rem;
   overflow:scroll;
   overflow-x:hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `
+
+
 
 
 const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTimeline, message, handleChange}) => {

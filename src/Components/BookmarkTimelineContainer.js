@@ -5,12 +5,9 @@ import { db } from "../firebase/FirebaseConfig";
 import {doc, getDoc} from "firebase/firestore";
 import BookmarkTimeline from './BookmarkTimeline';
 import { AuthContext } from '../Context/AuthContext';
+import {EmptyDiv} from '.././Elements/ElementsTimeline'
 
-const EmptyDiv =styled.div`
-visibility:hidden
-display:none;
-overflow:hidden;
-`
+
 
 
 const BookmarkTimelineContainer = ({ id, user, currentUserInfo, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert}) => {

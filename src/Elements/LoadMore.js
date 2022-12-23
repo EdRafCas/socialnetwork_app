@@ -34,11 +34,13 @@ const LoadMoreButton=styled.button`
 const LoadMoreContainer=styled.div`
   display:flex;
   height:100%;
-  width:100%;
+  max-width:700px;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  /* border:solid red 1px; */
+ /*  border-bottom:solid ${theme.BorderColor} 1px;
+  border-right:solid ${theme.BorderColor} 1px;
+  border-left:solid ${theme.BorderColor} 1px; */
   padding:0.5rem 0.5rem;
 `
 

@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserNameContainer, UserNameContainerLink, CounterContainer, IconContainerCont, TimeBar, LikeButton} from '../Elements/ElementsTimeline'
+import {UserNameContainer, UserNameContainerLink, CounterContainer, IconContainerCont, TimeBar, LikeButton, DeletedMessage, DeletedCommentLink} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -380,9 +380,16 @@ return (
             </MessageLink>
           </CardInner>
           :
-          <EmptyDiv>
-            <p>This Message was deleted</p>
-          </EmptyDiv>
+          <>
+          <DeletedCommentLink 
+                  onClick={(e)=>{e.stopPropagation();}}
+                  to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
+                  socialnetwork-app-aca27.web.app/user/{userInfoForQuote[0].alias}...
+            </DeletedCommentLink>
+            <DeletedMessage>
+               This message was deleted by his author
+            </DeletedMessage>
+          </>
           }
         </>
         :

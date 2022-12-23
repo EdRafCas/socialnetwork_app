@@ -21,19 +21,22 @@ const MainPageContainer = styled.div`
   background:#000;
   width:100%;
   height:100%;
-  border:solid red 1px;
+  /* border:solid red 1px; */
 `
 const ColumnContainer=styled.div`
-  max-width:400px;
-  width:350px;
+  width:600px;
+  max-width:600px;
+  /* width:350px; */
   display:flex;
   flex-direction:column;
 `
 const ColumnContainer2=styled.div`
-  max-width:60%;
-  width:820px;
+  width:100%;
   display:flex;
   flex-direction:column;
+  /* border:solid blue 1px; */
+  overflow:scroll;
+  overflow-x: hidden;
 `
 
 const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
@@ -145,41 +148,38 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
                             changeAlert={changeAlert}
                             messageAlert={alert.message}
                             stateAlert={stateAlert}
-                            changeStateAlert={changeStateAlert}
-                            />
+                            changeStateAlert={changeStateAlert}/>
             }
           </ColumnContainer2>
           <Alert  type={alert.type}
                   message={alert.message}
                   stateAlert={stateAlert}
-                  changeStateAlert={changeStateAlert}
-                  />
+                  changeStateAlert={changeStateAlert}/>
           {showMessageBox ?
           <>
-          <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
-          <CenterBox>
-          <MessageBox floating
-                      messageFloating={messageFloating}
-                      messageChangeFloating={messageChangeFloating}
-                      user={user}
-                      currentUserInfo={currentUserInfo}
-                      addToTimeline={addToTimeline}
-                      message={message}
-                      handleChange={handleChange} />
-          </CenterBox>
+            <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
+            <CenterBox>
+              <MessageBox floating
+                          messageFloating={messageFloating}
+                          messageChangeFloating={messageChangeFloating}
+                          user={user}
+                          currentUserInfo={currentUserInfo}
+                          addToTimeline={addToTimeline}
+                          message={message}
+                          handleChange={handleChange} />
+            </CenterBox>
           </>
           :""
           }
           {showEditProfile ?
           <>
-          <TranslucidBack onClick={()=>changeShowEditProfile(!showEditProfile)}/>
-          <CenterBox>
-            <EditProfileBox user={user}
-                            currentUserInfo={currentUserInfo} 
-                            changeShowEditProfile={changeShowEditProfile}
-                            showEditProfile={showEditProfile}
-              />
-          </CenterBox>
+            <TranslucidBack onClick={()=>changeShowEditProfile(!showEditProfile)}/>
+            <CenterBox>
+              <EditProfileBox user={user}
+                              currentUserInfo={currentUserInfo} 
+                              changeShowEditProfile={changeShowEditProfile}
+                              showEditProfile={showEditProfile}/>
+            </CenterBox>
           </>
           :""
           }
