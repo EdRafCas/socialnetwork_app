@@ -8,13 +8,14 @@ const HeaderUser =styled.div`
       justify-content:center;
       padding:0rem;
       width:100%;
+      min-width:350px;
       height:auto;
       /* border:solid red 1px; */
 `
 const BackgroundImage =styled.div`
       /* border:solid red 1px; */
       overflow:hidden;
-      height:380px;
+      max-height:380px;
       width:100%;
       cursor:pointer;
       display:flex;
@@ -40,12 +41,12 @@ const ProfilePic =styled.div`
       left:1rem;
       padding:0;
       border-radius:50%;
-      height:auto;
       display:flex;
       flex-direction:column;
       justify-content:center;
       width:10rem;
       height:10rem;
+      min-height:48px;
       flex-direction:column;
       overflow:hidden;
       background:#000;
@@ -55,8 +56,9 @@ const ProfilePic =styled.div`
       }
 `
 const UserCard =styled.div`
-      padding:1rem;
-      height:10rem;
+      padding:0rem 1rem;
+      max-height:10rem;
+      min-height:5rem;
       display:flex;
       flex-direction:column;
       /* border:solid red 1px; */

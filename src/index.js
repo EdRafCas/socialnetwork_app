@@ -25,6 +25,9 @@ const Container = styled.div`
   min-height:750px;
   min-width:375px;
   color: ${theme.Text};
+  @media(max-width: 760px){ 
+    border:none;
+}
 `
 const Index = () => {
   const [stateAlert, changeStateAlert] =useState(false);

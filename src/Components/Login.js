@@ -11,9 +11,9 @@ import LogoutButton from './LogoutButton';
 
 const FormularyContainer = styled.div`
   width:auto;
-  min-width:50%;
+  min-width:350px;
   height:auto;
-  padding:1% 6%;
+  padding:0rem;
   display:flex;
   flex-direction:column;
   align-content:center;

@@ -9,6 +9,7 @@ import HeaderUserProfile from './HeaderUserProfile';
 
 const LinksContainer = styled.div`
   width:100%;
+  min-width:400px;
   background:black;
   margin:auto;
   display:flex;

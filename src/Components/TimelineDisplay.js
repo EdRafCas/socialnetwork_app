@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
 import useObtainMessages from '../Hooks/useObtainMessages';
-import {Card} from '.././Elements/ElementsTimeline'
+import {Card, EmptyDiv} from '.././Elements/ElementsTimeline'
 import RetweetContainerDisplay from './RetweetContainerDisplay';
 import MessageTimelineContainerDisplay from './MessageTimelineContainerDisplay';
 import '../index.css'
 
 const TimelineContainer = styled.div`
   height:100%;
-  width:50%;
+  max-width:700px;
   display:flex;
   flex-direction:column;
   padding:0rem;
@@ -19,15 +19,13 @@ const TimelineContainer = styled.div`
   overflow:scroll;
   overflow-x:hidden;
 `
-const EmptyDiv=styled.div`
-`
 
 
 const TimelineDisplay = () => {
     const [messagesSent] = useObtainMessages();
 
       return ( 
-      <TimelineContainer >
+      <TimelineContainer className='timeline-user'>
       {messagesSent.map((Message, index)=>{
         return(
           <Card key={Message.id}>

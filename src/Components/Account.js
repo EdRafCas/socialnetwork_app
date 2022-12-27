@@ -7,6 +7,7 @@ import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconHome} from '../img/home_icon.svg';
 import {ReactComponent as IconProfile} from '../img/profile_icon.svg';
 import {ReactComponent as IconBookmark} from '../img/bookmark_icon.svg';
+import {ReactComponent as IconMessage} from '../img/sendMessage_icon.svg';
 
 const AccountManagement=styled.div`
   display:flex;
@@ -15,8 +16,8 @@ const AccountManagement=styled.div`
   overflow:hidden;
   padding:0rem 0rem;
   flex-direction:column;
-  align-items:center;
-  justify-content:space-between;
+  align-items:left;
+  justify-content:flex-start;
   /* border:solid ${theme.BorderColor} 1px; */
 `
 const GeneralMenu = styled.div`
@@ -26,13 +27,16 @@ const GeneralMenu = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
-  gap:2rem;
+  gap:1rem;
   /* border:solid ${theme.BorderColor} 1px; */
+  @media(max-width: 760px){ 
+    align-content:center;
+}
 `
 const MiniProfile=styled.div`
   display:flex;
   height:5rem;
-  width:90%;
+  width:auto;
   border-radius:9999px;
   padding:0.5rem;
   flex-direction:row;
@@ -43,6 +47,9 @@ const MiniProfile=styled.div`
   :hover{
     background:${theme.GradientBackround};
   }
+ /*  @media(max-width: 760px){ 
+    display:none;
+} */
 `
 const PortraitContainer =styled.div`
   /* border: solid red 1px; */
@@ -61,6 +68,9 @@ const PortraitContainer =styled.div`
   img{
     width:100%;
   }
+  @media(max-width: 760px){ 
+    display:none;
+}
 `
 const NameContainer =styled.h1`
   /* border:solid ${theme.BorderColor} 1px; */
@@ -82,20 +92,25 @@ const MiniUserNames =styled.div`
   overflow:hidden;
   max-width:60%;
   min-width:50%;
+  @media(max-width: 760px){ 
+  display:none;
+}
+
 `
 const MenuLink=styled(Link)`
   display:flex;
   margin:auto;
   margin-left:0px;
-  padding:1.5rem;
-  /* border:1px solid white; */
+  padding-left:0.5rem;
+  padding-right:1rem;
+  /* border:solid white 1px; */
   border-radius:9999px;
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
   align-items:center;
-  height:3.5rem;
-  gap:1rem;
+  height:3rem;
+  gap:0.5rem;
   text-decoration:none;
   color:${theme.Text};
   p{
@@ -105,15 +120,26 @@ const MenuLink=styled(Link)`
   :hover{
     background:rgba(255,255,255, 0.2);
   }
+  @media(max-width: 760px){ 
+  p{
+    display:none;
+  }
+  max-width:3rem;
+  margin:auto;
+  padding:0;
+  justify-content:center;
+}
 `
+
 const IconContainer=styled.div`
   border-radius:50%;
   display:flex;
+  justify-content:center;
   align-items:center;
-  height:2.5rem;
-  /* border:1px solid white; */
+  height:3rem;
+  width:3rem;
+ /*  border:1px solid white; */
   fill:currentcolor;
-  
     svg{
       max-height:2rem;
       fill:white;
@@ -122,28 +148,39 @@ const IconContainer=styled.div`
     /* background:white;;
     fill:black; */
   }
+  /* @media(max-width: 760px){ 
+  :hover{
+    background:rgba(255,255,255, 0.2);
+  }
+} */
 `
 const MessageButtonContainer=styled.div`
   display:flex;
   height:100%;
-  width:100%;
+  width:auto;
   flex-direction:column;
   justify-content:flex-start;
-  /* border:solid red 1px; */
-  padding:0.5rem 0.5rem;
+  align-content:left;
+ /*  border:solid red 1px; */
+  padding:0;
+  @media(max-width: 760px){ 
+    padding:3px;
+  }
+  
 `
 const MessageButton=styled.button`
   display:flex;
   height:4rem;
-  width:auto;
   max-width:20rem;
+  min-width:4rem;
   border-radius:9999px;
   padding:2rem;
-  flex-direction:column;
+  flex-direction:row;
   justify-content:center;
   align-items:center;
   /* border:solid red 1px; */
-  background:${theme.GradientBackround};
+  border:none;
+  background:${theme.BluePinned};
   p{
     font-size:1.2rem;
     font-weight:1000;
@@ -151,14 +188,28 @@ const MessageButton=styled.button`
     /* border:solid red 1px; */
   }
   :hover{
-    background:${theme.BluePinned}};
+    background:${theme.GradientBackround}};
+    cursor:pointer;
   }
   :active{
-    border:solid black 3px;
+    border:solid black 2px;
     p{
       color:black;
-      
     }
+  }
+  @media(max-width: 760px){ 
+    padding:0;
+    border-radius:50%;
+    border:none;
+   p{
+    display:none;
+   }
+  }
+ 
+  @media(min-width: 760px){ 
+   div{
+    display:none;
+   }
   }
 `
 
@@ -188,6 +239,9 @@ const Account = ({ user, currentUserInfo, showMessageBox, changeShowMessageBox})
               </GeneralMenu>
               <MessageButtonContainer>
                 <MessageButton onClick={()=>changeShowMessageBox(!showMessageBox)}>
+                  <IconContainer>
+                    <IconMessage/>
+                  </IconContainer>
                   <p>Message</p>
                 </MessageButton>
               </MessageButtonContainer>    

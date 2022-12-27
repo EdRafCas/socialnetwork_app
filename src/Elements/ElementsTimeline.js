@@ -346,7 +346,6 @@ const UserNameContainerLinkQuoted =styled(Link)`
   }
 `
 
-
 const InteractionBarPinned=styled.div`
   display:flex;
   flex-direction:row;
@@ -423,6 +422,7 @@ const LoadMoreContainer=styled.div`
   display:flex;
   height:100%;
   max-width:700px;
+  min-width:350px;
   flex-direction:column;
   align-items:center;
   justify-content:center;
@@ -437,6 +437,7 @@ const DeletedMessage = styled.div`
   margin: 0.5rem 0.5rem;
   border-radius:15px;
   background-color: rgb(22, 24, 28);
+  min-width:350px;
 `
 const DeletedCommentLink =styled(Link)`
   padding:0.5rem 1rem;

@@ -9,12 +9,15 @@ const ContainerLogin=styled.div`
   height:100%;
   display:flex;
   flex-direction:row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background:#000;
+  overflow:scroll;
+  overflow-x:hidden;
 
 @media(max-width: 760px){ 
   display:flex;
-  flex-direction:column-reverse;
+  flex-direction:column;
+  gap:0px;
 }
 `
 
@@ -26,16 +29,15 @@ const LoginPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
       
       return ( 
       <ContainerLogin>
-        <TimelineDisplay />
-        <Login  
-                  email={email}
-                  emailChange={emailChange}
-                  password={password}
-                  passwordChange={passwordChange}
-                  alert={alert}
-                  changeAlert={changeAlert}
-                  stateAlert={stateAlert}
-                  changeStateAlert={changeStateAlert}/>
+      <Login  email={email}
+              emailChange={emailChange}
+              password={password}
+              passwordChange={passwordChange}
+              alert={alert}
+              changeAlert={changeAlert}
+              stateAlert={stateAlert}
+              changeStateAlert={changeStateAlert}/>
+      <TimelineDisplay />  
           
       </ContainerLogin>
        );

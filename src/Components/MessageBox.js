@@ -7,16 +7,17 @@ import '../index.css'
 
 
 const MessageContainer = styled.div`
-      width:100%;
       max-width:700px;
+      min-width:350px;
       /* height:500px; */
-      padding:1rem 1rem;
+      padding:0.5rem 1rem;
       display:flex;
       flex-direction:column;
       align-content:center;
-      gap:1rem;
+      gap:0.5rem;
       border-bottom:solid ${theme.BorderColor} 1px;
       background:#000;
+      
 `
 const CreateMessageForm =styled.form`
       display:flex;
@@ -24,12 +25,13 @@ const CreateMessageForm =styled.form`
       gap:1rem;
 `
 const HeaderUser =styled.div`
+      width:100%;
       display:flex;
       flex-direction:row;
       gap:1rem;
 `
 const MessageUser =styled.textarea`
-      padding:1rem;
+      padding:0rem;
       font-size:1rem;
       text-align:left;
       white-space:pre-wrap;

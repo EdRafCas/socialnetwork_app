@@ -306,7 +306,7 @@ return (
                     socialnetwork-app-aca27.web.app/user/{userInfoForQuote[0].alias}...
             </DeletedCommentLink>
             <DeletedMessage>
-               This message was deleted by his Creator
+               This message was deleted by his author
             </DeletedMessage>
             <CommentInner
                 previousCommentAlias={userInfoForQuote[0].alias}

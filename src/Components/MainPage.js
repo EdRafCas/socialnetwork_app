@@ -24,7 +24,8 @@ const MainPageContainer = styled.div`
   /* border:solid red 1px; */
 `
 const ColumnContainer=styled.div`
-  width:600px;
+
+  /* width:600px; */
   max-width:600px;
   /* width:350px; */
   display:flex;

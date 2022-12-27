@@ -16,7 +16,7 @@ const Formulary =styled.form`
   align-self:center;
   height:auto;
   gap:1rem;
-  border:${(props)=> props.LoginUpFormulary ? `solid ${theme.BorderColor} 1px` : "none"};
+  border:${(props)=> props.LoginUpFormulary ? "none" : "none"};
   /* border:solid ${theme.BorderColor} 1px; */
   padding:1rem 0rem;
 `
@@ -127,6 +127,7 @@ const PortraitContainer =styled.div`
   overflow:hidden;
   img{
     width:100%;
+    min-width:48px;
   }
 `
 const NameContainer =styled.h1`

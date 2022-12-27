@@ -2,7 +2,6 @@ import React,{useContext} from 'react';
 import styled from 'styled-components';
 import {useParams } from 'react-router-dom';
 import {NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
-import Starboy from '../img/starboy.png';
 import ProfileImage from '../img/profile_avatar.png';
 import { useAuth } from '../Context/AuthContext';
 import {HeaderUser,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton} from './../Elements/ElemenstProfile'
@@ -24,7 +23,7 @@ const BackgroundImageUser =styled.div`
             }
 `
 const BackgroundImageUserContainer =styled.div`
-      height:380px;
+      max-height:380px;
       width:100%;
       overflow:hidden;
 `
@@ -89,34 +88,34 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
                         <EmptyBackground/>
                         }
                   </BackgroundImageUserContainer>
-                <ProfilePicContainer>
-                {user.photoURL ?
-                  <ProfilePic onClick={()=>receiveNotification({
-                              notification:"profilePicture",
-                              changeShowPopUp, 
-                              changePopUpAlert,
-                              profilePicture:currentUserInfo[0].photoURL})}>
-                        <img alt="UserAvatar" src={user.photoURL} />
-                  </ProfilePic>
-                  :
-                  <EmptyProfilePic>
-                        <img alt="DefaultAvatar" src={ProfileImage}/>
-                  </EmptyProfilePic>
-                  }
-                  <EditButton onClick={()=>changeShowEditProfile(!showEditProfile)} >
-                        <p>Edit Profile</p>
-                  </EditButton>
-                </ProfilePicContainer>
-                <UserCard>
-                  <NamesContainer>
-                    <NameContainer>{currentUserInfo[0].name}</NameContainer>
-                    <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
-                  </NamesContainer>
-                  <Bio>
-                  {currentUserInfo[0].bio ? currentUserInfo[0].bio
-                  :""}
-                  </Bio>
-                </UserCard>
+                  <ProfilePicContainer>
+                  {user.photoURL ?
+                        <ProfilePic onClick={()=>receiveNotification({
+                                    notification:"profilePicture",
+                                    changeShowPopUp, 
+                                    changePopUpAlert,
+                                    profilePicture:currentUserInfo[0].photoURL})}>
+                              <img alt="UserAvatar" src={user.photoURL} />
+                        </ProfilePic>
+                        :
+                        <EmptyProfilePic>
+                              <img alt="DefaultAvatar" src={ProfileImage}/>
+                        </EmptyProfilePic>
+                        }
+                        <EditButton onClick={()=>changeShowEditProfile(!showEditProfile)} >
+                              <p>Edit Profile</p>
+                        </EditButton>
+                  </ProfilePicContainer>
+                  <UserCard>
+                        <NamesContainer>
+                        <NameContainer>{currentUserInfo[0].name}</NameContainer>
+                        <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
+                        </NamesContainer>
+                        <Bio>
+                        {currentUserInfo[0].bio ? currentUserInfo[0].bio
+                        :""}
+                        </Bio>
+                  </UserCard>
               </HeaderUser>
        );
 }
