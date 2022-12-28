@@ -22,7 +22,7 @@ const Container = styled.div`
   border:solid black 15px;
   border-top:none;
   z-index: 100;
-  min-height:750px;
+  min-height:650px;
   min-width:375px;
   color: ${theme.Text};
   @media(max-width: 760px){ 

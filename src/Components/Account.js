@@ -12,13 +12,16 @@ import {ReactComponent as IconMessage} from '../img/sendMessage_icon.svg';
 const AccountManagement=styled.div`
   display:flex;
   height:100%;
+  min-height:500px;
   width:100%;
+  max-width:375px;
+  /* max-width:40% */
   overflow:hidden;
   padding:0rem 0rem;
   flex-direction:column;
-  align-items:left;
-  justify-content:flex-start;
-  /* border:solid ${theme.BorderColor} 1px; */
+  align-self:right;
+  justify-content:space-between;
+  border:solid ${theme.BorderColor} 1px;
 `
 const GeneralMenu = styled.div`
   width:100%;
@@ -35,21 +38,28 @@ const GeneralMenu = styled.div`
 `
 const MiniProfile=styled.div`
   display:flex;
-  height:5rem;
-  width:auto;
-  border-radius:9999px;
-  padding:0.5rem;
   flex-direction:row;
-  justify-content:center;
+  justify-content:flex-start;
   align-content:center;
-  gap:5px;
+  height:auto;
+  width:fit-content;
+  width:100%;
+  max-width:300px;
+  min-width:4rem;
+  border-radius:9999px;
+  /* padding:0.5rem; */
+  gap:1px;
   /* border:solid red 1px; */
   :hover{
     background:${theme.GradientBackround};
   }
- /*  @media(max-width: 760px){ 
-    display:none;
-} */
+  @media(max-width: 760px){ 
+    justify-content:center;
+    :hover{
+    background:#000;
+  }
+    
+}
 `
 const PortraitContainer =styled.div`
   /* border: solid red 1px; */
@@ -61,7 +71,6 @@ const PortraitContainer =styled.div`
   justify-content:center;
   width:3rem;
   height:3rem;
-  max-width:30%;
   min-width:3rem;
   flex-direction:column;
   overflow:hidden;
@@ -91,7 +100,7 @@ const MiniUserNames =styled.div`
   gap:5px;
   overflow:hidden;
   max-width:60%;
-  min-width:50%;
+  min-width:4rem;
   @media(max-width: 760px){ 
   display:none;
 }
@@ -156,10 +165,11 @@ const IconContainer=styled.div`
 `
 const MessageButtonContainer=styled.div`
   display:flex;
-  height:100%;
+  height:auto;
+  width:100%;
   width:auto;
-  flex-direction:column;
-  justify-content:flex-start;
+  flex-direction:row;
+  justify-content:center;
   align-content:left;
  /*  border:solid red 1px; */
   padding:0;
@@ -236,7 +246,6 @@ const Account = ({ user, currentUserInfo, showMessageBox, changeShowMessageBox})
                   </IconContainer>
                   <p>Bookmark</p>
                 </MenuLink>
-              </GeneralMenu>
               <MessageButtonContainer>
                 <MessageButton onClick={()=>changeShowMessageBox(!showMessageBox)}>
                   <IconContainer>
@@ -245,6 +254,7 @@ const Account = ({ user, currentUserInfo, showMessageBox, changeShowMessageBox})
                   <p>Message</p>
                 </MessageButton>
               </MessageButtonContainer>    
+              </GeneralMenu>
               <MiniProfile>
                 <PortraitContainer>
                   {user.photoURL ?

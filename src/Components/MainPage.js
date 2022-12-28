@@ -24,15 +24,15 @@ const MainPageContainer = styled.div`
   /* border:solid red 1px; */
 `
 const ColumnContainer=styled.div`
-
   /* width:600px; */
-  max-width:600px;
-  /* width:350px; */
+  width:20%;
   display:flex;
-  flex-direction:column;
+  flex-direction:row;
+  justify-content:flex-end;
+  
 `
 const ColumnContainer2=styled.div`
-  width:100%;
+  max-width:60%
   display:flex;
   flex-direction:column;
   /* border:solid blue 1px; */

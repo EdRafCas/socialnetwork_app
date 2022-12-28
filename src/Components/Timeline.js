@@ -13,7 +13,9 @@ import LoadMore from '../Elements/LoadMore';
 
 const TimelineContainer = styled.div`
   height:100%;
+  width:auto;
   max-width:700px;
+  /* max-width:700px; */
   display:flex;
   flex-direction:column;
   padding:0rem;
