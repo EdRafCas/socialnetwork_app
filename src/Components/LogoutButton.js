@@ -10,7 +10,7 @@ const ButtonContainer=styled.div`
   display:flex;
   flex-direction:row;
   justify-content:center;
-  width:4rem;
+  width:3rem;
   gap:1rem;
   /* border:solid ${theme.BorderColor} 1px; */
   @media(max-width: 760px){ 
@@ -45,6 +45,9 @@ const Button =styled.button`
       
     }
   }
+  @media(max-width: 760px){ 
+    border:none;
+}
 `
 const IconContainer=styled.div`
   border-radius:50%;

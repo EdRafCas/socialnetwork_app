@@ -24,7 +24,7 @@ const Container = styled.div`
   z-index: 100;
   min-height:650px;
   min-width:375px;
-  color: ${theme.Text};
+  /* color: ${theme.Text}; */
   @media(max-width: 760px){ 
     border:none;
 }

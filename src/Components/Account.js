@@ -15,13 +15,15 @@ const AccountManagement=styled.div`
   min-height:500px;
   width:100%;
   max-width:375px;
+  min-width:4rem;
   /* max-width:40% */
   overflow:hidden;
   padding:0rem 0rem;
+  padding-bottom:0.5rem;
   flex-direction:column;
   align-self:right;
   justify-content:space-between;
-  border:solid ${theme.BorderColor} 1px;
+  /* border:solid ${theme.BorderColor} 1px; */
 `
 const GeneralMenu = styled.div`
   width:100%;
@@ -181,8 +183,8 @@ const MessageButtonContainer=styled.div`
 const MessageButton=styled.button`
   display:flex;
   height:4rem;
-  max-width:20rem;
   min-width:4rem;
+  max-width:20rem;
   border-radius:9999px;
   padding:2rem;
   flex-direction:row;
@@ -215,6 +217,8 @@ const MessageButton=styled.button`
     display:none;
    }
   }
+  height:3rem;
+  min-width:3rem;
  
   @media(min-width: 760px){ 
    div{

@@ -88,6 +88,15 @@ const Button =styled.button`
       
     }
   }
+  @media(max-width: 760px){ 
+    height:2.5rem;
+    width:4rem;
+    border:none;
+    p{
+      font-size:0.9rem;
+      font-weight:1000;
+      color:#fff;
+  }
 `
 const ButtonDisabled =styled.button`
   display:flex;
@@ -104,6 +113,15 @@ const ButtonDisabled =styled.button`
     font-weight:1000;
     color:#000;
   }
+  @media(max-width: 760px){ 
+    height:2.5rem;
+    width:4rem;
+    p{
+      font-size:0.9rem;
+      font-weight:1000;
+      color:#000;
+  }
+}
 `
 const Button2 =styled.div`
   height:2.5rem;
@@ -129,6 +147,12 @@ const PortraitContainer =styled.div`
     width:100%;
     min-width:48px;
   }
+  @media(max-width: 760px){ 
+    width:2rem;
+    min-height:2rem;
+    height:2rem;
+  }
+  
 `
 const NameContainer =styled.h1`
   /* border:solid ${theme.BorderColor} 1px; */
@@ -141,6 +165,9 @@ const NameContainer =styled.h1`
 const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
   color:${theme.Text};
+  @media(max-width: 760px){ 
+    font-size:0.9rem;
+  }
 `
 
 /*Elements for background */

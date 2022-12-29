@@ -8,21 +8,25 @@ import '../index.css'
 
 const MessageContainer = styled.div`
       max-width:700px;
-      min-width:350px;
       /* height:500px; */
       padding:0.5rem 1rem;
       display:flex;
       flex-direction:column;
       align-content:center;
-      gap:0.5rem;
       border-bottom:solid ${theme.BorderColor} 1px;
       background:#000;
+      @media(max-width: 760px){ 
+      padding: 0.25rem;
+      }
       
 `
 const CreateMessageForm =styled.form`
       display:flex;
       flex-direction:column;
-      gap:1rem;
+      gap:0.5rem;
+      @media(max-width: 760px){ 
+      gap:0.25rem;
+      }
 `
 const HeaderUser =styled.div`
       width:100%;
@@ -44,6 +48,10 @@ const MessageUser =styled.textarea`
       -moz-box-shadow: none;
       box-shadow: none;
       outline:none;
+      @media(max-width: 760px){ 
+      padding:0.5rem;
+      }
+      font-size:0.9rem;
 `
 const UserNames =styled.div`
       display:flex;
@@ -71,6 +79,14 @@ const ButtonLeft =styled.button`
             font-weight:1000;
             color:#fff;
       }
+      @media(max-width: 760px){ 
+      height:2.5rem;
+      width:2.5rem;
+      border:none;
+      p{
+            font-size:0.9rem;
+            font-weight:1000;
+      }
       `
 const ButtonExcess =styled.button`
       display:flex;
@@ -87,6 +103,15 @@ const ButtonExcess =styled.button`
                   font-weight:1000;
                   color:${theme.RedAlert};
             }
+      @media(max-width: 760px){ 
+      height:2.5rem;
+      width:2.5rem;
+      border:none;
+      p{
+            font-size:0.9rem;
+            font-weight:1000;
+      }
+}
 `     
 
 const MessageBox = ({messageFloating, floating, user, currentUserInfo, addToTimeline, message, handleChange}) => {

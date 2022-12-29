@@ -138,9 +138,9 @@ return (
                     originalMessageComments={quotedMessage.data().comments} />
                 </UserNameContainer>
                 <CommentInfoTimeline
-                originalUidUser={quotedMessage.data().originalUidUser}
-                currentUserInfo={currentUserInfo}
-                originalId={originalId}/>
+                  originalUidUser={quotedMessage.data().originalUidUser}
+                  currentUserInfo={currentUserInfo}
+                  originalId={originalId}/>
                 <MessageContent>
                 <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>
                 </MessageContent>
@@ -306,7 +306,9 @@ return (
                     socialnetwork-app-aca27.web.app/user/{userInfoForQuote[0].alias}...
             </DeletedCommentLink>
             <DeletedMessage>
+              <p>
                This message was deleted by his author
+              </p>
             </DeletedMessage>
             <CommentInner
                 previousCommentAlias={userInfoForQuote[0].alias}

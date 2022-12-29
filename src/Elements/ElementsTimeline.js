@@ -95,6 +95,9 @@ const CardColumns = styled.div`
   /* border:solid ${theme.BorderColor} 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0;
+  @media(max-width: 760px){ 
+    padding-bottom: 0;
+}
 `
 const UserNameContainer =styled.div`
   width:100%;
@@ -118,6 +121,7 @@ const UserNameContainerQuoted =styled.div`
   p{
     color:${theme.Text};
   }
+   
 `
 const MessageContent = styled.div`
   width:100%;
@@ -140,6 +144,14 @@ const MessageContent = styled.div`
     word-wrap: break-word;
     word-break: break-word;
     white-space:pre-wrap;}
+  @media(max-width: 760px){ 
+    padding-right:0.5rem;
+    padding-top:0.2.5rem;
+    padding-bottom:0.25rem;
+    span{
+      font-size:0.9rem;
+    }
+  }
 `
 const InteractionBar=styled.div`
   display:flex;
@@ -148,11 +160,14 @@ const InteractionBar=styled.div`
   border:none;
   /* border-bottom:solid ${theme.BorderColor} 1px; */
   width:100%;
-  max-height:6rem;
+  height:auto;
   padding-top:0rem;
   padding-bottom:0rem;
   margin-top:0.5rem;
   z-index:98;
+  @media(max-width: 760px){ 
+    margin-top:0rem;
+}
 `
 const IconContainer=styled.div`
   border-radius:50%;
@@ -184,6 +199,10 @@ const IconContainer=styled.div`
     background:white;;
     fill:black;
   }
+  @media(max-width: 760px){ 
+    height:2rem;
+    width:2rem;
+}
 `
 const CounterContainer=styled.div`
   display:flex;
@@ -197,12 +216,15 @@ const CounterContainer=styled.div`
   background:none;
   color:${theme.Text};
   :hover{
-   
   }
   :active{
  /*    background:white; */
     fill:black;
   }
+  @media(max-width: 760px){ 
+    p{font-size:0.9rem}
+    height:auto;
+}
 `
 const IconContainerCont=styled.div`
   /* border-radius:50%; */
@@ -239,7 +261,15 @@ const IconContainerCont=styled.div`
                       : "auto"};
       }
     }
-  } 
+  }
+  @media(max-width: 760px){ 
+    height:auto;
+    button{
+    svg{
+      max-height:1.1rem;
+    }
+  }
+} 
 `
 const TimeBar =styled.div`
   display:flex;
@@ -326,6 +356,9 @@ const UserNameContainerLink =styled(Link)`
   :hover{
     text-decoration:underline;
   }
+  @media(max-width: 760px){ 
+    font-size:1rem;
+  }
 `
 const UserNameContainerLinkQuoted =styled(Link)`
   width:fit-content;
@@ -343,6 +376,9 @@ const UserNameContainerLinkQuoted =styled(Link)`
   overflow:hidden;
   :hover{
     text-decoration:underline;
+  }
+  @media(max-width: 760px){ 
+  font-size:1rem;
   }
 `
 
@@ -417,12 +453,23 @@ const LoadMoreButton=styled.button`
       
     }
   }
+  @media(max-width: 760px){ 
+    height:2rem;
+    width:10rem;
+    padding:1rem;
+    border:none;
+    p{
+      font-size:1rem;
+      font-weight:1000;
+      color:white;
+      /* border:solid red 1px; */
+  }
+}
 `
 const LoadMoreContainer=styled.div`
   display:flex;
-  height:100%;
+  height:auto;
   max-width:700px;
-  min-width:350px;
   flex-direction:column;
   align-items:center;
   justify-content:center;
@@ -437,7 +484,13 @@ const DeletedMessage = styled.div`
   margin: 0.5rem 0.5rem;
   border-radius:15px;
   background-color: rgb(22, 24, 28);
-  min-width:350px;
+  @media(max-width: 760px){ 
+    padding: 0.5rem;
+    margin: 0;
+  }
+  p{
+    font-size:0.9rem;
+  }
 `
 const DeletedCommentLink =styled(Link)`
   padding:0.5rem 1rem;

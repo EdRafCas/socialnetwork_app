@@ -39,6 +39,10 @@ const CardColumns = styled.div`
   /* border:solid ${theme.BorderColor} 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
   gap:0rem;
+  @media(max-width: 760px){ 
+    padding-bottom: 0;
+}
+
 `
 
 

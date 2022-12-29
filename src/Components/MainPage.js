@@ -25,19 +25,26 @@ const MainPageContainer = styled.div`
 `
 const ColumnContainer=styled.div`
   /* width:600px; */
-  width:20%;
+  width:30%;
+  min-width:4rem;
   display:flex;
   flex-direction:row;
   justify-content:flex-end;
+  @media(max-width: 760px){ 
+  width:auto;
+  }
   
 `
 const ColumnContainer2=styled.div`
-  max-width:60%
+  width:70%;
   display:flex;
   flex-direction:column;
   /* border:solid blue 1px; */
   overflow:scroll;
   overflow-x: hidden;
+  @media(max-width: 760px){ 
+  width:auto;
+  }
 `
 
 const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
