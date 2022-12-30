@@ -1,67 +1,11 @@
 import React,{useContext} from 'react';
-import styled from 'styled-components';
 import {useParams } from 'react-router-dom';
 import {NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_avatar.png';
 import { useAuth } from '../Context/AuthContext';
-import {HeaderUser,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton} from './../Elements/ElemenstProfile'
+import {HeaderUser,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton, EmptyProfilePic, BackgroundImageUser, BackgroundImageUserContainer, EmptyBackground} from './../Elements/ElemenstProfile'
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
-
-
-const BackgroundImageUser =styled.div`
-     /*  border:solid red 1px; */
-      width:100%;
-      cursor:pointer;
-      display:flex;
-      justify-content:center;
-      max-width:55rem;
-      img{
-            /* border:solid red 1px; */
-            width:100%;
-            overflow:hidden;
-            }
-`
-const BackgroundImageUserContainer =styled.div`
-      max-height:380px;
-      width:100%;
-      overflow:hidden;
-`
-const EmptyProfilePic =styled.div`
-      /* border: solid red 1px; */
-      position: absolute;
-      top:-5rem;
-      left:1rem;
-      padding:0;
-      border-radius:50%;
-      height:auto;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      width:10rem;
-      height:10rem;
-      flex-direction:column;
-      overflow:hidden;
-      background:#000;
-      /* img{
-            width:100%;
-      } */
-`
-const EmptyBackground =styled.div`
-      /* border:solid red 1px; */
-      overflow:hidden;
-      height:380px;
-      width:100%;
-      display:flex;
-      justify-content:center;
-      background:#000;
-      /* img{
-            max-width:55rem;
-            width:100%;
-            height:auto;
-            overflow:hidden;
-            } */
-`
 
 
 const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) => {

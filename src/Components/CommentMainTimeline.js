@@ -144,15 +144,6 @@ return (
                 <MessageContent>
                 <span onClick={(e)=>{e.preventDefault();e.stopPropagation()}} >{quotedMessage.data().message}</span>
                 </MessageContent>
-                {/* <TimeBar>
-                  {formatDate(quotedMessage.data().date)}
-                </TimeBar>
-                <TimeBar>
-                  first commentId: {quotedMessage.data().comments[0].commentId}
-                </TimeBar>
-                <TimeBar>
-                  originalID {originalId}
-                </TimeBar> */}
                 <InteractionBar>
                   <IconContainerCont Reply >
                     <BarButton onClick={(e)=>{

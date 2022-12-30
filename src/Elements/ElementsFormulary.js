@@ -96,7 +96,9 @@ const Button =styled.button`
       font-size:0.9rem;
       font-weight:1000;
       color:#fff;
+      
   }
+}
 `
 const ButtonDisabled =styled.button`
   display:flex;
@@ -108,6 +110,7 @@ const ButtonDisabled =styled.button`
   justify-content:center;
   align-items:center;
   background:${theme.GradientBackround};
+  border:none;
   p{
     font-size:1rem;
     font-weight:1000;
@@ -127,6 +130,56 @@ const Button2 =styled.div`
   height:2.5rem;
   width:5rem;;
 `
+const CounterLeft =styled.div`
+  display:flex;
+  height:3rem;
+  width:3rem;
+  border-radius:9999px;
+  padding:0rem;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:${theme.GradientBackround};
+  p{
+        font-size:1rem;
+        font-weight:1000;
+        color:#fff;
+  }
+  @media(max-width: 760px){ 
+    height:2.5rem;
+    width:2.5rem;
+    border:none;
+    p{
+          font-size:0.8rem;
+          font-weight:1000;
+    }
+  }
+`
+const CounterExcess =styled.div`
+      display:flex;
+      height:3rem;
+      width:3rem;
+      border-radius:9999px;
+      padding:0rem;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:${theme.GradientBackround};
+            p{
+                  font-size:1rem;
+                  font-weight:1000;
+                  color:${theme.RedAlert};
+            }
+      @media(max-width: 760px){ 
+      height:2.5rem;
+      width:2.5rem;
+      border:none;
+      p{
+            font-size:0.9rem;
+            font-weight:1000;
+      }
+}
+` 
 
 //ELEMENTS FROM CARDS
 const PortraitContainer =styled.div`
@@ -160,13 +213,19 @@ const NameContainer =styled.h1`
   font-weight:1000;
   color:white;
   overflow:hidden;
+  :hover{
+    text-decoration:underline;
+  }
+  @media(max-width: 760px){ 
+    font-size:1rem;
+  }
 `
 
 const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
   color:${theme.Text};
   @media(max-width: 760px){ 
-    font-size:0.9rem;
+    font-size:0.8rem;
   }
 `
 
@@ -183,14 +242,40 @@ const TranslucidBack=styled.div`
 `
 const CenterBox=styled.div`
   position:absolute;
-  top:20%;
-  left:40%;
-  /* margin-top:-30rem;
-  margin-left:-30rem;
-  height:60rem;
-  width:60rem;*/
+  top:50%;
+  left:50%;
+  margin-top:-200px;
+  margin-left:-200px;
   background:black; 
   border-radius:5%;
   z-index:101;
+  @media(max-width: 760px){ 
+    font-size:0.9rem;
+    margin-top:-100px;
+    margin-left:-100px;
+  }
 `
-export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox} ;
+const ConfirmationBox =styled.div`
+    height:400px;
+    width:400px;
+    @media(max-width: 760px){ 
+    height:200px;
+    width:200px;
+  }
+`
+const PopUpTitle=styled.p`
+    font-size:1.5rem;
+    font-weight:1000;
+    color:#fff;
+    @media(max-width: 760px){ 
+    font-size:0.9rem;
+  }
+`
+
+const ContainerPopUp =styled.div`
+    padding:3rem;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+`
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, CounterLeft,CounterExcess,PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox,PopUpTitle, ConfirmationBox, ContainerPopUp} ;

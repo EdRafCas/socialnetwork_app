@@ -13,7 +13,7 @@ const AccountManagement=styled.div`
   display:flex;
   height:100%;
   min-height:500px;
-  width:100%;
+  width:auto;
   max-width:375px;
   min-width:4rem;
   /* max-width:40% */
@@ -85,7 +85,7 @@ const PortraitContainer =styled.div`
 `
 const NameContainer =styled.h1`
   /* border:solid ${theme.BorderColor} 1px; */
-  font-size:1.1rem;
+  font-size:1rem;
   font-weight:1000;
   color:white;
   overflow:hidden;
@@ -93,7 +93,8 @@ const NameContainer =styled.h1`
 `
 const AliasContainer = styled.p`
   /* border:solid ${theme.BorderColor} 1px; */
-  max-height:1.2rem;
+  max-height:1.1rem;
+  color:${theme.Text};
 `
 const MiniUserNames =styled.div`
   display:flex;
@@ -169,24 +170,27 @@ const MessageButtonContainer=styled.div`
   display:flex;
   height:auto;
   width:100%;
-  width:auto;
   flex-direction:row;
   justify-content:center;
-  align-content:left;
- /*  border:solid red 1px; */
+  align-content:center;
+  /* border:solid red 1px; */
   padding:0;
+  margin:auto;
   @media(max-width: 760px){ 
-    padding:3px;
+    padding:0;
+    margin:none;
+    
   }
   
 `
 const MessageButton=styled.button`
   display:flex;
-  height:4rem;
+  height:3rem;
+  width:10rem;
   min-width:4rem;
   max-width:20rem;
   border-radius:9999px;
-  padding:2rem;
+  padding:1rem;
   flex-direction:row;
   justify-content:center;
   align-items:center;
@@ -213,6 +217,7 @@ const MessageButton=styled.button`
     padding:0;
     border-radius:50%;
     border:none;
+    width:auto;;
    p{
     display:none;
    }

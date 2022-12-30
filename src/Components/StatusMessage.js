@@ -36,7 +36,7 @@ const CardMessage =styled.div`
      /*  border:solid ${theme.BorderColor} 1px; */
       /* border-radius:15px; */
       gap:0rem;
-      padding-top:1rem;
+      padding-top:0rem;
       z-index:100;
       :hover{
       /* background:rgba(255,255,255, 0.03); */
@@ -44,6 +44,7 @@ const CardMessage =styled.div`
 `
 const TimelineUserContainer = styled.div`
       height:100%;
+      max-width:700px;
       display:flex;
       flex-direction:column;
       padding:0rem;
@@ -107,13 +108,15 @@ const InteractionBarMessage=styled.div`
       max-height:6rem;
       padding-top:0.5rem;
       padding-bottom:0.5rem;
+      @media(max-width: 760px){ /* 950px */
+            padding:0rem;
+      }
 `
 const MessageContentBig = styled.div`
       width:100%;
       padding:0rem;
       max-height:400px;
       min-height:100px;
-
       font-weight:400;
       color:white;
       /* border:solid ${theme.BorderColor} 1px; */
@@ -126,6 +129,9 @@ const MessageContentBig = styled.div`
             word-wrap: break-word;
             word-break: break-word;
             white-space:pre-wrap;}
+      @media(max-width: 760px){ /* 950px */
+            p{font-size:0.9rem}
+      }
 `
 const CounterBar=styled.div`
       display:flex;
@@ -138,10 +144,14 @@ const CounterBar=styled.div`
       padding-top:0.5rem;
       padding-bottom:0.5rem;
       gap:3rem;
+      @media(max-width: 760px){ /* 950px */
+      gap:1rem;
+      }
 `
 const CounterBarContainer=styled.div`
       display:flex;
       flex-direction:row;
+      justify-content:center;
       align-items:center;
       /* border:1px solid white; */
       fill:currentcolor;
@@ -158,6 +168,9 @@ const CounterBarContainer=styled.div`
       }
       p{
             font-size:1.2rem
+      }
+      @media(max-width: 760px){ /* 950px */
+            p{font-size:0.9rem}
       }
   `
 const IconContainerArrow=styled.div`
@@ -330,9 +343,6 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                           <MessageContentBig>
                                                 <p>{infoForMessage.data().message}</p>
                                           </MessageContentBig>
-                                          {/*<MessageContentBig>
-                                                <p>{id}</p>
-                                          </MessageContentBig>*/}
                                           <TimeBar>
                                           {formatDate(infoForMessage.data().date)}
                                           </TimeBar> 

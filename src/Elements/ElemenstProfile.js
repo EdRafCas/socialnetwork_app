@@ -8,7 +8,7 @@ const HeaderUser =styled.div`
       justify-content:center;
       padding:0rem;
       width:100%;
-      min-width:350px;
+      min-width:300px;
       height:auto;
       /* border:solid red 1px; */
 `
@@ -53,6 +53,37 @@ const ProfilePic =styled.div`
       cursor:pointer;
       img{
             width:100%;
+      }
+      @media(max-width: 760px){ /* 950px */
+           width:6rem;
+           height:6rem;
+           top:0rem;
+      }
+`
+const EmptyProfilePic =styled.div`
+      /* border: solid red 1px; */
+      position: absolute;
+      top:-5rem;
+      left:1rem;
+      padding:0;
+      border-radius:50%;
+      height:auto;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      width:10rem;
+      height:10rem;
+      min-height:48px;
+      flex-direction:column;
+      overflow:hidden;
+      background:#000;
+      /* img{
+            width:100%;
+      } */
+      @media(max-width: 760px){ /* 950px */
+           width:6rem;
+           height:6rem;
+           top:0rem;
       }
 `
 const UserCard =styled.div`
@@ -106,6 +137,50 @@ const EditButton=styled.button`
                   color:black;
             }
       }
-
+      @media(max-width: 760px){ /* 950px */
+            height:3rem;
+            width:6rem;
+            border:none;
+            p{
+                  font-size:0.9rem;
+                  font-weight:1000;
+                  color:white;
+            }
+      }
 `
-export{HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton};
+const BackgroundImageUser =styled.div`
+     /*  border:solid red 1px; */
+      width:100%;
+      cursor:pointer;
+      display:flex;
+      justify-content:center;
+      max-width:55rem;
+      img{
+            /* border:solid red 1px; */
+            width:100%;
+            overflow:hidden;
+            }
+`
+const BackgroundImageUserContainer =styled.div`
+      max-height:380px;
+      width:100%;
+      overflow:hidden;
+`
+
+const EmptyBackground =styled.div`
+      /* border:solid red 1px; */
+      overflow:hidden;
+      height:380px;
+      width:100%;
+      display:flex;
+      justify-content:center;
+      background:#000;
+      /* img{
+            max-width:55rem;
+            width:100%;
+            height:auto;
+            overflow:hidden;
+            } */
+`
+
+export{HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic,EmptyProfilePic, UserCard, NamesContainer, Bio, EditButton, BackgroundImageUser, BackgroundImageUserContainer, EmptyBackground};

@@ -36,6 +36,13 @@ const CardInner =styled.div`
     cursor:pointer;
     background:rgba(255,255,255, 0.03);
   }
+  @media(max-width: 760px){ 
+    padding-top:${(props)=> props.Reply ? `0.25rem`
+                        : props.Like ? `6px`
+                        : props.Retweet ? `6px` 
+                        : props.Pinned ? `6px` 
+                        : "0rem"};
+  }
 `
 const MessageLink=styled.div`
   display:grid;
@@ -106,6 +113,7 @@ const UserNameContainer =styled.div`
  /*  border:solid ${theme.BorderColor} 1px; */
   display:flex;
   flex-direction:row;
+  align-items:end;
   gap:5px;
   position:relative;
 `
@@ -120,6 +128,11 @@ const UserNameContainerQuoted =styled.div`
   position:relative;
   p{
     color:${theme.Text};
+  }
+  @media(max-width: 760px){ 
+    p{
+      font-size:0.9rem;
+    }
   }
    
 `
@@ -327,6 +340,14 @@ const IconContainerRetweet=styled.div`
     max-height:1.2rem;
     stroke: ${theme.BorderColor};
   }
+  @media(max-width: 760px){ 
+    height:1.2rem;
+    svg{
+    max-height:1rem;
+    stroke: ${theme.BorderColor};
+  }
+  
+}
 `
 const NameContainerRetweet = styled.div`
   display:flex;
@@ -357,7 +378,7 @@ const UserNameContainerLink =styled(Link)`
     text-decoration:underline;
   }
   @media(max-width: 760px){ 
-    font-size:1rem;
+    font-size:0.9rem;
   }
 `
 const UserNameContainerLinkQuoted =styled(Link)`
@@ -378,7 +399,7 @@ const UserNameContainerLinkQuoted =styled(Link)`
     text-decoration:underline;
   }
   @media(max-width: 760px){ 
-  font-size:1rem;
+  font-size:0.9rem;
   }
 `
 
@@ -484,12 +505,14 @@ const DeletedMessage = styled.div`
   margin: 0.5rem 0.5rem;
   border-radius:15px;
   background-color: rgb(22, 24, 28);
+  color:${theme.Text};
   @media(max-width: 760px){ 
     padding: 0.5rem;
-    margin: 0;
+    margin: 0.1rem;
   }
   p{
-    font-size:0.9rem;
+    color:${theme.Text};
+    font-size:0.8rem;
   }
 `
 const DeletedCommentLink =styled(Link)`
@@ -506,5 +529,62 @@ const DeletedCommentLink =styled(Link)`
   :hover{
     text-decoration:underline;
   }
+  @media(max-width: 760px){ 
+    font-size:0.8rem;
+    padding:0.5rem 1rem;
+  }
 `
-export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2, LoadMoreButton,LoadMoreContainer, DeletedMessage, DeletedCommentLink};
+
+const LinksContainer = styled.div`
+  width:100%;
+  background:black;
+  margin:auto;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  margin:0;
+  /*  border-top: 1px solid ${theme.BorderColor}; */
+  border-bottom: 1px solid ${theme.BorderColor};
+  a{    
+        text-decoration:none;
+  }
+  @media(max-width: 760px){ /* 950px */
+  width: 100%;
+  padding:0.25rem 0.25rem;
+  }
+
+`
+const RedirectLink =styled(Link)`
+  /* border-bottom: 1px solid #FFFFFF; */
+  box-sizing: content-box;
+  font-size:1rem;
+  display:flex;
+  justify-content:center;
+  color:white;
+  width:auto;
+  /* min-width:7rem; */
+  padding:15px 5px;
+  margin: 0.25rem 0.5rem;
+  letter-spacing:1px;
+  white-space: nowrap;
+  border: none;  
+  :hover{
+        color:#fff;
+        background:${theme.BorderColor};
+        :active{
+              border: 2px double #000;
+              font-size: 14px;
+              font-weight: 800;
+        }   
+  }
+  @media(max-width: 760px){ /* 950px */
+  width: 100%;
+  font-size:0.7rem;
+  padding:0.25rem;
+  width:auto;
+  margin: auto;
+  }
+  }
+`
+
+export {Card,CardInner, UserColumns,CardColumns, UserNameContainer, UserNameContainerQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, PinnedInfo,RetweetInfoContainer, RetweetButton, IconContainerRetweet, NameContainerRetweet, UserNameContainerLink,UserNameContainerLinkQuoted, MessageLink, InteractionBarPinned, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2, LoadMoreButton,LoadMoreContainer, DeletedMessage, DeletedCommentLink, LinksContainer, RedirectLink};

@@ -1,7 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import styled from 'styled-components';
-import theme from '../Theme';
-import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
+import {PortraitContainer,AliasContainer, NameContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
@@ -12,7 +10,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner, MessageLink, CardColumns, UserNameContainer, MessageContent, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton, RetweetButton} from '../Elements/ElementsTimeline'
+import {CardInner, MessageLink, CardColumns, UserNameContainer, MessageContent, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton, RetweetButton } from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -22,17 +20,6 @@ import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import {useNavigate} from 'react-router-dom';
 
-const NameContainer =styled.h1`
-  /* border:solid ${theme.BorderColor} 1px; */
-  font-size:1.1rem;
-  font-weight:1000;
-  color:white;
-  overflow:hidden;
-  :hover{
-    text-decoration:underline;
-  }
-  
-`
 
 const BookmarkTimeline = ({date, likes, comments, retweets, message, uidUser, id, user, currentUserInfo,changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, userInfoForBookmark, changeUserInfoForBookmark, update, changeUpdate}) => {
     const [loadingBookmarkData, changeLoadingBookmarkData] =useState(true);

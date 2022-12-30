@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
+import {Button, ButtonDisabled,CounterLeft, PortraitContainer, NameContainer, AliasContainer, CounterExcess} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_avatar.png'
 import '../index.css'
 
@@ -50,8 +50,8 @@ const MessageUser =styled.textarea`
       outline:none;
       @media(max-width: 760px){ 
       padding:0.5rem;
-      }
       font-size:0.9rem;
+      }
 `
 const UserNames =styled.div`
       display:flex;
@@ -64,55 +64,8 @@ const ButtonContainer=styled.div`
       display:flex;
       flex-direction:row;
 `
-const ButtonLeft =styled.button`
-      display:flex;
-      height:3rem;
-      width:3rem;
-      border-radius:9999px;
-      padding:0rem;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:${theme.GradientBackround};
-      p{
-            font-size:1rem;
-            font-weight:1000;
-            color:#fff;
-      }
-      @media(max-width: 760px){ 
-      height:2.5rem;
-      width:2.5rem;
-      border:none;
-      p{
-            font-size:0.9rem;
-            font-weight:1000;
-      }
-      `
-const ButtonExcess =styled.button`
-      display:flex;
-      height:3rem;
-      width:3rem;
-      border-radius:9999px;
-      padding:0rem;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:${theme.GradientBackround};
-            p{
-                  font-size:1rem;
-                  font-weight:1000;
-                  color:${theme.RedAlert};
-            }
-      @media(max-width: 760px){ 
-      height:2.5rem;
-      width:2.5rem;
-      border:none;
-      p{
-            font-size:0.9rem;
-            font-weight:1000;
-      }
-}
-`     
+
+    
 
 const MessageBox = ({messageFloating, floating, user, currentUserInfo, addToTimeline, message, handleChange}) => {
 
@@ -153,9 +106,9 @@ const MessageBox = ({messageFloating, floating, user, currentUserInfo, addToTime
                               <p>Submit</p>
                         </ButtonDisabled> 
                         {messageFloating.length >= 160 ?
-                        <ButtonExcess>
+                        <CounterExcess>
                               <p>-{messageFloating.length -160}</p>
-                        </ButtonExcess>
+                        </CounterExcess>
                         :""}
                         </>
                         :
@@ -164,9 +117,9 @@ const MessageBox = ({messageFloating, floating, user, currentUserInfo, addToTime
                               <p>Submit</p>
                         </Button>
                         {message.length >=140 ?
-                        <ButtonLeft>
+                        <CounterLeft>
                               <p>{ LettersLeft +140 - message.length }</p>
-                        </ButtonLeft>
+                        </CounterLeft>
                         :""}
                         </>
                         }
@@ -191,9 +144,9 @@ const MessageBox = ({messageFloating, floating, user, currentUserInfo, addToTime
                               <p>Submit</p>
                         </ButtonDisabled> 
                         {message.length >= 160 ?
-                        <ButtonExcess>
+                        <CounterExcess>
                               <p>-{message.length -160}</p>
-                        </ButtonExcess>
+                        </CounterExcess>
                         :""}
                         </>
                         :
@@ -202,9 +155,9 @@ const MessageBox = ({messageFloating, floating, user, currentUserInfo, addToTime
                               <p>Submit</p>
                         </Button>
                         {message.length >=140 ?
-                        <ButtonLeft>
+                        <CounterLeft>
                               <p>{ LettersLeft +140 - message.length }</p>
-                        </ButtonLeft>
+                        </CounterLeft>
                         :""}
                         </>
                         }

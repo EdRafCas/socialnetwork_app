@@ -27,6 +27,11 @@ const RetweetLink = styled(Link)`
   :hover{
     text-decoration:underline;
   }
+  @media(max-width: 760px){ 
+    p{
+      font-size:0.9rem;
+    } 
+  }
 `
 
 

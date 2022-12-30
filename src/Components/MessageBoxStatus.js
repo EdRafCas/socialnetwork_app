@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
+import {Button, ButtonDisabled, PortraitContainer, CounterLeft, CounterExcess} from '../Elements/ElementsFormulary'
 import '../index.css'
 import ProfileImage from '../img/profile_avatar.png'
 import AddComment from '../firebase/AddComment'
@@ -55,6 +55,9 @@ const MessageUser =styled.textarea`
       -moz-box-shadow: none;
       box-shadow: none;
       outline:none;   
+      @media(max-width: 760px){ /* 950px */
+      font-size:0.9rem;
+      }
 `
 const ButtonContainer=styled.div`
       width:100%;
@@ -73,38 +76,7 @@ const Buttons=styled.div`
       flex-direction:row;
       justify-content:flex-end;
 `
-const ButtonLeft =styled.button`
-      display:flex;
-      height:3rem;
-      width:3rem;
-      border-radius:9999px;
-      padding:0rem;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:${theme.GradientBackround};
-      p{
-            font-size:1rem;
-            font-weight:1000;
-            color:#fff;
-      }
-`
-const ButtonExcess =styled.button`
-      display:flex;
-      height:3rem;
-      width:3rem;
-      border-radius:9999px;
-      padding:0rem;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:${theme.GradientBackround};
-            p{
-                  font-size:1rem;
-                  font-weight:1000;
-                  color:${theme.RedAlert};
-            }
-`     
+
 
 const CardColumns = styled.div`
       position:relative;
@@ -234,9 +206,9 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
                                           {messageReply === "" || messageReply.length >160 ?
                                           <>
                                           {messageReply.length >= 160 ?
-                                          <ButtonExcess>
+                                          <CounterExcess>
                                                 <p>-{messageReply.length -160}</p>
-                                          </ButtonExcess>
+                                          </CounterExcess>
                                           :""}
                                           <ButtonDisabled disabled={true}>
                                                 <p>Reply</p>
@@ -245,9 +217,9 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
                                           :
                                           <>
                                           {messageReply.length >=140 ?
-                                          <ButtonLeft>
+                                          <CounterLeft>
                                                 <p>{ LettersLeft +140 - messageReply.length }</p>
-                                          </ButtonLeft>
+                                          </CounterLeft>
                                           :""}
                                           <Button disabled={!messageReply} type="submit" name="sendMesssage">
                                                 <p>Reply</p>

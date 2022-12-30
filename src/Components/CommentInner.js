@@ -91,7 +91,6 @@ return (
         {!loadingComment ?
         <>
           {messageForComment.exists() ?
-          
             <MessageLink  Reply onClick={()=> navigate(`/user/${userInfoForComment[0].alias}/status/${commentId}`)}>
               <CardColumns>
                 {!TimelineComment ?

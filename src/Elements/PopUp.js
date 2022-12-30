@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme'
-import { TranslucidBack, CenterBox } from './ElementsFormulary';
+import { TranslucidBack, CenterBox, PopUpTitle, ConfirmationBox, ContainerPopUp } from './ElementsFormulary';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveTweet from '../firebase/RemoveTweet';
 import RemoveComment from '../firebase/RemoveComment';
@@ -10,23 +10,10 @@ import { addRetweetToTimeline } from '../firebase/AddRetweet';
 import getUnixTime from 'date-fns/getUnixTime';
 import { UpdateProfileRemovePinned } from '../firebase/UpdateProfile';
 import MessageBoxComment from '../Components/MessageBoxComment';
-import AddMessage from '../firebase/AddMessage';
 
-const ConfirmationBox =styled.div`
-    height:auto;
-    width:400px;
-`
-const ContainerPopUp =styled.div`
-    padding:3rem;
-    display:flex;
-    flex-direction:column;
-    gap:1rem;
-`
-const PopUpTitle=styled.p`
-    font-size:1.5rem;
-    font-weight:1000;
-    color:#fff;
-`
+
+
+
 const PopUpText=styled.p`
     font-size:1.1rem;
 `

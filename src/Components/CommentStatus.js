@@ -120,6 +120,11 @@ const PortraitContainer =styled.div`
   img{
     width:100%;
   }
+  @media(max-width: 760px){ 
+    width:2rem;
+    min-height:2rem;
+    height:2rem;
+  }
 `
 const CardInner =styled.div`
   position:relative;
@@ -380,16 +385,16 @@ return (
             </MessageLink>
           </CardInner>
           :
-          <>
+          <CardInner>
           <DeletedCommentLink 
                   onClick={(e)=>{e.stopPropagation();}}
                   to={`/user/${userInfoForQuote[0].alias}/status/${originalId}`}>
                   socialnetwork-app-aca27.web.app/user/{userInfoForQuote[0].alias}...
-            </DeletedCommentLink>
-            <DeletedMessage>
+          </DeletedCommentLink>
+          <DeletedMessage>
                This message was deleted by his author
-            </DeletedMessage>
-          </>
+          </DeletedMessage>
+          </CardInner>
           }
         </>
         :
