@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme'
-import { TranslucidBack, CenterBox, PopUpTitle, ConfirmationBox, ContainerPopUp } from './ElementsFormulary';
+import { TranslucidBack, CenterBox, PopUpTitle, ConfirmationBox, ContainerPopUp, PopUpText } from './ElementsFormulary';
 import { AuthContext } from '../Context/AuthContext';
 import RemoveTweet from '../firebase/RemoveTweet';
 import RemoveComment from '../firebase/RemoveComment';
@@ -12,11 +12,6 @@ import { UpdateProfileRemovePinned } from '../firebase/UpdateProfile';
 import MessageBoxComment from '../Components/MessageBoxComment';
 
 
-
-
-const PopUpText=styled.p`
-    font-size:1.1rem;
-`
 const PopUpButtonContainer=styled.div`
     display:flex;
     height:4rem;

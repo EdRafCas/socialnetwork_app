@@ -278,4 +278,7 @@ const ContainerPopUp =styled.div`
     flex-direction:column;
     gap:1rem;
 `
-export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, CounterLeft,CounterExcess,PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox,PopUpTitle, ConfirmationBox, ContainerPopUp} ;
+const PopUpText=styled.p`
+    font-size:1.1rem;
+`
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, CounterLeft,CounterExcess,PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox,PopUpTitle, ConfirmationBox, ContainerPopUp, PopUpText} ;
