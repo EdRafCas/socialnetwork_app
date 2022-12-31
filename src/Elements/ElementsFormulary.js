@@ -246,39 +246,68 @@ const CenterBox=styled.div`
   left:50%;
   margin-top:-200px;
   margin-left:-200px;
-  background:black; 
+  height:400px;
+  width:400px;
+  background:#000;
+ /*  background:${(props)=> props.Picture ? `none`
+                                      : `#000`}; */
   border-radius:5%;
   z-index:101;
   @media(max-width: 760px){ 
+    height:auto;
+    width:350px;
+    margin-top:-175px;
+    margin-left:-175px;
     font-size:0.9rem;
-    margin-top:-100px;
-    margin-left:-100px;
   }
 `
 const ConfirmationBox =styled.div`
-    height:400px;
-    width:400px;
+  /* border:solid red 1px; */
+  padding:1rem;
     @media(max-width: 760px){ 
-    height:200px;
-    width:200px;
+      padding:0.5rem;
   }
 `
 const PopUpTitle=styled.p`
-    font-size:1.5rem;
-    font-weight:1000;
-    color:#fff;
-    @media(max-width: 760px){ 
-    font-size:0.9rem;
+  font-size:1.5rem;
+  font-weight:1000;
+  color:#fff;
+  @media(max-width: 760px){ 
+    font-size:1rem;
   }
 `
 
 const ContainerPopUp =styled.div`
-    padding:3rem;
-    display:flex;
-    flex-direction:column;
-    gap:1rem;
+  padding:1.5rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:1rem;
+  /* border:solid red 1px; */
+  @media(max-width: 760px){ 
+   padding:1rem;
+  }
+    
 `
 const PopUpText=styled.p`
     font-size:1.1rem;
+    color: ${theme.Text};
+    /* border:solid red 1px; */
+    padding:0rem 0.5rem;
+    @media(max-width: 760px){
+      font-size:0.9rem;
+    }
 `
-export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, CounterLeft,CounterExcess,PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox,PopUpTitle, ConfirmationBox, ContainerPopUp, PopUpText} ;
+const PopUpButtonContainer=styled.div`
+    display:flex;
+    height:4rem;
+    width:100%;
+    flex-direction:row;
+    justify-content:center;
+    /* border:solid red 1px; */
+    @media(max-width: 760px){
+      height:2rem;
+    }
+`
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, CounterLeft,CounterExcess,PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox,PopUpTitle, ConfirmationBox, ContainerPopUp, PopUpText, PopUpButtonContainer, } ;

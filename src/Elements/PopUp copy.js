@@ -114,6 +114,7 @@ const BackgroundBox=styled.div`
   position:absolute;
   width:100%;
   top:20%;
+  left:00%;
   /* margin-top:-30rem;
   margin-left:-30rem;
   height:60rem;
@@ -128,21 +129,6 @@ const BackgroundBox=styled.div`
     width:auto;
     justify-content:center;
   }
-  @media(max-width: 1240px){
-    img{
-    height:20rem;
-    width:auto;
-    justify-content:center;
-    }
-  }
-  @media(max-width: 760px){
-    img{
-    height:10rem;
-    width:auto;
-    justify-content:center;
-  }
-  }
-       
 `
 const ProfilePictureBox=styled.div`
   position:absolute;
@@ -233,11 +219,12 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
         <>
         <TranslucidBack onClick={()=>changeShowPopUp(!showPopUp)} />
         {/* <CloseWindow onClick={()=>changeShowPopUp(false)} >X</CloseWindow> */}
-        {type ==="retweet" ?
         <CenterBox>
             <ConfirmationBox>
-            <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
-            <ContainerPopUp>
+                <>
+                <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
+                {type ==="retweet" ?
+                <ContainerPopUp>
                     <PopUpTitle>Add Retweet?</PopUpTitle>
                     <PopUpText>You Will Re-post this message and will be visible in your timeline</PopUpText>
                     <PopUpButtonContainer>
@@ -262,13 +249,8 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                             <p>Cancel</p>
                         </PopUpButtonDelete>
                     </PopUpButtonContainer>
-            </ContainerPopUp>
-            </ConfirmationBox>
-        </CenterBox>
-        :type ==="unPin" ?
-        <CenterBox>
-            <ConfirmationBox>
-                <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
+                </ContainerPopUp>
+                :type ==="unPin" ?
                 <ContainerPopUp>
                     <PopUpTitle>Delete Message?</PopUpTitle>
                     <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
@@ -291,163 +273,136 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
                         </PopUpButtonDelete>
                     </PopUpButtonContainer>
                 </ContainerPopUp>
+                :type ==="delete" ?
+                <ContainerPopUp>
+                    <PopUpTitle>Delete Comment?</PopUpTitle>
+                    <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete Red onClick={()=>RemoveTweet({
+                            changeStateAlert, 
+                            changeAlert,
+                            id, 
+                            changeShowPopUp, 
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
+                            <p>Delete</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                </ContainerPopUp>
+                :type ==="deleteComment" ?
+                <ContainerPopUp>
+                    <PopUpTitle>Delete Comment?</PopUpTitle>
+                    <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete Red onClick={()=>RemoveComment({
+                            changeStateAlert, 
+                            changeAlert,
+                            id, 
+                            originalId,
+                            originalUidUser,
+                            originalMessageComments,
+                            changeShowPopUp, 
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
+                            <p>Delete</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                </ContainerPopUp>
+                :type ==="deleteAndRemove" ?
+                <ContainerPopUp>
+                    <PopUpTitle>Delete Message?</PopUpTitle>
+                    <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete Red onClick={()=>RemoveTweetFromPinned({
+                            changeStateAlert, 
+                            changeAlert,
+                            id,
+                            userId, 
+                            changeShowPopUp, 
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
+                            <p>Delete</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                </ContainerPopUp>
+                :type ==="pinned" ?
+                <ContainerPopUp>
+                    <PopUpTitle>Pin this Message?</PopUpTitle>
+                    <PopUpText>If you pin this message it will be shown at the top of your profile.</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonPin Pinned onClick={()=>UpdateProfilePinnedMessage({
+                            changeStateAlert, 
+                            changeAlert,
+                            id,
+                            userId, 
+                            changeShowPopUp, 
+                            showPopUp,
+                            update,
+                            changeUpdate})}>
+                            <p>Pin Message</p>
+                        </PopUpButtonPin>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                </ContainerPopUp>
+                :type ==="bookmark" ?
+                <ContainerPopUp>
+                    <PopUpTitle>Add to bookmarks?</PopUpTitle>
+                    <PopUpText>This message will be added to your Boomark list (we won't notify the creator).</PopUpText>
+                    <PopUpButtonContainer>
+                        <PopUpButtonPin Pinned onClick={()=>AddBookmarkToUser({
+                            changeStateAlert, 
+                            changeAlert,
+                            id,
+                            userId, 
+                            bookmarks,
+                            changeShowPopUp, 
+                            showPopUp})}>
+                            <p>Bookmark Message</p>
+                        </PopUpButtonPin>
+                    </PopUpButtonContainer>
+                    <PopUpButtonContainer>
+                        <PopUpButtonDelete onClick={()=>changeShowPopUp(false)}>
+                            <p>Cancel</p>
+                        </PopUpButtonDelete>
+                    </PopUpButtonContainer>
+                </ContainerPopUp>
+                :""}
+                </>
             </ConfirmationBox>
         </CenterBox>
-        :type ==="delete" ?
-        <CenterBox>
-            <ConfirmationBox>
-            <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
-            <ContainerPopUp>
-            <PopUpTitle>Delete Comment?</PopUpTitle>
-            <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete Red onClick={()=>RemoveTweet({
-                    changeStateAlert, 
-                    changeAlert,
-                    id, 
-                    changeShowPopUp, 
-                    showPopUp,
-                    update,
-                    changeUpdate})}>
-                    <p>Delete</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
-                    <p>Cancel</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-        </ContainerPopUp>
-            </ConfirmationBox>
-        </CenterBox>
-        :type ==="deleteComment" ?
-        <CenterBox>
-            <ConfirmationBox>
-            <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
-            <ContainerPopUp>
-            <PopUpTitle>Delete Comment?</PopUpTitle>
-            <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete Red onClick={()=>RemoveComment({
-                    changeStateAlert, 
-                    changeAlert,
-                    id, 
-                    originalId,
-                    originalUidUser,
-                    originalMessageComments,
-                    changeShowPopUp, 
-                    showPopUp,
-                    update,
-                    changeUpdate})}>
-                    <p>Delete</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
-                    <p>Cancel</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-        </ContainerPopUp>
-            </ConfirmationBox>
-        </CenterBox>
-        :type ==="deleteAndRemove" ?
-        <CenterBox>
-            <ConfirmationBox>
-            <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
-            <ContainerPopUp>
-            <PopUpTitle>Delete Message?</PopUpTitle>
-            <PopUpText>This action can't be undone, your message  will be removed from all timelines.</PopUpText>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete Red onClick={()=>RemoveTweetFromPinned({
-                    changeStateAlert, 
-                    changeAlert,
-                    id,
-                    userId, 
-                    changeShowPopUp, 
-                    showPopUp,
-                    update,
-                    changeUpdate})}>
-                    <p>Delete</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete  onClick={()=>changeShowPopUp(false)}>
-                    <p>Cancel</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-        </ContainerPopUp>
-            </ConfirmationBox>
-        </CenterBox>
-        :type ==="pinned" ?
-        <CenterBox>
-            <ConfirmationBox>
-            <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
-            <ContainerPopUp>
-            <PopUpTitle>Pin this Message?</PopUpTitle>
-            <PopUpText>If you pin this message it will be shown at the top of your profile.</PopUpText>
-            <PopUpButtonContainer>
-                <PopUpButtonPin Pinned onClick={()=>UpdateProfilePinnedMessage({
-                    changeStateAlert, 
-                    changeAlert,
-                    id,
-                    userId, 
-                    changeShowPopUp, 
-                    showPopUp,
-                    update,
-                    changeUpdate})}>
-                    <p>Pin Message</p>
-                </PopUpButtonPin>
-            </PopUpButtonContainer>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete onClick={()=>changeShowPopUp(false)}>
-                    <p>Cancel</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-        </ContainerPopUp>
-            </ConfirmationBox>
-        </CenterBox>  
-        :type ==="bookmark" ?
-        <CenterBox>
-            <ConfirmationBox>
-            <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
-            <ContainerPopUp>
-            <PopUpTitle>Add to bookmarks?</PopUpTitle>
-            <PopUpText>This message will be added to your Boomark list (we won't notify the creator).</PopUpText>
-            <PopUpButtonContainer>
-                <PopUpButtonPin Pinned onClick={()=>AddBookmarkToUser({
-                    changeStateAlert, 
-                    changeAlert,
-                    id,
-                    userId, 
-                    bookmarks,
-                    changeShowPopUp, 
-                    showPopUp})}>
-                    <p>Bookmark Message</p>
-                </PopUpButtonPin>
-            </PopUpButtonContainer>
-            <PopUpButtonContainer>
-                <PopUpButtonDelete onClick={()=>changeShowPopUp(false)}>
-                    <p>Cancel</p>
-                </PopUpButtonDelete>
-            </PopUpButtonContainer>
-        </ContainerPopUp>
-            </ConfirmationBox>
-        </CenterBox> 
-        :type ==="backgroundPicture" &&
-        <>
-        <CloseWindow onClick={()=>changeShowPopUp(false)} >X</CloseWindow>
+        { type ==="backgroundPicture" &&
         <BackgroundBox>
             <img alt="userbackground" src={backgroundPicture}/>
         </BackgroundBox>
-        </>
         }
         { type ==="profilePicture" &&
-        <>
-        <CloseWindow onClick={()=>changeShowPopUp(false)} >X</CloseWindow>
+       
         <ProfilePictureBox>
-            <img alt="user profile" src={profilePicture}/>
+            <img alt="user profile picture" src={profilePicture}/>
         </ProfilePictureBox>
-        </>
+        
         }
         { type ==="comment" &&
         <MessageBoxComment 

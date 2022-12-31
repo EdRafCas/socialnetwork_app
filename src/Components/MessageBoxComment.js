@@ -8,18 +8,25 @@ import AddComment from '../firebase/AddComment'
 import getUnixTime from 'date-fns/getUnixTime';
 
 const CenterBox=styled.div`
-      width:700px;
-      padding:1rem 1.5rem;
       position:absolute;
-      top:5%;
-      left:33%;
-      /* margin-top:-30rem;
-      margin-left:-30rem;
-      height:60rem;
-      width:60rem;*/
+      max-width:700px;
+      /* width:700px; */
+      top:50%;
+      left:50%;
+      margin-top:-350px;
+      margin-left:-350px;
+      padding:1rem 1.5rem;
       background:black; 
       border-radius:5%;
       z-index:101;
+      @media(max-width: 760px){ 
+            height:auto;
+            width:350px;
+            margin-top:-175px;
+            margin-left:-175px;
+            font-size:0.9rem;
+            padding:0.5rem 0.5rem;
+  }
 `
 const MessageContainer = styled.div`
       display:flex;
@@ -62,6 +69,11 @@ const MessageUser =styled.textarea`
       -moz-box-shadow: none;
       box-shadow: none;
       outline:none;   
+      @media(max-width: 760px){ 
+            font-size:0.9rem;
+
+      }
+   
 `
 const ButtonContainer=styled.div`
       padding-top:1rem;
@@ -106,7 +118,7 @@ const OriginalMessageContainer=styled.div`
       display:flex;
       flex-direction:row;
       gap:1rem;
-      /* border:solid ${theme.RedAlert} 1px; */
+      border:solid ${theme.RedAlert} 1px;
 `
 const LeftColumn=styled.div`
       display:flex;
@@ -139,7 +151,6 @@ const MessageContent = styled.div`
       padding:0rem;
       max-height:200px;
       min-height:100px;
-      font-size:1rem;
       font-weight:400;
       color:white;
       /* border:solid ${theme.BorderColor} 1px; */
@@ -147,10 +158,15 @@ const MessageContent = styled.div`
       white-space:normal;
       overflow:hidden;
       p{
+            font-size:1rem;
             overflow-wrap: break-word;
             word-wrap: break-word;
             word-break: break-word;
             white-space:pre-wrap;}
+      @media(max-width: 760px){ 
+            p{font-size:0.9rem;}
+
+      }
 `
 const StraightLine=styled.div`
       height:90%;
@@ -162,7 +178,14 @@ const ReplyingTo =styled.div`
       flex-direction:row;
       align-items:center;
       gap:5px;
-      padding:0.5rem 0rem 0rem 0rem;
+      padding:0.25rem 0rem 0.25rem 0rem;
+      /* border:solid ${theme.BorderColor} 1px */;
+      @media(max-width: 760px){ 
+      p{
+            color:${theme.Text};
+            font-size:0.9rem;
+      }
+      }
       /* border:solid ${theme.BorderColor} 1px; */
 `
 
