@@ -94,7 +94,7 @@ return (
                     e.stopPropagation();
                     receiveNotification({
                     notification:"comment",
-                    message,
+                    messageMessage:message,
                     messageForTimeline:userInfoForBookmark,
                     id:id,
                     comments:comments,

@@ -1,33 +1,12 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import theme from '../Theme';
-import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
+import {Button, ButtonDisabled, PortraitContainer, NameContainer, AliasContainer, CounterLeft, CounterExcess, CenterBoxComment, CloseWindowSmall} from '../Elements/ElementsFormulary'
 import '../index.css'
 import ProfileImage from '../img/profile_avatar.png'
 import AddComment from '../firebase/AddComment'
 import getUnixTime from 'date-fns/getUnixTime';
 
-const CenterBox=styled.div`
-      position:absolute;
-      max-width:700px;
-      /* width:700px; */
-      top:50%;
-      left:50%;
-      margin-top:-350px;
-      margin-left:-350px;
-      padding:1rem 1.5rem;
-      background:black; 
-      border-radius:5%;
-      z-index:101;
-      @media(max-width: 760px){ 
-            height:auto;
-            width:350px;
-            margin-top:-175px;
-            margin-left:-175px;
-            font-size:0.9rem;
-            padding:0.5rem 0.5rem;
-  }
-`
 const MessageContainer = styled.div`
       display:flex;
       flex-direction:row;
@@ -49,14 +28,8 @@ const CreateMessageForm =styled.form`
       /* border:solid white 1px; */
       padding-top:3px;
 `
-const HeaderUser =styled.div`
-      display:flex;
-      flex-direction:row;
-      border:solid ${theme.BorderColor} 1px;
-      gap:1rem;
-`
 const MessageUser =styled.textarea`
-      padding:0.5rem;
+      padding:00rem;
       font-size:1rem;
       text-align:justify;
       white-space:normal;
@@ -71,6 +44,12 @@ const MessageUser =styled.textarea`
       outline:none;   
       @media(max-width: 760px){ 
             font-size:0.9rem;
+            color: ${theme.Text};
+
+      }
+      @media(max-width: 550px){ 
+            font-size:0.8rem;
+            color: ${theme.Text};
 
       }
    
@@ -82,43 +61,17 @@ const ButtonContainer=styled.div`
       flex-direction:row;
       justify-content:flex-end;
 `
-const ButtonLeft =styled.button`
-      display:flex;
-      height:3rem;
-      width:3rem;
-      border-radius:9999px;
-      padding:0rem;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:${theme.GradientBackround};
-      p{
-            font-size:1rem;
-            font-weight:1000;
-            color:#fff;
-      }
-`
-const ButtonExcess =styled.button`
-      display:flex;
-      height:3rem;
-      width:3rem;
-      border-radius:9999px;
-      padding:0rem;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:${theme.GradientBackround};
-            p{
-                  font-size:1rem;
-                  font-weight:1000;
-                  color:${theme.RedAlert};
-            }
-`     
+    
 const OriginalMessageContainer=styled.div`
       display:flex;
       flex-direction:row;
       gap:1rem;
-      border:solid ${theme.RedAlert} 1px;
+      /* border:solid ${theme.RedAlert} 1px; */
+      @media(max-width: 760px){ 
+            gap:0.5rem;
+
+      }
+      
 `
 const LeftColumn=styled.div`
       display:flex;
@@ -159,12 +112,17 @@ const MessageContent = styled.div`
       overflow:hidden;
       p{
             font-size:1rem;
+            color:${theme.Text};
             overflow-wrap: break-word;
             word-wrap: break-word;
             word-break: break-word;
             white-space:pre-wrap;}
       @media(max-width: 760px){ 
             p{font-size:0.9rem;}
+
+      }
+      @media(max-width: 550px){ 
+            p{font-size:0.8rem;}
 
       }
 `
@@ -186,7 +144,13 @@ const ReplyingTo =styled.div`
             font-size:0.9rem;
       }
       }
-      /* border:solid ${theme.BorderColor} 1px; */
+      @media(max-width: 550px){ 
+      p{
+            color:${theme.Text};
+            font-size:0.8rem;
+      }
+      }
+      
 `
 
 
@@ -239,7 +203,8 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
       
 
       return ( 
-      <CenterBox>
+      <CenterBoxComment>
+            <CloseWindowSmall onClick={()=>changeShowPopUp(false)} >X</CloseWindowSmall>
             <OriginalMessageContainer>
                   <LeftColumn>
                         <PortraitContainer>
@@ -289,25 +254,25 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                         <ButtonContainer>
                               {messageReply === "" || messageReply.length >160 ?
                               <>
+                              {messageReply.length >= 160 ?
+                              <CounterExcess>
+                                    <p>-{messageReply.length -160}</p>
+                              </CounterExcess>
+                              :""}
                               <ButtonDisabled disabled={true}>
                                     <p>Reply</p>
                               </ButtonDisabled> 
-                              {messageReply.length >= 160 ?
-                              <ButtonExcess>
-                                    <p>-{messageReply.length -160}</p>
-                              </ButtonExcess>
-                              :""}
                               </>
                               :
                               <>
+                              {messageReply.length >=140 ?
+                              <CounterLeft>
+                                    <p>{ LettersLeft +140 - messageReply.length }</p>
+                              </CounterLeft>
+                              :""}
                               <Button disabled={!messageReply} type="submit" name="sendMesssage">
                                     <p>Reply</p>
                               </Button>
-                              {messageReply.length >=140 ?
-                              <ButtonLeft>
-                                    <p>{ LettersLeft +140 - messageReply.length }</p>
-                              </ButtonLeft>
-                              :""}
                               </>
                               }
                         </ButtonContainer>
@@ -315,7 +280,7 @@ const MessageBoxComment = ({id, originalUidUser, messageForTimeline,messageMessa
                         </RightColumn>
                   </CreateMessageForm>
             </MessageContainer>     
-      </CenterBox>
+      </CenterBoxComment>
        );
 }
  

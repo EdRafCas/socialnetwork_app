@@ -25,6 +25,7 @@ const FormularyInput =styled.input`
   border-radius:5px;
   width:100%;
   text-align:justify;
+  font-size:1rem;
   /* border:solid ${theme.BorderColor} 1px; */
   height:${(props)=> props.Registration ? "3rem" 
                      : props.NameBox ? "4rem" 
@@ -42,7 +43,6 @@ const FormularyInput =styled.input`
   transition:none;
   z-index:100;
   :focus ~ span{
-    
     top:1px;
     left:3px;
     font-size:11px;
@@ -52,6 +52,13 @@ const FormularyInput =styled.input`
     transition:none;
     color:transparent;
   }
+  @media(max-width: 760px){ 
+            font-size:0.8rem;
+            height:${(props)=> props.Registration ? "2rem" 
+                     : props.NameBox ? "4rem" 
+                     : props.BioBox ? "7rem" 
+                     :"3rem"};
+  }     
 `
 const ButtonContainer=styled.div`
   display:flex;
@@ -198,7 +205,7 @@ const PortraitContainer =styled.div`
   overflow:hidden;
   img{
     width:100%;
-    min-width:48px;
+    min-width:12px;
   }
   @media(max-width: 760px){ 
     width:2rem;
@@ -261,6 +268,35 @@ const CenterBox=styled.div`
     font-size:0.9rem;
   }
 `
+const CenterBoxComment=styled.div`
+      position:absolute;
+      max-width:700px;
+      /* width:700px; */
+      top:50%;
+      left:50%;
+      margin-top:-350px;
+      margin-left:-350px;
+      padding:2rem 2rem;
+      background:black; 
+      border-radius:5%;
+      z-index:101;
+      @media(max-width: 760px){ 
+            height:auto;
+            width:500px;
+            margin-top:-250px;
+            margin-left:-250px;
+            font-size:0.9rem;
+            padding:0.5rem 1rem;
+      }
+      @media(max-width: 550px){ 
+            height:auto;
+            width:350px;
+            margin-top:-175px;
+            margin-left:-175px;
+            font-size:0.9rem;
+            padding:0.5rem 1rem;
+      }
+`
 const ConfirmationBox =styled.div`
   /* border:solid red 1px; */
   padding:1rem;
@@ -310,4 +346,33 @@ const PopUpButtonContainer=styled.div`
       height:2rem;
     }
 `
-export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, CounterLeft,CounterExcess,PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox,PopUpTitle, ConfirmationBox, ContainerPopUp, PopUpText, PopUpButtonContainer, } ;
+const CloseWindowSmall=styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    height:2.5rem;
+    width:2.5rem;
+    font-size:1rem;
+    color:${theme.Text};
+    /* border: solid ${theme.BorderColor} 1px; */
+    padding:10px;
+    margin-bottom:5px;
+    text-decoration:none;
+    border-radius:50%;
+    z-index:103;
+    cursor:default;
+    :hover{
+        background:rgba(91, 112, 131, 0.8);
+    }
+      @media(max-width: 760px){ 
+            font-size:0.9rem;
+            height:2rem;
+            width:2rem;
+      }
+      @media(max-width: 550px){ 
+            font-size:0.8rem;
+      
+      }
+`
+export {InputContainer, Formulary, FormularyInput, ButtonContainer, Button, Button2, ButtonDisabled, CounterLeft,CounterExcess,PortraitContainer, NameContainer, AliasContainer, TranslucidBack, CenterBox,PopUpTitle, ConfirmationBox, ContainerPopUp, PopUpText, PopUpButtonContainer,CenterBoxComment, CloseWindowSmall } ;

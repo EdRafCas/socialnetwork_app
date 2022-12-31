@@ -50,7 +50,6 @@ const Index = () => {
               
             <Route path="/LoginPage" exact={true} 
                                     element={<LoginPage 
-                                      
                                       alert={alert}
                                       changeAlert={changeAlert}
                                       stateAlert={stateAlert}

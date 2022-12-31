@@ -10,6 +10,7 @@ import {AliasContainer} from '../Elements/ElementsFormulary';
 const TimelineUserContainer = styled.div`
       height:100%;
       max-width:700px;
+      min-width:309px;
       display:flex;
       flex-direction:column;
       padding:0rem;

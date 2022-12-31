@@ -41,6 +41,12 @@ const RegistrationBox=styled.div`
       max-height:80%;
       max-width:40rem;
       background:black;
+      overflow:scroll;
+      overflow-x:hidden;
+      @media(max-width: 760px){ 
+            max-height:100%;
+            max-width:100%;
+      }
 `
 const RegistrationInputContainer=styled.div`
       width:100%;
@@ -51,6 +57,10 @@ const RegistrationInputContainer=styled.div`
       justify-content: center;
       align-items:center;
       gap:1rem;
+      @media(max-width: 760px){ 
+            gap:0.5rem;
+            
+      }
 `
 const RedirectContainer=styled.div`
       display:flex;
@@ -89,7 +99,10 @@ const SpanInputInitial =styled.span`
       transition: none;
       color:transparent;
       left:3px;
-      top:1px;       
+      top:1px; 
+      @media(max-width: 760px){ 
+            font-size:0.8rem;
+      }      
 `
 const SpanInputFinal =styled.span`
       position:absolute;
@@ -112,6 +125,11 @@ const ButtonSignUp =styled.button`
       :active{
             opacity:0.6;
       }
+      @media(max-width: 760px){ 
+            height:2.5rem;
+            font-size:0.8rem;
+      }     
+      
 `
 
 
@@ -153,15 +171,6 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             }
       }
 
-     /*  const logOut = async() =>{
-            try{
-                  await signOut(auth);
-                  navigate("/LoginPage")
-            } catch(error){
-                  console.log(error);
-            }
-            
-      } */
 
       const handleSubmit = async (e) => {
             e.preventDefault();
@@ -176,7 +185,8 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
             const querySnapshot = await getDocs(consult);
 
             const regularExpressionEmail=/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
-            const regularExpressionNames=/^\w+\s?\w+?$/;
+            /* const regularExpressionNames=/^\w+\s?\w+?$/; */
+            const regularExpressionNames=/^\D+\s?\w+?$/;
             if (!regularExpressionEmail.test(email)){
                   changeStateAlert(true);
                   changeAlert({

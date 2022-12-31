@@ -67,7 +67,6 @@ const EmptyProfilePic =styled.div`
       left:1rem;
       padding:0;
       border-radius:50%;
-      height:auto;
       display:flex;
       flex-direction:column;
       justify-content:center;
@@ -77,9 +76,9 @@ const EmptyProfilePic =styled.div`
       flex-direction:column;
       overflow:hidden;
       background:#000;
-      /* img{
+      img{
             width:100%;
-      } */
+      }
       @media(max-width: 760px){ /* 950px */
            width:6rem;
            height:6rem;
@@ -169,12 +168,12 @@ const BackgroundImageUserContainer =styled.div`
 
 const EmptyBackground =styled.div`
       /* border:solid red 1px; */
-      overflow:hidden;
-      height:380px;
       width:100%;
+      height:165px;
+      cursor:pointer;
       display:flex;
       justify-content:center;
-      background:#000;
+      max-width:55rem;
       /* img{
             max-width:55rem;
             width:100%;

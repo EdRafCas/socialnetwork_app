@@ -18,12 +18,15 @@ const FormularyContainer = styled.div`
   flex-direction:column;
   align-content:center;
   gap:1rem;
-  /* border:solid ${theme.BorderColor} 1px; */
+  /* border:solid ${theme.BluePinned} 1px; */
 `
 const SignUpContainer=styled.div`
   display:flex;
   flex-direction:row;
-  gap:1px;
+  gap:4px;
+  span{
+    color:${theme.Text}
+  }
 `
 const SignUp =styled(Link)`
   background:none;

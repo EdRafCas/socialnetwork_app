@@ -41,7 +41,7 @@ const PopUpButtonDelete=styled.button`
     }
     @media(max-width: 760px){
         width:fit-content;
-        min-width:8rem;
+        min-width:180px;
         padding:0.5rem;
         p{
             font-size:1rem;
@@ -76,7 +76,7 @@ const PopUpButtonRetweet=styled.button`
     }
     @media(max-width: 760px){
         width:fit-content;
-        min-width:8rem;
+        min-width:180px;
         padding:0.5rem;
         p{
             font-size:1rem;
@@ -108,6 +108,14 @@ const PopUpButtonPin=styled.button`
     :active{
         background:${(props)=> props.Red ? `rgb(195,26,37)` 
         : "rgba(255,255,255, 0.3)"}
+    }
+    @media(max-width: 760px){
+        width:fit-content;
+        min-width:180px;
+        padding:0.5rem;
+        p{
+            font-size:1rem;
+        }
     }
 `
 const BackgroundBox=styled.div`
@@ -212,6 +220,15 @@ const CloseWindowSmall=styled.div`
     :hover{
         background:rgba(91, 112, 131, 0.8);
     }
+    @media(max-width: 760px){ 
+            font-size:0.9rem;
+            height:2rem;
+            width:2rem;
+      }
+      @media(max-width: 550px){ 
+            font-size:0.8rem;
+      
+      }
 `
 
 const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser, originalId, originalMessageComments, comments, retweets, user, currentUserInfo, bookmarks, backgroundPicture,profilePicture, messageForTimeline,messageMessage}) => {

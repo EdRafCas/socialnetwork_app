@@ -9,7 +9,8 @@ import getUnixTime from 'date-fns/getUnixTime';
 import Account from './Account';
 import MainPageRoutes from './MainPageRoutes';
 import MessageBox from './MessageBox';
-import {TranslucidBack,CenterBox } from '../Elements/ElementsFormulary';
+import MessageBoxAccountBar from './MessageBoxAccountBar';
+import {TranslucidBack,CenterBox, CenterBoxComment } from '../Elements/ElementsFormulary';
 import EditProfileBox from './EditProfileBox';
 import PopUp from '.././Elements/PopUp'
 
@@ -116,6 +117,36 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
     
   };
 
+  const addToTimelineFloating = (e) =>{
+    e.preventDefault();
+    if(messageFloating !==""){
+     AddMessage({
+      message:messageFloating,
+      uidUser: currentUserInfo[0].uidUser,
+      name:currentUserInfo[0].name,
+      alias:currentUserInfo[0].alias,
+      date: getUnixTime(new Date())
+    })
+    .then(()=>{
+      messageChange("");
+      changeStateAlert(true);
+      changeAlert({
+            type:'success',
+            message: 'Your message was sent successfully'
+      })
+      changeShowMessageBox(false)
+    })
+    .catch((error)=>{
+      changeStateAlert(true);
+      changeAlert({
+            type:'error',
+            message: 'An error ocurred while sending your message'
+      })
+    }) 
+    }
+    
+  };
+
       return ( 
        <MainPageContainer>
           <PopUp  type={popUpAlert.type} 
@@ -166,16 +197,18 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
           {showMessageBox ?
           <>
             <TranslucidBack onClick={()=>changeShowMessageBox(!showMessageBox)}/>
-            <CenterBox>
-              <MessageBox floating
-                          messageFloating={messageFloating}
-                          messageChangeFloating={messageChangeFloating}
-                          user={user}
-                          currentUserInfo={currentUserInfo}
-                          addToTimeline={addToTimeline}
-                          message={message}
-                          handleChange={handleChange} />
-            </CenterBox>
+            <CenterBoxComment>
+              <MessageBoxAccountBar floating
+                                    messageFloating={messageFloating}
+                                    messageChangeFloating={messageChangeFloating}
+                                    user={user}
+                                    currentUserInfo={currentUserInfo}
+                                    addToTimeline={addToTimeline}
+                                    addToTimelineFloating={addToTimelineFloating}
+                                    message={message}
+                                    handleChange={handleChange} 
+                                    changeShowMessageBox={changeShowMessageBox}/>
+            </CenterBoxComment>
           </>
           :""
           }

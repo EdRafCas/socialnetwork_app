@@ -37,11 +37,17 @@ const TextContainer =styled.div`
       display:flex;
       flex-direction:column;
       /* border: solid ${theme.BorderColor} 1px; */
+     
+  }     
 `
 const Text =styled.p`
       /* border: solid ${theme.BorderColor} 1px; */
       color: ${theme.Text};
       padding:0.5rem 0rem;
+      @media(max-width: 760px){ 
+            font-size:0.8rem;
+           
+      }
 `
 const Pickers = styled.div`
       /* border: solid ${theme.BorderColor} 1px; */
@@ -50,10 +56,17 @@ const Pickers = styled.div`
       display:flex;
       flex-direction:row;
       justify-content:space-between;
+      @media(max-width: 760px){ 
+            height:2.5rem;
+      }
+
 
 `
 const TextLabel=styled.p`
       font-size:11px;
+      @media(max-width: 760px){ 
+            font-size:8px;
+      }
 `
 const MonthPicker =styled.div`
       display: flex;
@@ -86,6 +99,13 @@ const Selected =styled.input`
       }
       &:hover {
         background: #2C272E};
+        
+      }
+      @media(max-width: 760px){ 
+            height:1.2rem;
+            font-size:0.8rem;
+      }
+        
 `
 const DayPicker=styled.div`
       display: flex;
@@ -123,6 +143,9 @@ const Options=styled.div`
       border-radius:10px;
       max-height:150px;
       overflow-y:auto;
+      @media(max-width: 760px){ 
+            font-size:0.8rem;
+      }
 `
 const Option = styled.div`
       color:${theme.Text};
@@ -130,6 +153,12 @@ const Option = styled.div`
       padding:0.5rem;
       &:hover {
             background: #2C272E};
+            
+      }
+      @media(max-width: 760px){ 
+            height:1.5rem;
+            font-size:0.8rem;
+      }
 `
 
 const DatePicker = ({birthMonth, changeBirthMonth, birthDay, changeBirthDay, birthYear, changeBirthYear}) => {
