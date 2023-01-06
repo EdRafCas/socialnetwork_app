@@ -10,10 +10,12 @@ import {UserNameContainerLinkQuoted} from '../Elements/ElementsTimeline'
 
 
 const MessageContainer = styled.div`
+      max-width:700px;
       display:flex;
       flex-direction:column;
       /* border:solid ${theme.RedAlert} 1px; */
       border-bottom:solid ${theme.BorderColor} 1px;
+      border-right:solid ${theme.BorderColor} 1px;
       /* padding:1rem 1rem; */
       /* border-bottom:solid ${theme.BorderColor} 1px; */
 `

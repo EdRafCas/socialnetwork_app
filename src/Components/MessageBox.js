@@ -14,6 +14,7 @@ const MessageContainer = styled.div`
       flex-direction:column;
       align-content:center;
       border-bottom:solid ${theme.BorderColor} 1px;
+      border-right:solid ${theme.BorderColor} 1px;
       background:#000;
       @media(max-width: 760px){ 
       padding: 0.25rem;

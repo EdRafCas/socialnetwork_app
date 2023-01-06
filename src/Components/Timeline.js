@@ -4,7 +4,7 @@ import theme from '../Theme';
 import useObtainMessages from '../Hooks/useObtainMessages';
 import MessageBox from './MessageBox';
 import '../index.css'
-import {Card} from '.././Elements/ElementsTimeline'
+import {Card, FillerDiv} from '.././Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import RetweetContainerMainTimeline from './RetweetContainerMainTimeline';
 import MessageTimelineContainer from './MessageTimelineContainer';
@@ -13,18 +13,17 @@ import LoadMore from '../Elements/LoadMore';
 
 const TimelineContainer = styled.div`
   height:100%;
-  width:auto;
-  max-width:700px;
+  width:100%;
   /* max-width:700px; */
   display:flex;
   flex-direction:column;
   padding:0rem;
   border:solid ${theme.BorderColor} 1px;
   gap:0rem;
-  overflow:scroll;
-  overflow-x:hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  overflow-y:scroll;
+  overflow-x:hidden;
 `
 
 
@@ -42,7 +41,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
     /* console.log(MessagesSent); */
 
       return ( 
-      <TimelineContainer className='timeline-user'>
+      <TimelineContainer >
         <MessageBox 
                     user={user}
                     currentUserInfo={currentUserInfo}
@@ -115,6 +114,7 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
         {thereAreMoreMessages &&
         <LoadMore ObtaineMoreMessages={ObtaineMoreMessages}/>
         }
+        <FillerDiv/>
       </TimelineContainer>
        );
 }

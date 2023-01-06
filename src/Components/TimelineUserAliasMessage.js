@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card,CardInner,MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer} from '../Elements/ElementsTimeline'
+import {Card,CardInner,MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer,FillerDiv} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainerAlias from './PinnedMessageContainerAlias';
 import receiveNotification from './ReceiveNotification';
@@ -61,7 +61,7 @@ const TimelineUserAliasMessage = ({userByAlias,user,currentUserInfo, changeAlert
         {!messagesByUserLoaded?
         <> 
           {userByAlias[0].pinnedMessage &&
-          <>
+          <Card>
           <PinnedMessageContainerAlias
             update={update}
             changeUpdate={changeUpdate} 
@@ -73,7 +73,7 @@ const TimelineUserAliasMessage = ({userByAlias,user,currentUserInfo, changeAlert
             changeAlert={changeAlert}
             changeStateAlert={changeStateAlert}
             userByAlias={userByAlias}/>          
-          </>
+          </Card>
           }
           {filtertype.map((MessageUser, index)=>{
             return(
@@ -259,6 +259,7 @@ const TimelineUserAliasMessage = ({userByAlias,user,currentUserInfo, changeAlert
         <LoadMoreButton onClick= {() => ObtainMoreMessagesByUserAlias()}> <p>Load More</p></LoadMoreButton>
         </LoadMoreContainer>
         }          
+        <FillerDiv/>
         </>
         
        );

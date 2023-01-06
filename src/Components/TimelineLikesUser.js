@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import useObtainMessagesLikesByUser from '../Hooks/useObtainMessagesLikesByUser';
-import {Card, LoadMoreButton,LoadMoreContainer} from '../Elements/ElementsTimeline'
+import {Card, LoadMoreButton,LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import LikeContainer from './LikeContainer';
 
@@ -40,7 +40,8 @@ const TimelineLikesUser = ({user, currentUserInfo, changeAlert, changeStateAlert
             <LoadMoreContainer>
               <LoadMoreButton onClick= {() => ObtainMoreMessagesLikedByUser()}> <p>Load More</p></LoadMoreButton>
             </LoadMoreContainer>
-            }          
+            }
+            <FillerDiv/>          
             </>
        );
 }

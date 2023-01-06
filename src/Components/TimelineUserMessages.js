@@ -13,7 +13,7 @@ import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
-import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,  CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, MessageLink, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer} from '../Elements/ElementsTimeline'
+import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,  CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, MessageLink, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
 import receiveNotification from './ReceiveNotification';
@@ -260,7 +260,8 @@ const TimelineUserMessages = ({user,currentUserInfo, changeAlert, changeStateAle
           <LoadMoreContainer>
           <LoadMoreButton onClick= {() => ObtainMoreMessagesByUser()}> <p>Load More</p></LoadMoreButton>
           </LoadMoreContainer>
-          }          
+          }
+          <FillerDiv/>            
         </>
        );
 }

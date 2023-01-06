@@ -22,6 +22,7 @@ const MainPageContainer = styled.div`
   background:#000;
   width:100%;
   height:100%;
+  /* overflow-y:scroll; */
   /* border:solid red 1px; */
 `
 const ColumnContainer=styled.div`
@@ -41,7 +42,7 @@ const ColumnContainer2=styled.div`
   display:flex;
   flex-direction:column;
   /* border:solid blue 1px; */
-  overflow:scroll;
+  
   overflow-x: hidden;
   @media(max-width: 760px){ 
   width:auto;

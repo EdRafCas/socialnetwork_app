@@ -127,12 +127,14 @@ const PortraitContainer =styled.div`
   }
 `
 const CardInner =styled.div`
+  max-width:700px;
   position:relative;
   display:flex;
   flex-direction:column;
   border:none;
-  /* border-top:solid ${theme.BorderColor} 1px; */
   /* border-bottom:solid ${theme.BorderColor} 1px; */
+  /* border-top:solid ${theme.BorderColor} 1px; */
+  border-right:solid ${theme.BorderColor} 1px;
   gap:0rem;
   padding-top:0rem;
   z-index:1;

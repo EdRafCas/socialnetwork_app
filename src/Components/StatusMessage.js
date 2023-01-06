@@ -6,7 +6,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import '../index.css'
 import { AuthContext } from '../Context/AuthContext';
-import {Card,UserNameContainerLink,IconContainerCont, BarButton, TimeBar, LikeButton,EmptyDivColumn,StraightLine2, RetweetButton, DeletedMessage, LoadMoreButton, LoadMoreContainer} from '../Elements/ElementsTimeline'
+import {UserNameContainerLink,IconContainerCont, BarButton, TimeBar, LikeButton,EmptyDivColumn,StraightLine2, RetweetButton, DeletedMessage, LoadMoreButton, LoadMoreContainer} from '../Elements/ElementsTimeline'
 import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -30,10 +30,28 @@ import CommentInfo from '../Elements/CommentInfo';
 import CommentStatus from './CommentStatus';
 import MessageBoxStatus from './MessageBoxStatus';
 
+const Card =styled.div`
+  display:flex;
+  flex-direction:column;
+  max-width:700px;
+ /*  border-left:solid ${theme.BorderColor} 1px ;*/
+  border-right:solid ${theme.BorderColor} 1px ; 
+  border-bottom: ${(props) => props.TimelineComment ? ` solid ${theme.BorderColor} 1px`: "none"};
+  /* border-radius:15px; */
+  /* border-top:solid ${theme.BorderColor} 1px; */
+  gap:0rem;
+  padding-top:0rem;
+  z-index:100;
+  /* :hover{
+    background:rgba(255,255,255, 0.03);
+    } */
+`
+
 const CardMessage =styled.div`
+      max-width:700px;
       display:flex;
       flex-direction:column;
-     /*  border:solid ${theme.BorderColor} 1px; */
+      border-right:solid ${theme.BorderColor} 1px;
       /* border-radius:15px; */
       gap:0rem;
       padding-top:0rem;
@@ -44,7 +62,7 @@ const CardMessage =styled.div`
 `
 const TimelineUserContainer = styled.div`
       height:100%;
-      max-width:700px;
+     
       display:flex;
       flex-direction:column;
       padding:0rem;
@@ -56,6 +74,7 @@ const TimelineUserContainer = styled.div`
       scrollbar-width: none;
 `
 const TimelineCommentContainer = styled.div`
+      /* max-width:700px; */
       height:auto;
       display:flex;
       flex-direction:column;
@@ -181,6 +200,7 @@ const IconContainerArrow=styled.div`
       height:3rem;
       width:3rem;
       /* border:1px solid white; */
+      
       fill:currentcolor;
       :hover{
             background:${(props)=> props.Reply ? `${theme.BlueReplyBackground}`
@@ -194,6 +214,7 @@ const IconContainerArrow=styled.div`
                         : props.Retweet ? `${theme.GreenRetweet}` 
                         : "auto"};
             }
+            cursor:pointer;
       }
       svg{
             max-height:1.5rem;
@@ -218,6 +239,23 @@ const CardColumns = styled.div`
   align-items:center;
   /* border:solid blue 1px; */
   /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
+`
+
+const ArrowContainer =styled.div`
+      width:100%;
+      max-width:700px;
+      height:auto;
+      padding:0.5rem;
+      position:relative;
+      border-bottom:solid ${theme.BorderColor} 1px;
+      border-right:solid ${theme.BorderColor} 1px;
+      /* border:solid red 1px; */
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      align-content:left;
+      gap:2px;
+      
 `
 
 const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo}) => {
@@ -274,10 +312,13 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                   <>
                   {infoForMessage.exists()?
                   <TimelineUserContainer className='timeline-user'>
+                        <ArrowContainer>
                         <IconContainerArrow onClick={() => navigate(-1)} Reply >
                               <IconReturnArrow/>
                         </IconContainerArrow>  
-                        <TimelineCommentContainer className='timeline-user'>
+                        </ArrowContainer>
+                        <span></span>
+                        <TimelineCommentContainer >
                               {infoForMessage.data().type === "comment"?
                               <CommentStatus
                                     update={update}
@@ -503,7 +544,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                   </TimelineUserContainer>
                   :
                   <TimelineUserContainer className='timeline-user'>    
-                        <TimelineCommentContainer className='timeline-user'>
+                        <TimelineCommentContainer >
                               <DeletedMessage>
                                     this message was deleted by his author
                               </DeletedMessage>

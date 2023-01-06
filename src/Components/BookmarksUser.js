@@ -4,12 +4,12 @@ import theme from '../Theme';
 import '../index.css'
 import BookmarkTimelineContainer from './BookmarkTimelineContainer';
 import { AuthContext } from '../Context/AuthContext';
-import {Card} from '.././Elements/ElementsTimeline'
+import {Card, FillerDiv} from '.././Elements/ElementsTimeline'
 import {AliasContainer} from '../Elements/ElementsFormulary';
 
 const TimelineUserContainer = styled.div`
       height:100%;
-      max-width:700px;
+      /* max-width:700px; */
       min-width:309px;
       display:flex;
       flex-direction:column;
@@ -23,10 +23,12 @@ const TimelineUserContainer = styled.div`
 `
 const UserNameContainerMessage =styled.div`
       width:100%;
+      max-width:700px;
       height:auto;
       padding:0.5rem;
       position:relative;
       border-bottom:solid ${theme.BorderColor} 1px;
+      border-right:solid ${theme.BorderColor} 1px;
       /* border:solid red 1px; */
       display:flex;
       flex-direction:column;
@@ -55,7 +57,7 @@ const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, current
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
       return ( 
-            <TimelineUserContainer className='timeline-user'>
+            <TimelineUserContainer >
                   <UserNameContainerMessage>
                         <BookmarkTitle>
                               Bookmarks
@@ -79,6 +81,7 @@ const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, current
                         </Card>
                   )
                         })}
+                  <FillerDiv/>  
             </TimelineUserContainer>
       );
 }

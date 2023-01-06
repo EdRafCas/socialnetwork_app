@@ -8,7 +8,7 @@ import ProfileUserAlias from './ProfileUserAlias';
 
 const TimelineUserContainer = styled.div`
   height:100%;
-  max-width:700px;
+  /* max-width:700px; */
   display:flex;
   flex-direction:column;
   padding:0rem;
@@ -41,7 +41,7 @@ const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, curr
 
       return ( 
 
-            <TimelineUserContainer className='timeline-user'>
+            <TimelineUserContainer >
             {!loadingUser ?    
             <> 
             {currentUserInfo[0].alias === alias ?

@@ -1,9 +1,11 @@
 import React, {useContext, useState, useEffect} from 'react';
 import useObtainMessagesLikesByUserAlias from '../Hooks/useObtainMessagesLikesByUserAlias';
-import {Card, LoadMoreButton, LoadMoreContainer} from '../Elements/ElementsTimeline'
+import {Card, LoadMoreButton, LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
 import { AuthContext } from '../Context/AuthContext';
 import LikeContainer from './LikeContainer';
 import LoadingComponent from '../Elements/LoadingComponent'
+
+
 
 
 const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, currentUserInfo}) => {
@@ -62,6 +64,7 @@ const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, c
       <LoadMoreButton onClick= {() => ObtainMoreMessagesLikedByUserAlias()}> <p>Load More</p></LoadMoreButton>
       </LoadMoreContainer>
       }
+      <FillerDiv/>
       </>
       );
 }

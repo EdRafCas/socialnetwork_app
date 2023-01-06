@@ -8,8 +8,10 @@ const HeaderUser =styled.div`
       justify-content:center;
       padding:0rem;
       width:100%;
+      max-width:700px;
       min-width:300px;
       height:auto;
+      border-right:solid ${theme.BorderColor} 1px;
       /* border:solid red 1px; */
 `
 const BackgroundImage =styled.div`

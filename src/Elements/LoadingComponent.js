@@ -12,7 +12,7 @@ max-height:10rem;
 overflow:hidden;
 border:solid ${theme.BorderColor} 1px;
 border-top:none;
-border-right:none;
+border-right:solid ${theme.BorderColor} 1px;;
 border-left:none;
 img{
   height:100%;
