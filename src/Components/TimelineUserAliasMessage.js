@@ -3,7 +3,6 @@ import {useNavigate } from 'react-router-dom';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUserAlias from '../Hooks/useObtainMessagesByUserAlias';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -52,10 +51,6 @@ const TimelineUserAliasMessage = ({userByAlias,user,currentUserInfo, changeAlert
               items.type.includes("comment") 
       });
 
-    const formatDate = (date) => {
-      return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
- };
-    
       return ( 
         <>
         {!messagesByUserLoaded?
@@ -148,9 +143,6 @@ const TimelineUserAliasMessage = ({userByAlias,user,currentUserInfo, changeAlert
                         {MessageUser.message}
                       </span>
                     </MessageContent>
-                   {/*  <TimeBar>
-                      {formatDate(MessageUser.date)}
-                    </TimeBar> */}
                     <InteractionBar>
                       <IconContainerCont Reply>
                         <BarButton onClick={(e)=>{
