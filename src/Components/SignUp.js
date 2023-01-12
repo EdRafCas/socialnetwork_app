@@ -35,8 +35,8 @@ const RegistrationBox=styled.div`
       display:flex;
       flex-direction:column;
       border-radius:30px;
-      padding:1rem;
-      /* border: solid ${theme.BorderColor} 1px; */
+      padding:0.25rem;
+      /* border: solid red 1px; */
       width:100%;
       max-height:80%;
       max-width:40rem;

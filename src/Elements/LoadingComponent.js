@@ -8,6 +8,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 width:100%;
+max-width:700px;
 max-height:10rem;
 overflow:hidden;
 border:solid ${theme.BorderColor} 1px;

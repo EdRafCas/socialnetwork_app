@@ -14,8 +14,9 @@ const AccountManagement=styled.div`
   height:100%;
   min-height:500px;
   width:auto;
-  max-width:375px;
-  min-width:4rem;
+  /* max-width:375px; */
+  min-width:275px;
+  
   /* max-width:40% */
   overflow:hidden;
   padding:0rem 0rem;
@@ -24,6 +25,9 @@ const AccountManagement=styled.div`
   align-self:right;
   justify-content:space-between;
   /* border:solid ${theme.BorderColor} 1px; */
+  @media(max-width: 960px){ 
+    min-width:4rem;
+}
 `
 const GeneralMenu = styled.div`
   width:100%;

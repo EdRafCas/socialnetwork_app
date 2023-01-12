@@ -19,6 +19,10 @@ const Formulary =styled.form`
   border:${(props)=> props.LoginUpFormulary ? "none" : "none"};
   /* border:solid ${theme.BorderColor} 1px; */
   padding:1rem 0rem;
+  @media(max-width: 760px){ 
+    padding:0rem 0rem;
+  }     
+
 `
 const FormularyInput =styled.input`
   padding-left:5px;

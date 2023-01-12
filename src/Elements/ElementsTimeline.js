@@ -575,8 +575,8 @@ const RedirectLink =styled(Link)`
         color:#fff;
         background:${theme.BorderColor};
         :active{
-              border: 2px double #000;
-              font-size: 14px;
+              /* border: 2px double #000; */
+              /* font-size: 14px; */
               font-weight: 800;
         }   
   }

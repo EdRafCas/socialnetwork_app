@@ -22,8 +22,6 @@ const MainPageContainer = styled.div`
   background:#000;
   width:100%;
   height:100%;
-  /* overflow-y:scroll; */
-  /* border:solid red 1px; */
 `
 const ColumnContainer=styled.div`
   /* width:600px; */
@@ -34,15 +32,13 @@ const ColumnContainer=styled.div`
   justify-content:flex-end;
   @media(max-width: 760px){ 
   width:auto;
-  }
-  
+  } 
 `
 const ColumnContainer2=styled.div`
   width:70%;
   display:flex;
   flex-direction:column;
   /* border:solid blue 1px; */
-  
   overflow-x: hidden;
   @media(max-width: 760px){ 
   width:auto;

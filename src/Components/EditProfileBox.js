@@ -396,14 +396,6 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
       
       return ( 
             <ContainerEditProfile>
-             {/* <form onSubmit={handleSubmitBackground}>
-             <label>
-                  <input type="file" accept="image/png, image/gif, image/jpeg" onChange={handleImageChangeBackground}/>   
-            </label>
-            <button type="submit">
-                  <p>test</p>
-            </button>
-            </form> */}     
             <FormularyBox onSubmit={handlesubmitEdit}>
                   <TopBar>
                         <CloseWindow onClick={()=>changeShowEditProfile(!showEditProfile)} >X</CloseWindow>
