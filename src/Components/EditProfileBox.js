@@ -274,6 +274,9 @@ const SpanInputInitial =styled.span`
       color:transparent;
       left:3px;
       top:1px;       
+      @media(max-width: 760px){ 
+            font-size:0.8rem;
+      }    
 `
 const SpanInputFinal =styled.span`
       position:absolute;
@@ -283,6 +286,9 @@ const SpanInputFinal =styled.span`
       left:3px;
       top:1px;
       color:${theme.Text};  
+      @media(max-width: 760px){ 
+            font-size:9px;
+      }    
 `
 const EditButton=styled.button`
       display:flex;

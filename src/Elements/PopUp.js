@@ -200,7 +200,6 @@ const CloseWindow=styled.div`
     }
 `
 const CloseWindowSmall=styled.div`
-   
     top:2.5rem;
     left:2.5rem;
     display:flex;

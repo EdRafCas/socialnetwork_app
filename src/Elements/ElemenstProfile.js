@@ -59,7 +59,8 @@ const ProfilePic =styled.div`
       @media(max-width: 760px){ /* 950px */
            width:6rem;
            height:6rem;
-           top:0rem;
+           top:-2.5rem;
+            left:1rem;
       }
 `
 const EmptyProfilePic =styled.div`
@@ -139,7 +140,7 @@ const EditButton=styled.button`
             }
       }
       @media(max-width: 760px){ /* 950px */
-            height:3rem;
+            height:2rem;
             width:6rem;
             border:none;
             p{

@@ -114,6 +114,9 @@ const SpanInputFinal =styled.span`
       left:3px;
       top:1px;
       color:${theme.Text};  
+      @media(max-width: 760px){ 
+            font-size:9px;
+      }    
 `
 const ButtonSignUp =styled.button`
       height:3rem;
@@ -218,6 +221,14 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                   changeAlert({
                         type:'error',
                         message: 'Please fill all fields'
+                  })
+                  return;
+            }
+            if(name.length >20 || lastname.length >20 || alias.length >20){
+                  changeStateAlert(true);
+                  changeAlert({
+                        type:'error',
+                        message: "your name/lastname/alias can't be longer than 20 characters"
                   })
                   return;
             }
