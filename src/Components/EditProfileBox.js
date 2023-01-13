@@ -10,6 +10,25 @@ import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, 
 
 const ContainerEditProfile=styled.div`
       position:absolute;
+      top:50%;
+      left:50%;
+      margin-top:-350px;
+      margin-left:-300px;
+      height:700px;
+      width:600px;
+      background:#000;
+      /*  background:${(props)=> props.Picture ? `none`
+                                          : `#000`}; */
+      border-radius:5%;
+      z-index:101;
+      @media(max-width: 760px){ 
+      height:auto;
+      width:350px;
+      margin-top:-100px;
+      margin-left:-175px;
+      font-size:0.9rem;
+      }
+      /* position:absolute;
       display:flex;
       flex-direction:column;
       max-height:45rem;
@@ -22,7 +41,7 @@ const ContainerEditProfile=styled.div`
       border-radius:30px;
       border: solid ${theme.BorderColor} 1px;
       background:#000;
-      z-index:100;
+      z-index:100; */
 `
 const TopBar=styled.div`
       /* border: solid ${theme.BorderColor} 1px; */
@@ -35,9 +54,15 @@ const TopBar=styled.div`
       display:flex;
       flex-direction:row;
       justify-content:space-between;
+      @media(max-width: 760px){ 
+            min-height:2rem;
+            padding-bottom:0.5rem;
+      }
 
 `
 const CloseWindow=styled.div`
+      top:2.5rem;
+      left:2.5rem;
       display:flex;
       flex-direction:row;
       justify-content:center;
@@ -50,9 +75,19 @@ const CloseWindow=styled.div`
       padding:5px;
       text-decoration:none;
       border-radius:50%;
+      z-index:103;
       cursor:default;
       :hover{
-            background:rgba(91, 112, 131, 0.8);
+      background:rgba(91, 112, 131, 0.8);
+      }
+      @media(max-width: 760px){ 
+            font-size:0.9rem;
+            height:2rem;
+            width:2rem;
+      }
+      @media(max-width: 550px){ 
+            font-size:0.8rem;
+
       }
 `
 const FormularyBox =styled.form`
@@ -65,7 +100,7 @@ const FormularyBox =styled.form`
   gap:0rem;
   border:${(props)=> props.LoginUpFormulary ? `solid ${theme.BorderColor} 1px` : "none"};
   /* border:solid ${theme.BorderColor} 1px; */
-  padding:1rem 0rem;
+  padding:1rem 1rem;
 `
 const BackgroundImageContainer =styled.div`
       position:relative;
@@ -186,6 +221,14 @@ const IconContainerBackground=styled.div`
             opacity:0.5;
             fill:black;
       }
+      @media(max-width: 760px){ 
+            height:2.5rem;
+            width:2.5rem;
+            svg{
+                  max-height:2.5rem;
+                  fill:${theme.Text};     
+            }
+      }
 `
 
 const ContainerIcons=styled.div`
@@ -196,7 +239,11 @@ const ContainerIcons=styled.div`
       flex-direction:row
       align-items:center;
       justify-content:center;
-      border:1px solid red;
+      /* border:1px solid red; */
+      @media(max-width: 760px){ 
+            gap:1rem;
+
+      }
 `
 
 const Inputs=styled.div`
@@ -247,12 +294,14 @@ const EditButton=styled.button`
       justify-content:center;
       align-items:center;
       background:#fff;
+      cursor:default;
             p{
             font-size:1rem;
             font-weight:1000;
             color:#000;
                   }
       :hover{
+            
             background:${theme.Text}};
             }
       :active{
@@ -261,6 +310,15 @@ const EditButton=styled.button`
                   color:black;
 
             }
+      }
+      @media(max-width: 760px){ 
+            height:2.5rem;
+            width:4rem;
+            p{
+                  font-size:0.9rem;
+                  font-weight:1000;
+                  color:#000;
+                        }
       }
 
 `

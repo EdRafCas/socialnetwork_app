@@ -249,7 +249,6 @@ const PopUp = ({type, id, userId, changeStateAlert, changeAlert, originalUidUser
         {showPopUp ===true ?
         <>
         <TranslucidBack onClick={()=>changeShowPopUp(!showPopUp)} />
-        {/* <CloseWindow onClick={()=>changeShowPopUp(false)} >X</CloseWindow> */}
         {type ==="retweet" ?
         <CenterBox>
             <ConfirmationBox>

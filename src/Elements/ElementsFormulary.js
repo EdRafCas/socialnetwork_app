@@ -59,8 +59,8 @@ const FormularyInput =styled.input`
   @media(max-width: 760px){ 
             font-size:0.8rem;
             height:${(props)=> props.Registration ? "2rem" 
-                     : props.NameBox ? "4rem" 
-                     : props.BioBox ? "7rem" 
+                     : props.NameBox ? "3rem" 
+                     : props.BioBox ? "4rem" 
                      :"3rem"};
   }     
 `

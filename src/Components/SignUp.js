@@ -30,6 +30,7 @@ const RegistrationContainer =styled.div`
       /* background:rgba(91, 112, 131, 0.8); */
       background:${theme.LightGrey};
       
+      
 `
 const RegistrationBox=styled.div`
       display:flex;
@@ -41,11 +42,12 @@ const RegistrationBox=styled.div`
       max-height:80%;
       max-width:40rem;
       background:black;
-      overflow:scroll;
       overflow-x:hidden;
+      
       @media(max-width: 760px){ 
             max-height:100%;
             max-width:100%;
+            overflow:scroll;
       }
 `
 const RegistrationInputContainer=styled.div`
