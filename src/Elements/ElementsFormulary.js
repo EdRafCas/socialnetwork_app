@@ -50,7 +50,15 @@ const FormularyInput =styled.input`
     top:1px;
     left:3px;
     font-size:11px;
-    color:${theme.Text};
+  }
+  :focus ~ .spanFinal{
+    color:${theme.Text} 
+  }
+  :focus ~ .bottomSpan{
+    top:auto;
+    left:auto;
+    bottom:5px;
+    right:10px;
   }
   :focus::placeholder{
     transition:none;

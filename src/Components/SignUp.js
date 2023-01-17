@@ -102,6 +102,7 @@ const SpanInputInitial =styled.span`
       color:transparent;
       left:3px;
       top:1px; 
+      /* color:${theme.Text}; */
       @media(max-width: 760px){ 
             font-size:0.8rem;
       }      
@@ -114,6 +115,19 @@ const SpanInputFinal =styled.span`
       left:3px;
       top:1px;
       color:${theme.Text};  
+      @media(max-width: 760px){ 
+            font-size:9px;
+      }    
+`
+const SpanCounterBottom =styled.span`
+      position:absolute;
+      font-size:11px;
+      pointer-events:none;
+      transition: 0.2s ease all;
+      right:5px;
+      bottom:5px;
+      color:${(props)=> props.RED ? `${theme.RedAlert}` 
+                     :`${theme.Text}`};  
       @media(max-width: 760px){ 
             font-size:9px;
       }    
@@ -335,7 +349,8 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                         <Formulary SignUpFormulary onSubmit={handleSubmit}>
                               <>
                               <RegistrationInputContainer>
-                                    <FormularyInput Registration
+                                    <FormularyInput Bottom Registration
+                                          maxLength={20}
                                           type="text"
                                           name="name"
                                           value={name}
@@ -343,9 +358,14 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                           onChange={handleChange}
                                     />
                                     {name ==="" ?
-                                          <SpanInputInitial>Name</SpanInputInitial> :
-                                          <SpanInputFinal>Name</SpanInputFinal>
+                                          <SpanInputInitial spanFinal>Name</SpanInputInitial> :
+                                          <SpanInputFinal spanFinal>Name</SpanInputFinal>
                                     }  
+                                    {name.length < 15 ?
+                                    <SpanCounterBottom className="bottomSpan"  >{name.length}/20</SpanCounterBottom>
+                                    :
+                                    <SpanCounterBottom RED className="bottomSpan"  >{name.length}/20</SpanCounterBottom>
+                                    }
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
                                     <FormularyInput Registration
