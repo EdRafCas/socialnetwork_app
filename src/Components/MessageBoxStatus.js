@@ -192,13 +192,12 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
                               </PortraitContainer>
                         </CardColumns>
                         <CardColumns reply rightColumn>
-                              
                               <MessageUser className='timeline-user'
                                     name="messageReply"
                                     id="messageReply"
                                     cols="65"
                                     rows="2"
-                                    maxlength="5"
+                                    maxlength={200}
                                     type="text"
                                     placeholder="Send your Reply"
                                     value={messageReply}

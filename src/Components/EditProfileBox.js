@@ -28,20 +28,6 @@ const ContainerEditProfile=styled.div`
       margin-left:-175px;
       font-size:0.9rem;
       }
-      /* position:absolute;
-      display:flex;
-      flex-direction:column;
-      max-height:45rem;
-      max-width:40rem;
-      width:40rem;
-      padding-top:0rem;
-      padding-left:1rem;
-      padding-right:1rem;
-      padding-bottom:2rem;
-      border-radius:30px;
-      border: solid ${theme.BorderColor} 1px;
-      background:#000;
-      z-index:100; */
 `
 const TopBar=styled.div`
       /* border: solid ${theme.BorderColor} 1px; */
@@ -339,10 +325,78 @@ const BackgroundImageBlank=styled.div`
       width:100%;
       background:#000;
 `
+const MessageUser =styled.textarea`
+      padding-left:5px;
+      border-radius:5px;
+      width:100%;
+      text-align:justify;
+      font-size:1rem;
+      /* border:solid ${theme.BorderColor} 1px; */
+      height:6rem;
+      background:none;
+      color:${theme.Text};
+      transition:none;
+      z-index:100;
+      padding-top:1rem;
+      overflow:scroll;
+      text-align:justify;
+      white-space:normal;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      outline:none;   
+      :focus ~ span{
+            top:1px;
+            left:3px;
+            font-size:9px;
+      }
+      :focus ~ .spanFinal{
+            color:${theme.Text} 
+      }
+      :focus ~ .bottomSpan{
+            top:auto;
+            left:auto;
+            bottom:5px;
+            right:5px;
+      }
+      :focus::placeholder{
+            transition:none;
+            color:transparent;
+      }
+      
+      @media(max-width: 760px){ 
+            font-size:0.8rem;
+            height:6rem;
+      }     
+`
+const InputContainerFormulary =styled.div`
+      width:100%;
+      /* border: solid ${theme.BorderColor} 1px; */
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      justify-content: flex-start;
+      align-items:center;
+      gap:1rem;
+      
+
+`
+const SpanCounterBottom =styled.span`
+      position:absolute;
+      font-size:11px;
+      pointer-events:none;
+      transition: 0.2s ease all;
+      right:5px;
+      bottom:5px;
+      color:${(props)=> props.RED ? `${theme.RedAlert}` 
+                     :`${theme.Text}`};  
+      @media(max-width: 760px){ 
+            font-size:9px;
+      }    
+`
 
 
-
-const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditProfile}) => {
+const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditProfile, changeAlert, changeStateAlert}) => {
       const [nameEdit, changeNameEdit] =useState("")
       const [bioEdit, changeBioEdit] =useState("")
       const [selectedImage, changeSelectedImage] =useState(null);
@@ -376,6 +430,22 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
       const handlesubmitEdit =async(e)=>{
             e.preventDefault();
             changeShowEditProfile(!showEditProfile);
+                  if(nameEdit.length >20){
+                        changeStateAlert(true);
+                        changeAlert({
+                              type:'error',
+                              message: "your name can't be longer than 20 characters"
+                        })
+                        return;
+                  }
+                  if(bioEdit.length > 200){
+                        changeStateAlert(true);
+                        changeAlert({
+                              type:'error',
+                              message: "your bio can't be longer than 20 characters"
+                        })
+                        return;
+                  }
                   if(selectedImageBackground && selectedImage == null){
                         console.log("Only Background")
                         try{
@@ -520,6 +590,7 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                   <Inputs>
                         <InputContainer>
                         <FormularyInput NameBox
+                                    maxLength={20}
                                     type="text"
                                     name="name"
                                     value={nameEdit}
@@ -529,20 +600,51 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                     {currentUserInfo[0].name ==="" ?
                                           <SpanInputInitial>Name</SpanInputInitial> :
                                           <SpanInputFinal>Name</SpanInputFinal>
+                                    }
+                                    {nameEdit.length < 1 ?
+                                    ""
+                                    :nameEdit.length < 15 ?
+                                    <SpanCounterBottom className="bottomSpan"  >
+                                          {nameEdit.length}/20
+                                    </SpanCounterBottom>
+                                    :
+                                    <SpanCounterBottom RED className="bottomSpan"  >
+                                          {nameEdit.length}/20
+                                    </SpanCounterBottom>
                                     }  
                         </InputContainer>
                         <InputContainer>
-                        <FormularyInput BioBox
+                        {/* <FormularyInput BioBox
                                     type="text"
                                     name="bio"
                                     value={bioEdit}
                                     placeholder="Bio"
                                     onChange={handleChange}
-                                    />
+                                    /> */}
+                                    <MessageUser className='timeline-user'
+                                    name="bio"
+                                    id="bio"
+                                    maxLength={160}
+                                    type="text"
+                                    placeholder="Bio"
+                                    value={bioEdit}
+                                    onChange={handleChange}/>
                                     {currentUserInfo[0].bio ==="" ?
                                           <SpanInputInitial>Bio</SpanInputInitial> :
                                           <SpanInputFinal>Bio</SpanInputFinal>
-                                    }  
+                                    }
+                                    {bioEdit.length < 1 ?
+                                    ""
+                                    :bioEdit.length < 140 ?
+                                    <SpanCounterBottom className="bottomSpan"  >
+                                          {bioEdit.length}/160
+                                    </SpanCounterBottom>
+                                    :
+                                    <SpanCounterBottom RED className="bottomSpan"  >
+                                          {bioEdit.length}/160
+                                    </SpanCounterBottom>
+                                    }
+
                         </InputContainer>
                   </Inputs>
                   

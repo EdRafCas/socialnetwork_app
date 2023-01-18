@@ -361,14 +361,21 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                           <SpanInputInitial spanFinal>Name</SpanInputInitial> :
                                           <SpanInputFinal spanFinal>Name</SpanInputFinal>
                                     }  
-                                    {name.length < 15 ?
-                                    <SpanCounterBottom className="bottomSpan"  >{name.length}/20</SpanCounterBottom>
+                                    {name.length < 1 ?
+                                    ""
+                                    :name.length < 15 ?
+                                    <SpanCounterBottom className="bottomSpan"  >
+                                          {name.length}/20
+                                    </SpanCounterBottom>
                                     :
-                                    <SpanCounterBottom RED className="bottomSpan"  >{name.length}/20</SpanCounterBottom>
+                                    <SpanCounterBottom RED className="bottomSpan"  >
+                                          {name.length}/20
+                                    </SpanCounterBottom>
                                     }
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
                                     <FormularyInput Registration
+                                          maxLength={20}
                                           type="text"
                                           name="lastname"
                                           value={lastname}
@@ -379,9 +386,20 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                           <SpanInputInitial> Lastname</SpanInputInitial> :
                                           <SpanInputFinal>Lastname</SpanInputFinal>
                                     }
+                                    {lastname.length < 1 ?
+                                    ""
+                                    :lastname.length < 15 ?
+                                    <SpanCounterBottom className="bottomSpan"  >
+                                          {lastname.length}/20
+                                    </SpanCounterBottom>
+                                    :
+                                    <SpanCounterBottom RED className="bottomSpan"  >
+                                          {lastname.length}/20
+                                    </SpanCounterBottom>}
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
                                     <FormularyInput Registration
+                                          maxLength={20}
                                           type="text"
                                           name="alias"
                                           value={alias}
@@ -393,9 +411,21 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                           <SpanInputInitial> Alias</SpanInputInitial> :
                                           <SpanInputFinal>Alias</SpanInputFinal>
                                     }   
+                                    {alias.length < 1 ?
+                                    ""
+                                    :alias.length < 15 ?
+                                    <SpanCounterBottom className="bottomSpan"  >
+                                          {alias.length}/20
+                                    </SpanCounterBottom>
+                                    :
+                                    <SpanCounterBottom RED className="bottomSpan"  >
+                                          {alias.length}/20
+                                    </SpanCounterBottom>
+                                    }
                               </RegistrationInputContainer>
                               <RegistrationInputContainer>
                                     <FormularyInput Registration
+                                          maxLength={60}
                                           type="email"
                                           name="email"
                                           value={email}
@@ -409,6 +439,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                               </RegistrationInputContainer>
                               <RegistrationInputContainer >
                                     <FormularyInput Registration
+                                          maxLength={20}
                                           type="password"
                                           name="password"
                                           value={password}
@@ -418,10 +449,21 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     {password ==="" ?
                                           <SpanInputInitial>Password</SpanInputInitial> :
                                           <SpanInputFinal>Password</SpanInputFinal>
-                                    }  
+                                    }
+                                    {password.length < 1 ?
+                                    ""
+                                    :password.length < 15 ?
+                                    <SpanCounterBottom className="bottomSpan"  >
+                                          {password.length}/20
+                                    </SpanCounterBottom>
+                                    :
+                                    <SpanCounterBottom RED className="bottomSpan"  >
+                                          {password.length}/20
+                                    </SpanCounterBottom>}  
                               </RegistrationInputContainer>
                               <RegistrationInputContainer >
                                     <FormularyInput Registration
+                                          maxLength={20}
                                           type="password"
                                           name="password2"
                                           value={password2}
@@ -431,7 +473,17 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     {password ==="" ?
                                           <SpanInputInitial>Confirm password</SpanInputInitial> :
                                           <SpanInputFinal>Confirm password</SpanInputFinal>
-                                    }  
+                                    } 
+                                    {password2.length < 1 ?
+                                    ""
+                                    :password2.length < 15 ?
+                                    <SpanCounterBottom className="bottomSpan"  >
+                                          {password2.length}/20
+                                    </SpanCounterBottom>
+                                    :
+                                    <SpanCounterBottom RED className="bottomSpan"  >
+                                          {password2.length}/20
+                                    </SpanCounterBottom>}   
                               </RegistrationInputContainer>
                               </>
                               <DatePicker

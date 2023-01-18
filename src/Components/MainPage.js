@@ -216,7 +216,9 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
               <EditProfileBox user={user}
                               currentUserInfo={currentUserInfo} 
                               changeShowEditProfile={changeShowEditProfile}
-                              showEditProfile={showEditProfile}/>
+                              showEditProfile={showEditProfile}
+                              changeAlert={changeAlert}
+                              changeStateAlert={changeStateAlert}/>
             </CenterBox>
           </>
           :""
