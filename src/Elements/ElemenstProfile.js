@@ -107,10 +107,24 @@ const Bio=styled.div`
       padding:1rem 0rem;
       display:flex;
       width:100%;
-      height:4rem;
+      height:6rem;
       font-size:1rem;
-      font-weight:800;
+      font-weight:400;
       color:white;
+      span{
+      user-select: text;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      white-space:pre-wrap;}
+      @media(max-width: 760px){ 
+      
+      padding-top:0.25rem;
+      padding-bottom:0.25rem;
+      span{
+            font-size:0.8rem;
+      }
+  }
 `
 const EditButton=styled.button`
       position:absolute;
@@ -167,12 +181,13 @@ const BackgroundImageUserContainer =styled.div`
       max-height:380px;
       width:100%;
       overflow:hidden;
+      min-height:165px;
 `
 
 const EmptyBackground =styled.div`
       /* border:solid red 1px; */
       width:100%;
-      height:165px;
+      height:20rem;
       cursor:pointer;
       display:flex;
       justify-content:center;
@@ -183,6 +198,11 @@ const EmptyBackground =styled.div`
             height:auto;
             overflow:hidden;
             } */
+      @media(max-width: 760px){ /* 950px */
+            height:165px;
+            max-height:380px;
+      }
+     
 `
 
 export{HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic,EmptyProfilePic, UserCard, NamesContainer, Bio, EditButton, BackgroundImageUser, BackgroundImageUserContainer, EmptyBackground};

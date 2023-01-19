@@ -56,7 +56,9 @@ const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProf
                         <AliasContainer>@{currentUserInfo[0].alias}</AliasContainer>
                         </NamesContainer>
                         <Bio>
-                        {currentUserInfo[0].bio ? currentUserInfo[0].bio
+                              
+                        {currentUserInfo[0].bio ?
+                        <span>{currentUserInfo[0].bio}</span> 
                         :""}
                         </Bio>
                   </UserCard>

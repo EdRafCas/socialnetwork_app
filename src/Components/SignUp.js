@@ -415,7 +415,7 @@ const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
                                     ""
                                     :alias.length < 15 ?
                                     <SpanCounterBottom className="bottomSpan"  >
-                                          {alias.length}/20
+                                    {alias.length}/20
                                     </SpanCounterBottom>
                                     :
                                     <SpanCounterBottom RED className="bottomSpan"  >

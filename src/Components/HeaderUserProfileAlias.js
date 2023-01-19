@@ -56,7 +56,9 @@ const HeaderUserProfileAlias = ({loadingUserData,userByAlias, currentUserInfo, s
                               <AliasContainer>@{userByAlias[0].alias}</AliasContainer>
                         </NamesContainer>
                         <Bio>
-                        {userByAlias[0].bio ? userByAlias[0].bio
+                              
+                        {userByAlias[0].bio ? 
+                        <span>{userByAlias[0].bio}</span>
                         :""}
                         </Bio>
                         </UserCard>

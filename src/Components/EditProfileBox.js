@@ -5,7 +5,7 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 import {ReactComponent as IconDeleteImage} from '../img/x_icon.svg';
-import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground, UpdateProfileImages, UpdateProfileDeleteBackground} from '../firebase/UpdateProfile';
+import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground, UpdateProfileOnlyDeleteBackground,UpdateProfileImages, UpdateProfileDeleteBackground} from '../firebase/UpdateProfile';
 
 
 const ContainerEditProfile=styled.div`
@@ -148,8 +148,14 @@ const ProfilePic =styled.div`
       width:8rem;
       height:8rem;
       border-radius:50%;
-      opacity:0.8;
+      opacity:1;
       overflow:hidden;
+      background:#000;
+      @media(max-width: 760px){ 
+            width:6rem;
+            height:6rem;
+            margin-left:0.5rem;
+      }
       
 `
 const IconContainerProfile=styled.div`
@@ -304,8 +310,9 @@ const EditButton=styled.button`
             }
       }
       @media(max-width: 760px){ 
-            height:2.5rem;
+            height:2rem;
             width:4rem;
+            border:none;
             p{
                   font-size:0.9rem;
                   font-weight:1000;
@@ -321,9 +328,12 @@ const ImageHolder=styled.img`
       width:100%;
 `
 const BackgroundImageBlank=styled.div`
-      height:10rem;
+      height:20rem;
       width:100%;
       background:#000;
+      @media(max-width: 760px){ 
+            height:10rem;
+      }     
 `
 const MessageUser =styled.textarea`
       padding-left:5px;
@@ -503,7 +513,19 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                               console.log("error uploading both images")
                         }
                   } 
-                  if (selectedImage==null && selectedImageBackground==null) { 
+                  if (removingBackground && selectedImage == null && selectedImageBackground == null ){
+                        console.log("only removing background")
+                        try{
+                              await UpdateProfileOnlyDeleteBackground({
+                                    changeLoading, 
+                                    id:currentUserInfo[0].id,
+                                    newName:nameEdit,
+                                    newBio:bioEdit})
+                        } catch(error){
+                              console.log(error+"error UpdateProfile")
+                        }           
+                  }
+                  if (selectedImage == null && selectedImageBackground == null) { 
                         await UpdateProfileNoImage({
                                     id:currentUserInfo[0].id,
                                     newName:nameEdit,
@@ -633,18 +655,22 @@ const EditProfileBox = ({user, currentUserInfo, changeShowEditProfile, showEditP
                                           <SpanInputInitial>Bio</SpanInputInitial> :
                                           <SpanInputFinal>Bio</SpanInputFinal>
                                     }
+                                    {bioEdit?
+                                    <>
                                     {bioEdit.length < 1 ?
-                                    ""
-                                    :bioEdit.length < 140 ?
-                                    <SpanCounterBottom className="bottomSpan"  >
-                                          {bioEdit.length}/160
-                                    </SpanCounterBottom>
+                                          ""
+                                          :bioEdit.length < 140 ?
+                                          <SpanCounterBottom className="bottomSpan"  >
+                                                {bioEdit.length}/160
+                                          </SpanCounterBottom>
+                                          :
+                                          <SpanCounterBottom RED className="bottomSpan"  >
+                                                {bioEdit.length}/160
+                                          </SpanCounterBottom>
+                                          }
+                                    </>
                                     :
-                                    <SpanCounterBottom RED className="bottomSpan"  >
-                                          {bioEdit.length}/160
-                                    </SpanCounterBottom>
-                                    }
-
+                                    ""}
                         </InputContainer>
                   </Inputs>
                   

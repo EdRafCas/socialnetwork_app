@@ -72,6 +72,18 @@ const UpdateProfileDeleteBackground = async({file, user ,changeLoading, id, newN
             changeLoading(false);
       console.log("upload done")
 }
+const UpdateProfileOnlyDeleteBackground = async({changeLoading, id, newName, newBio}) => {   
+      changeLoading(true);
+      const document = doc(db, "userInfo" , id)
+      updateDoc(document, {
+            name:newName,
+            bio:newBio,
+            backgroundURL:deleteField()
+      }); 
+
+            changeLoading(false);
+      console.log("upload done")
+}
 
 const UpdateProfileImages = async({file, fileBackground, user ,changeLoading, id, newName, newBio}) => {
 
@@ -244,4 +256,4 @@ const RemoveTweetFromPinned = async({changeStateAlert,changeAlert, id, userId, c
 
 
 
-export  {UpdateProfileImage, UpdateProfileImages, UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground,UpdateTimelineNoPicture, UpdateProfileDeleteBackground, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned, RemoveFromBookMark};
+export  {UpdateProfileImage, UpdateProfileImages, UpdateProfileImageBackground, UpdateProfileNoImage, UpdateProfileImageOnlyBackground,UpdateProfileOnlyDeleteBackground, UpdateTimelineNoPicture, UpdateProfileDeleteBackground, UpdateProfilePinnedMessage, UpdateProfileRemovePinned, AddBookmarkToUser, RemoveTweetFromPinned, RemoveFromBookMark};
