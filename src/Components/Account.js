@@ -45,15 +45,16 @@ const GeneralMenu = styled.div`
 const MiniProfile=styled.div`
   display:flex;
   flex-direction:row;
-  justify-content:flex-start;
+  justify-content:space-between;
   align-content:center;
   height:auto;
   width:fit-content;
-  width:100%;
+  width:auto;
   max-width:300px;
   min-width:4rem;
   border-radius:9999px;
   /* padding:0.5rem; */
+  padding:0.5rem;
   gap:1px;
   /* border:solid red 1px; */
   :hover{
@@ -106,7 +107,7 @@ const MiniUserNames =styled.div`
   padding:0rem 0rem;
   gap:5px;
   overflow:hidden;
-  max-width:60%;
+ width:stretch;
   min-width:4rem;
   @media(max-width: 760px){ 
   display:none;
