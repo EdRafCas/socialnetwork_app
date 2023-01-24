@@ -6,7 +6,7 @@ import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import '../index.css'
 import { AuthContext } from '../Context/AuthContext';
-import {UserNameContainerLink,IconContainerCont, BarButton, TimeBar, LikeButton,EmptyDivColumn,StraightLine2, RetweetButton, DeletedMessage, LoadMoreButton, LoadMoreContainer} from '../Elements/ElementsTimeline'
+import {UserNameContainerLink,IconContainerCont, BarButton, TimeBar, LikeButton,EmptyDivColumn,StraightLine2, RetweetButton, DeletedMessage, LoadMoreButton, LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
 import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {format, fromUnixTime} from 'date-fns';
@@ -62,13 +62,14 @@ const CardMessage =styled.div`
 `
 const TimelineUserContainer = styled.div`
       height:100%;
-     
+      max-width:700px;
       display:flex;
       flex-direction:column;
       padding:0rem;
       border:solid ${theme.BorderColor} 1px;
+      border-right:none;
       gap:0rem;
-      overflow:scroll;
+      overflow-y:hidden;
       overflow-x:hidden;
       -ms-overflow-style: none;
       scrollbar-width: none;
@@ -80,9 +81,8 @@ const TimelineCommentContainer = styled.div`
       flex-direction:column;
       padding:0rem;
       /* border:solid ${theme.BorderColor} 1px; */
-      border:none;
       gap:0rem;
-      overflow:scroll;
+      overflow-y:hidden;
       overflow-x:hidden;
       -ms-overflow-style: none;
       scrollbar-width: none;
@@ -540,13 +540,15 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                                       changeStateAlert={changeStateAlert}/>
                                           </Card>
                                     )})}
+                                   < FillerDiv/>
                         </TimelineCommentContainer>
                   </TimelineUserContainer>
                   :
                   <TimelineUserContainer className='timeline-user'>    
                         <TimelineCommentContainer >
                               <DeletedMessage>
-                                    this message was deleted by his author
+                                    <span>this message was deleted by his author</span>
+                                    
                               </DeletedMessage>
                               <LoadMoreContainer>
                                     <LoadMoreButton onClick= {() => navigate(-1)}>

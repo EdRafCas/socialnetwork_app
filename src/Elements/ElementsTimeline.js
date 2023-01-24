@@ -507,6 +507,10 @@ const DeletedMessage = styled.div`
   border-radius:15px;
   background-color: rgb(22, 24, 28);
   color:${theme.Text};
+  max-width:680px;
+  span{
+    max-width:600px;
+  }
   @media(max-width: 760px){ 
     padding: 0.5rem;
     margin: 0.1rem;
