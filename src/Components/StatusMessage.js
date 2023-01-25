@@ -69,18 +69,18 @@ const TimelineUserContainer = styled.div`
       border:solid ${theme.BorderColor} 1px;
       border-right:none;
       gap:0rem;
-      overflow-y:hidden;
+      overflow:scroll;
       overflow-x:hidden;
       -ms-overflow-style: none;
       scrollbar-width: none;
 `
 const TimelineCommentContainer = styled.div`
       /* max-width:700px; */
-      height:auto;
+      height:100%;
       display:flex;
       flex-direction:column;
       padding:0rem;
-      /* border:solid ${theme.BorderColor} 1px; */
+      /* border:solid red 1px; */
       gap:0rem;
       overflow-y:hidden;
       overflow-x:hidden;
@@ -247,7 +247,7 @@ const ArrowContainer =styled.div`
       height:auto;
       padding:0.5rem;
       position:relative;
-      border-bottom:solid ${theme.BorderColor} 1px;
+      border-bottom:none;
       border-right:solid ${theme.BorderColor} 1px;
       /* border:solid red 1px; */
       display:flex;
@@ -540,8 +540,9 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                                       changeStateAlert={changeStateAlert}/>
                                           </Card>
                                     )})}
-                                   < FillerDiv/>
+                              <FillerDiv/>
                         </TimelineCommentContainer>
+                        
                   </TimelineUserContainer>
                   :
                   <TimelineUserContainer className='timeline-user'>    
@@ -555,6 +556,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                                           <p>Go Back</p>
                                     </LoadMoreButton>
                               </LoadMoreContainer>
+                              <FillerDiv/>
                         </TimelineCommentContainer>
                   </TimelineUserContainer>
                   }
