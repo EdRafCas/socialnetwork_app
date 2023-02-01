@@ -9,7 +9,7 @@ import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import LoadingComponent from '../Elements/LoadingComponent';
@@ -33,7 +33,7 @@ const MessageLink=styled(Link)`
   display:grid;
   width:100%;
   grid-template-columns: repeat(1, 1fr 12fr);
- /*  border-bottom:solid ${theme.BorderColor} 1px; */
+  /*  border-bottom:solid ${theme.BorderColor} 1px; */
   /* border-radius:15px; */
   gap:0rem;
   padding-top:0.5rem;
@@ -42,7 +42,7 @@ const MessageLink=styled(Link)`
   z-index:99;
 `
 
-const MessageTimelineContainer = ({ id,currentUserInfo, messageUidUser,messageDate, messageMessage, messageComments, messageRetweets,messageLikes,changeAlert,changeStateAlert, update}) => {
+const MessageTimelineContainer = ({ id,currentUserInfo, messageUidUser,messageDate, messageMessage, messageComments, messageRetweets,messageLikes,update}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForTimeline, changeMessageForTimeline] = useState([{}])
 

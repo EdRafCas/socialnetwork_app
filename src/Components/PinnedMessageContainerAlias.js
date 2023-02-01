@@ -4,7 +4,6 @@ import {useNavigate } from 'react-router-dom';
 import theme from '../Theme';
 import {PortraitContainer, NameContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -14,7 +13,7 @@ import {ReactComponent as IconPin} from '../img/pin_icon.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {MessageLink,CardInner, CardColumns, UserNameContainer,UserNameContainerLink, MessageContent, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, InteractionBar,PinnedInfo, IconContainerRetweet, NameContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
+import {MessageLink,CardInner, CardColumns, UserNameContainer,UserNameContainerLink, MessageContent,CounterContainer, IconContainerCont,LikeButton, InteractionBar,PinnedInfo, IconContainerRetweet, NameContainerRetweet, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
@@ -50,16 +49,13 @@ const PinnedMessageContainerAlias = ({ userByAlias, originalId, user, changeShow
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId ));
             ChangeMessagePinned(document) 
-          console.log("PinnedMessageContainerAlias")
+          /* console.log("PinnedMessageContainerAlias") */
           changeLoadingPinned(false)
       }
       obtainMessage();
       /* By not calling changeLoadingPinned in useEffect it keeps loading each time we update*/
       },[currentUserInfo, update, originalId])
 
-      const formatDate = (date) => {
-        return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-      };
     
 return ( 
         <>

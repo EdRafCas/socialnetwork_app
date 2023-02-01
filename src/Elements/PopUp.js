@@ -11,8 +11,6 @@ import getUnixTime from 'date-fns/getUnixTime';
 import { UpdateProfileRemovePinned } from '../firebase/UpdateProfile';
 import MessageBoxComment from '../Components/MessageBoxComment';
 
-
-
 const PopUpButtonDelete=styled.button`
     display:flex;
     height:100%;
@@ -122,10 +120,6 @@ const BackgroundBox=styled.div`
   position:absolute;
   width:100%;
   top:20%;
-  /* margin-top:-30rem;
-  margin-left:-30rem;
-  height:60rem;
-  width:60rem;*/
   background:black; 
   z-index:101;
   display:flex;
@@ -156,10 +150,6 @@ const ProfilePictureBox=styled.div`
   position:absolute;
   width:auto;
   top:20%;
-  /* margin-top:-30rem;
-  margin-left:-30rem;
-  height:60rem;
-  width:60rem;*/
   background:none;
   z-index:101;
   display:grid;

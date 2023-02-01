@@ -16,7 +16,7 @@ import getUnixTime from 'date-fns/getUnixTime';
 } */
 
 const AddLike = async({originalUidUser, id, uidUser, likes, changeUpdate, update}) => {
-      console.log(id,uidUser,"executing Addlike")
+      /* console.log(id,uidUser,"executing Addlike") */
       const document = doc(db, "userTimeline" , id); 
       try{
             await addDoc(collection(db, "userTimeline"), {
@@ -37,7 +37,7 @@ const AddLike = async({originalUidUser, id, uidUser, likes, changeUpdate, update
             console.log("Error updating tweet")
       }
       changeUpdate(update+1)
-      console.log(update+"executing Addlike")
+      /* console.log(update+"executing Addlike") */
 }
 
 

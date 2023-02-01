@@ -19,10 +19,10 @@ const TimelineLikesAlias = ({userByAlias, changeAlert, changeStateAlert, user, c
 
   useEffect(()=>{
     if(userByAlias[0].uidUser){
-      console.log("loading likes by UserAlias")  
+      /* console.log("loading likes by UserAlias")   */
       changeMessagesLikesByUserAliasLoaded(false) 
     } else{
-          console.log("userByAlias[0].uidUser not found")
+          /* console.log("userByAlias[0].uidUser not found") */
     }
 
   }, [update, userByAlias])

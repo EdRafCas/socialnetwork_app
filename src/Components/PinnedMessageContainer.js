@@ -52,13 +52,13 @@ const PinnedMessageContainer = ({ originalId, user, changeShowPopUp, changePopUp
         
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessagePinned(document) 
-            if(document.exists()){
+           /*  if(document.exists()){
               console.log(originalId +" existe")
             
             } else{
               console.log(originalId +" no existe")
             }
-          console.log("PinnedMessageContainer")
+          console.log("PinnedMessageContainer") */
           changeLoadingPinned(false)
           
       }

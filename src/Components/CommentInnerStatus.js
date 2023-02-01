@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer,PortraitContainer} from '../Elements/ElementsFormulary';
@@ -13,7 +13,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent,CounterContainer, IconContainerCont, TimeBar,InteractionBar, LikeButton, BarButton, CardInner, EmptyDiv, EmptyDivColumn, StraightLine2, RetweetButton} from '../Elements/ElementsTimeline'
+import {UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent,CounterContainer, IconContainerCont, InteractionBar, LikeButton, BarButton,EmptyDiv, EmptyDivColumn, StraightLine2, RetweetButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';

@@ -10,16 +10,6 @@ import getUnixTime from 'date-fns/getUnixTime';
 const MessageContainer = styled.div`
       display:flex;
       flex-direction:row;
-      /* border:solid ${theme.RedAlert} 1px; */
-      /* border-bottom:solid ${theme.BorderColor} 1px; */
-     /*  width:100%;
-      height:500px;
-      border-radius:9999px;
-      padding:1rem 1rem;
-      display:flex;
-      flex-direction:column;
-      align-content:center;
-      background:#000; */
 `
 const CreateMessageForm =styled.form`
       display:flex;
@@ -60,8 +50,7 @@ const ButtonContainer=styled.div`
       display:flex;
       flex-direction:row;
       justify-content:flex-end;
-`
-    
+`    
 const OriginalMessageContainer=styled.div`
       display:flex;
       flex-direction:row;

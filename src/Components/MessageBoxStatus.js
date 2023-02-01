@@ -16,8 +16,6 @@ const MessageContainer = styled.div`
       /* border:solid ${theme.RedAlert} 1px; */
       border-bottom:solid ${theme.BorderColor} 1px;
       border-right:solid ${theme.BorderColor} 1px;
-      /* padding:1rem 1rem; */
-      /* border-bottom:solid ${theme.BorderColor} 1px; */
 `
 const CreateMessageForm =styled.form`
       display:grid;
@@ -36,12 +34,6 @@ const TopBar =styled.div`
       gap:0rem; 
       /* background:black; */
       text-decoration:none;
-`
-const HeaderUser =styled.div`
-      display:flex;
-      flex-direction:row;
-      border:solid ${theme.BorderColor} 1px;
-      gap:1rem;
 `
 const MessageUser =styled.textarea`
       padding:0.5rem 0rem;
@@ -78,8 +70,6 @@ const Buttons=styled.div`
       flex-direction:row;
       justify-content:flex-end;
 `
-
-
 const CardColumns = styled.div`
       position:relative;
       padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
@@ -105,24 +95,24 @@ const EmptyDivColumn=styled.div`
 `
 
 const UserNameContainerQuoted =styled.div`
-  width:100%;
-  height:2rem;
-  padding:0;
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
-  /* border:solid ${theme.BorderColor} 1px; */
-  display:flex;
-  flex-direction:row;
-  justify-content:flex-start;
-  align-items:end;
-  gap:5px;
-  position:relative;
-  p{
-    color:${theme.Text};
-  }
+      width:100%;
+      height:2rem;
+      padding:0;
+      /* border-bottom:solid ${theme.BorderColor} 1px; */
+      /* border:solid ${theme.BorderColor} 1px; */
+      display:flex;
+      flex-direction:row;
+      justify-content:flex-start;
+      align-items:end;
+      gap:5px;
+      position:relative;
+      p{
+      color:${theme.Text};
+      }
 `
 
 
-const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessage,  user, currentUserInfo, previousCommentAlias, addToTimeline, message,comments, changeStateAlert, changeAlert, changeShowPopUp}) => {
+const MessageBoxStatus = ({id, originalUidUser, user, currentUserInfo, previousCommentAlias,comments, changeStateAlert, changeAlert, changeShowPopUp}) => {
 
       const [messageReply, changeMessageReply] =useState("")
       const LettersLeft = 20;
@@ -135,7 +125,7 @@ const MessageBoxStatus = ({id, originalUidUser, messageForTimeline,messageMessag
 
       const AddCommentToTimeline = (e) =>{
       e.preventDefault();
-      console.log(messageReply)
+      /* console.log(messageReply) */
       changeShowPopUp(false)
 
       if(messageReply !==""){

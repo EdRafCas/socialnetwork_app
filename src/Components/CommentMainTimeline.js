@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer, PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -25,23 +24,11 @@ import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import CommentInner from './CommentInner';
 import CommentInfoTimeline from '../Elements/CommentInfoTimeline';
 
-
-
-const EmptyDiv =styled.div`
-visibility:hidden
-display:none;
-overflow:hidden;
-`
 const StraightLine=styled.div`
   height:90%;
   width:2px;
   border:solid ${theme.BorderColor} 1px;
   background-color: rgb(51, 54, 57);
-`
-const EmptyDivColumn=styled.div`
-  height:0.5rem;
-  width:100%;
-  /* border:solid ${theme.BorderColor} 1px; */
 `
 
 const CardColumns = styled.div`
@@ -98,9 +85,6 @@ const CommentMainTimeline = ({ changeShowPopUp, changePopUpAlert, changeAlert,ch
       /* By not calling changeLoadingQuoted in useEffect it keeps loading each time we update*/
       },[currentUserInfo, update, originalId, originalUidUser])
       
-      const formatDate = (date) => {
-        return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-      };
     
 return ( 
       <>

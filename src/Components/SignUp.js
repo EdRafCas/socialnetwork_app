@@ -24,10 +24,6 @@ const RegistrationContainer =styled.div`
       width:100%;
       height:100%;
       padding:1rem;
-      /* margin-top:-50px;
-      margin-left:-200px; */
-      /* border: solid ${theme.BorderColor} 1px; */
-      /* background:rgba(91, 112, 131, 0.8); */
       background:${theme.LightGrey};
       
       
@@ -154,7 +150,6 @@ const ButtonSignUp =styled.button`
 
 const SignUp = ({alert,changeAlert,stateAlert,changeStateAlert }) => {
       const navigate = useNavigate();
-      
       const [name, changeName] =useState("")
       const [lastname, changeLastname] =useState("")
       const [alias, changeAlias] =useState("")

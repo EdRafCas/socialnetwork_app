@@ -53,7 +53,7 @@ const BookmarkTitle =styled.h1`
 
 `
 
-const BookmarksUser = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+const BookmarksUser = ({changeAlert,changeStateAlert, user, currentUserInfo}) => {
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
       return ( 

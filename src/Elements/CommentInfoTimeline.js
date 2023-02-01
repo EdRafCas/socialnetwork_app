@@ -32,7 +32,7 @@ const CommentInfoTimeline = ({originalUidUser, currentUidUser, originalId}) => {
                 return {...originalMessage.data(), id:originalMessage.id}
               }))
             })
-            console.log("loaded username Retweet")
+            /* console.log("loaded username Retweet") */
             changeLoadinInfo(false)
       }
       obtainOriginalMessageInfo();

@@ -7,7 +7,6 @@ import {signInWithEmailAndPassword } from "firebase/auth";
 import {useNavigate} from 'react-router-dom'
 import {auth} from '../firebase/FirebaseConfig';
 import Alert from '../Elements/Alert';
-import LogoutButton from './LogoutButton';
 
 const FormularyContainer = styled.div`
   width:auto;
@@ -97,7 +96,6 @@ const Login = ({email, emailChange, password, passwordChange, alert, changeAlert
     }
 
 };
-
       return ( 
       <FormularyContainer>
           <Formulary LoginUpFormulary onSubmit={handleSubmit}>

@@ -5,7 +5,7 @@ import {FormularyInput}  from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
 import {ReactComponent as IconAddPhoto} from '../img/addphoto_icon.svg';
 import {ReactComponent as IconDeleteImage} from '../img/x_icon.svg';
-import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground, UpdateProfileImageOnlyBackground, UpdateProfileOnlyDeleteBackground,UpdateProfileImages, UpdateProfileDeleteBackground} from '../firebase/UpdateProfile';
+import {UpdateProfileNoImage, UpdateProfileImage, UpdateProfileImageBackground,UpdateProfileOnlyDeleteBackground,UpdateProfileImages, UpdateProfileDeleteBackground} from '../firebase/UpdateProfile';
 
 
 const ContainerEditProfile=styled.div`
@@ -119,7 +119,6 @@ const BackgroundInner=styled.div`
             width:100%;
       }
 `
-
 const BackgroundImage=styled.img`
       min-height:10rem;
       /* border:1px solid white; */
@@ -128,7 +127,6 @@ const BackgroundImage=styled.img`
       overflow:hidden;
       max-width:50rem; */
 `
-
 const ProfilePicContainer=styled.div`
       display:flex;
       width:100%;
@@ -222,7 +220,6 @@ const IconContainerBackground=styled.div`
             }
       }
 `
-
 const ContainerIcons=styled.div`
       position: absolute;
       top:40%;
@@ -237,7 +234,6 @@ const ContainerIcons=styled.div`
 
       }
 `
-
 const Inputs=styled.div`
       display:flex;
       flex-direction:column;
@@ -378,18 +374,6 @@ const MessageUser =styled.textarea`
             font-size:0.8rem;
             height:6rem;
       }     
-`
-const InputContainerFormulary =styled.div`
-      width:100%;
-      /* border: solid ${theme.BorderColor} 1px; */
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      justify-content: flex-start;
-      align-items:center;
-      gap:1rem;
-      
-
 `
 const SpanCounterBottom =styled.span`
       position:absolute;

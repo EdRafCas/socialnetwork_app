@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {PortraitContainer,AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -13,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {CardInner,  CardColumns, UserNameContainer,MessageLink, UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner,  CardColumns, UserNameContainer,MessageLink, UserNameContainerLink, MessageContent, InteractionBar,  CounterContainer, IconContainerCont,LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -74,7 +73,7 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
                 return {...originalUser.data()}
               }))
             })
-            console.log("retweet reload")
+            /* console.log("retweet reload") */
 
 
           changeLoadingRetweets(false)
@@ -84,9 +83,6 @@ const RetweetContainerMainTimeline = ({ changeShowPopUp, changePopUpAlert, chang
       /* By not calling changeLoadingRetweets in useEffect it keeps loading each time we update*/
       },[currentUserInfo, update, originalId, originalUidUser])
       
-      const formatDate = (date) => {
-        return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-      };
     
 return ( 
       <>

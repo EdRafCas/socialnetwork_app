@@ -10,13 +10,10 @@ import { AuthContext } from '../Context/AuthContext';
 
 const HeaderUserProfile = ({currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       const {user} =useAuth();
-      const {alias} =useParams();
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
 
-      console.log("HeaderUserProfile")
-      
-
+      /* console.log("HeaderUserProfile") */
       return ( 
             <HeaderUser>
                   <BackgroundImageUserContainer>

@@ -32,11 +32,11 @@ const LikeContainer = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeSt
       const obtainMessage = async() =>{
             const document = await getDoc(doc(db, 'userTimeline', originalId));
             changeMessageForLike(document) 
-            if(document.exists()){
+          /*   if(document.exists()){
               console.log(originalId +" existe")
             } else{
               console.log(originalId +" no existe")
-            }
+            } */
             const consult = query(
               collection(db, 'userInfo'),
               where('uidUser', "==", originalUidUser),
@@ -48,7 +48,7 @@ const LikeContainer = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeSt
                 return {...originalUser.data()}
               }))
             })
-            console.log("like reload")
+            /* console.log("like reload") */
 
           changeLoadingLikes(false)
       }

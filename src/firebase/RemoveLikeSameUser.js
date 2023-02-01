@@ -3,7 +3,7 @@ import { collection, doc,updateDoc, deleteDoc, query, where, onSnapshot} from "f
 
 
 const RemoveLikeSameUser = async({update,changeUpdate,currentUidUser,originalLikes, originalMessageId}) => {
-      console.log("removedusing removelike sameuser")
+      /* console.log("removedusing removelike sameuser") */
             const consult = query(
                   collection(db, 'userTimeline'),
                   where('uidUser', "==", currentUidUser),
@@ -24,9 +24,9 @@ const RemoveLikeSameUser = async({update,changeUpdate,currentUidUser,originalLik
             const unsuscribe = onSnapshot(consult, (snapshot)=>{
                   snapshot.docs.map((likeToDelete) => {
                         // doc.data() is never undefined for query doc snapshots
-                        console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId);
+                       /*  console.log(likeToDelete.id, " => ", likeToDelete.data(), " => ", likeToDelete.data().originalId); */
                         changeUpdate(update-1)
-                        console.log(update+" "+"RemoveLikeSameUser")      
+                        /* console.log(update+" "+"RemoveLikeSameUser")   */    
                         return deleteDoc(doc(db, "userTimeline", likeToDelete.id))
                       });
             unsuscribe();

@@ -3,7 +3,6 @@ import {useNavigate } from 'react-router-dom';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -13,7 +12,7 @@ import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import RemoveLikeSameUser from '../firebase/RemoveLikeSameUser';
 import '../index.css'
-import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,  CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, MessageLink, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
+import {Card,CardInner, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar,  CounterContainer, IconContainerCont,LikeButton, RetweetButton, MessageLink, BarButton, EmptyDiv, LoadMoreButton,LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainer from './PinnedMessageContainer';
 import receiveNotification from './ReceiveNotification';
@@ -32,11 +31,8 @@ const TimelineUserMessages = ({user,currentUserInfo, changeAlert, changeStateAle
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
     const navigate = useNavigate();
-    console.log("TimelineUser")
+    /*console.log("TimelineUser") */
  
-    const formatDate = (date) => {
-      return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
- };
     
     var filtertype= messagesSentByUser.filter(function(items) {
       return items.type.includes("retweet") ||

@@ -30,7 +30,7 @@ const UpdateProfileImage = async({file, user ,changeLoading, id, newName, newBio
             photoURL:newPhotoURL}); 
 
             changeLoading(false);
-      console.log("upload done")
+      /* console.log("upload done") */
 }
 
 const UpdateProfileImageBackground = async({file, user ,changeLoading, id, newName, newBio}) => {
@@ -48,7 +48,7 @@ const UpdateProfileImageBackground = async({file, user ,changeLoading, id, newNa
             backgroundURL:newPhotoBackgroundURL}); 
 
             changeLoading(false);
-      console.log("upload done")
+      /* console.log("upload done") */
 }
 
 const UpdateProfileDeleteBackground = async({file, user ,changeLoading, id, newName, newBio}) => {
@@ -70,7 +70,7 @@ const UpdateProfileDeleteBackground = async({file, user ,changeLoading, id, newN
       }); 
 
             changeLoading(false);
-      console.log("upload done")
+      /* console.log("upload done") */
 }
 const UpdateProfileOnlyDeleteBackground = async({changeLoading, id, newName, newBio}) => {   
       changeLoading(true);
@@ -82,7 +82,7 @@ const UpdateProfileOnlyDeleteBackground = async({changeLoading, id, newName, new
       }); 
 
             changeLoading(false);
-      console.log("upload done")
+      /* console.log("upload done") */
 }
 
 const UpdateProfileImages = async({file, fileBackground, user ,changeLoading, id, newName, newBio}) => {
@@ -107,7 +107,7 @@ const UpdateProfileImages = async({file, fileBackground, user ,changeLoading, id
             backgroundURL:newPhotoBackgroundURL}); 
 
             changeLoading(false);
-      console.log("upload done")
+     /*  console.log("upload done") */
 }
 
 const UpdateProfileImageOnlyBackground = async({file,user ,changeLoading, id, newName, newBio}) => {
@@ -123,7 +123,7 @@ const UpdateProfileImageOnlyBackground = async({file,user ,changeLoading, id, ne
             backgroundURL:newPhotoBackgroundURL}); 
 
             changeLoading(false);
-      console.log("upload done")
+      /* console.log("upload done") */
 }
 
 const UpdateTimelineNoPicture = async({user,newName})=>{
@@ -146,7 +146,7 @@ const UpdateTimelineNoPicture = async({user,newName})=>{
      
 }
 
-const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp}) => {
+const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId,changeShowPopUp,showPopUp}) => {
       
       await changeShowPopUp(!showPopUp);
             try{
@@ -162,7 +162,7 @@ const UpdateProfilePinnedMessage = async({changeStateAlert,changeAlert,id,userId
             }
 
 }
-const UpdateProfileRemovePinned = async({changeStateAlert,changeAlert,id,userId, messageId,changeShowPopUp,showPopUp}) => {
+const UpdateProfileRemovePinned = async({changeStateAlert,changeAlert,userId,changeShowPopUp,showPopUp}) => {
       
       await changeShowPopUp(!showPopUp);
             try{
@@ -204,7 +204,7 @@ const RemoveFromBookMark = async({id,userId, messageId,changeShowPopUp,showPopUp
             bookmarks: removedBookmark
       });
       changeUpdate(update-1)    
-            console.log(update+" removing bookmark from user") 
+            /* console.log(update+" removing bookmark from user")  */
 
 }
 
@@ -230,29 +230,6 @@ const RemoveTweetFromPinned = async({changeStateAlert,changeAlert, id, userId, c
 
 }
 
-
-
-/* const UpdateTimeline = async({user,newName})=>{
-
-      const consult = query(
-            collection(db, 'userTimeline'),
-            where('uidUser', "==", user.uid),
-            orderBy('date', 'desc')
-      );
-      const fileRef= ref(storage, user.uid)
-      const newPhotoURL = await getDownloadURL(fileRef);
-
-      onSnapshot(consult, (snapshot)=>{
-            snapshot.docs.map((messageUser)=>{
-                  const documentref =doc(db, "userTimeline", messageUser.id);
-                  return updateDoc(documentref, {
-                        name:newName,
-                        photoURL:newPhotoURL
-                  })
-            })
-      })
-     
-} */
 
 
 

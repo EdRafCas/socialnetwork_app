@@ -3,8 +3,8 @@ import { collection, doc, setDoc, addDoc, updateDoc  } from "firebase/firestore"
 
 
 
-const AddComment = async({originalUidUser, id, uidUser, name, alias, date, message, comments,retweets}) => {
-      console.log(id,uidUser)
+const AddComment = async({originalUidUser, id, uidUser, name, alias, date, message, comments}) => {
+      /* console.log(id,uidUser) */
       const document = doc(db, "userTimeline" , id); 
 
       try{  const docRef = doc(collection(db, "userTimeline"))

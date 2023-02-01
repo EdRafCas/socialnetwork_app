@@ -16,8 +16,6 @@ const AccountManagement=styled.div`
   width:auto;
   /* max-width:375px; */
   min-width:275px;
-  
-  /* max-width:40% */
   overflow:hidden;
   padding:0rem 0rem;
   padding-bottom:0.5rem;
@@ -31,7 +29,6 @@ const AccountManagement=styled.div`
 `
 const GeneralMenu = styled.div`
   width:100%;
-  /* height:500px; */
   padding:1rem 0rem;
   display:flex;
   flex-direction:column;
@@ -56,7 +53,6 @@ const MiniProfile=styled.div`
   /* padding:0.5rem; */
   padding:0.5rem;
   gap:1px;
-  /* border:solid red 1px; */
   :hover{
     background:${theme.GradientBackround};
   }
@@ -107,7 +103,7 @@ const MiniUserNames =styled.div`
   padding:0rem 0rem;
   gap:5px;
   overflow:hidden;
- width:stretch;
+  width:stretch;
   min-width:4rem;
   @media(max-width: 760px){ 
   display:none;
@@ -165,11 +161,6 @@ const IconContainer=styled.div`
     /* background:white;;
     fill:black; */
   }
-  /* @media(max-width: 760px){ 
-  :hover{
-    background:rgba(255,255,255, 0.2);
-  }
-} */
 `
 const MessageButtonContainer=styled.div`
   display:flex;
@@ -184,9 +175,7 @@ const MessageButtonContainer=styled.div`
   @media(max-width: 760px){ 
     padding:0;
     margin:none;
-    
   }
-  
 `
 const MessageButton=styled.button`
   display:flex;

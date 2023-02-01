@@ -1,10 +1,8 @@
 import React, {useContext} from 'react';
-import styled from 'styled-components';
 import {useNavigate } from 'react-router-dom';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import useObtainMessagesByUser from '../Hooks/useObtainMessagesByUser';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -23,9 +21,6 @@ import RemoveRetweetSameUser from '../firebase/RemoveRetweetSameUser';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 
 
-
-
-
 const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => {
     const [messagesSentByUser,ObtainMoreMessagesByUser,thereAreMoreMessagesByUser] = useObtainMessagesByUser();
     const {changeShowPopUp} =useContext(AuthContext);
@@ -34,16 +29,11 @@ const TimelineUser = ({user,currentUserInfo, changeAlert, changeStateAlert}) => 
     const {changeUpdate} =useContext(AuthContext);
     const navigate = useNavigate();
  
-    const formatDate = (date) => {
-      return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
- };
     
     var filtertype= messagesSentByUser.filter(function(items) {
       return items.type.includes("retweet") ||
               items.type.includes("message") 
       });
-
-
     /* console.log(MessagesSentByUser); */
 
       return ( 

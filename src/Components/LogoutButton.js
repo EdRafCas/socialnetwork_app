@@ -17,7 +17,6 @@ const ButtonContainer=styled.div`
     p{display}
     border:none;
 }
-
 `
 const Button =styled.button`
   display:flex;
@@ -66,11 +65,6 @@ const IconContainer=styled.div`
     /* background:white;;
     fill:black; */
   }
-  /* @media(max-width: 760px){ 
-  :hover{
-    background:rgba(255,255,255, 0.2);
-  }
-} */
 `
 
 const LogoutButton = () => {

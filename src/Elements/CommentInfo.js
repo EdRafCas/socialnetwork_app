@@ -1,12 +1,8 @@
 import React,{useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import theme from '../Theme';
-import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import '../index.css'
-import {RetweetInfoContainer, IconContainerRetweet, NameContainerRetweet, UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted,} from './ElementsTimeline'
+import {UserNameContainerQuoted,UserNameContainerLinkQuoted,} from './ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
-import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
+import { query, collection, where, limit, onSnapshot } from "firebase/firestore";
 
 
 
@@ -27,7 +23,7 @@ const CommentInfo = ({originalUidUser, currentUidUser}) => {
                 return {...originalMessage.data(), id:originalMessage.id}
               }))
             })
-            console.log("loaded username Retweet")
+            /* console.log("loaded username Retweet") */
             changeLoadinInfo(false)
       }
       obtainOriginalMessageInfo();

@@ -12,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {Card,CardInner,MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, CounterContainer, IconContainerCont, TimeBar, LikeButton, RetweetButton, BarButton, LoadMoreButton, LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
+import {Card,CardInner,MessageLink, CardColumns, UserNameContainer, UserNameContainerLink, MessageContent, InteractionBar, CounterContainer, IconContainerCont,LikeButton, RetweetButton, BarButton, LoadMoreButton, LoadMoreContainer, FillerDiv} from '../Elements/ElementsTimeline'
 import RetweetContainer from './RetweetContainer';
 import PinnedMessageContainerAlias from './PinnedMessageContainerAlias';
 import receiveNotification from './ReceiveNotification';

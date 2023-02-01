@@ -64,7 +64,6 @@ const OptionsCard =styled.div`
   color:${theme.Text};
   z-index:200;
 `
-
 const Option =styled.div`
   width:auto;
   gap:10px;
@@ -100,7 +99,7 @@ const IconContainer=styled.div`
   }
   `
 
-const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, retweetSameUser, bookmarkTimeline, commentInnerMenu, originalId, originalMessageComments,originalUidUser, update, changeUpdate}) => {
+const ShowMoreMenu = ({messageUidUser, currentUserInfo, id, pinnedMenu, changeAlert, changeStateAlert, bookmarkTimeline, commentInnerMenu, originalId, originalMessageComments,originalUidUser, update, changeUpdate}) => {
       const [open, setOpen] =useState(false)
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);

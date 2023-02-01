@@ -20,13 +20,7 @@ const TimelineUserContainer = styled.div`
   scrollbar-width: none;
 `
 
-const EmptyDiv =styled.div`
-visibility:hidden
-display:none;
-overflow:hidden;
-`
-
-const ProfileContainer = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
+const ProfileContainer = ({changeAlert,changeStateAlert, user, currentUserInfo, showEditProfile, changeShowEditProfile}) => {
       let {alias} =useParams();
       const [loadingUser, changeLoadingUser] =useState(true)
       useEffect(()=>{

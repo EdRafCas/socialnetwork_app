@@ -13,7 +13,7 @@ const UserProfileRoutesAlias = ({userByAlias, changeAlert, stateAlert, changeSta
       useEffect(()=>{
             const ObtainAliasRoutes = async() =>{
                   if(userByAlias[0].uidUser){
-                        console.log(userByAlias)    
+                       /*  console.log(userByAlias)     */
                         changeLoadingAliasRoute(false) 
                   } else{
                         console.log("user not found")

@@ -1,8 +1,8 @@
 import { db } from "./FirebaseConfig";
-import { collection, doc, updateDoc, deleteDoc, query, where, onSnapshot} from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 
-const RemoveComment = async({update,changeUpdate,newRetweetId, originalId, id, originalUidUser, originalMessageComments,changeStateAlert, changeAlert,currentUidUser, changeShowPopUp, showPopUp}) => {
+const RemoveComment = async({update,changeUpdate,originalId, id,originalMessageComments,changeStateAlert, changeAlert, changeShowPopUp, showPopUp}) => {
       await deleteDoc(doc(db, "userTimeline", id)) 
             changeShowPopUp(!showPopUp)
             try{

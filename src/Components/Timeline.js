@@ -36,10 +36,6 @@ const Timeline = ({changeAlert, changeStateAlert, user, currentUserInfo, addToTi
     const {update} =useContext(AuthContext);
     const {changeUpdate} =useContext(AuthContext);
     
-    /* console.log("reloading timeline")
-    console.log(currentUserInfo) */
-    /* console.log(MessagesSent); */
-
       return ( 
       <TimelineContainer >
         <MessageBox 

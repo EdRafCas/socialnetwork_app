@@ -8,7 +8,6 @@ import { collection, onSnapshot, where, limit, query } from 'firebase/firestore'
 import getUnixTime from 'date-fns/getUnixTime';
 import Account from './Account';
 import MainPageRoutes from './MainPageRoutes';
-import MessageBox from './MessageBox';
 import MessageBoxAccountBar from './MessageBoxAccountBar';
 import {TranslucidBack,CenterBox, CenterBoxComment } from '../Elements/ElementsFormulary';
 import EditProfileBox from './EditProfileBox';
@@ -68,7 +67,7 @@ const MainPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
               }))
               changeLoadingUserData(false);
         })
-        console.log(user)
+        /* console.log(user) */
 
         return unsuscribe;
   }, [])

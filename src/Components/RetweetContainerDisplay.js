@@ -8,7 +8,7 @@ import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import '../index.css'
-import {CardInner, CardColumns, UserNameContainer, MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, BarButton, LikeButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, UserNameContainer, MessageContent, InteractionBar, CounterContainer, IconContainerCont, TimeBar, BarButton, LikeButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import LoadingComponent from '../Elements/LoadingComponent';
@@ -44,8 +44,6 @@ const MessageContainer=styled.div`
 const UserNameContainerDisplay =styled.div`
   width:auto;
   padding:0rem;
-  /* border-bottom:solid ${theme.BorderColor} 1px; */
- /*  border:solid ${theme.BorderColor} 1px; */
   display:flex;
   flex-direction:row;
   gap:5px;
@@ -65,7 +63,7 @@ display:none;
 overflow:hidden;
 `
 
-const RetweetContainerDisplay = ({ changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert,currentUserInfo,user, originalId,originalUidUser, update, changeUpdate, retweetUidUser}) => {
+const RetweetContainerDisplay = ({currentUserInfo,user, originalId,originalUidUser, update, retweetUidUser}) => {
     const [loadingRetweets, changeLoadingRetweets] =useState(true);
     const [messageForRetweet, changeMessageForRetweet] = useState('')
     const [userInfoForRetweet, changeUserInfoForRetweet] =useState([{}])
@@ -91,7 +89,7 @@ const RetweetContainerDisplay = ({ changeShowPopUp, changePopUpAlert, changeAler
                 return {...originalUser.data()}
               }))
             })
-            console.log("retweet reload")
+            /* console.log("retweet reload") */
 
           changeLoadingRetweets(false)
       }

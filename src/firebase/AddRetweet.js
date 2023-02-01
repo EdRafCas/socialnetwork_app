@@ -2,7 +2,7 @@ import { db } from "./FirebaseConfig";
 import { collection, doc, addDoc, updateDoc  } from "firebase/firestore";
 
 
-const addRetweetToTimeline = ({update, changeUpdate, changeShowPopUp, showPopUp, originalUidUser, changeAlert, changeStateAlert, id, user, currentUserInfo, date, retweets}) =>{
+const addRetweetToTimeline = ({update, changeUpdate, changeShowPopUp,originalUidUser, changeAlert, changeStateAlert, id, currentUserInfo, date, retweets}) =>{
       if(currentUserInfo){
        AddRetweet({
         id: id,
@@ -34,7 +34,7 @@ const addRetweetToTimeline = ({update, changeUpdate, changeShowPopUp, showPopUp,
     };
 
 const AddRetweet = async({originalUidUser, id, uidUser, name, alias, date, retweets}) => {
-      console.log(id,uidUser)
+      /* console.log(id,uidUser) */
       const document = doc(db, "userTimeline" , id); 
 
       try{

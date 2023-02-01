@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import theme from '../Theme';
 import {AliasContainer,PortraitContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
@@ -13,7 +12,7 @@ import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import AddLike from '../firebase/AddLike';
 import RemoveLike from '../firebase/RemoveLike';
 import '../index.css'
-import {UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent,CounterContainer, IconContainerCont, TimeBar,InteractionBar, LikeButton, BarButton, CardInner, EmptyDiv, EmptyDivColumn, StraightLine2, RetweetButton, MessageLink} from '../Elements/ElementsTimeline'
+import {UserNameContainer,UserNameContainerQuoted, UserNameContainerLink, UserNameContainerLinkQuoted, MessageContent,CounterContainer, IconContainerCont, InteractionBar, LikeButton, BarButton, EmptyDiv, EmptyDivColumn, StraightLine2, RetweetButton, MessageLink} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { doc, getDoc, query, collection, where, limit, onSnapshot } from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -82,10 +81,6 @@ const CommentInner = ({changeShowPopUp, changePopUpAlert, changeAlert,changeStat
       /* By not calling changeLoadingComment in useEffect it keeps loading each time we update*/
       },[currentUserInfo, update, commentId, commentUidUser])
       
-      const formatDate = (date) => {
-        return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-      };
-    
 return ( 
       <>
         {!loadingComment ?

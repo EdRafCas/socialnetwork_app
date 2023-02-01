@@ -1,9 +1,8 @@
 import React,{useContext} from 'react';
-import styled from 'styled-components'
 import {useParams } from 'react-router-dom';
 import {NameContainer, AliasContainer} from '../Elements/ElementsFormulary'
 import ProfileImage from '../img/profile_avatar.png';
-import {HeaderUser,BackgroundImage,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton, BackgroundImageUser, BackgroundImageUserContainer, EmptyBackground, EmptyProfilePic} from './../Elements/ElemenstProfile'
+import {HeaderUser,ProfilePicContainer, ProfilePic, UserCard, NamesContainer, Bio, EditButton, BackgroundImageUser, BackgroundImageUserContainer, EmptyBackground, EmptyProfilePic} from './../Elements/ElemenstProfile'
 import receiveNotification from './ReceiveNotification';
 import { AuthContext } from '../Context/AuthContext';
 

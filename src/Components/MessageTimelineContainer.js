@@ -4,14 +4,13 @@ import theme from '../Theme';
 import {useNavigate } from 'react-router-dom';
 import {PortraitContainer, AliasContainer} from '../Elements/ElementsFormulary';
 import ProfileImage from '../img/profile_avatar.png'
-import {format, fromUnixTime} from 'date-fns';
 import {ReactComponent as IconComment} from '../img/comment_icon.svg';
 import {ReactComponent as IconRetweet} from '../img/retweet_icon.svg';
 import {ReactComponent as IconRetweetColor} from '../img/retweet_icon_color.svg';
 import {ReactComponent as IconLike} from '../img/like_icon.svg';
 import {ReactComponent as IconLikeColor} from '../img/like_icon_color.svg';
 import '../index.css'
-import {CardInner, CardColumns, MessageLink, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, IconContainer, CounterContainer, IconContainerCont, TimeBar, LikeButton, BarButton} from '../Elements/ElementsTimeline'
+import {CardInner, CardColumns, MessageLink, UserNameContainer, UserNameContainerLink,  MessageContent, InteractionBar, CounterContainer, IconContainerCont,LikeButton, BarButton} from '../Elements/ElementsTimeline'
 import { db } from "../firebase/FirebaseConfig";
 import { collection, limit, query, where, onSnapshot} from "firebase/firestore";
 import RemoveRetweet from '../firebase/RemoveRetweet';
@@ -20,7 +19,6 @@ import receiveNotification from './ReceiveNotification';
 import ShowMoreMenu from '../Elements/ShowMoreMenu';
 import LoadingComponent from '../Elements/LoadingComponent';
 import AddRemove from '../firebase/AddRemove';
-import CommentInfo from '../Elements/CommentInfo';
 
 const RetweetButton=styled.button`
   background:none;
@@ -36,24 +34,16 @@ const RetweetButton=styled.button`
    /*  border:solid ${theme.BorderColor} 1px; */
   }
 `
-const EmptyDiv =styled.div`
-visibility:hidden
-display:none;
-overflow:hidden;
-`
-const Container=styled.div`
-z-index:100;
-`
 
 
-const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageDate, messageMessage,messageComments, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
+const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,messageMessage,messageComments, messageRetweets,messageLikes,messageOriginalId, changeShowPopUp, changePopUpAlert, changeAlert,changeStateAlert, update, changeUpdate}) => {
     const [loadingMessageData, changeLoadingMessageData] =useState(true);
     const [messageForTimeline, changeMessageForTimeline] = useState([{}])
     const navigate = useNavigate();
 
     useEffect(()=>{
       const obtainMessageTimeline = async() =>{
-      console.log("loading message")
+      /* console.log("loading message") */
         const consult = query(
           collection(db, 'userInfo'),
           where('uidUser', "==", messageUidUser),
@@ -65,7 +55,7 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
             return {...originalUser.data(), id:originalUser.id}
           }))
         })
-        console.log("message loaded")
+        /* console.log("message loaded") */
         changeLoadingMessageData(false)
       }
       
@@ -74,9 +64,6 @@ const MessageTimelineContainer = ({ id, user, currentUserInfo, messageUidUser,me
     /* By not calling changeLoadingMessageData in useEffect it keeps loading each time we update*/
     },[update, currentUserInfo, messageUidUser])
       
-      const formatDate = (date) => {
-        return (format(fromUnixTime(date), " HH:mm - MMMM   dd    yyyy   "));
-      };
     
 return ( 
   <>

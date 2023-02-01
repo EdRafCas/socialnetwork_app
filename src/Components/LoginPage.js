@@ -25,7 +25,6 @@ const ContainerLogin=styled.div`
 const LoginPage = ({alert, changeAlert, stateAlert, changeStateAlert}) => {
   const [email, emailChange] = useState('');
   const [password, passwordChange] = useState('');
-  
       
       return ( 
       <ContainerLogin>

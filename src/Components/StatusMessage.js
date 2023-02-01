@@ -31,22 +31,16 @@ import CommentStatus from './CommentStatus';
 import MessageBoxStatus from './MessageBoxStatus';
 
 const Card =styled.div`
-  display:flex;
-  flex-direction:column;
-  max-width:700px;
- /*  border-left:solid ${theme.BorderColor} 1px ;*/
-  border-right:solid ${theme.BorderColor} 1px ; 
-  border-bottom: ${(props) => props.TimelineComment ? ` solid ${theme.BorderColor} 1px`: "none"};
-  /* border-radius:15px; */
-  /* border-top:solid ${theme.BorderColor} 1px; */
-  gap:0rem;
-  padding-top:0rem;
-  z-index:100;
-  /* :hover{
-    background:rgba(255,255,255, 0.03);
-    } */
+      display:flex;
+      flex-direction:column;
+      max-width:700px;
+      /*  border-left:solid ${theme.BorderColor} 1px ;*/
+      border-right:solid ${theme.BorderColor} 1px ; 
+      border-bottom: ${(props) => props.TimelineComment ? ` solid ${theme.BorderColor} 1px`: "none"};
+      gap:0rem;
+      padding-top:0rem;
+      z-index:100;
 `
-
 const CardMessage =styled.div`
       max-width:700px;
       display:flex;
@@ -227,20 +221,17 @@ const IconContainerArrow=styled.div`
       }
 `
 const CardColumns = styled.div`
-  padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
-  padding-top:${(props) => props.originalComment ? "0.5rem":
-                           props.rightColumn ? "0": "0"};
-  /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
-  padding-bottom: 0;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:center;
-  /* border:solid blue 1px; */
-  /* border-bottom: ${(props) => props.rightColumn && `solid ${theme.BorderColor} 1px`}; */
+      padding: ${(props) => props.rightColumn ? "0": "0.5rem"};
+      padding-top:${(props) => props.originalComment ? "0.5rem":
+                              props.rightColumn ? "0": "0"};
+      /* padding-right: ${(props) => props.rightColumn && "0.5rem"}; */
+      padding-bottom: 0;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:center;
 `
-
 const ArrowContainer =styled.div`
       width:100%;
       max-width:700px;
@@ -258,14 +249,14 @@ const ArrowContainer =styled.div`
       
 `
 
-const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, currentUserInfo}) => {
+const StatusMessage = ({changeAlert,changeStateAlert, user, currentUserInfo}) => {
       const {alias} =useParams();
       const {id} =useParams();
       const {changeShowPopUp} =useContext(AuthContext);
       const {changePopUpAlert} =useContext(AuthContext);
       const [userByAliasId, changeUserByAliasId] = useState([{}])
       const [infoForMessage, changeInfoForMessage] = useState([{}])
-      const [loadingMessage, changeLoadingMessage] =useState(true)
+      /* const [loadingMessage, changeLoadingMessage] =useState(true) */
       const [messageExist, changeMessageExists] =useState(true)
       const {update} =useContext(AuthContext);
       const {changeUpdate} =useContext(AuthContext);
@@ -295,7 +286,7 @@ const StatusMessage = ({changeAlert, stateAlert, changeStateAlert, user, current
                               return {...userAlias.data(), id:userAlias.id}
                         }))
                   })
-                  changeLoadingMessage(false)
+                 /*  changeLoadingMessage(false) */
             }
             ObtainMessageById();
       },[currentUserInfo, alias, update, id])

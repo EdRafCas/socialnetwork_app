@@ -62,7 +62,6 @@ const OptionsCard =styled.div`
   color:${theme.Text};
   z-index:300;
 `
-
 const Option =styled.div`
   height:fit-content;
   width:auto;
