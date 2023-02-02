@@ -1,6 +1,5 @@
 import { getDownloadURL, ref, uploadBytes  } from "firebase/storage"
 import { db, storage } from "./FirebaseConfig";
-import { updateProfile } from "firebase/auth";
 import { doc, updateDoc} from "firebase/firestore";
 
 
